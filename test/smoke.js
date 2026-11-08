@@ -14,7 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-const APP = path.join(__dirname, '..', 'index.html');
+const APP = path.join(__dirname, '..', 'kitbox.html');
 const html = fs.readFileSync(APP, 'utf8');
 
 let pass = 0, fail = 0;
@@ -83,7 +83,7 @@ setTimeout(() => {
   ok('tool names are unique across the app', dupNames.length === 0, [...new Set(dupNames)].join(', '));
 
   /* 3. the router survives every page */
-  const routes = ['#/', '#/all', '#/about'];
+  const routes = ['#/', '#/all', '#/about', '#/support'];
   for (const cat of CATS) {
     if (!(TOOLS[cat.id] || []).length) continue;
     routes.push('#/category/' + cat.id);
@@ -141,9 +141,47 @@ setTimeout(() => {
   td.dispatchEvent(new w.Event('input'));
   ok('user text is escaped in text decoration', root.querySelectorAll('img').length === 0 && !w.__pwn);
 
+  /* 5b. second-pass tools: spot-check the arithmetic against known values */
+  root = mount('unit', 'papersize');
+  ok('A4 at 300 DPI is 2480 × 3508 px',
+     root.querySelector('#psOut').textContent.includes('2480') && root.querySelector('#psOut').textContent.includes('3508'));
+
+  root = mount('finance', 'gstsplit');
+  ok('18% GST on ₹10,000 adds ₹1,800',
+     root.querySelector('#gsOut').textContent.includes('1800.00') && root.querySelector('#gsOut').textContent.includes('11800.00'));
+
+  root = mount('science', 'idealgas');
+  ok('22.4 L at STP is one mole', /0\.999\d mol/.test(root.querySelector('#igOut').textContent));
+
+  root = mount('science', 'projectile');
+  ok('20 m/s at 45° ranges about 40.77 m', /40\.7\d m/.test(root.querySelector('#pjOut').textContent));
+
+  root = mount('comms', 'smscount');
+  const smsIn = root.querySelector('#smIn');
+  smsIn.value = 'Hello ₹'; smsIn.dispatchEvent(new w.Event('input'));
+  ok('a ₹ symbol forces UCS-2', root.querySelector('#smOut').textContent.includes('UCS-2'));
+
+  root = mount('text', 'accents');
+  root.querySelector('#acIn').value = 'Crème brûlée, Ærø';
+  root.querySelector('#acGo').click();
+  ok('accents stripped to ASCII', root.querySelector('#acOut').value === 'Creme brulee, AEro');
+
+  root = mount('dev', 'sqlin');
+  const sqIn = root.querySelector('#sqIn');
+  sqIn.value = "O'Brien"; sqIn.dispatchEvent(new w.Event('input'));
+  ok("SQL list escapes O'Brien", root.querySelector('#sqOut').textContent.includes("'O''Brien'"));
+
+  /* 5c. the support page carries the real UPI details, inline */
+  ev('location.hash="#/support"'); ev('route()');
+  const support = w.document.querySelector('#app').textContent;
+  ok('support page has the UPI id and a QR', support.includes('drsohilboi@ybl') && !!w.document.querySelector('#app svg.segno'));
+
   /* 6. the app makes no network calls and loads nothing external */
-  const external = [...html.matchAll(/(?:src|href)="(?!data:|#)([^"]+)"/g)].map(m => m[1]);
-  ok('no external scripts, styles or fonts', external.filter(u => /^https?:/.test(u)).length === 0, external.join(', '));
+  // Loaded resources only: a link the user can click is fine, a resource the
+  // page fetches by itself is not.
+  const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),
+                  ...html.matchAll(/<img[^>]*src="([^"]+)"/g)].map(m => m[1]).filter(u => /^https?:/.test(u));
+  ok('no external scripts, styles, fonts or images', loaded.length === 0, loaded.join(', '));
   ok('no fetch, XHR, WebSocket or EventSource', !/fetch\(|XMLHttpRequest|new WebSocket|EventSource/.test(html));
 
   console.log('\n' + pass + ' passed, ' + fail + ' failed');

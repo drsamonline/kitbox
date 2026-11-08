@@ -2,6 +2,57 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.1.0 — 2026-11-08
+
+The breadth pass: 59 more small, fast tools, two new categories, a landing page, and a Support page in both. Every addition is a separate tool — nothing was merged into an existing one.
+
+### Added — Reference (new category, 5 tools)
+
+ASCII Table, Big-O Cheatsheet, Regex Cheatsheet, Country Dial Codes, Keyboard Shortcuts. Static tables and cheat sheets: open, read, copy a pattern, close.
+
+### Added — System (new category, 3 tools)
+
+Device & Screen Info, Browser Feature Check, Local Storage Usage. What this browser can actually do, and what Kitbox has written to it.
+
+### Added — across the existing categories (51 tools)
+
+- **General:** Speak Text (system voices, no network), Big Clock.
+- **Text:** Remove Accents, Smart Quotes Fixer, Word Frequency, Hard Wrap at Width, Invisible Character Detector.
+- **Generator:** Passphrase Generator, Username Generator.
+- **Calculation:** Date Difference, Percentage Change, Sleep Cycle Calculator, Rounding.
+- **Unit:** Paper Sizes, Shoe Size.
+- **Finance:** Simple Interest, SIP Calculator, GST Split.
+- **Randomizer:** Team Shuffler, Magic 8-Ball.
+- **Health:** Heart Rate Zones, Pregnancy Due Date.
+- **Development:** JSON → TypeScript, Query String Parser, Cron Next Runs, SQL IN List Builder.
+- **Colours:** Colour Harmony, Tints & Shades, Random Colour.
+- **Science:** Ideal Gas Law, Projectile Range, Molarity & Dilution.
+- **Geo:** Antipode Finder, Bearing → Cardinal, Coordinate Rounder.
+- **Audio:** Tap Tempo, Frequency → Note.
+- **Games:** Reaction Time Test, Typing Speed.
+- **Travel:** Flight Carbon.
+- **Nature:** Golden & Blue Hour, Day Length Calendar.
+- **Productivity:** Checklist, Meeting Cost.
+- **Files & Data:** File Type Detector, Base64 → File.
+- **Almanac:** Planetary Hours, Tithi Calendar.
+- **Communication:** SMS Character Counter, Phone Number Formatter.
+
+### Added — Support
+
+- A **Support page** inside the app (`#/support`, heart in the top bar, link in the footer) with the UPI id, an inline scannable UPI QR, Ko-fi, PayPal, the book store, the app index and email.
+- A **landing page** (`index.html`) in the app's own theme, reusing the app's stylesheet so the two cannot drift, with the category grid generated from the live registry and the same support block.
+
+### Improved — existing tools
+
+- **Notepad** gained a search field, so a hundred notes are usable.
+- **Unit Converter** remembers the last from/to pair per converter instead of resetting to the first two units.
+- **World Clock** marks a city as tomorrow or yesterday when its date differs from yours.
+
+### Changed
+
+- The app moved to `kitbox.html`; `index.html` is now the landing page.
+- The external-resource test now distinguishes a loaded resource from an outbound link: the app loads nothing, and the only outbound links are the support ones a person chooses to click.
+
 ## 1.0.0 — 2026-11-08
 
 The merged build: the original 239-tool file, plus 41 tools folded in from the rest of the drsamonline projects, plus the shell work that makes 280 tools navigable.

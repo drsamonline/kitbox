@@ -24,12 +24,19 @@ jobs:
       - run: npm ci
       - name: Test
         run: npm test
-      - name: Fail if the app references anything external
+      - name: Fail if the app loads anything external or calls the network
         run: |
-          if grep -Eq '(src|href)="https?://' index.html; then
+          if grep -Eq '(src|href)="https?://' kitbox.html; then
+            echo "kitbox.html loads an external resource"; exit 1
+          fi
+          if grep -Eq 'fetch\(|XMLHttpRequest|new WebSocket|EventSource' kitbox.html; then
+            echo "kitbox.html contains a network call"; exit 1
+          fi
+          echo "app: no external resources, no network calls"
+      - name: Fail if the landing page loads anything external
+        run: |
+          # Outbound links are fine on a landing page; loaded resources are not.
+          if grep -Eq 'src="https?://' index.html; then
             echo "index.html loads an external resource"; exit 1
           fi
-          if grep -Eq 'fetch\(|XMLHttpRequest|new WebSocket|EventSource' index.html; then
-            echo "index.html contains a network call"; exit 1
-          fi
-          echo "no external references, no network calls"
+          echo "landing: no external resources"

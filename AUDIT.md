@@ -69,3 +69,40 @@ Pasting `<img src=x onerror=…>` executed script in the page. Every other persi
 npm ci
 npm test     # 19 checks, exits non-zero on any failure
 ```
+
+## Second pass — 1.1.0
+
+The same checks were re-run against the merged build (338 tools, 23 categories), plus a new set aimed at the additions.
+
+| Check | Method | Result |
+|---|---|---|
+| Every tool renders | jsdom, each `render()` in a fresh container | 338/338 |
+| Tool ids unique per category | set comparison | pass |
+| Tool names unique across the app | frequency count | pass |
+| Every route resolves | `#/`, `#/all`, `#/about`, `#/support`, 23 categories, 23 tool pages | 50/50 |
+| New arithmetic | A4 at 300 DPI, 18% GST, molar volume at STP, projectile range, C1V1, GSM vs UCS-2 counting | pass |
+| Support page content | UPI id and inline QR present in the DOM | pass |
+| No loaded external resource | `<script src>`, `<link href>`, `<img src>` scan | pass |
+| No network API | `fetch`, `XHR`, `WebSocket`, `EventSource` | 0 hits |
+
+### Findings and fixes in this pass
+
+**1. Backtick inside a template literal.** The Query String Parser's help text quoted `a=1&a=2` with backticks inside a template literal, which ended the string and broke the whole file. Caught by `node --check` before anything else ran. *Fixed* by dropping the backticks.
+
+**2. `matchMedia` assumed to exist.** Device & Screen Info called `window.matchMedia(...)` directly; environments without it threw during render. *Fixed* by a guarded helper that returns false instead of throwing.
+
+**3. Two tools built on the wrong abstraction.** Paper Sizes and Shoe Size were first written on the unit-converter helper, which assumes a linear `factor` per unit. Paper is two-dimensional and shoe sizes are non-linear, so both would have produced nonsense. *Fixed* by giving them their own renders and a `unitTool` helper that registers into the same category without the factor assumption.
+
+**4. A default that made the tool look wrong.** Paper Sizes opened on A0, so the first thing a user saw was the least useful size. *Fixed* by defaulting to A4.
+
+**5. The external-resource test was too blunt.** It failed on any `http` in an `href`, which would have failed the build for the support page's own Ko-fi and PayPal links. *Fixed* by testing only what the page loads — `script src`, `link href`, `img src` — and documenting that outbound links are a deliberate exception, confined to the support page.
+
+**6. Duplicate element ids across tools.** Not a bug in the app (only one tool is mounted at a time) but it broke the test harness, which mounted several tools into one document and then failed to find elements by id. *Fixed in the harness* by clearing the stage between mounts, which is what the router does.
+
+### Known limitations added in this pass
+
+- **Shoe sizes** convert through UK as a common base with a rule-of-thumb formula. Brands differ; this is a starting point, not a fitting.
+- **Flight carbon** uses a radiative-forcing multiplier and per-cabin factors that are industry averages. It compares choices; it does not audit an airline.
+- **SMS counting** treats any character outside GSM-7 as forcing UCS-2 for the whole message, which is what carriers do, but does not model the GSM-7 extension table's double-width characters beyond the encoding switch.
+- **Planetary hours and tithi calendar** inherit the panchang's accuracy: about a minute at boundaries, and local tradition may differ.
+- **Speak Text** depends on voices installed in the operating system; on a bare Linux install there may be none, and the tool says so.
