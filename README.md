@@ -23,6 +23,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 <a href="kitbox.html"><strong>Open the app →</strong></a> &nbsp;·&nbsp;
 <a href="index.html">Landing page</a> &nbsp;·&nbsp;
 <a href="#categories">What's inside</a> &nbsp;·&nbsp;
+<a href="ROADMAP.md">Roadmap</a> &nbsp;·&nbsp;
 <a href="#support">Support</a>
 
 </div>
@@ -191,6 +192,10 @@ Free, offline, accountless — and staying that way. If it earned its keep:
 | ✉️ **Email** | [sohilmomin2000@gmail.com](mailto:sohilmomin2000@gmail.com) |
 
 Nothing is gated behind it: no paid tier, no account, no tracking. Supporting it buys the next version, not a feature.
+
+## Roadmap
+
+Every enhancement worth doing — 119 numbered items, measured where measurement was possible, each with an effort and impact rating, plus what is deliberately *not* being built and why: **[ROADMAP.md](ROADMAP.md)**.
 
 ## Licence
 
