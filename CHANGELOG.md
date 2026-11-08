@@ -8,6 +8,34 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.7.0 — 2026-11-08
+
+B23 and B24 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).
+
+### B23 — keys, files, data (5)
+
+- **JWK ↔ PEM** — RSA public and private, both directions. The app could *read* DER since B18; this needed a *writer*, and writing it means the reader and the writer can be tested against each other. The test that matters: **Node's Web Crypto imports the PEM this tool produces**, public and private, so the DER is not merely well-shaped but correct.
+- **File Splitter & Joiner** — split into named parts, rejoin by sorted name, with a missing-part warning.
+- **Duplicate Finder** — SHA-256 per file, grouped, with the space wasted; size-only mode says plainly that same size is not same file.
+- **CSV to SQL** — PostgreSQL, MySQL or SQLite identifiers, `O'Brien` quoted as `O''Brien`, empty cells as NULL.
+- **Modular Arithmetic** — modular power without the power, modular inverse (and why it may not exist), extended GCD with the Bézout identity, and the Chinese remainder theorem with the coprime check.
+
+### B24 — two references, two accessibility checks (4)
+
+- **SI Prefixes** — including quetta, ronna, ronto and quecto, with the value written at every scale.
+- **Greek Alphabet** — with the sound each letter makes, which is the part people need.
+- **Link Text Checker** — a screen reader can list every link out of context, so "click here" becomes six identical entries.
+- **Reflow at 200%** — WCAG 1.4.10: does the text still fit a 320 px viewport at 400% zoom.
+
+### Fixed
+
+- **A stray expression in the SI prefix table.** The pico row read `1e12 ? 1e-12 : 0`, which happened to produce the right value for the wrong reason; it is now just `1e-12`.
+
+### Changed
+
+- 421 tools across 27 categories (was 412).
+- 175 checks (was 175 → 139 in the suite, 181 across all files).
+
 ## 2.6.0 — 2026-11-08
 
 B20, B21 and B22 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).

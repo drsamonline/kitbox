@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**412 tools across 27 categories.**
+**421 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -10,13 +10,13 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 1 | General Tools | `GEN` | 13 |
 | 2 | Text Tools | `TXT` | 47 |
 | 3 | Generator Tools | `GNR` | 10 |
-| 4 | Calculation Tools | `CAL` | 54 |
+| 4 | Calculation Tools | `CAL` | 55 |
 | 5 | Image Tools | `IMG` | 18 |
 | 6 | Unit Converter | `UNI` | 33 |
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 56 |
+| 10 | Development Tools | `DEV` | 59 |
 | 11 | Colors Tools | `CLR` | 10 |
 | 12 | Science Tools | `SCI` | 17 |
 | 13 | Geo Tools | `GEO` | 10 |
@@ -25,12 +25,12 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 16 | Travel Tools | `TRV` | 5 |
 | 17 | Nature Tools | `NAT` | 6 |
 | 18 | Productivity | `PRD` | 8 |
-| 19 | Files & Data | `FIL` | 13 |
+| 19 | Files & Data | `FIL` | 14 |
 | 20 | Almanac | `ALM` | 8 |
 | 21 | Communication | `COM` | 5 |
-| 22 | Reference | `REF` | 5 |
+| 22 | Reference | `REF` | 7 |
 | 23 | System | `SYS` | 4 |
-| 24 | Accessibility | `ACC` | 9 |
+| 24 | Accessibility | `ACC` | 11 |
 | 25 | Education | `EDU` | 4 |
 | 26 | Clinical | `CLN` | 12 |
 | 27 | Money (India) | `MNY` | 4 |
@@ -134,7 +134,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GNR-08` **Passphrase Generator** — `generator/passphrase`
 - `GNR-09` **Username Generator** — `generator/usernames`
 
-## Calculation Tools — 54 tools
+## Calculation Tools — 55 tools
 
 **Common**
 
@@ -199,6 +199,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 
 **Sets & Logic**
 
+- `CAL-55` **Modular Arithmetic** — `calc/modular`
 - `CAL-52` **Set Operations** — `calc/setops`
 - `CAL-53` **Edit Distance** — `calc/levenshtein`
 - `CAL-54` **Hamming Distance** — `calc/hamming`
@@ -335,7 +336,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 56 tools
+## Development Tools — 59 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -360,6 +361,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-57` **JWK ↔ PEM** — `dev/jwkpem`
+- `DEV-58` **File Splitter & Joiner** — `dev/filesplit`
+- `DEV-59` **Duplicate Finder** — `dev/dupfinder`
 - `DEV-53` **X.509 Certificate Reader** — `dev/x509`
 - `DEV-54` **JSON Schema From a Sample** — `dev/jsonschema`
 - `DEV-55` **Regex Explainer** — `dev/regexexplain`
@@ -497,8 +501,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `PRD-07` **Checklist** — `productivity/checklist`
 - `PRD-08` **Meeting Cost** — `productivity/meetingcost`
 
-## Files & Data — 13 tools
+## Files & Data — 14 tools
 
+- `FIL-14` **CSV to SQL** — `files/csvtosql`
 - `FIL-13` **ZIP Extract** — `files/zipextract`
 - `FIL-01` **ZIP Creator** — `files/zipcreate`
 - `FIL-02` **GZIP Compress / Decompress** — `files/gzip`
@@ -532,8 +537,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `COM-04` **SMS Character Counter** — `comms/smscount`
 - `COM-05` **Phone Number Formatter** — `comms/phoneformat`
 
-## Reference — 5 tools
+## Reference — 7 tools
 
+- `REF-06` **SI Prefixes** — `reference/siunits`
+- `REF-07` **Greek Alphabet** — `reference/greek`
 - `REF-01` **ASCII Table** — `reference/asciitable`
 - `REF-02` **Big-O Cheatsheet** — `reference/bigo`
 - `REF-03` **Regex Cheatsheet** — `reference/regexcheat`
@@ -547,8 +554,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `SYS-03` **Browser Feature Check** — `system/features`
 - `SYS-04` **Local Storage Usage** — `system/storage`
 
-## Accessibility — 9 tools
+## Accessibility — 11 tools
 
+- `ACC-10` **Link Text Checker** — `accessibility/linktext`
+- `ACC-11` **Reflow at 200%** — `accessibility/zoomsim`
 - `ACC-06` **Screen Reader Preview** — `accessibility/srpreview`
 - `ACC-07` **Caption Length Checker** — `accessibility/captions`
 - `ACC-08` **Colour-Blind Safe Pair** — `accessibility/cbpalette`

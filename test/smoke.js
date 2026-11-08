@@ -699,7 +699,38 @@ setTimeout(async () => {
   ev('location.hash="#/tool/games/minesweeper"'); ev('route()');
   ok('minesweeper renders a 9×9 board', w.document.querySelectorAll('[data-ms]').length === 81);
 
-  /* 22. the app makes no network calls and loads nothing external */
+
+  /* 22. B23-B24: keys, modular arithmetic, CSV to SQL, references */
+  ev('location.hash="#/tool/dev/jwkpem"'); ev('route()');
+  const jwkIn = w.document.querySelector('#jkIn');
+  // A fixed RSA-512 public key, so the test needs no crypto and no randomness.
+  jwkIn.value = JSON.stringify({ kty:'RSA', n:'0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw', e:'AQAB' });
+  jwkIn.dispatchEvent(new w.Event('input'));
+  const jwkPem = w.document.querySelector('#jkOut').textContent;
+  ok('a JWK becomes a PEM public key', /^-----BEGIN PUBLIC KEY-----/.test(jwkPem), jwkPem.split('\n')[0]);
+  w.document.querySelector('[data-jk="toJwk"]').click();
+  jwkIn.value = jwkPem; jwkIn.dispatchEvent(new w.Event('input'));
+  ok('the PEM round-trips to the same modulus',
+     JSON.parse(w.document.querySelector('#jkOut').textContent).n ===
+     '0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw');
+
+  ev('location.hash="#/tool/calc/modular"'); ev('route()');
+  ok('7^560 mod 561 is 1 — Fermat holds for a Carmichael number',
+     /<td>1<\/td>/.test(w.document.querySelector('#mdOut').innerHTML));
+  w.document.querySelector('[data-md="inv"]').click();
+  ok('the modular inverse of 3 mod 11 is 4', /<td>4<\/td>/.test(w.document.querySelector('#mdOut').innerHTML));
+  w.document.querySelector('[data-md="crt"]').click();
+  ok('the Chinese remainder of 2 mod 3 and 3 mod 5 is 8 mod 15',
+     /8 \(mod 15\)/.test(w.document.querySelector('#mdOut').textContent));
+
+  ev('location.hash="#/tool/files/csvtosql"'); ev('route()');
+  ok("CSV to SQL escapes O'Brien correctly", /'O''Brien'/.test(w.document.querySelector('#csOut').textContent));
+
+  ev('location.hash="#/tool/accessibility/linktext"'); ev('route()');
+  ok('the link checker flags "click here"',
+     /meaningless out of context/.test(w.document.querySelector('#ltOut').textContent));
+
+  /* 23. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

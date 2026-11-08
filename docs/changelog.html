@@ -52,6 +52,32 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.7.0 — 2026-11-08</h2>
+<p>B23 and B24 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
+<h3>B23 — keys, files, data (5)</h3>
+<ul>
+<li><strong>JWK ↔ PEM</strong> — RSA public and private, both directions. The app could <em>read</em> DER since B18; this needed a <em>writer</em>, and writing it means the reader and the writer can be tested against each other. The test that matters: <strong>Node's Web Crypto imports the PEM this tool produces</strong>, public and private, so the DER is not merely well-shaped but correct.</li>
+<li><strong>File Splitter &amp; Joiner</strong> — split into named parts, rejoin by sorted name, with a missing-part warning.</li>
+<li><strong>Duplicate Finder</strong> — SHA-256 per file, grouped, with the space wasted; size-only mode says plainly that same size is not same file.</li>
+<li><strong>CSV to SQL</strong> — PostgreSQL, MySQL or SQLite identifiers, <code>O'Brien</code> quoted as <code>O''Brien</code>, empty cells as NULL.</li>
+<li><strong>Modular Arithmetic</strong> — modular power without the power, modular inverse (and why it may not exist), extended GCD with the Bézout identity, and the Chinese remainder theorem with the coprime check.</li>
+</ul>
+<h3>B24 — two references, two accessibility checks (4)</h3>
+<ul>
+<li><strong>SI Prefixes</strong> — including quetta, ronna, ronto and quecto, with the value written at every scale.</li>
+<li><strong>Greek Alphabet</strong> — with the sound each letter makes, which is the part people need.</li>
+<li><strong>Link Text Checker</strong> — a screen reader can list every link out of context, so "click here" becomes six identical entries.</li>
+<li><strong>Reflow at 200%</strong> — WCAG 1.4.10: does the text still fit a 320 px viewport at 400% zoom.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li><strong>A stray expression in the SI prefix table.</strong> The pico row read <code>1e12 ? 1e-12 : 0</code>, which happened to produce the right value for the wrong reason; it is now just <code>1e-12</code>.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>421 tools across 27 categories (was 412).</li>
+<li>175 checks (was 175 → 139 in the suite, 181 across all files).</li>
+</ul>
 <h2>2.6.0 — 2026-11-08</h2>
 <p>B20, B21 and B22 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
 <h3>B20 — the ASN.1 parser pays for itself (4)</h3>

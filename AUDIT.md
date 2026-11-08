@@ -632,3 +632,29 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - X.509 reads; it does not verify, and it does not check revocation.
 - Ekadashi uses the sunrise tithi at one location; a smarta/vaishnava difference and a location difference can move a date by a day.
 - Minesweeper's first click is safe by construction (mines are placed after it), which is a mercy, not a standard rule.
+
+## B23–B24 (2.7.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 421 / 27 (was 412 / 27) |
+| Full suite | 181 checks, 0 failures |
+| Interaction sweep | 372 tools driven, 0 failures |
+| Fuzz | 234 fields across 421 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 872 KB → 899 KB raw |
+
+### Findings
+
+**1. A DER writer is only proven by someone else's reader.** The PEM this tool produces is fed to Node's own Web Crypto in the test, for both the SPKI public key and the PKCS#8 private key. A byte-level mistake — a wrong length, an INTEGER missing its sign padding — would still look like a PEM and would fail there. That is the difference between "it renders" and "it is correct", and it is the same lesson the certificate reader taught in 2.6.0 from the other direction.
+
+**2. jsdom has no `crypto.subtle`, so the referee has to be outside it.** The first verification attempt used the page's own crypto and got `undefined`; the fix was to let `node:crypto` do the generating and the importing while the page did only the conversion. Worth recording because "test in the page" is the reflex, and for crypto the referee should not be the code under test.
+
+**3. An expression that was right by accident.** The pico row of the SI table was `1e12 ? 1e-12 : 0` — a leftover from an editing pass. It evaluated to `1e-12` because `1e12` is truthy, which is exactly the kind of code that survives a review and breaks the next person who touches it.
+
+### Known limitations added
+
+- JWK ↔ PEM covers RSA only. An EC key would need the curve OIDs and the point format, and saying so is better than half-supporting it.
+- Duplicate Finder hashes in the page, so it is limited by memory; a folder of hundreds of large files is not its job.
+- File splitting does not add parity or checksums; a missing part is detected by name, not repaired.
