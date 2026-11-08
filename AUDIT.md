@@ -126,3 +126,26 @@ The app did not change in this pass; only what surrounds it did. What was checke
 **2. Screenshots taken in UTC showed nonsense.** The first Panchang screenshot reported sunrise at 01:16 and sunset at 12:27, because the container runs in UTC while the tool reports local time. Nothing was wrong with the app — but a README image that looks wrong is worse than no image. *Fixed* by pinning `TZ=Asia/Kolkata` in `tools/shots.py` and documenting why.
 
 **3. The badge could rot silently.** Local SVG badges have no service to keep them current. *Fixed* by making `check-badges.js` part of CI: if the tool count or test count changes without the badge changing, the build fails with the numbers printed.
+
+## B1 — quick wins (1.2.0)
+
+Eighteen items, all in the shell. What was checked, and what the checks caught.
+
+| Check | Result |
+|---|---|
+| Every tool still renders | 338/338 |
+| Routes, including the new 404 | pass |
+| The fifteen new shell assertions | pass |
+| Full suite | 42 passed, 0 failed |
+| Size | 621 KB → 633 KB (+12 KB), inside the 680 KB budget |
+| No new external resource, no network call | pass |
+
+### Findings
+
+**1. `innerText` does not exist in jsdom, and that hid a real bug.** The copy-on-double-click handler read `box.innerText`. In a browser that is correct — it respects hidden text. In the harness it is `undefined`, so the handler returned early and the test failed for the right reason: the code had no fallback. *Fixed* by reading `innerText || textContent`, which is also more correct for a node that has never been laid out.
+
+**2. An unknown tool bounced through two redirects before landing on the home page.** `renderTool` redirected to `#/category/<bad>`, `renderCategory` redirected to `#/`, and the user saw the home screen with no explanation. *Fixed*: both now call `renderNotFound` directly, and the 404 page offers a search box and two ways back.
+
+**3. A manifest written before `git add` silently omits new files.** This was caught by CI on the B0 commit, not by the local check, because the local check compared the manifest against the same incomplete file list. *Fixed* in `tools/check-manifest.py`, which now reads `git ls-files --cached --others --exclude-standard` — so an untracked file still belongs in the manifest, and the check fails on the next push rather than the next release.
+
+**4. `aria-live` on a container that is rebuilt wholesale is a compromise, not a solution.** Putting it on `#toolRoot` means a screen reader may announce more than the changed value. It is better than silence, and the honest fix — per-output live regions — needs the tools to declare their outputs, which is B5 work. Recorded here so it is not mistaken for done.

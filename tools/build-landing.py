@@ -127,6 +127,18 @@ HTML = f'''<!DOCTYPE html>
 <meta name="theme-color" content="#0b0e14">
 <meta name="color-scheme" content="dark light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0e14'/%3E%3Crect x='6' y='10' width='20' height='14' fill='%232f86eb'/%3E%3Crect x='6' y='14' width='20' height='2.5' fill='%230b0e14'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kitbox">
+<meta property="og:title" content="Kitbox — every tool, one offline app">
+<meta property="og:description" content="{total} tools across {len(cats)} categories in a single HTML file. No install, no account, no network — files you hash, zip or encrypt never leave your device.">
+<meta property="og:url" content="https://drsamonline.github.io/kitbox/">
+<meta property="og:image" content="https://drsamonline.github.io/kitbox/docs/shot-home.png">
+<meta property="og:image:width" content="1440">
+<meta property="og:image:height" content="1180">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kitbox — every tool, one offline app">
+<meta name="twitter:description" content="{total} tools, one HTML file, no network, no account.">
+<meta name="twitter:image" content="https://drsamonline.github.io/kitbox/docs/shot-home.png">
 <style>{style}{LANDING_CSS}</style>
 </head>
 <body>

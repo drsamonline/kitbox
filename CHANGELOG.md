@@ -2,6 +2,37 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.2.0 — 2026-11-08
+
+Batch **B1** of [PLAN.md](PLAN.md): eighteen quick wins, all in the shell. No tool changed what it does; the app around them got out of the way.
+
+### Added
+
+- **Double-click any result to copy it.** Delegated on the document, so it survives the re-render most tools do on every keystroke — attaching a button to each `.output` would have vanished the moment the tool redrew. A transient toast confirms it.
+- **A not-found page** with a search box. An unknown hash used to bounce to the home screen through two redirects, which reads as a broken link; now it says "Nothing here" and offers a way out.
+- **`?q=` deep link** — `kitbox.html?q=hash` opens the palette pre-filled, so a search is a shareable link.
+- **Skip link** as the first element in the body, **`<noscript>`** that explains itself, **`aria-live`** on the tool root, and a **live result count** in the palette.
+- **Print stylesheet** — chrome, search and the pin button are hidden; results print white on white.
+- **First-run hint** for `Ctrl K`, shown once and dismissed for good.
+- **File-size guards** at 200 MB (100 MB for encryption) with a sentence instead of a frozen tab.
+- **Passphrase strength** in Encrypt/Decrypt and Sealed Note — the only password fields in the app with no feedback at all.
+- **Open Graph and Twitter card** on the landing page, so a shared link produces a preview.
+
+### Changed
+
+- **Breadcrumb on a tool page is a link** back to its category.
+- **Scroll position is remembered per page**, so going into a tool and back no longer dumps you at the top of a 51-tile grid.
+- **Focus moves to the page heading** on navigation, for screen readers. Not on first paint, where stealing focus would be rude.
+- **Category tiles carry a `title`**, so a clipped name can be read.
+
+### Fixed
+
+- An unknown tool id no longer redirects twice and lands on the home page — it renders the not-found panel directly.
+
+### Tests
+
+27 → 42. New: the `<noscript>`, the skip link, the 404 panel, the breadcrumb link, the live region, double-click copy, tile titles, the first-run hint appearing and staying dismissed, the palette count, passphrase strength, the size guards, and `?q=` opening the palette in a second window.
+
 ## 1.1.2 — 2026-11-08
 
 Batch **B0** of [PLAN.md](PLAN.md). Documentation and CI only — the app and the landing page are unchanged.

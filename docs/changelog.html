@@ -47,6 +47,33 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.2.0 — 2026-11-08</h2>
+<p>Batch <strong>B1</strong> of <a href="plan.html">PLAN.md</a>: eighteen quick wins, all in the shell. No tool changed what it does; the app around them got out of the way.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>Double-click any result to copy it.</strong> Delegated on the document, so it survives the re-render most tools do on every keystroke — attaching a button to each <code>.output</code> would have vanished the moment the tool redrew. A transient toast confirms it.</li>
+<li><strong>A not-found page</strong> with a search box. An unknown hash used to bounce to the home screen through two redirects, which reads as a broken link; now it says "Nothing here" and offers a way out.</li>
+<li><strong><code>?q=</code> deep link</strong> — <code>kitbox.html?q=hash</code> opens the palette pre-filled, so a search is a shareable link.</li>
+<li><strong>Skip link</strong> as the first element in the body, <strong><code>&lt;noscript&gt;</code></strong> that explains itself, <strong><code>aria-live</code></strong> on the tool root, and a <strong>live result count</strong> in the palette.</li>
+<li><strong>Print stylesheet</strong> — chrome, search and the pin button are hidden; results print white on white.</li>
+<li><strong>First-run hint</strong> for <code>Ctrl K</code>, shown once and dismissed for good.</li>
+<li><strong>File-size guards</strong> at 200 MB (100 MB for encryption) with a sentence instead of a frozen tab.</li>
+<li><strong>Passphrase strength</strong> in Encrypt/Decrypt and Sealed Note — the only password fields in the app with no feedback at all.</li>
+<li><strong>Open Graph and Twitter card</strong> on the landing page, so a shared link produces a preview.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li><strong>Breadcrumb on a tool page is a link</strong> back to its category.</li>
+<li><strong>Scroll position is remembered per page</strong>, so going into a tool and back no longer dumps you at the top of a 51-tile grid.</li>
+<li><strong>Focus moves to the page heading</strong> on navigation, for screen readers. Not on first paint, where stealing focus would be rude.</li>
+<li><strong>Category tiles carry a <code>title</code></strong>, so a clipped name can be read.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>An unknown tool id no longer redirects twice and lands on the home page — it renders the not-found panel directly.</li>
+</ul>
+<h3>Tests</h3>
+<p>27 → 42. New: the <code>&lt;noscript&gt;</code>, the skip link, the 404 panel, the breadcrumb link, the live region, double-click copy, tile titles, the first-run hint appearing and staying dismissed, the palette count, passphrase strength, the size guards, and <code>?q=</code> opening the palette in a second window.</p>
 <h2>1.1.2 — 2026-11-08</h2>
 <p>Batch <strong>B0</strong> of <a href="plan.html">PLAN.md</a>. Documentation and CI only — the app and the landing page are unchanged.</p>
 <h3>Added</h3>

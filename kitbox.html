@@ -215,9 +215,44 @@
     font-family:var(--mono); font-size:11px; color:#6f7787;}
   @media (max-width:640px){ .pal-foot{display:none;} }
   @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+
+  /* ---------- B1: quick wins ---------- */
+  .skip{position:absolute; left:-9999px; top:8px; z-index:200; background:#fff; color:#000;
+    padding:10px 14px; font-size:13px; font-weight:600; text-decoration:none;}
+  .skip:focus{left:8px;}
+  .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+  .output{position:relative;}
+  @media (hover:hover){
+    .output:hover::after{content:"double-click to copy"; position:absolute; top:4px; right:9px;
+      font-family:var(--mono); font-size:10px; color:var(--muted); opacity:.85; pointer-events:none;}
+  }
+  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(8px);
+    background:#11161f; color:#fff; border:1px solid rgba(255,255,255,.16); padding:10px 16px;
+    font-size:13px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:120;}
+  .toast.on{opacity:1; transform:translateX(-50%) translateY(0);}
+  .pal-item:focus-visible{outline:2px solid var(--accent,#2f86eb); outline-offset:-2px;}
+  .crumblink{color:var(--shell-muted); text-decoration:none;}
+  .crumblink:hover{color:#fff; text-decoration:underline;}
+  .firstrun{margin:-14px 0 26px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  @media print{
+    .topbar,.searchbar,.firstrun,.footer-note,.palette-overlay,.kbdhint,#pinBtn,.skip,.toast{display:none !important;}
+    body{background:#fff; color:#000;}
+    .wrap{max-width:none; padding:0;}
+    .panel{border:none; padding:0;}
+    .panel h2,.panel .code-pill,.hero h1,.hero p{color:#000 !important;}
+    .output{background:#fff; border:1px solid #ccc; color:#000;}
+    a{color:#000; text-decoration:underline;}
+  }
 </style>
 </head>
 <body>
+<a class="skip" href="#app">Skip to the tools</a>
+<noscript>
+  <div style="max-width:560px; margin:64px auto; padding:0 22px; color:#fff; font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+    <h1 style="font-size:24px; margin:0 0 12px">Kitbox needs JavaScript</h1>
+    <p style="color:#a7adb9; line-height:1.7; margin:0">Every tool in this file runs in your browser — there is no server to fall back on, which is exactly why nothing you open here can be uploaded anywhere. Turn JavaScript on for this page and reload.</p>
+  </div>
+</noscript>
 <div class="topbar">
   <button class="backbtn hidden" id="backBtn" aria-label="Back">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -332,6 +367,65 @@ function runCleanup(){ if(currentCleanup){ try{ currentCleanup(); }catch(e){} cu
    interpolating it into a template literal that gets assigned to innerHTML. */
 function escapeHtml(s){
   return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+
+/* A transient message at the bottom of the screen. */
+let toastTimer = null;
+function toast(msg){
+  let el = document.getElementById('kToast');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'kToast'; el.className = 'toast';
+    el.setAttribute('role', 'status'); el.setAttribute('aria-live', 'polite');
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('on'), 1500);
+}
+
+/* Double-click any result block to copy it. Delegated on the document, so it
+   survives the re-render most tools do on every keystroke — attaching a button
+   to each .output would vanish the moment the tool redrew itself. */
+document.addEventListener('dblclick', e=>{
+  const box = e.target && e.target.closest ? e.target.closest('.output') : null;
+  if(!box) return;
+  if(box.querySelector('input,textarea,select,button')) return;
+  const text = (box.innerText || box.textContent || '').trim();
+  if(!text || text === '—') return;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast('Copied'), ()=>toast('Could not copy — select the text instead'));
+  } else {
+    toast('Copy is not available in this browser');
+  }
+});
+
+/* Files are read whole into memory, so there is a ceiling. Better a sentence
+   than a frozen tab. */
+const MAX_FILE_MB = 200;
+function fileTooBig(file, mb){
+  return !!file && file.size > (mb || MAX_FILE_MB) * 1048576;
+}
+function fileTooBigMsg(file, mb){
+  return 'That file is ' + fmtBytes(file.size) + '. Kitbox reads the whole file into memory, so it stops at '
+    + (mb || MAX_FILE_MB) + ' MB — split it first, or use a tool built for files that size.';
+}
+
+/* Rough passphrase strength: length times the size of the character pool,
+   with the obvious passphrases scored zero regardless of length. */
+function passStrength(p){
+  if(!p) return {score:0, label:'', bits:0};
+  let classes = 0;
+  if(/[a-z]/.test(p)) classes++;
+  if(/[A-Z]/.test(p)) classes++;
+  if(/\d/.test(p)) classes++;
+  if(/[^A-Za-z0-9]/.test(p)) classes++;
+  const common = /^(password|passphrase|letmein|qwerty|123456|admin|welcome|iloveyou)/i.test(p);
+  const bits = Math.round(p.length * Math.log2(Math.max(2, classes * 26)));
+  const score = common ? 0 : bits < 40 ? 1 : bits < 60 ? 2 : bits < 80 ? 3 : 4;
+  const label = common ? 'too common — pick something else' : ['', 'weak', 'fair', 'good', 'strong'][score];
+  return {score, label, bits};
 }
 
 /* YYYY-MM-DD in the user's LOCAL timezone (not UTC — Date#toISOString is UTC and can land on
@@ -6710,7 +6804,15 @@ fil('zipcreate','ZIP Creator', root=>{
   const inp = root.querySelector('#zpFiles'), list = root.querySelector('#zpList'), go = root.querySelector('#zpGo');
   let picked = [];
   inp.addEventListener('change', ()=>{
-    picked = Array.from(inp.files||[]);
+    const chosen = Array.from(inp.files||[]);
+    const big = chosen.filter(f=>fileTooBig(f));
+    if(big.length){
+      picked = [];
+      go.disabled = true;
+      list.innerHTML = `<div class="hint">${escapeHtml(fileTooBigMsg(big[0]))}</div>`;
+      return;
+    }
+    picked = chosen;
     go.disabled = !picked.length;
     list.innerHTML = picked.length
       ? picked.map(f=>`<div style="display:flex;justify-content:space-between;gap:12px"><span>${escapeHtml(f.name)}</span><span class="mono">${fmtBytes(f.size)}</span></div>`).join('')
@@ -6794,6 +6896,7 @@ fil('gzip','GZIP Compress / Decompress', root=>{
   async function run(mode){
     const f = root.querySelector('#gzFile').files[0];
     if(!f){ out.textContent = 'Choose a file first.'; return; }
+    if(fileTooBig(f)){ out.textContent = fileTooBigMsg(f); return; }
     if(typeof CompressionStream === 'undefined'){
       out.textContent = 'This browser does not expose Compression Streams — try a current Chrome, Edge, Firefox or Safari.';
       return;
@@ -6828,6 +6931,7 @@ fil('filehash','File Hash & Checksum', root=>{
   async function run(){
     const f = root.querySelector('#fhFile').files[0];
     if(!f) return;
+    if(fileTooBig(f)){ out.textContent = fileTooBigMsg(f); return; }
     out.textContent = 'Hashing…';
     const data = await readFileBytes(f);
     const rows = [];
@@ -6856,7 +6960,8 @@ fil('filecrypt','Encrypt / Decrypt a File', root=>{
   root.innerHTML = `
     ${FILES_HINT}
     <div class="field"><label>File</label><input type="file" id="fcFile"></div>
-    <div class="field"><label>Passphrase</label><input type="text" id="fcPass" placeholder="a long passphrase — this is the only key"></div>
+    <div class="field"><label>Passphrase</label><input type="text" id="fcPass" placeholder="a long passphrase — this is the only key">
+      <div class="hint" id="fcPassHint" style="margin-top:6px">At least 8 characters. A five-word passphrase beats a short password with symbols in it.</div></div>
     <div class="row">
       <button class="btn primary" id="fcEnc">Encrypt → .kbx</button>
       <button class="btn" id="fcDec">Decrypt a .kbx</button>
@@ -6875,6 +6980,7 @@ fil('filecrypt','Encrypt / Decrypt a File', root=>{
     const f = root.querySelector('#fcFile').files[0];
     const pass = root.querySelector('#fcPass').value;
     if(!f){ out.textContent = 'Choose a file first.'; return; }
+    if(fileTooBig(f, 100)){ out.textContent = fileTooBigMsg(f, 100); return; }
     if(!pass || pass.length < 8){ out.textContent = 'Use a passphrase of at least 8 characters.'; return; }
     if(!crypto.subtle){ out.textContent = 'Web Crypto needs a secure context (https or localhost). Open Kitbox over https or from a local file in a browser that allows it.'; return; }
     out.textContent = 'Working…';
@@ -6906,6 +7012,13 @@ fil('filecrypt','Encrypt / Decrypt a File', root=>{
       out.innerHTML = `<div class="hint">${mode==='dec'?'Decryption failed — wrong passphrase, or the file was changed after it was sealed.':'Encryption failed'} (${escapeHtml(e.message||String(e))}).</div>`;
     }
   }
+  root.querySelector('#fcPass').addEventListener('input', e=>{
+    const s = passStrength(e.target.value);
+    const el = root.querySelector('#fcPassHint');
+    el.textContent = e.target.value
+      ? s.label + (s.bits ? ' · about ' + s.bits + ' bits' : '') + ' — this is the only key; there is no reset.'
+      : 'At least 8 characters. A five-word passphrase beats a short password with symbols in it.';
+  });
   root.querySelector('#fcEnc').addEventListener('click', ()=>run('enc'));
   root.querySelector('#fcDec').addEventListener('click', ()=>run('dec'));
 });
@@ -6923,9 +7036,16 @@ fil('sealednote','Sealed Note', root=>{
   function seal(){
     body.innerHTML = `
       <div class="field"><label>Note</label><textarea id="snText" placeholder="The thing you want to say, once."></textarea></div>
-      <div class="field"><label>Passphrase</label><input type="text" id="snPass" placeholder="share this separately"></div>
+      <div class="field"><label>Passphrase</label><input type="text" id="snPass" placeholder="share this separately">
+        <div class="hint" id="snPassHint" style="margin-top:6px">At least 6 characters. Send the sealed block and the passphrase through different channels.</div></div>
       <button class="btn primary" id="snGo">Seal it</button>
       <div class="output" id="snOut" style="display:none"></div>`;
+    body.querySelector('#snPass').addEventListener('input', e=>{
+      const s = passStrength(e.target.value);
+      body.querySelector('#snPassHint').textContent = e.target.value
+        ? s.label + (s.bits ? ' · about ' + s.bits + ' bits' : '')
+        : 'At least 6 characters. Send the sealed block and the passphrase through different channels.';
+    });
     body.querySelector('#snGo').addEventListener('click', async ()=>{
       const text = body.querySelector('#snText').value;
       const pass = body.querySelector('#snPass').value;
@@ -10785,7 +10905,7 @@ function lookup(catId, toolId){
 /* ---------- Cards ---------- */
 function catCard(cat){
   const has = TOOLS[cat.id] && TOOLS[cat.id].length>0;
-  return `<button class="tag ${has?'':'disabled'}" style="--c:${cat.color}" data-cat="${cat.id}" ${has?'':'disabled'} aria-label="${escapeHtml(cat.name)} — ${has?TOOLS[cat.id].length+' tools':'coming soon'}">
+  return `<button class="tag ${has?'':'disabled'}" style="--c:${cat.color}" data-cat="${cat.id}" ${has?'':'disabled'} aria-label="${escapeHtml(cat.name)} — ${has?TOOLS[cat.id].length+' tools':'coming soon'}" title="${escapeHtml(cat.name)}${has?' — '+TOOLS[cat.id].length+' tools':''}">
     <div class="hole"></div>
     <div class="icon">${iconSvg(cat.icon)}</div>
     <div class="name">${escapeHtml(cat.name)}</div>
@@ -10795,7 +10915,7 @@ function catCard(cat){
 
 function toolCard(cat, tool){
   const pinned = isPinned(cat.id, tool.id);
-  return `<button class="tag" style="--c:${cat.color}" data-tool="${tool.id}" aria-label="${escapeHtml(tool.name)}">
+  return `<button class="tag" style="--c:${cat.color}" data-tool="${tool.id}" aria-label="${escapeHtml(tool.name)}" title="${escapeHtml(tool.name)} · ${tool.code}">
     <div class="hole"></div>
     <div class="icon">${iconSvg(cat.icon)}</div>
     <div class="name">${escapeHtml(tool.name)}${pinned?' <span style="color:var(--c)">•</span>':''}</div>
@@ -10833,6 +10953,7 @@ function renderHome(){
       <input type="search" id="homeSearch" placeholder="Search ${total} tools — try “hash”, “panchang”, “zip”" aria-label="Search tools" autocomplete="off">
       <span class="kbdhint">Ctrl K</span>
     </div>
+    <div id="firstRun"></div>
     <div id="homeResults"></div>
     <div id="pinnedBlock" style="display:none">
       <div class="section-label">Pinned</div>
@@ -10857,6 +10978,17 @@ function renderHome(){
   if(pinnedRow(app.querySelector('#pinnedGrid'), pinnedList())) pinBlock.style.display = 'block';
   const recBlock = app.querySelector('#recentBlock');
   if(pinnedRow(app.querySelector('#recentGrid'), store.get('recent', []))) recBlock.style.display = 'block';
+
+  if(!store.get('seen-palette-hint', false)){
+    const fr = app.querySelector('#firstRun');
+    fr.className = 'firstrun';
+    fr.innerHTML = `<span class="hint" style="margin:0">Press <b>Ctrl K</b> (or <b>⌘ K</b>) anywhere to search all ${TOOL_INDEX.length} tools.</span>
+      <button class="btn ghost" id="frDone" style="padding:4px 10px;font-size:12px">Got it</button>`;
+    fr.querySelector('#frDone').addEventListener('click', ()=>{
+      store.set('seen-palette-hint', true);
+      fr.remove();
+    });
+  }
 
   const input = app.querySelector('#homeSearch');
   const results = app.querySelector('#homeResults');
@@ -10886,14 +11018,14 @@ function renderHome(){
 /* ---------- Category ---------- */
 function renderCategory(catId){
   const cat = CATS.find(c=>c.id===catId);
-  if(!cat){ location.hash='#/'; return; }
+  if(!cat){ renderNotFound('#/category/' + catId); return; }
   setAccent(cat.color);
   backBtn.classList.remove('hidden');
   crumb.innerHTML = `<b>${escapeHtml(cat.name)}</b>`;
   const tools = TOOLS[catId] || [];
   let toolsHtml;
   if(!tools.length){
-    toolsHtml = `<div class="empty">This category is coming in the next build stage.</div>`;
+    toolsHtml = `<div class="empty">Nothing in this category yet. <a href="#/" style="color:var(--accent)">Back to all categories</a>.</div>`;
   } else if(tools.some(t=>t.group)){
     const groups = [];
     tools.forEach(t=>{
@@ -10964,10 +11096,10 @@ function renderAll(){
 function renderTool(catId, toolId){
   const cat = CATS.find(c=>c.id===catId);
   const tool = (TOOLS[catId]||[]).find(t=>t.id===toolId);
-  if(!cat || !tool){ location.hash='#/category/'+catId; return; }
+  if(!cat || !tool){ renderNotFound('#/tool/' + catId + '/' + toolId); return; }
   setAccent(cat.color);
   backBtn.classList.remove('hidden');
-  crumb.innerHTML = `<b>${escapeHtml(cat.name)}</b> / ${escapeHtml(tool.name)}`;
+  crumb.innerHTML = `<a class="crumblink" href="#/category/${catId}">${escapeHtml(cat.name)}</a> / ${escapeHtml(tool.name)}`;
   noteRecent(catId, toolId);
   app.innerHTML = `
     <div class="panel">
@@ -10979,7 +11111,7 @@ function renderTool(catId, toolId){
         <button class="btn ghost" id="pinBtn" style="flex:none;font-size:12.5px" aria-pressed="${isPinned(catId,toolId)}">${isPinned(catId,toolId)?'★ Pinned':'☆ Pin'}</button>
       </div>
       <div class="divider"></div>
-      <div id="toolRoot"></div>
+      <div id="toolRoot" aria-live="polite"></div>
     </div>
   `;
   app.querySelector('#pinBtn').addEventListener('click', e=>{
@@ -11035,6 +11167,7 @@ function renderAbout(){
   overlay.innerHTML = `
     <div class="palette" role="dialog" aria-modal="true" aria-label="Search tools">
       <input type="search" id="palInput" placeholder="Search every tool…" autocomplete="off" spellcheck="false" aria-label="Search every tool">
+      <div id="palCount" class="sr-only" aria-live="polite"></div>
       <div id="palList" class="pal-list"></div>
       <div class="pal-foot"><span>↑ ↓ move</span><span>↵ open</span><span>esc close</span><span style="margin-left:auto">${TOOL_INDEX.length} tools</span></div>
     </div>`;
@@ -11050,6 +11183,7 @@ function renderAbout(){
       results = [...pinned, ...recent.filter(r=>!pinned.some(p=>p.tool.id===r.tool.id))];
       if(!results.length){
         list.innerHTML = `<div class="pal-empty">Type to search ${TOOL_INDEX.length} tools. Try “panchang”, “hash”, “zip”.</div>`;
+        announce(0);
         return;
       }
       active = 0;
@@ -11062,10 +11196,15 @@ function renderAbout(){
         ? results.slice(0,20).map((r,i)=>`<button class="pal-item ${i===active?'on':''}" data-i="${i}"><span>${escapeHtml(r.tool.name)}</span><span class="pal-cat" style="color:${r.cat.color}">${escapeHtml(r.cat.name)}</span></button>`).join('')
         : `<div class="pal-empty">No tool matches that.</div>`;
     }
+    announce(results.length);
     list.querySelectorAll('.pal-item').forEach(b=>{
       b.addEventListener('click', ()=>choose(+b.dataset.i));
       b.addEventListener('mousemove', ()=>{ active = +b.dataset.i; highlight(); });
     });
+  }
+  function announce(n){
+    const el = overlay.querySelector('#palCount');
+    if(el) el.textContent = n ? n + (n === 1 ? ' result' : ' results') : 'No results';
   }
   function highlight(){
     list.querySelectorAll('.pal-item').forEach((b,i)=>b.classList.toggle('on', i===active));
@@ -11076,15 +11215,22 @@ function renderAbout(){
     close();
     location.hash = '#/tool/'+r.cat.id+'/'+r.tool.id;
   }
-  function open(){
+  function open(query){
     overlay.hidden = false;
-    input.value = '';
+    input.value = query || '';
     paint();
     input.focus();
+    store.set('seen-palette-hint', true);
+    const hint = document.getElementById('firstRun');
+    if(hint) hint.remove();
   }
   function close(){ overlay.hidden = true; }
 
   input.addEventListener('input', paint);
+
+  /* ?q=hash opens the palette pre-filled, so a search is a shareable link. */
+  const initial = new URLSearchParams(location.search).get('q');
+  if(initial) open(initial);
   overlay.addEventListener('click', e=>{ if(e.target === overlay) close(); });
   window.addEventListener('keydown', e=>{
     const typing = /^(input|textarea|select)$/i.test((document.activeElement||{}).tagName||'');
@@ -11158,17 +11304,65 @@ function renderSupport(){
   `;
 }
 
+/* Where you were on each page, so going into a tool and back does not dump you
+   at the top of a 51-tile grid. */
+const scrollMemo = new Map();
+let lastHash = '';
+let seenFirstRoute = false;
+
+function renderNotFound(hash){
+  setAccent('#14141c');
+  backBtn.classList.remove('hidden');
+  crumb.innerHTML = '<b>Not found</b>';
+  app.innerHTML = `
+    <div class="hero" style="padding:8px 2px 24px">
+      <div class="badge" style="background:#495057">404</div>
+      <div>
+        <h1>Nothing here</h1>
+        <p>There is no tool at <span class="mono">${escapeHtml(hash)}</span>. The link may be old, or the tool may have been renamed.</p>
+      </div>
+    </div>
+    <div class="searchbar">
+      <input type="search" id="nfSearch" placeholder="Search all ${TOOL_INDEX.length} tools" aria-label="Search tools" autocomplete="off">
+      <span class="kbdhint">Ctrl K</span>
+    </div>
+    <div class="row">
+      <a class="btn" href="#/" style="text-decoration:none;text-align:center">All categories</a>
+      <a class="btn" href="#/all" style="text-decoration:none;text-align:center">All tools A–Z</a>
+    </div>`;
+  const input = app.querySelector('#nfSearch');
+  input.focus();
+  input.addEventListener('keydown', e=>{
+    if(e.key !== 'Enter') return;
+    const hit = searchTools(input.value)[0];
+    if(hit) location.hash = '#/tool/' + hit.catId + '/' + hit.id;
+  });
+}
+
 function route(){
   runCleanup();
   const hash = location.hash || '#/';
+  if(lastHash) scrollMemo.set(lastHash, window.scrollY);
   const parts = hash.replace('#/','').split('/').filter(Boolean);
   if(parts[0]==='about') renderAbout();
   else if(parts[0]==='all') renderAll();
   else if(parts[0]==='support') renderSupport();
   else if(parts[0]==='category' && parts[1]) renderCategory(parts[1]);
   else if(parts[0]==='tool' && parts[1] && parts[2]) renderTool(parts[1], parts[2]);
-  else renderHome();
-  window.scrollTo(0,0);
+  else if(!parts.length) renderHome();
+  else renderNotFound(hash);
+  lastHash = hash;
+
+  // Move focus to the page heading, so a screen reader lands on the new page
+  // instead of staying where the previous one was. Skipped on first paint,
+  // where stealing focus would be rude.
+  const h1 = app.querySelector('h1');
+  if(h1 && seenFirstRoute){
+    h1.setAttribute('tabindex', '-1');
+    h1.focus({preventScroll: true});
+  }
+  seenFirstRoute = true;
+  window.scrollTo(0, scrollMemo.get(hash) || 0);
 }
 backBtn.addEventListener('click', ()=>{ history.back(); });
 document.getElementById('aboutBtn').addEventListener('click', ()=>{ location.hash = '#/about'; });

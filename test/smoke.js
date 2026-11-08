@@ -43,7 +43,7 @@ const dom = new JSDOM(html, { runScripts: 'dangerously', pretendToBeVisual: true
 const w = dom.window;
 stubCanvas(w);
 
-setTimeout(() => {
+setTimeout(async () => {
   const ev = s => w.eval(s);
   const TOOLS = ev('TOOLS'), CATS = ev('CATS');
   const mount = (cat, id) => {
@@ -176,7 +176,67 @@ setTimeout(() => {
   const support = w.document.querySelector('#app').textContent;
   ok('support page has the UPI id and a QR', support.includes('drsohilboi@ybl') && !!w.document.querySelector('#app svg.segno'));
 
-  /* 6. the app makes no network calls and loads nothing external */
+
+  /* 7. the shell: B1 quick wins */
+  ok('a <noscript> explains itself', /<noscript>/.test(html) && /Kitbox needs JavaScript/.test(html));
+  ok('skip link is the first thing in the body', !!w.document.querySelector('a.skip[href="#app"]'));
+
+  ev('location.hash="#/tool/nope/nothing"'); ev('route()');
+  const nf = w.document.querySelector('#app').textContent;
+  ok('an unknown tool renders a not-found panel, not the home page',
+     /Nothing here/.test(nf) && !!w.document.querySelector('#nfSearch'), nf.slice(0, 50).replace(/\s+/g, ' '));
+
+  ev('location.hash="#/tool/almanac/panchang"'); ev('route()');
+  const crumb = w.document.querySelector('#crumb a.crumblink');
+  ok('the breadcrumb links back to the category', !!crumb && crumb.getAttribute('href') === '#/category/almanac');
+  ok('the tool root is a live region', w.document.querySelector('#toolRoot').getAttribute('aria-live') === 'polite');
+
+  // double-click to copy: delegated, so it survives a tool re-rendering itself
+  let copied = null;
+  Object.defineProperty(w.navigator, 'clipboard', {
+    value: { writeText: t => { copied = t; return Promise.resolve(); } }, configurable: true });
+  const box = w.document.createElement('div');
+  box.className = 'output'; box.textContent = 'hello result';
+  w.document.querySelector('#toolRoot').appendChild(box);
+  box.dispatchEvent(new w.MouseEvent('dblclick', { bubbles: true }));
+  await new Promise(r => setTimeout(r, 10));
+  ok('double-click copies a result block', copied === 'hello result', JSON.stringify(copied));
+  ok('and says so', !!w.document.getElementById('kToast'));
+
+  ev('location.hash="#/"'); ev('route()');
+  const catBtn = w.document.querySelector('[data-cat]');
+  ok('category tiles carry a title attribute', !!catBtn.getAttribute('title'), catBtn.getAttribute('title'));
+
+  const fr = w.document.querySelector('#firstRun');
+  ok('the first-run hint mentions Ctrl K', !!fr && /Ctrl K/.test(fr.textContent));
+  ev("store.set('seen-palette-hint', true)"); ev('route()');
+  ok('the first-run hint stays dismissed', w.document.querySelector('#firstRun').textContent.trim() === '');
+
+  const palCount = w.document.querySelector('#palCount');
+  ok('the palette announces its result count', !!palCount && palCount.getAttribute('aria-live') === 'polite');
+
+  ev('location.hash="#/tool/files/filecrypt"'); ev('route()');
+  const pw = w.document.querySelector('#fcPass');
+  pw.value = 'correct horse battery staple'; pw.dispatchEvent(new w.Event('input'));
+  ok('the passphrase field reports strength',
+     /strong|good|fair|weak|common/.test(w.document.querySelector('#fcPassHint').textContent),
+     w.document.querySelector('#fcPassHint').textContent.slice(0, 50));
+
+  ok('file size guards exist', ev("typeof fileTooBig === 'function' && typeof fileTooBigMsg === 'function'"));
+
+  /* 8. ?q= opens the palette pre-filled, in a fresh window */
+  const deep = new JSDOM(html, { runScripts: 'dangerously', pretendToBeVisual: true, url: 'https://local.test/?q=hash' });
+  stubCanvas(deep.window);
+  await new Promise(r => setTimeout(r, 700));
+  const d = deep.window.document;
+  ok('?q= opens the palette with the query filled',
+     !d.querySelector('.palette-overlay').hidden && d.querySelector('#palInput').value === 'hash',
+     d.querySelector('#palInput').value);
+  ok('?q= finds matching tools', d.querySelectorAll('.pal-item').length > 0,
+     d.querySelectorAll('.pal-item').length + ' results');
+  deep.window.close();
+
+  /* 9. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),
