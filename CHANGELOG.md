@@ -2,6 +2,22 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.6.1 — 2026-11-08
+
+Batch **B8** of [PLAN.md](PLAN.md): security hardening.
+
+### Added
+
+- **A Content-Security-Policy** in the page: `default-src 'none'`, no `connect-src`, no frames, no forms, images and media only from `data:` and `blob:` URIs the app made itself. Inline script and style stay allowed because the app *is* the inline script. A network call added by a future commit would now be blocked by the browser as well as by CI.
+- **A fuzz pass over every text field**: 169 fields across 339 tools, eight markup payloads each, asserting that nothing creates a script, an iframe, an `on*` handler, a `javascript:` URL, or a window flag. It runs in CI.
+- **The EXIF `Orientation` tag survives a metadata strip.** Dropping the whole APP1 block used to leave a portrait phone photo sideways, because the pixels were always sideways and the tag was the only thing saying so. The strip now rebuilds a 34-byte EXIF block containing that one tag.
+
+### Changed
+
+- The Encrypt tool says plainly that buffers are zeroed after use but a browser cannot guarantee a copy is not still in memory — encrypt at rest, not instead of a locked screen.
+- `SECURITY.md` gained a "what the browser enforces" section.
+- 99 tests (was 97), plus the fuzz pass as its own CI step.
+
 ## 1.6.0 — 2026-11-08
 
 Batch **B7** of [PLAN.md](PLAN.md): storage you can trust.

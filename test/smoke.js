@@ -516,7 +516,25 @@ setTimeout(async () => {
      ev("store.get('habits-list', null)") === null && !!ev("store.get('flashcard-decks', null)"));
   w.confirm = realConfirm;
 
-  /* 16. the app makes no network calls and loads nothing external */
+
+  /* 16. security hardening (B8) */
+  const csp = w.document.querySelector('meta[http-equiv="Content-Security-Policy"]');
+  ok('the page ships a Content-Security-Policy', !!csp && /default-src 'none'/.test(csp.content) && /connect-src 'none'/.test(csp.content),
+     csp ? csp.content.slice(0, 60) + '…' : 'missing');
+
+  // a phone photo's Orientation tag must survive a metadata strip
+  const exifJpeg = Uint8Array.from([
+    0xFF, 0xD8,
+    0xFF, 0xE1, 0x00, 0x22, 0x45, 0x78, 0x69, 0x66, 0x00, 0x00,
+    0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00,
+    0x01, 0x00, 0x12, 0x01, 0x03, 0x00, 0x01, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0xFF, 0xD9]);
+  const strippedJpeg = ev('stripJpegMetadata')(exifJpeg);
+  ok('stripping metadata keeps the EXIF Orientation tag',
+     ev('readOrientation')(exifJpeg) === 6 && ev('readOrientation')(strippedJpeg) === 6,
+     'before ' + ev('readOrientation')(exifJpeg) + ', after ' + ev('readOrientation')(strippedJpeg));
+
+  /* 17. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

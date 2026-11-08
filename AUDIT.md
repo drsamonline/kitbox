@@ -306,3 +306,33 @@ Nothing — every tool that starts an interval already called `setCleanup`. That
 - Migration 2 normalises shape, not meaning. A deck whose cards were stored under different field names is left alone rather than guessed at.
 - The encrypted backup uses the same PBKDF2 parameters as the file encryption tool (250,000 iterations, SHA-256). That is deliberately the same number in two places; if it is ever raised, old backups still open because the salt and parameters travel with the file.
 - Erasing a key is immediate and has no undo. It asks once, and that is the whole safety net.
+
+## B8 — security hardening (1.6.1)
+
+| Check | Result |
+|---|---|
+| Fuzz: 169 text fields × 8 payloads × 339 tools | 0 injections |
+| Fuzz harness mutation-tested | re-introducing the 1.0.0 bug makes it fail, precisely |
+| EXIF Orientation survives a strip | 6 → 6 |
+| CSP present and restrictive | pass |
+| Full suite | 99 passed, 0 failed |
+| axe across 50 pages | 0 violations |
+| Size | 686 KB → 690 KB |
+
+### The result worth stating plainly
+
+**No tool put user text into the DOM unescaped.** The escaping discipline the original author started, and that the 1.0.0 audit found one hole in, now holds across 339 tools and 1,352 payload attempts. That is a better outcome than a list of findings, and it is only worth believing because the harness was mutation-tested: re-introducing the exact `textDecoration` bug makes it fail with `text/textdecoration field #tdIn payload "<img src=x onerror=…" → img[onerror]`. A green test that cannot go red proves nothing.
+
+### Findings
+
+**1. The strip was destroying the one tag that mattered.** `stripJpegMetadata` dropped the entire APP1 block, which is correct for camera make, timestamps and GPS — and wrong for `Orientation`, which is not metadata about the photo but an instruction for reading it. A portrait photo came back landscape. *Fixed* by reading the tag before the strip and rebuilding a minimal 34-byte EXIF block around it. The audit had this as a known limitation since 1.0.0; it is now closed.
+
+**2. A CSP that bans inline script would ban the app.** `default-src 'none'` with `script-src 'unsafe-inline'` is not a weakening, it is the only policy a single-file app can have — and it still blocks every network, frame, form and object the app would never load anyway. Recorded in `SECURITY.md` rather than left as a surprise to the next reader.
+
+**3. Buffer wiping is theatre if it is described as a guarantee.** The decrypt path now zeroes its arrays, and the hint says what that is worth: JavaScript cannot promise a string is gone, and the browser may already have copied it. The honest sentence is more useful than the code.
+
+### Known limitations added
+
+- The fuzz covers `input[type=text]` and `textarea`. Number, date and colour inputs cannot carry a payload worth testing, and file inputs are exercised by the size guards instead.
+- The CSP is a meta tag, not a header. A meta tag cannot set `frame-ancestors`, so clickjacking protection is absent — it needs a server, and there is no server.
+- The orientation block is written little-endian with a single entry. That is valid EXIF and every decoder tested here reads it, but a strict validator may prefer the original byte order preserved.

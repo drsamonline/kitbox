@@ -32,6 +32,10 @@ Kitbox is a single HTML file that runs entirely in your browser. That shape give
 | No integrity pinning of the file itself | There is no server to pin it against; `SHA256SUMS` per release is the honest equivalent. |
 | MD5 is present | Legacy checksums only, and the tool says so. It is not used anywhere internally. |
 
+## What the browser enforces
+
+The page ships a Content-Security-Policy meta tag: `default-src 'none'`, no `connect-src`, no frames, no forms, and images and media only from `data:` and `blob:` URIs the app created itself. Inline script and style are allowed because the app *is* the inline script — a policy that banned them would ban the app. A network call added by a future commit would be blocked by the browser, which is a second lock on the same door as the CI check.
+
 ## What CI enforces
 
 Every push runs: the jsdom suite (which includes an escaping test), a check that no external resource is loaded, a check for `eval`, `new Function`, `document.write` and `javascript:` URLs, a badge and manifest freshness check, and the plan coverage check. A fuzz pass over every text input is scheduled in batch B8 of [PLAN.md](PLAN.md).

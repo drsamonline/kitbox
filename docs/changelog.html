@@ -47,6 +47,20 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.6.1 — 2026-11-08</h2>
+<p>Batch <strong>B8</strong> of <a href="plan.html">PLAN.md</a>: security hardening.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>A Content-Security-Policy</strong> in the page: <code>default-src 'none'</code>, no <code>connect-src</code>, no frames, no forms, images and media only from <code>data:</code> and <code>blob:</code> URIs the app made itself. Inline script and style stay allowed because the app <em>is</em> the inline script. A network call added by a future commit would now be blocked by the browser as well as by CI.</li>
+<li><strong>A fuzz pass over every text field</strong>: 169 fields across 339 tools, eight markup payloads each, asserting that nothing creates a script, an iframe, an <code>on*</code> handler, a <code>javascript:</code> URL, or a window flag. It runs in CI.</li>
+<li><strong>The EXIF <code>Orientation</code> tag survives a metadata strip.</strong> Dropping the whole APP1 block used to leave a portrait phone photo sideways, because the pixels were always sideways and the tag was the only thing saying so. The strip now rebuilds a 34-byte EXIF block containing that one tag.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>The Encrypt tool says plainly that buffers are zeroed after use but a browser cannot guarantee a copy is not still in memory — encrypt at rest, not instead of a locked screen.</li>
+<li><code>SECURITY.md</code> gained a "what the browser enforces" section.</li>
+<li>99 tests (was 97), plus the fuzz pass as its own CI step.</li>
+</ul>
 <h2>1.6.0 — 2026-11-08</h2>
 <p>Batch <strong>B7</strong> of <a href="plan.html">PLAN.md</a>: storage you can trust.</p>
 <h3>Added</h3>

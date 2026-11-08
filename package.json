@@ -1,6 +1,6 @@
 {
   "name": "kitbox",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": true,
   "description": "Kitbox — a single-file offline toolbox. 338 tools, no dependencies, no network.",
   "license": "PolyForm-Noncommercial-1.0.0",
@@ -8,6 +8,7 @@
   "scripts": {
     "test": "node test/smoke.js",
     "a11y": "node test/axe.js",
+    "fuzz": "node test/fuzz.js",
     "badges": "node tools/check-badges.js",
     "shots": "python3 tools/shots.py",
     "tools": "node tools/gen-all-tools.js",
@@ -15,7 +16,7 @@
     "docs": "python3 tools/build-docs.py",
     "landing": "python3 tools/build-landing.py",
     "manifest": "python3 tools/check-manifest.py",
-    "check": "npm test && npm run a11y && npm run codes && node tools/check-badges.js && node tools/gen-all-tools.js --check && python3 tools/check-plan.py && python3 tools/check-manifest.py"
+    "check": "npm test && npm run a11y && npm run fuzz && npm run codes && node tools/check-badges.js && node tools/gen-all-tools.js --check && python3 tools/check-plan.py && python3 tools/check-manifest.py"
   },
   "devDependencies": {
     "axe-core": "^4.14.0",

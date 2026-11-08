@@ -7,6 +7,10 @@
 <meta name="description" content="Kitbox — a single-file offline toolbox. Every tool runs locally in your browser: no server, no account, no tracking, no network.">
 <meta name="theme-color" content="#0b0e14">
 <meta name="color-scheme" content="dark light">
+<!-- Everything the page needs is in the page. This says so in a way the
+     browser enforces: no network of any kind, no frames, no forms, and images
+     only from data: or blob: URIs that the app itself created. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; media-src data: blob:; font-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0e14'/%3E%3Crect x='6' y='10' width='20' height='14' fill='%232f86eb'/%3E%3Crect x='6' y='14' width='20' height='2.5' fill='%230b0e14'/%3E%3C/svg%3E">
 <style>
@@ -369,7 +373,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '1.6.0';
+const APP_VERSION = '1.6.1';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -7301,7 +7305,7 @@ fil('filecrypt','Encrypt / Decrypt a File', root=>{
       <button class="btn" id="fcDec">Decrypt a .kbx</button>
     </div>
     <div class="output" id="fcOut">Pick a file and set a passphrase.</div>
-    <div class="hint">AES-256-GCM with a PBKDF2-SHA256 key (250,000 iterations). The passphrase is never stored — lose it and the file cannot be recovered. Decryption fails loudly if the file was altered.</div>`;
+    <div class="hint">AES-256-GCM with a PBKDF2-SHA256 key (250,000 iterations). The passphrase is never stored — lose it and the file cannot be recovered. Decryption fails loudly if the file was altered. Buffers are zeroed after use, but a browser cannot guarantee that a copy is not still in memory: encrypt at rest, not as a substitute for a locked screen.</div>`;
   const out = root.querySelector('#fcOut');
   const MAGIC = [0x4b,0x42,0x58,0x31]; // "KBX1"
   const ITER = 250000;
@@ -7340,6 +7344,9 @@ fil('filecrypt','Encrypt / Decrypt a File', root=>{
         const pt = new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, ct));
         const name = f.name.replace(/\.kbx$/i,'') || 'decrypted';
         saveBlob(new Blob([pt]), name);
+        // Best effort only: JavaScript cannot promise a string or buffer is
+        // gone from memory, and the browser may have copied it already.
+        try{ pt.fill(0); data.fill(0); }catch(e){}
         out.innerHTML = `Decrypted → ${escapeHtml(name)}<div class="hint">${fmtBytes(pt.length)} recovered.</div>`;
       }
     }catch(e){
@@ -7647,8 +7654,60 @@ function readExif(bytes){
   return tags.length ? tags : null;
 }
 
+/* The Orientation tag is not metadata you want to lose: without it a phone
+   photo taken in portrait comes back sideways, because the pixels were always
+   sideways and the tag was the only thing saying otherwise. So the strip keeps
+   that one tag and rebuilds a minimal EXIF block around it. */
+function readOrientation(bytes){
+  if(bytes[0] !== 0xFF || bytes[1] !== 0xD8) return null;
+  let p = 2;
+  while(p < bytes.length - 4){
+    if(bytes[p] !== 0xFF) return null;
+    const marker = bytes[p+1], len = (bytes[p+2]<<8) | bytes[p+3];
+    if(marker === 0xE1 && String.fromCharCode(...bytes.slice(p+4, p+8)) === 'Exif'){
+      const tiff = p + 10;
+      const le = bytes[tiff] === 0x49;
+      const rd16 = o => le ? (bytes[o] | (bytes[o+1]<<8)) : ((bytes[o]<<8) | bytes[o+1]);
+      const rd32 = o => le ? (bytes[o] | (bytes[o+1]<<8) | (bytes[o+2]<<16) | (bytes[o+3]<<24))
+                           : ((bytes[o]<<24) | (bytes[o+1]<<16) | (bytes[o+2]<<8) | bytes[o+3]);
+      if(rd16(tiff+2) !== 0x2A) return null;
+      const ifd = tiff + rd32(tiff+4);
+      const count = rd16(ifd);
+      for(let i=0;i<count;i++){
+        const e = ifd + 2 + i*12;
+        if(rd16(e) === 0x0112) return rd16(e+8);
+      }
+      return null;
+    }
+    if(marker === 0xDA) return null;
+    p += 2 + len;
+  }
+  return null;
+}
+
+function minimalExif(orientation){
+  // Little-endian TIFF header, one IFD entry (0x0112 Orientation, SHORT, 1),
+  // then the APP1 wrapper. 34 bytes all told.
+  const body = [
+    0x49, 0x49, 0x2A, 0x00,             // II, 42
+    0x08, 0x00, 0x00, 0x00,             // IFD0 at offset 8
+    0x01, 0x00,                          // one entry
+    0x12, 0x01,                          // tag 0x0112
+    0x03, 0x00,                          // type SHORT
+    0x01, 0x00, 0x00, 0x00,              // count 1
+    orientation & 0xFF, (orientation >> 8) & 0xFF, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00               // no next IFD
+  ];
+  const payload = [0x45, 0x78, 0x69, 0x66, 0x00, 0x00].concat(body);   // "Exif\0\0"
+  const len = payload.length + 2;
+  return new Uint8Array([0xFF, 0xE1, (len >> 8) & 0xFF, len & 0xFF].concat(payload));
+}
+
 function stripJpegMetadata(bytes){
+  const orientation = readOrientation(bytes);
   const out = [bytes.slice(0,2)];
+  // Re-attach the one tag that changes how the pixels are meant to be read.
+  if(orientation && orientation > 1) out.push(minimalExif(orientation));
   let p = 2;
   while(p < bytes.length - 1){
     if(bytes[p] !== 0xFF){ out.push(bytes.slice(p)); break; }
