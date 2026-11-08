@@ -37,8 +37,10 @@ setTimeout(() => {
   expect('tools', toolCount, 'badge-tools.svg');
   expect('categories', catCount, 'badge-categories.svg');
 
-  const tests = (read('test/smoke.js').match(/\bok\(/g) || []).length;
-  expect('tests', tests, 'badge-tests.svg');
+  // every assertion in every test file, not just the smoke suite
+  const files = fs.readdirSync(path.join(ROOT, 'test')).filter(f => f.endsWith('.js'));
+  const tests = files.reduce((a, f) => a + (read('test/' + f).match(/\bok\(/g) || []).length, 0);
+  expect('checks', tests, 'badge-checks.svg');
 
   const kb = Math.round(fs.statSync(path.join(ROOT, 'kitbox.html')).size / 1024);
   const svgSize = read('docs/assets/badge-size.svg');

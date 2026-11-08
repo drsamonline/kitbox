@@ -2,6 +2,23 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.7.0 — 2026-11-08
+
+Batch **B10** of [PLAN.md](PLAN.md): testing depth — the last batch before the cut line.
+
+### Added
+
+- **An interaction sweep**: every tool is rendered, its first field is filled with a value appropriate to the field, and the tool must survive the input without throwing or emptying itself. **301 of 339 tools driven; 0 failures.** The other 38 have no input to drive — reference tables, games with buttons, tools that only read files.
+- **Fixtures for fifteen calculators** in `test/fixtures.json`, each with an expected value that can be checked by hand: 100 → 125 is +25.00%, 18% of ₹10,000 is ₹1,800, 22.4 L at STP is one mole, MD5('abc') is the published vector, 440 Hz is A4. A fixture may only be added when the arithmetic is verified, never to make a red test green.
+- **Round-trip tests** through the real UI: base64, base32 and base58 encode → decode returns the original string.
+- **Real files through the real handlers**: two `File` objects into the ZIP tool (the archive is captured and its header, names and contents checked), a PNG header into the file type detector, a CSV into the viewer.
+- **A landing-page link test**: every file, tool link, category link, the stated counts and the support details are checked against the app's registry.
+
+### Changed
+
+- The badge row now reads **118 checks** rather than "tests", because it counts every assertion across all six test files rather than the smoke suite alone.
+- CI runs five test commands: the suite, axe, fuzz, interaction, and deep/links.
+
 ## 1.6.2 — 2026-11-08
 
 Batch **B9** of [PLAN.md](PLAN.md): performance — measured in a browser this time, not in jsdom.

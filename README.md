@@ -6,7 +6,7 @@
 
 <a href="kitbox.html"><img src="docs/assets/badge-tools.svg" alt="338 tools"></a>
 <a href="#categories"><img src="docs/assets/badge-categories.svg" alt="23 categories"></a>
-<a href="#tests"><img src="docs/assets/badge-tests.svg" alt="27 tests passing"></a>
+<a href="#tests"><img src="docs/assets/badge-checks.svg" alt="118 checks"></a>
 <a href="#what-it-refuses-to-do"><img src="docs/assets/badge-network.svg" alt="no network"></a>
 <a href="#what-it-is"><img src="docs/assets/badge-runtime.svg" alt="0 runtime dependencies"></a>
 <a href="kitbox.html"><img src="docs/assets/badge-file.svg" alt="one HTML file"></a>
@@ -43,7 +43,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 |  |  |  |
 |:--|:--|:--|
-| 🧰 **338 tools** | 🗂️ **23 categories** | 📄 **1 HTML file** |
+| 🧰 **339 tools** | 🗂️ **23 categories** | 📄 **1 HTML file** |
 | 📦 **0 dependencies** | 🔌 **0 network calls** | 👤 **0 accounts** |
 
 Save the file. Open it from a USB stick on a machine with the router switched off. It works — that is the entire design brief, and everything below follows from it.
@@ -151,7 +151,7 @@ npm ci
 npm test
 ```
 
-27 checks, run against the real file in jsdom:
+118 checks, run against the real file in jsdom:
 
 - every tool renders — 338 of them
 - tool ids and names are unique

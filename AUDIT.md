@@ -366,3 +366,33 @@ Measured in Chromium headless against the real file, twice, on this machine. Not
 - The bench renders into a detached container, so it measures DOM construction but not layout or paint. A tool that is cheap to build and expensive to lay out would not show up.
 - The numbers above are one machine, headless Chromium. They are useful for comparing tools against each other, not for predicting a phone.
 - `dist/` is generated and ignored by git; the checksums are for the artefact a release attaches, not for the repository.
+
+## B10 — testing depth (1.7.0)
+
+| Check | Result |
+|---|---|
+| Interaction sweep | 301 tools driven, 0 failures |
+| Fixtures | 15 calculators, all hand-checkable |
+| Round trips | base64, base32, base58 |
+| Real files | ZIP (header, names, contents), PNG detection, CSV parsing |
+| Landing page | 29 links, all resolve |
+| Full suite | 103 + 9 + 6 assertions, 0 failures |
+| Size | 695 KB → 695 KB (tests are not shipped) |
+
+### What the sweep found
+
+Nothing broke — 301 tools took input and none threw. That is worth stating plainly, and worth qualifying: the sweep fills **one** field per tool with a plausible value. It proves no handler references an element its own tool no longer renders, which is the most common way a tool rots. It does not prove every combination of inputs is handled.
+
+### Findings
+
+**1. A test helper destroyed the thing it was testing.** The first version of the deep-test harness cleared its staging area by rewriting `document.body.innerHTML`, which deleted the app's own `#app`, header and palette — every render after the first tool failed. The symptom looked like a tool bug. *Fixed* by creating one staging container and emptying it, which is what the app's own router does.
+
+**2. Two fixtures were wrong about what the tool computes.** `calc/percentage`'s first panel answers "what percent is X of Y" — 25 of 200 is 12.5%, not 50 — and `calc/sigfig` only computes when its button is pressed. Both were corrected, and the fixture format grew an optional `click` so a button-driven tool can be tested rather than skipped. That is the fixture doing its job: it disagreed with my assumption, and the tool was right.
+
+**3. Statement coverage of the app is not measurable yet, and the number here is a proxy.** The app is one script with no module boundaries, so a coverage tool would mostly report the router. Tool-level interaction coverage — 301 of 339 — is the honest proxy, and B12's source split is what makes real coverage possible.
+
+### Known limitations added
+
+- The interaction sweep fills one field per tool. A tool with six fields is tested with one of them.
+- Fixtures cover 15 of the calculators. The rest are covered only by "it renders and survives input".
+- The fuzz, interaction and axe runs are single-pass, not property-based. They are good at catching a class of mistake, not at proving absence.

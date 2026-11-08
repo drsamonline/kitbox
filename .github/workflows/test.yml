@@ -35,6 +35,15 @@ jobs:
       - name: Fuzz every text field with markup payloads
         run: npm run fuzz
 
+      - name: Drive every tool with input
+        run: npm run interact
+
+      - name: Fixtures, round trips and real files
+        run: npm run deep
+
+      - name: Every landing-page link resolves
+        run: npm run links
+
       - name: Tool codes and ids are stable
         run: node tools/gen-codes.js --check
 
