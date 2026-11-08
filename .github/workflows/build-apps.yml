@@ -1,0 +1,52 @@
+# The portable EXE and the Android APK come from drsamonline/app-builder.
+#
+# This file CALLS that kit's reusable workflow rather than copying it: a copy
+# cannot receive a fix, and the kit's own comments record what happened when 28
+# repos carried a hand-copied version that had drifted.
+#
+# app_src is `app/`, which tools/build.py writes as a byte-identical copy of
+# kitbox.html. One source, two paths, and `python3 tools/build.py --check`
+# fails the build if they ever disagree.
+#
+# deploy_path is empty on purpose: GitHub Pages for this repository already
+# deploys the whole branch, and pointing the kit at it as well would give two
+# deployments of the same site racing each other.
+name: Build + deploy
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - "/*.md"
+      - "/LICENSE"
+      - "/.gitignore"
+      - "/ROADMAP.md"
+      - "/PLAN.md"
+      - "/AUDIT.md"
+      - "/CHANGELOG.md"
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build-apps
+  cancel-in-progress: true
+
+jobs:
+  app:
+    uses: drsamonline/app-builder/.github/workflows/build.yml@main
+    with:
+      app_name: kitbox
+      app_src: app
+      deploy_path: ""
+      release_tag: app-latest
+      adaptive_icon: true
+    permissions:
+      contents: write
+      pages: write
+      id-token: write

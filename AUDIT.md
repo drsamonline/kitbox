@@ -481,3 +481,27 @@ Nothing broke — 301 tools took input and none threw. That is worth stating pla
 - Clinical tools implement textbook formulas (CKD-EPI 2021, 15/26 gratuity, 0.8 mg/dL calcium correction). They do not know your patient, your lab's reference range, or your protocol.
 - The Money category is the old tax regime for HRA, and does not model surcharge, cess or state-specific professional tax.
 - Accessibility tools preview and check; they cannot test with an actual screen reader, which remains the only real test.
+
+## B14 — packaging (2.2.0)
+
+| Check | Result |
+|---|---|
+| `app/index.html` == `kitbox.html` | pass (verified by `build.py --check`) |
+| Packaging workflow | calls `app-builder/.github/workflows/build.yml@main` |
+| IndexedDB fallback | pass (jsdom has no IndexedDB, which is the fallback case) |
+| Full suite | 151 checks, 0 failures |
+| Size | 723 KB → 726 KB |
+
+### Findings
+
+**1. A second copy of the app is the price of packaging, so it is checked.** The kit copies a folder into the EXE and the APK, so the app has to exist at `app/index.html` as well as at the root. Rather than trust two files to stay in step, `tools/build.py` writes both from `src/` and `--check` compares both — one command, one failure mode.
+
+**2. Calling the kit rather than copying it is the whole point.** `app-builder`'s own workflow comments record a hand-copied version that kept `if: always()` on its release job and therefore deleted a published release when a build failed. This repository calls the reusable workflow with three inputs and inherits every fix.
+
+**3. IndexedDB cannot be tested in jsdom, so the fallback is what is tested.** The suite asserts that `bigStore` degrades to localStorage when `indexedDB` is absent — which is exactly the jsdom case and exactly the case for a browser in private mode with storage blocked. The IndexedDB path itself is exercised only by using the app in a browser, and that is recorded rather than glossed.
+
+### Known limitations added
+
+- The binaries are built on GitHub's runners, not here; the first `app-latest` release appears after this workflow runs on `main`.
+- Notepad is the only tool on `bigStore`. Flashcards and trivia still use localStorage until someone hits the 5 MB ceiling with them.
+- `app/` duplicates 726 KB in the repository. A symlink would halve it and break the Windows runner, which does not follow them.

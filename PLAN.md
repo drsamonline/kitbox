@@ -24,7 +24,9 @@ The 119 items in [ROADMAP.md](ROADMAP.md), grouped into 15 batches. Quick wins f
 | B11 | 1.7.1 | **shipped** — release per tag with checksums, `/latest/`, verified minified copy | 123 | 697 KB |
 | B12 | 2.0.0 | **shipped** — `src/` + build (byte-identical split), one `register()`, testable library, ESLint, tsc. E-116/E-87 deferred | 146 | 700 KB |
 | B13 | 2.1.0 | **shipped** — Accessibility, Education, Clinical and Money categories (17 tools); i18n dropped | 146 | 723 KB |
-| B14 | 2.2.0 | next — packaging: EXE, APK, IndexedDB | — | — |
+| B14 | 2.2.0 | **shipped** — EXE and APK through app-builder, `app/` folder, IndexedDB for notes | 151 | 726 KB |
+
+**All fifteen batches are shipped or dropped.**
 
 Every shipped batch is green on CI: the suite, the axe sweep, the badge and manifest and plan checks, the landing and docs freshness checks, the security greps and the size budget.
 

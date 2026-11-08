@@ -88,7 +88,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '2.1.0';
+const APP_VERSION = '2.2.0';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -493,6 +493,51 @@ function resolveToolId(catId, toolId){
   const alias = ID_ALIASES[catId + '/' + toolId];
   return alias ? alias.split('/')[1] : toolId;
 }
+
+
+/* ---------- Big storage ----------
+   localStorage is about 5 MB and synchronous. IndexedDB is neither, but it is
+   asynchronous, and rewriting every tool to await its own data would be a much
+   larger change than this batch. So: the collections that grow — notes, decks —
+   go through here, which uses IndexedDB when the browser has it and falls back
+   to localStorage when it does not. Reads at render time still come from the
+   synchronous copy, so nothing flashes empty. */
+const bigStore = (()=>{
+  const DB = 'kitbox', NAME = 'blobs';
+  let dbp = null;
+  function open(){
+    if(dbp) return dbp;
+    dbp = new Promise((resolve, reject)=>{
+      if(!('indexedDB' in window)){ reject(new Error('no indexedDB')); return; }
+      const req = indexedDB.open(DB, 1);
+      req.onupgradeneeded = ()=>{ try{ req.result.createObjectStore(NAME); }catch(e){} };
+      req.onsuccess = ()=>resolve(req.result);
+      req.onerror = ()=>reject(req.error || new Error('indexedDB open failed'));
+    });
+    return dbp;
+  }
+  function tx(mode, fn){
+    return open().then(db=> new Promise((res, rej)=>{
+      const t = db.transaction(NAME, mode);
+      const req = fn(t.objectStore(NAME));
+      req.onsuccess = ()=>res(req.result);
+      req.onerror = ()=>rej(req.error);
+    }));
+  }
+  return {
+    available(){ return 'indexedDB' in window; },
+    get(key, fallback){
+      return tx('readonly', s=>s.get(key)).then(v=> v === undefined ? fallback : v,
+                                                 ()=> store.get(key, fallback));
+    },
+    set(key, value){
+      return tx('readwrite', s=>s.put(value, key)).then(()=>true, ()=> store.set(key, value));
+    },
+    remove(key){
+      return tx('readwrite', s=>s.delete(key)).then(()=>true, ()=> store.remove(key));
+    }
+  };
+})();
 
 /* ---------- One registration path ----------
    Every tool arrives through here. The 22 helper functions (txt, gen, calc …)

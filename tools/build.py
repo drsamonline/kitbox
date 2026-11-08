@@ -37,26 +37,27 @@ def build():
     return template.replace('{{JS}}', js)
 
 
+APP_DIR = os.path.join(ROOT, 'app')
+
+
 def main():
     built = build()
+    # app/index.html is the same bytes, in the folder the packaging kit copies
+    # into the EXE and the APK. Two paths, one source: --check verifies both.
+    os.makedirs(APP_DIR, exist_ok=True)
+    app_copy = os.path.join(APP_DIR, 'index.html')
+
     if '--check' in sys.argv:
-        current = io.open(OUT, encoding='utf-8').read() if os.path.exists(OUT) else ''
-        if current != built:
-            print('FAIL  kitbox.html is out of date — run python3 tools/build.py')
-            # Say where it first differs, so the message is actionable.
-            limit = min(len(current), len(built))
-            for i in range(limit):
-                if current[i] != built[i]:
-                    line = current[:i].count('\n') + 1
-                    print('      first difference at line %d' % line)
-                    print('      committed: %r' % current[max(0, i - 40):i + 60])
-                    print('      built    : %r' % built[max(0, i - 40):i + 60])
-                    break
-            sys.exit(1)
-        print('PASS  kitbox.html matches src/ (%d KB, %d parts)' % (round(len(built) / 1024), len(parts())))
+        for path in (OUT, app_copy):
+            have = io.open(path, encoding='utf-8').read() if os.path.exists(path) else ''
+            if have != built:
+                print('FAIL  %s is out of date — run python3 tools/build.py' % os.path.relpath(path, ROOT))
+                sys.exit(1)
+        print('PASS  kitbox.html and app/index.html match src/ (%d KB, %d parts)' % (round(len(built) / 1024), len(parts())))
         sys.exit(0)
 
     io.open(OUT, 'w', encoding='utf-8').write(built)
+    io.open(app_copy, 'w', encoding='utf-8').write(built)
     # The same JavaScript as a standalone file, so a linter can see the whole
     # script at once instead of 17 files that cannot see each other's names.
     dist = os.path.join(ROOT, 'dist')

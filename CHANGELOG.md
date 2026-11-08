@@ -8,6 +8,26 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.2.0 — 2026-11-08
+
+Batch **B14** of [PLAN.md](PLAN.md): packaging.
+
+### Added
+
+- **A portable EXE and an Android APK**, built by `drsamonline/app-builder`. `.github/workflows/build-apps.yml` *calls* the kit's reusable workflow rather than copying it — a copy cannot receive a fix, and the kit's own notes record what happened when 28 repos carried a drifted copy. Binaries land on the rolling `app-latest` release; the versioned releases stay as they were.
+- **`app/`** — the folder the kit copies into the EXE and the APK: `index.html` (a byte-identical copy of `kitbox.html`, written by `tools/build.py` and verified by `--check`), `manifest.webmanifest` and `icon.svg`.
+- **IndexedDB for the one collection that grows.** Notepad notes now go through `bigStore`, which uses IndexedDB when the browser has it and falls back to localStorage when it does not. The synchronous copy is still read first so the list paints immediately; the async read replaces it a tick later and doubles as the migration.
+
+### Changed
+
+- 151 checks (was 146).
+- `python3 tools/build.py --check` now verifies two files, not one.
+
+### Notes
+
+- Notes moved out of localStorage, so the backup tool's `notepad-notes` key is now a migration source rather than the live copy. `bigStore.remove` keeps them in step.
+- The APK is a WebView wrapper of the same file; the EXE is a Python launcher that serves the folder on 127.0.0.1 and opens a browser. Neither adds a network call.
+
 ## 2.1.0 — 2026-11-08
 
 Batch **B13** of [PLAN.md](PLAN.md): four categories that were missing. Internationalisation was dropped by decision, not deferred.

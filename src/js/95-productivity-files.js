@@ -99,6 +99,10 @@ prod('habittracker','Habit Tracker', root=>{
 });
 
 prod('notepad','Notepad', root=>{
+  // Notes are the one collection that genuinely grows, so they live in
+  // IndexedDB when the browser has it. The synchronous copy is still read
+  // first so the list paints immediately; the async read replaces it a tick
+  // later, and doubles as the migration from the localStorage version.
   let notes = store.get('notepad-notes', []);
   root.innerHTML = `
     <div class="row">
@@ -114,7 +118,13 @@ prod('notepad','Notepad', root=>{
     <div id="npExport"></div>`;
   exportImportRow(root.querySelector('#npExport'), 'notepad-notes', 'kitbox-notes.json', data=>{ notes = data||[]; drawList(); });
   let editingIdx = null;
-  function persist(){ store.set('notepad-notes', notes); }
+  function persist(){
+    bigStore.set('notepad-notes', notes);
+    store.remove('notepad-notes');   // the copy in localStorage is now stale
+  }
+  bigStore.get('notepad-notes', null).then(stored=>{
+    if(Array.isArray(stored) && stored.length){ notes = stored; drawList(); }
+  });
   function drawList(){
     const list = root.querySelector('#npList');
     if(!notes.length){ list.innerHTML = '<div class="hint">No notes yet.</div>'; return; }

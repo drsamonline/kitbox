@@ -1,0 +1,13 @@
+{
+  "name": "Kitbox — offline toolbox",
+  "short_name": "Kitbox",
+  "description": "356 tools across 27 categories in one offline file.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

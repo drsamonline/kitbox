@@ -564,7 +564,23 @@ setTimeout(async () => {
      bench ? bench.results.length + ' tools, warm ' + Math.round(bench.total) + ' ms' : 'no bench');
   benchHtml.window.close();
 
-  /* 18. the app makes no network calls and loads nothing external */
+
+  /* 18. packaging and big storage (B14) */
+  ok('the notepad falls back to localStorage when IndexedDB is absent',
+     ev('bigStore.available()') === false,
+     'jsdom has no IndexedDB, which is exactly the fallback case');
+  ev("store.set('notepad-notes', [{title:'A', body:'hello'}])");
+  const fallbackRead = await ev("bigStore.get('notepad-notes', null)");
+  ok('a read falls back to the synchronous store', Array.isArray(fallbackRead) && fallbackRead[0].title === 'A',
+     JSON.stringify(fallbackRead && fallbackRead[0]));
+
+  ok('app/index.html is the same bytes as kitbox.html',
+     fs.readFileSync(path.join(__dirname, '..', 'app', 'index.html'), 'utf8') === html);
+  ok('the packaged app carries a manifest and an icon',
+     fs.existsSync(path.join(__dirname, '..', 'app', 'manifest.webmanifest')) &&
+     fs.existsSync(path.join(__dirname, '..', 'app', 'icon.svg')));
+
+  /* 19. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

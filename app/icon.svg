@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Kitbox">
+  <rect width="512" height="512" rx="96" fill="#0b0e14"/>
+  <rect x="112" y="176" width="288" height="200" fill="#2f86eb"/>
+  <rect x="112" y="248" width="288" height="26" fill="#0b0e14"/>
+  <rect x="112" y="176" width="288" height="12" fill="#0b0e14"/>
+</svg>
