@@ -52,6 +52,35 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.6.0 — 2026-11-08</h2>
+<p>B20, B21 and B22 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
+<h3>B20 — the ASN.1 parser pays for itself (4)</h3>
+<ul>
+<li><strong>X.509 Certificate Reader</strong> — subject, issuer, serial, validity, signature algorithm, key size and the names it is valid for, from a PEM or DER hex. It says plainly that it does <strong>not</strong> verify the signature: a certificate is a claim, and only the issuer's signature turns it into evidence.</li>
+<li><strong>JSON Schema From a Sample</strong>, <strong>Regex Explainer</strong>, <strong>CSS Clamp Builder</strong>.</li>
+<li>The DER parser moved out of the ASN.1 tool into <code>src/js/05-lib.js</code>, so the certificate reader and the ASN.1 tool share one implementation, and it is now in <code>dist/lib.js</code> where Node can test it.</li>
+</ul>
+<h3>B21 — two science, one almanac (3)</h3>
+<ul>
+<li><strong>Resistor Colour Code</strong>, <strong>Buffer pH</strong> (Henderson–Hasselbalch, with the buffer-capacity warning), <strong>Ekadashi List</strong> — the eleventh tithi of each fortnight, found by walking the year a day at a time and asking which tithi the sunrise carries.</li>
+</ul>
+<h3>B22 — three games (3)</h3>
+<ul>
+<li><strong>2048</strong>, <strong>Minesweeper</strong> (first click always safe), <strong>Snake</strong> (solid walls, no wrapping). Arrow keys, WASD or swipe; scores kept locally under two newly declared store keys.</li>
+</ul>
+<h3>Fixed, found while building</h3>
+<ul>
+<li><strong>A certificate's serial is not the first INTEGER in the file.</strong> It is the first INTEGER that is a <em>direct child</em> of the TBS structure; taking the first anywhere finds the version number inside the <code>[0]</code> wrapper and prints "serial 0x02".</li>
+<li><strong>A Name is SEQUENCE of SET of SEQUENCE</strong>, not a SEQUENCE of OID/value pairs. The first attempt found no subject at all.</li>
+<li><strong>The public key is one level down</strong>, inside <code>subjectPublicKeyInfo</code>, not a direct child of the TBS structure — and its modulus carries a DER sign-padding byte, so a 2048-bit key reported as 2056 until the padding was stripped.</li>
+<li><strong>Ekadashi counted 44 days instead of 22</strong>, because a tithi can last into a second sunrise and the dedupe compared against the previous <em>row</em> rather than measuring the run.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>412 tools across 27 categories (was 402).</li>
+<li>164 checks (was 164 → 132 in the suite, 176 across all files).</li>
+<li><code>test/fixture-cert.pem</code> is a real self-signed certificate, generated with openssl and committed, so the certificate reader is tested against something a browser would accept rather than a hand-made byte string.</li>
+</ul>
 <h2>2.5.0 — 2026-11-08</h2>
 <p>B18 and B19 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
 <h3>B18 — derivation, ASN.1, three physics calculators (6)</h3>

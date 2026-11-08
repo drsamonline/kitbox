@@ -604,3 +604,31 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - ASN.1 handles DER, not BER or indefinite lengths, and does not verify signatures.
 - Moonrise is good to a few minutes; it does not account for parallax or refraction the way an almanac does.
 - Choghadiya uses the standard weekday table and local sunrise; regional variants exist.
+
+## B20–B22 (2.6.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 412 / 27 (was 402 / 27) |
+| Full suite | 176 checks, 0 failures |
+| Interaction sweep | 363 tools driven, 0 failures |
+| Fuzz | 228 fields across 412 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 832 KB → 872 KB |
+
+### Findings
+
+**1. A real certificate found four bugs a hand-made one would not have.** The serial was read from the version integer; the Name structure was parsed with the wrong shape; the public key was looked for in the wrong place; and the modulus's DER sign-padding byte made a 2048-bit key report as 2056. Every one of these passed a "does it render" test and failed against `openssl req -x509`. The fixture is now committed, so the next change is checked against a certificate a browser would accept.
+
+**2. The DER parser had to move to be useful twice.** It was a closure inside the ASN.1 tool; the certificate reader needed the same code. Moving it into `05-lib.js` means one implementation, one set of Node tests, and a whitelist entry in `tools/build-lib.js` — the pattern B12 established, used for the first time because a second caller appeared rather than because a rule said so.
+
+**3. Ekadashi was wrong in a way that looked plausible.** 44 entries in a year instead of 22: a tithi can survive into a second sunrise, and comparing each day against the previous *row* rather than measuring the run double-counted every one. The number was never absurd enough to look broken.
+
+**4. The games needed store keys, and the check caught it.** `g2048-best` and `snake-best` were written before they were declared in `STORE_KEYS`, and the gate that asserts every key the app writes is declared failed immediately.
+
+### Known limitations added
+
+- X.509 reads; it does not verify, and it does not check revocation.
+- Ekadashi uses the sunrise tithi at one location; a smarta/vaishnava difference and a location difference can move a date by a day.
+- Minesweeper's first click is safe by construction (mines are placed after it), which is a mercy, not a standard rule.

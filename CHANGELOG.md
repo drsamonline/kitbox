@@ -8,6 +8,37 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.6.0 — 2026-11-08
+
+B20, B21 and B22 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).
+
+### B20 — the ASN.1 parser pays for itself (4)
+
+- **X.509 Certificate Reader** — subject, issuer, serial, validity, signature algorithm, key size and the names it is valid for, from a PEM or DER hex. It says plainly that it does **not** verify the signature: a certificate is a claim, and only the issuer's signature turns it into evidence.
+- **JSON Schema From a Sample**, **Regex Explainer**, **CSS Clamp Builder**.
+- The DER parser moved out of the ASN.1 tool into `src/js/05-lib.js`, so the certificate reader and the ASN.1 tool share one implementation, and it is now in `dist/lib.js` where Node can test it.
+
+### B21 — two science, one almanac (3)
+
+- **Resistor Colour Code**, **Buffer pH** (Henderson–Hasselbalch, with the buffer-capacity warning), **Ekadashi List** — the eleventh tithi of each fortnight, found by walking the year a day at a time and asking which tithi the sunrise carries.
+
+### B22 — three games (3)
+
+- **2048**, **Minesweeper** (first click always safe), **Snake** (solid walls, no wrapping). Arrow keys, WASD or swipe; scores kept locally under two newly declared store keys.
+
+### Fixed, found while building
+
+- **A certificate's serial is not the first INTEGER in the file.** It is the first INTEGER that is a *direct child* of the TBS structure; taking the first anywhere finds the version number inside the `[0]` wrapper and prints "serial 0x02".
+- **A Name is SEQUENCE of SET of SEQUENCE**, not a SEQUENCE of OID/value pairs. The first attempt found no subject at all.
+- **The public key is one level down**, inside `subjectPublicKeyInfo`, not a direct child of the TBS structure — and its modulus carries a DER sign-padding byte, so a 2048-bit key reported as 2056 until the padding was stripped.
+- **Ekadashi counted 44 days instead of 22**, because a tithi can last into a second sunrise and the dedupe compared against the previous *row* rather than measuring the run.
+
+### Changed
+
+- 412 tools across 27 categories (was 402).
+- 164 checks (was 164 → 132 in the suite, 176 across all files).
+- `test/fixture-cert.pem` is a real self-signed certificate, generated with openssl and committed, so the certificate reader is tested against something a browser would accept rather than a hand-made byte string.
+
 ## 2.5.0 — 2026-11-08
 
 B18 and B19 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).

@@ -110,3 +110,60 @@ const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
   }
 
 /* MD5 is here for legacy checksums, not for security. */
+
+/* ---------- ASN.1 / DER ----------
+   Every byte of a certificate or a key file is one of these structures, so the
+   parser is shared by the ASN.1 tool and the certificate reader rather than
+   written twice. It returns rows so a tool can render them; a caller that needs
+   the tree can walk `kids`. */
+const ASN1_TYPES = { 0x01:'BOOLEAN', 0x02:'INTEGER', 0x03:'BIT STRING', 0x04:'OCTET STRING',
+  0x05:'NULL', 0x06:'OID', 0x0c:'UTF8String', 0x13:'PrintableString', 0x16:'IA5String',
+  0x17:'UTCTime', 0x18:'GeneralizedTime', 0x30:'SEQUENCE', 0x31:'SET', 0xa0:'[0]', 0xa1:'[1]', 0xa3:'[3]' };
+
+function asn1Oid(bytes){
+  const parts = [Math.floor(bytes[0] / 40), bytes[0] % 40];
+  let v = 0;
+  for(let i=1;i<bytes.length;i++){
+    v = (v << 7) | (bytes[i] & 0x7f);
+    if(!(bytes[i] & 0x80)){ parts.push(v); v = 0; }
+  }
+  return parts.join('.');
+}
+
+function parseASN1(bytes, offset, end, depth){
+  const nodes = [];
+  while(offset < end){
+    const tag = bytes[offset++];
+    let len = bytes[offset++];
+    if(len & 0x80){
+      const n = len & 0x7f;
+      len = 0;
+      for(let i=0;i<n;i++) len = (len << 8) | bytes[offset++];
+    }
+    const start = offset, stop = offset + len;
+    if(stop > end) throw new Error('a length runs past the end of its parent at offset ' + start);
+    const raw = bytes.slice(start, stop);
+    const node = { tag, type: ASN1_TYPES[tag] || ('tag 0x' + tag.toString(16)), raw, depth, kids: [] };
+    if(tag === 0x06) node.text = asn1Oid(raw);
+    else if(tag === 0x01) node.text = raw[0] ? 'true' : 'false';
+    else if(tag === 0x05) node.text = 'null';
+    else if(tag === 0x17 || tag === 0x18 || tag === 0x0c || tag === 0x13 || tag === 0x16) node.text = textFromBytes(raw);
+    else if(tag === 0x02) node.text = '0x' + Array.from(raw).map(b=>b.toString(16).padStart(2,'0')).join('');
+    else if(tag === 0x03) node.text = (raw[0] === 0 ? '0 unused bits, ' : raw[0] + ' unused bits, ') + (raw.length - 1) + ' bytes';
+    else if(tag === 0x04) node.text = raw.length + ' bytes';
+    if((tag & 0x20) || tag === 0x30 || tag === 0x31 || (tag >= 0xa0 && tag <= 0xbf)){
+      if(depth < 20) node.kids = parseASN1(bytes, start, stop, depth + 1);
+    }
+    nodes.push(node);
+    offset = stop;
+  }
+  return nodes;
+}
+
+function asn1Rows(nodes, rows){
+  for(const n of nodes){
+    rows.push([n.type, n.raw.length, n.text === undefined ? '' : n.text, n.depth]);
+    if(n.kids.length) asn1Rows(n.kids, rows);
+  }
+  return rows;
+}

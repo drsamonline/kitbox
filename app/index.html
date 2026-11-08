@@ -390,7 +390,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '2.5.0';
+const APP_VERSION = '2.6.0';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -403,6 +403,8 @@ const STORE_KEYS = {
   'ruler-scale':           { label: 'Ruler calibration', tool: 'general/ruler' },
   'currency-rates':        { label: 'Currency rates', tool: 'finance/currency' },
   'notepad-notes':         { label: 'Notepad', tool: 'productivity/notepad' },
+  'g2048-best':            { label: '2048 best score', tool: 'games/game2048' },
+  'snake-best':            { label: 'Snake best score', tool: 'games/snake' },
   'sketchpad-palette':     { label: 'Sketch Pad palette', tool: 'productivity/sketchpad' },
   'flashcard-decks':       { label: 'Flashcard decks', tool: 'productivity/flashcards' },
   'trivia-decks':          { label: 'Trivia quizzes', tool: 'games/triviacreator' },
@@ -680,7 +682,7 @@ const TOOL_REQUIRES = {
 };
 
 /* CODES:START */
-const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/captions":"ACC-07", "accessibility/cbpalette":"ACC-08", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/motionpreview":"ACC-09", "accessibility/readingruler":"ACC-01", "accessibility/srpreview":"ACC-06", "accessibility/textspacing":"ACC-03", "almanac/choghadiya":"ALM-06", "almanac/horas":"ALM-04", "almanac/moonrise":"ALM-07", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/asn1":"DEV-52", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hkdf":"DEV-51", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/jsondiff":"DEV-23", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/pbkdf2":"DEV-50", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/regextester":"DEV-15", "dev/rsakeys":"DEV-44", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/exif":"FIL-08", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "files/zipextract":"FIL-13", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/numberguess":"GAM-02", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "science/density":"SCI-07", "science/doppler":"SCI-15", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/lens":"SCI-14", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/rc":"SCI-13", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affix":"TXT-11", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charfreq":"TXT-30", "text/entropy":"TXT-43", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/numberlines":"TXT-12", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
+const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/captions":"ACC-07", "accessibility/cbpalette":"ACC-08", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/motionpreview":"ACC-09", "accessibility/readingruler":"ACC-01", "accessibility/srpreview":"ACC-06", "accessibility/textspacing":"ACC-03", "almanac/choghadiya":"ALM-06", "almanac/ekadashi":"ALM-08", "almanac/horas":"ALM-04", "almanac/moonrise":"ALM-07", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/asn1":"DEV-52", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssclamp":"DEV-56", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hkdf":"DEV-51", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/jsondiff":"DEV-23", "dev/jsonschema":"DEV-54", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/pbkdf2":"DEV-50", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/regexexplain":"DEV-55", "dev/regextester":"DEV-15", "dev/rsakeys":"DEV-44", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "dev/x509":"DEV-53", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/exif":"FIL-08", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "files/zipextract":"FIL-13", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/game2048":"GAM-11", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/minesweeper":"GAM-12", "games/numberguess":"GAM-02", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/snake":"GAM-13", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "science/bufferph":"SCI-17", "science/density":"SCI-07", "science/doppler":"SCI-15", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/lens":"SCI-14", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/rc":"SCI-13", "science/resistor":"SCI-16", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affix":"TXT-11", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charfreq":"TXT-30", "text/entropy":"TXT-43", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/numberlines":"TXT-12", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
 /* CODES:END */
 
 /* ---------- Search metadata ----------
@@ -965,6 +967,63 @@ const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
   }
 
 /* MD5 is here for legacy checksums, not for security. */
+
+/* ---------- ASN.1 / DER ----------
+   Every byte of a certificate or a key file is one of these structures, so the
+   parser is shared by the ASN.1 tool and the certificate reader rather than
+   written twice. It returns rows so a tool can render them; a caller that needs
+   the tree can walk `kids`. */
+const ASN1_TYPES = { 0x01:'BOOLEAN', 0x02:'INTEGER', 0x03:'BIT STRING', 0x04:'OCTET STRING',
+  0x05:'NULL', 0x06:'OID', 0x0c:'UTF8String', 0x13:'PrintableString', 0x16:'IA5String',
+  0x17:'UTCTime', 0x18:'GeneralizedTime', 0x30:'SEQUENCE', 0x31:'SET', 0xa0:'[0]', 0xa1:'[1]', 0xa3:'[3]' };
+
+function asn1Oid(bytes){
+  const parts = [Math.floor(bytes[0] / 40), bytes[0] % 40];
+  let v = 0;
+  for(let i=1;i<bytes.length;i++){
+    v = (v << 7) | (bytes[i] & 0x7f);
+    if(!(bytes[i] & 0x80)){ parts.push(v); v = 0; }
+  }
+  return parts.join('.');
+}
+
+function parseASN1(bytes, offset, end, depth){
+  const nodes = [];
+  while(offset < end){
+    const tag = bytes[offset++];
+    let len = bytes[offset++];
+    if(len & 0x80){
+      const n = len & 0x7f;
+      len = 0;
+      for(let i=0;i<n;i++) len = (len << 8) | bytes[offset++];
+    }
+    const start = offset, stop = offset + len;
+    if(stop > end) throw new Error('a length runs past the end of its parent at offset ' + start);
+    const raw = bytes.slice(start, stop);
+    const node = { tag, type: ASN1_TYPES[tag] || ('tag 0x' + tag.toString(16)), raw, depth, kids: [] };
+    if(tag === 0x06) node.text = asn1Oid(raw);
+    else if(tag === 0x01) node.text = raw[0] ? 'true' : 'false';
+    else if(tag === 0x05) node.text = 'null';
+    else if(tag === 0x17 || tag === 0x18 || tag === 0x0c || tag === 0x13 || tag === 0x16) node.text = textFromBytes(raw);
+    else if(tag === 0x02) node.text = '0x' + Array.from(raw).map(b=>b.toString(16).padStart(2,'0')).join('');
+    else if(tag === 0x03) node.text = (raw[0] === 0 ? '0 unused bits, ' : raw[0] + ' unused bits, ') + (raw.length - 1) + ' bytes';
+    else if(tag === 0x04) node.text = raw.length + ' bytes';
+    if((tag & 0x20) || tag === 0x30 || tag === 0x31 || (tag >= 0xa0 && tag <= 0xbf)){
+      if(depth < 20) node.kids = parseASN1(bytes, start, stop, depth + 1);
+    }
+    nodes.push(node);
+    offset = stop;
+  }
+  return nodes;
+}
+
+function asn1Rows(nodes, rows){
+  for(const n of nodes){
+    rows.push([n.type, n.raw.length, n.text === undefined ? '' : n.text, n.depth]);
+    if(n.kids.length) asn1Rows(n.kids, rows);
+  }
+  return rows;
+}
 /* ================================================================
    GENERAL TOOLS
    ================================================================ */
@@ -5744,6 +5803,717 @@ sci('periodictable','Periodic Table', root=>{
 });
 
 /* ================================================================
+   B22 — three games.
+
+   They belong here for the same reason as everything else: they are small,
+   they are offline, and they are the reason somebody opens the app on a day
+   when they do not need a calculator. Each one keeps its score locally and
+   none of them needs the network.
+   ================================================================ */
+
+game('game2048','2048', root=>{
+  root.innerHTML = `
+    <div class="row" style="align-items:center">
+      <div class="output" id="g4Score" style="margin:0;flex:1">Score 0 · best 0</div>
+      <button class="btn" id="g4New">New game</button>
+    </div>
+    <div id="g4Board" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:var(--line);padding:8px;border-radius:8px;margin-top:12px;touch-action:none"></div>
+    <div class="hint">Arrow keys or WASD, or swipe on a touch screen. Tiles of equal value merge once per move; the game is over when no move changes the board.</div>`;
+  const N = 4;
+  let grid, score = 0, best = store.get('g2048-best', 0), over = false;
+  const COLORS = { 2:'#eee4da', 4:'#ede0c8', 8:'#f2b179', 16:'#f59563', 32:'#f67c5f', 64:'#f65e3b',
+    128:'#edcf72', 256:'#edcc61', 512:'#edc850', 1024:'#edc53f', 2048:'#edc22e' };
+  function reset(){
+    grid = Array.from({length:N}, ()=>new Array(N).fill(0));
+    score = 0; over = false;
+    add(); add(); draw();
+  }
+  function add(){
+    const empty = [];
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++) if(!grid[r][c]) empty.push([r,c]);
+    if(!empty.length) return;
+    const [r, c] = empty[Math.floor(Math.random() * empty.length)];
+    grid[r][c] = Math.random() < 0.9 ? 2 : 4;
+  }
+  function draw(){
+    const board = root.querySelector('#g4Board');
+    board.innerHTML = grid.flat().map(v=>{
+      const bg = v ? (COLORS[v] || '#3c3a32') : 'rgba(0,0,0,0.06)';
+      const fg = v > 4 ? '#f9f6f2' : '#776e65';
+      return `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:6px;background:${bg};color:${fg};font-weight:700;font-size:${v > 999 ? 20 : v > 99 ? 24 : 28}px">${v || ''}</div>`;
+    }).join('');
+    root.querySelector('#g4Score').textContent = 'Score ' + score + ' · best ' + best + (over ? ' · no moves left' : '');
+  }
+  function move(dir){
+    if(over) return;
+    const before = JSON.stringify(grid);
+    const rot = dir === 'up' ? 3 : dir === 'down' ? 1 : dir === 'left' ? 0 : 2;
+    const turn = g => { let m = g; for(let i=0;i<rot;i++) m = m[0].map((_, c)=>m.map(row=>row[c]).reverse()); return m; };
+    const unturn = g => { let m = g; for(let i=0;i<(4-rot)%4;i++) m = m[0].map((_, c)=>m.map(row=>row[c]).reverse()); return m; };
+    let g = turn(grid);
+    g = g.map(row=>{
+      const vals = row.filter(Boolean);
+      const out = [];
+      for(let i=0;i<vals.length;i++){
+        if(vals[i] === vals[i+1]){ out.push(vals[i] * 2); score += vals[i] * 2; i++; }
+        else out.push(vals[i]);
+      }
+      while(out.length < N) out.push(0);
+      return out;
+    });
+    grid = unturn(g);
+    if(JSON.stringify(grid) !== before){ add(); }
+    if(score > best){ best = score; store.set('g2048-best', best); }
+    over = !canMove();
+    draw();
+  }
+  function canMove(){
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+      if(!grid[r][c]) return true;
+      if(c < N-1 && grid[r][c] === grid[r][c+1]) return true;
+      if(r < N-1 && grid[r][c] === grid[r+1][c]) return true;
+    }
+    return false;
+  }
+  const onKey = e => {
+    const k = e.key.toLowerCase();
+    const dir = (k === 'arrowup' || k === 'w') ? 'up' : (k === 'arrowdown' || k === 's') ? 'down'
+      : (k === 'arrowleft' || k === 'a') ? 'left' : (k === 'arrowright' || k === 'd') ? 'right' : null;
+    if(dir){ e.preventDefault(); move(dir); }
+  };
+  root.addEventListener('keydown', onKey);
+  root.tabIndex = 0;
+  let touch = null;
+  const board = root.querySelector('#g4Board');
+  board.addEventListener('pointerdown', e=>{ touch = [e.clientX, e.clientY]; });
+  board.addEventListener('pointerup', e=>{
+    if(!touch) return;
+    const dx = e.clientX - touch[0], dy = e.clientY - touch[1];
+    if(Math.abs(dx) > 24 || Math.abs(dy) > 24) move(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
+    touch = null;
+  });
+  root.querySelector('#g4New').addEventListener('click', reset);
+  reset();
+});
+
+game('minesweeper','Minesweeper', root=>{
+  root.innerHTML = `
+    <div class="row" style="align-items:center">
+      <div class="field" style="margin:0"><label>Size</label><select id="msSize"><option value="9">9 × 9</option><option value="12">12 × 12</option><option value="16">16 × 16</option></select></div>
+      <div class="field" style="margin:0"><label>Mines</label><input type="number" id="msMines" value="10" min="1" max="80" style="width:80px"></div>
+      <button class="btn" id="msNew">New game</button>
+    </div>
+    <div class="output" id="msState" style="margin:12px 0 0">Left click to open, right click to flag.</div>
+    <div id="msBoard" style="display:grid;gap:2px;margin-top:10px;user-select:none"></div>
+    <div class="hint">The first click is always safe — the mines are placed after it, so the opening move never ends the game. That is the only mercy this game has.</div>`;
+  let size = 9, mineCount = 10, cells = [], started = false, dead = false, won = false, flags = 0;
+  function reset(){
+    size = Number(root.querySelector('#msSize').value);
+    mineCount = Math.min(size*size - 9, Math.max(1, Number(root.querySelector('#msMines').value) || 10));
+    cells = Array.from({length:size*size}, ()=>({ mine:false, open:false, flag:false, near:0 }));
+    started = dead = won = false; flags = 0;
+    draw();
+  }
+  function place(safeIndex){
+    const forbidden = new Set([safeIndex]);
+    const r = Math.floor(safeIndex / size), c = safeIndex % size;
+    for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+      const nr = r+dr, nc = c+dc;
+      if(nr>=0 && nr<size && nc>=0 && nc<size) forbidden.add(nr*size+nc);
+    }
+    let placed = 0, guard = 0;
+    while(placed < mineCount && guard++ < 10000){
+      const i = Math.floor(Math.random() * size * size);
+      if(forbidden.has(i) || cells[i].mine) continue;
+      cells[i].mine = true; placed++;
+    }
+    for(let i=0;i<size*size;i++){
+      if(cells[i].mine) continue;
+      const r2 = Math.floor(i / size), c2 = i % size;
+      let n = 0;
+      for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+        const nr = r2+dr, nc = c2+dc;
+        if(nr>=0 && nr<size && nc>=0 && nc<size && cells[nr*size+nc].mine) n++;
+      }
+      cells[i].near = n;
+    }
+    started = true;
+  }
+  function open(i){
+    const cell = cells[i];
+    if(cell.open || cell.flag || dead || won) return;
+    if(!started) place(i);
+    if(cell.mine){ cell.open = true; dead = true; draw(); return; }
+    const stack = [i];
+    while(stack.length){
+      const j = stack.pop();
+      const cj = cells[j];
+      if(cj.open || cj.flag) continue;
+      cj.open = true;
+      if(cj.near === 0){
+        const r = Math.floor(j / size), c = j % size;
+        for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+          const nr = r+dr, nc = c+dc;
+          if(nr>=0 && nr<size && nc>=0 && nc<size){
+            const k = nr*size+nc;
+            if(!cells[k].open && !cells[k].mine) stack.push(k);
+          }
+        }
+      }
+    }
+    won = cells.every(c=>c.open || c.mine);
+    draw();
+  }
+  function draw(){
+    const board = root.querySelector('#msBoard');
+    board.style.gridTemplateColumns = 'repeat(' + size + ', minmax(0, 1fr))';
+    board.innerHTML = cells.map((c, i)=>{
+      let label = '', bg = 'var(--panel)', color = 'var(--text)';
+      if(c.open && c.mine){ label = '✳'; bg = '#c0392b'; }
+      else if(c.open){ label = c.near ? String(c.near) : ''; bg = 'rgba(0,0,0,0.06)'; color = ['','#1976d2','#388e3c','#d32f2f','#7b1fa2','#b8860b','#0097a7','#424242','#000'][c.near] || 'var(--text)'; }
+      else if(c.flag){ label = '⚑'; bg = '#f2c94c'; }
+      return `<button data-ms="${i}" style="aspect-ratio:1;border:1px solid var(--line);border-radius:3px;background:${bg};color:${color};font-weight:700;font-size:${Math.max(10, 26 - size)}px;cursor:pointer">${label}</button>`;
+    }).join('');
+    board.querySelectorAll('[data-ms]').forEach(b=>{
+      const i = Number(b.dataset.ms);
+      b.addEventListener('click', ()=>open(i));
+      b.addEventListener('contextmenu', e=>{
+        e.preventDefault();
+        const c = cells[i];
+        if(c.open || dead || won) return;
+        c.flag = !c.flag;
+        flags += c.flag ? 1 : -1;
+        draw();
+      });
+    });
+    root.querySelector('#msState').textContent = dead ? 'Mine — press New game.'
+      : won ? 'Cleared. ' + mineCount + ' mines flagged or avoided.'
+      : 'Mines ' + mineCount + ' · flags ' + flags + ' · ' + (started ? 'in play' : 'first click is safe');
+  }
+  root.querySelector('#msNew').addEventListener('click', reset);
+  root.querySelector('#msSize').addEventListener('change', reset);
+  root.querySelector('#msMines').addEventListener('change', reset);
+  reset();
+});
+
+game('snake','Snake', root=>{
+  root.innerHTML = `
+    <div class="row" style="align-items:center">
+      <div class="output" id="snState" style="margin:0;flex:1">Score 0 · best 0</div>
+      <button class="btn primary" id="snGo">Start</button>
+    </div>
+    <canvas id="snCanvas" width="420" height="420" style="width:100%;max-width:420px;background:#0b0e14;border:1px solid var(--line);border-radius:8px;margin-top:12px;display:block;touch-action:none"></canvas>
+    <div class="hint">Arrow keys or WASD, or swipe. The wall is solid — there is no wrapping, which is the harder and better game.</div>`;
+  const canvas = root.querySelector('#snCanvas'), ctx = canvas.getContext('2d');
+  const CELL = 21, COLS = 20;
+  let snake, dir, food, timer = null, score = 0, best = store.get('snake-best', 0), running = false;
+  function reset(){
+    snake = [{x:9, y:10}, {x:8, y:10}, {x:7, y:10}];
+    dir = {x:1, y:0};
+    score = 0;
+    dropFood();
+    draw();
+    root.querySelector('#snState').textContent = 'Score 0 · best ' + best;
+  }
+  function dropFood(){
+    do{ food = { x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*COLS) }; }
+    while(snake.some(s=>s.x === food.x && s.y === food.y));
+  }
+  function draw(){
+    ctx.fillStyle = '#0b0e14';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#e31c7d';
+    ctx.fillRect(food.x*CELL + 2, food.y*CELL + 2, CELL - 4, CELL - 4);
+    snake.forEach((s, i)=>{
+      ctx.fillStyle = i === 0 ? '#2f86eb' : '#1b5fae';
+      ctx.fillRect(s.x*CELL + 1, s.y*CELL + 1, CELL - 2, CELL - 2);
+    });
+  }
+  function step(){
+    const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+    if(head.x < 0 || head.y < 0 || head.x >= COLS || head.y >= COLS || snake.some(s=>s.x === head.x && s.y === head.y)){
+      running = false;
+      clearInterval(timer); timer = null;
+      root.querySelector('#snGo').textContent = 'Start';
+      root.querySelector('#snState').textContent = 'Dead at ' + score + ' · best ' + best;
+      return;
+    }
+    snake.unshift(head);
+    if(head.x === food.x && head.y === food.y){
+      score++;
+      if(score > best){ best = score; store.set('snake-best', best); }
+      dropFood();
+    } else snake.pop();
+    root.querySelector('#snState').textContent = 'Score ' + score + ' · best ' + best;
+    draw();
+  }
+  function toggle(){
+    if(running){ running = false; clearInterval(timer); timer = null; root.querySelector('#snGo').textContent = 'Resume'; return; }
+    if(!snake) reset();
+    running = true;
+    root.querySelector('#snGo').textContent = 'Pause';
+    timer = setInterval(step, 110);
+  }
+  setCleanup(()=>{ if(timer) clearInterval(timer); });
+  const onKey = e => {
+    const k = e.key.toLowerCase();
+    const map = { arrowup:{x:0,y:-1}, w:{x:0,y:-1}, arrowdown:{x:0,y:1}, s:{x:0,y:1},
+                  arrowleft:{x:-1,y:0}, a:{x:-1,y:0}, arrowright:{x:1,y:0}, d:{x:1,y:0} };
+    const nd = map[k];
+    if(!nd) return;
+    e.preventDefault();
+    if(nd.x === -dir.x && nd.y === -dir.y) return;   // no reversing into yourself
+    dir = nd;
+  };
+  root.addEventListener('keydown', onKey);
+  root.tabIndex = 0;
+  let touch = null;
+  canvas.addEventListener('pointerdown', e=>{ touch = [e.clientX, e.clientY]; });
+  canvas.addEventListener('pointerup', e=>{
+    if(!touch) return;
+    const dx = e.clientX - touch[0], dy = e.clientY - touch[1];
+    if(Math.abs(dx) > 20 || Math.abs(dy) > 20){
+      const nd = Math.abs(dx) > Math.abs(dy) ? {x: dx > 0 ? 1 : -1, y:0} : {x:0, y: dy > 0 ? 1 : -1};
+      if(!(nd.x === -dir.x && nd.y === -dir.y)) dir = nd;
+    }
+    touch = null;
+  });
+  root.querySelector('#snGo').addEventListener('click', toggle);
+  reset();
+});
+/* ================================================================
+   B20 — the ASN.1 parser pays for itself: a certificate reader, plus three
+   tools that turn a sample into something usable.
+
+   B21 — resistor bands, buffer pH, ekadashi.
+   B22 — three games, because a toolbox with no games is a toolbox nobody
+   opens on a Sunday.
+   ================================================================ */
+
+/* ---------------- Development (4) ---------------- */
+
+dev('x509','X.509 Certificate Reader', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Certificate (PEM or DER hex)</label><textarea id="xcIn" style="min-height:120px" placeholder="-----BEGIN CERTIFICATE-----&#10;…&#10;-----END CERTIFICATE-----"></textarea></div>
+    <div class="output" id="xcOut">Paste a certificate above.</div>
+    <div class="hint">Reads the certificate and shows what it says — subject, issuer, validity, key, and the names it is valid for. It does <b>not</b> verify the signature or check whether the certificate is trusted; that needs the issuer's key and a trust store, and a browser does it better than this page can.</div>`;
+  function pemToBytes(text){
+    const m = text.match(/-----BEGIN CERTIFICATE-----([\s\S]*?)-----END CERTIFICATE-----/);
+    const body = m ? m[1] : null;
+    if(body){
+      const b64 = body.replace(/\s+/g, '');
+      return Uint8Array.from(atob(b64), c=>c.charCodeAt(0));
+    }
+    const hex = text.replace(/[^0-9a-fA-F]/g, '');
+    if(hex.length > 40 && hex.length % 2 === 0) return Uint8Array.from(hex.match(/.{2}/g).map(h=>parseInt(h, 16)));
+    return null;
+  }
+  const OID_NAMES = {
+    '2.5.4.3':'CN', '2.5.4.6':'C', '2.5.4.7':'L', '2.5.4.8':'ST', '2.5.4.10':'O', '2.5.4.11':'OU',
+    '2.5.4.5':'serialNumber', '1.2.840.113549.1.9.1':'emailAddress'
+  };
+  function walk(node, out){
+    for(const k of node.kids){ out.push(k); walk(k, out); }
+    return out;
+  }
+  function draw(){
+    const out = root.querySelector('#xcOut');
+    const bytes = pemToBytes(root.querySelector('#xcIn').value);
+    if(!bytes){ out.textContent = 'That is neither a PEM block nor DER hex.'; return; }
+    try{
+      const tree = parseASN1(bytes, 0, bytes.length, 0);
+      const cert = tree[0];
+      if(!cert || cert.tag !== 0x30) throw new Error('the outer structure is not a SEQUENCE');
+      const tbs = cert.kids[0];
+      const flat = walk(cert, []);
+      // version [0] is optional; serial is the first INTEGER after it
+      // The serial is the first INTEGER that is a direct child of the TBS
+      // structure. Taking the first INTEGER anywhere finds the version number
+      // inside the [0] wrapper instead, which is what a certificate prints as
+      // "serial 0x02" if you are not careful.
+      const tbsKids = tbs ? tbs.kids : [];
+      const serial = tbsKids.find(n=>n.tag === 0x02);
+      const sigAlg = cert.kids[1] && cert.kids[1].kids[0];
+      // the validity is the SEQUENCE with two time values
+      const times = flat.filter(n=>n.tag === 0x17 || n.tag === 0x18);
+      const parseTime = n => {
+        const t = n.text;
+        if(n.tag === 0x17){
+          const yy = Number(t.slice(0, 2));
+          const year = yy < 50 ? 2000 + yy : 1900 + yy;
+          return new Date(Date.UTC(year, Number(t.slice(2,4))-1, Number(t.slice(4,6)),
+            Number(t.slice(6,8) || 0), Number(t.slice(8,10) || 0), Number(t.slice(10,12) || 0)));
+        }
+        return new Date(Date.UTC(Number(t.slice(0,4)), Number(t.slice(4,6))-1, Number(t.slice(6,8)),
+          Number(t.slice(8,10) || 0), Number(t.slice(10,12) || 0), Number(t.slice(12,14) || 0)));
+      };
+      // name: SEQUENCE of SET of SEQUENCE{ OID, value }
+      function readName(node){
+        const parts = [];
+        const collect = n => {
+          for(const k of n.kids || []){
+            if(k.tag === 0x30 && k.kids.length === 2 && k.kids[0].tag === 0x06){
+              parts.push((OID_NAMES[k.kids[0].text] || k.kids[0].text) + '=' + k.kids[1].text);
+            } else collect(k);
+          }
+        };
+        if(node) collect(node);
+        return parts;
+      }
+      const names = flat.filter(n=>n.tag === 0x30 && n.kids.length && n.kids.every(k=>k.tag === 0x31));
+      const subjectParts = readName(names[0]);
+      const issuerParts = readName(names[1]);
+      // The public key is the BIT STRING that is a direct child of the TBS
+      // structure. The first BIT STRING anywhere in the file is the signature
+      // value at the end of the certificate.
+      // subjectPublicKeyInfo is the SEQUENCE of { algorithm, BIT STRING }, so
+      // the key is one level down — not a direct child of the TBS structure.
+      const spkiNode = tbsKids.find(n=>n.tag === 0x30 && n.kids.length === 2 && n.kids[1] && n.kids[1].tag === 0x03);
+      const keyBits = spkiNode ? spkiNode.kids[1] : null;
+      let keyInfo = '';
+      if(spkiNode){
+        // The algorithm OID sits in the SEQUENCE's first child; the BIT STRING's
+        // payload is the RSAPublicKey itself — SEQUENCE { modulus, exponent } —
+        // so the modulus length is the key size.
+        const algOid = spkiNode.kids[0] && spkiNode.kids[0].kids[0] && spkiNode.kids[0].kids[0].text;
+        const name = algOid === '1.2.840.113549.1.1.1' ? 'RSA'
+          : algOid === '1.2.840.10045.2.1' ? 'ECDSA'
+          : algOid === '1.2.840.10040.4.1' ? 'DSA' : (algOid || 'unknown algorithm');
+        let bits = 0;
+        try{
+          const inner = parseASN1(keyBits.raw.slice(1), 0, keyBits.raw.length - 1, 0);
+          const first = inner[0] && inner[0].kids[0];
+          // DER pads a positive INTEGER with a leading zero byte, which would
+          // report a 2048-bit key as 2056.
+          if(first){
+            const raw = first.raw.length && first.raw[0] === 0 ? first.raw.slice(1) : first.raw;
+            bits = raw.length * 8;
+          }
+        }catch(e){}
+        keyInfo = name + (bits ? ' · ' + bits + ' bits' : '');
+      }
+      // SANs live in the extension with OID 2.5.29.17
+      const san = [];
+      flat.forEach(n=>{
+        if(n.tag !== 0x04 || n.raw.length < 4) return;
+        try{
+          const inner = parseASN1(n.raw, 0, n.raw.length, 0);
+          const seq = inner.find(x=>x.tag === 0x30);
+          if(!seq) return;
+          seq.kids.forEach(k=>{
+            if(k.tag === 0x82) san.push(textFromBytes(k.raw));              // dNSName
+            else if(k.tag === 0x87) san.push(Array.from(k.raw).join('.'));  // iPAddress
+            else if(k.tag === 0x81) san.push('mailto:' + textFromBytes(k.raw));
+          });
+        }catch(e){}
+      });
+      const notBefore = times[0] ? parseTime(times[0]) : null;
+      const notAfter = times[1] ? parseTime(times[1]) : null;
+      const now = new Date();
+      out.innerHTML = `<table class="mono">
+        <tr><td>Subject</td><td>${escapeHtml(subjectParts.join(', '))}</td></tr>
+        <tr><td>Issuer</td><td>${escapeHtml(issuerParts.join(', '))}</td></tr>
+        <tr><td>Serial</td><td style="word-break:break-all">${escapeHtml(serial ? serial.text : '—')}</td></tr>
+        <tr><td>Not before</td><td>${notBefore ? notBefore.toISOString().replace('T',' ').slice(0,19) + ' UTC' : '—'}</td></tr>
+        <tr><td>Not after</td><td>${notAfter ? notAfter.toISOString().replace('T',' ').slice(0,19) + ' UTC' : '—'}</td></tr>
+        <tr><td>Status</td><td>${notAfter && notBefore ? (now < notBefore ? 'not yet valid' : now > notAfter ? 'expired' : 'within its validity period') : 'unknown'}</td></tr>
+        <tr><td>Signature algorithm</td><td>${escapeHtml(sigAlg ? sigAlg.text : '—')}</td></tr>
+        <tr><td>Key</td><td>${escapeHtml(keyInfo || '—')}</td></tr>
+        <tr><td>Names</td><td>${san.length ? escapeHtml(san.join(', ')) : 'none listed'}</td></tr>
+        <tr><td>Self-signed?</td><td>${subjectParts.join() === issuerParts.join() ? 'yes — subject and issuer match' : 'no'}</td></tr>
+      </table>
+      <div class="hint">Validity and names are read from the certificate itself. Nothing here is verified — a certificate is a claim, and only the issuer's signature turns it into evidence.</div>`;
+    }catch(e){
+      out.innerHTML = `<div class="hint">Could not read that certificate: ${escapeHtml(e.message)}</div>`;
+    }
+  }
+  root.querySelector('#xcIn').addEventListener('input', draw);
+});
+
+dev('jsonschema','JSON Schema From a Sample', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Sample JSON</label><textarea id="jsSample" style="min-height:140px">{"id": 42, "name": "Kitbox", "tags": ["offline", "single-file"], "meta": {"stars": 12, "active": true}, "note": null}</textarea></div>
+    <div class="row">
+      <div class="field"><label>Draft</label><select id="jsDraft"><option value="2020-12">2020-12</option><option value="draft-07">draft-07</option></select></div>
+      <div class="field"><label>Mark fields required?</label><select id="jsReq"><option value="1">Yes — everything present</option><option value="0">No</option></select></div>
+    </div>
+    <div class="output" id="jsOut" style="white-space:pre-wrap;font-family:var(--mono);font-size:12px">—</div>
+    <div class="hint">Infers a schema from one example, which is exactly as trustworthy as one example: a field that is null here becomes "any type", and a field that is a string today could be a number tomorrow. Useful as a starting point, never as a specification.</div>`;
+  function infer(v){
+    if(v === null) return { type: ['null', 'string', 'number', 'boolean', 'object', 'array'] };
+    if(Array.isArray(v)){
+      const itemSchemas = v.map(infer);
+      const uniq = new Map();
+      itemSchemas.forEach(s=>uniq.set(JSON.stringify(s), s));
+      return { type:'array', items: uniq.size === 1 ? [...uniq.values()][0] : { anyOf: [...uniq.values()] } };
+    }
+    if(typeof v === 'object'){
+      const props = {}, required = [];
+      for(const k of Object.keys(v)){ props[k] = infer(v[k]); required.push(k); }
+      return { type:'object', properties: props, required };
+    }
+    if(typeof v === 'number') return Number.isInteger(v) ? { type:'integer' } : { type:'number' };
+    if(typeof v === 'boolean') return { type:'boolean' };
+    const s = { type:'string' };
+    if(/^\d{4}-\d{2}-\d{2}$/.test(v)) s.format = 'date';
+    else if(/^\d{4}-\d{2}-\d{2}T/.test(v)) s.format = 'date-time';
+    else if(/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v)) s.format = 'email';
+    else if(/^https?:\/\//.test(v)) s.format = 'uri';
+    return s;
+  }
+  function draw(){
+    const out = root.querySelector('#jsOut');
+    let sample;
+    try{ sample = JSON.parse(root.querySelector('#jsSample').value); }
+    catch(e){ out.textContent = 'That is not valid JSON: ' + e.message; return; }
+    const schema = infer(sample);
+    const rootSchema = { $schema: 'https://json-schema.org/draft/' + root.querySelector('#jsDraft').value + '/schema', ...schema };
+    if(root.querySelector('#jsReq').value === '0') delete rootSchema.required;
+    out.textContent = JSON.stringify(rootSchema, null, 2);
+  }
+  root.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+dev('regexexplain','Regex Explainer', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Pattern</label><input type="text" id="rxIn" value="^(\\d{4})-(\\d{2})-(\\d{2})$" style="font-family:var(--mono)"></div>
+    <div class="field"><label>Test string</label><input type="text" id="rxTest" value="2026-11-08"></div>
+    <div class="output" id="rxOut">—</div>
+    <div class="hint">A token-by-token reading, not a full engine: it explains the pieces that people get wrong — anchors, groups, quantifiers, character classes, lookarounds — and says when a token is something it does not recognise rather than guessing.</div>`;
+  const NAMED = {
+    '\\d':'any digit (0–9)', '\\D':'anything but a digit', '\\w':'a word character (letter, digit, underscore)',
+    '\\W':'anything but a word character', '\\s':'whitespace', '\\S':'anything but whitespace',
+    '\\b':'a word boundary', '\\B':'not a word boundary', '.':'any character except a newline',
+    '^':'start of the string (or line, with m)', '$':'end of the string (or line, with m)',
+    '\\n':'a newline', '\\t':'a tab', '|':'alternation — either side'
+  };
+  function explain(pattern){
+    const out = [];
+    let i = 0;
+    while(i < pattern.length){
+      const ch = pattern[i];
+      let token = ch, note = '';
+      if(ch === '\\'){
+        token = pattern.slice(i, i+2); i += 2;
+        note = NAMED[token] || ('an escape: a literal ' + token.slice(1));
+        // \uXXXX, \xXX, \p{...}
+        if(token[1] === 'u'){ token = pattern.slice(i-2, i+4); i += 4; note = 'the character U+' + token.slice(2).toUpperCase(); }
+        else if(token[1] === 'x'){ token = pattern.slice(i-2, i+2); i += 2; note = 'the character 0x' + token.slice(2); }
+        else if(token[1] === 'p'){ const close = pattern.indexOf('}', i); token = pattern.slice(i-2, close+1); i = close+1; note = 'a Unicode property: ' + token.slice(3, -1); }
+      } else if(ch === '['){
+        let j = i + 1;
+        while(j < pattern.length && pattern[j] !== ']'){ if(pattern[j] === '\\') j++; j++; }
+        token = pattern.slice(i, j+1); i = j + 1;
+        const inner = token.slice(1, -1);
+        note = inner.startsWith('^') ? 'one character that is NOT in: ' + inner.slice(1) : 'one character from: ' + inner;
+      } else if(ch === '('){
+        let kind = 'a capturing group';
+        let skip = 1;
+        if(pattern.startsWith('(?:', i)){ kind = 'a non-capturing group'; skip = 3; }
+        else if(pattern.startsWith('(?=', i)){ kind = 'a lookahead — the text must match but is not consumed'; skip = 3; }
+        else if(pattern.startsWith('(?!', i)){ kind = 'a negative lookahead — the text must not match here'; skip = 3; }
+        else if(pattern.startsWith('(?<=', i)){ kind = 'a lookbehind — what precedes must match'; skip = 4; }
+        else if(pattern.startsWith('(?<!', i)){ kind = 'a negative lookbehind'; skip = 4; }
+        else if(pattern.startsWith('(?<', i)){ const close = pattern.indexOf('>', i); kind = 'a named group "' + pattern.slice(i+3, close) + '"'; skip = close - i + 1; }
+        token = pattern.slice(i, i + skip); i += skip;
+        note = kind + ' — its contents are explained below';
+      } else if(ch === '{'){
+        const close = pattern.indexOf('}', i);
+        token = pattern.slice(i, close+1); i = close + 1;
+        note = 'repeat the previous token ' + token.slice(1, -1).replace(/,/g, ' to ') + ' times';
+      } else if(ch === '*' || ch === '+' || ch === '?'){ i++; note = ch === '*' ? 'zero or more of the previous token' : ch === '+' ? 'one or more' : 'zero or one (optional)'; }
+      else { i++; note = /[A-Za-z0-9]/.test(ch) ? 'the literal "' + ch + '"' : 'the literal ' + JSON.stringify(ch); }
+      // a quantifier after a group applies to the group
+      if(i < pattern.length && '?*+{'.includes(pattern[i]) && !'?*+{'.includes(token.slice(-1))){ /* noted on the next pass */ }
+      out.push([token, note]);
+    }
+    return out;
+  }
+  function draw(){
+    const pattern = root.querySelector('#rxIn').value;
+    const test = root.querySelector('#rxTest').value;
+    const out = root.querySelector('#rxOut');
+    const rows = explain(pattern);
+    let matchNote = '';
+    try{
+      const m = new RegExp(pattern).exec(test);
+      matchNote = m ? 'Matches' + (m.length > 1 ? ' · groups: ' + m.slice(1).map(g=>g === undefined ? '—' : '"' + g + '"').join(', ') : '')
+                    : 'Does not match the test string';
+    }catch(e){ matchNote = 'That pattern does not compile: ' + e.message; }
+    out.innerHTML = `<table class="mono">
+      ${rows.map(([token, note])=>`<tr><td style="white-space:nowrap">${escapeHtml(token)}</td><td>${escapeHtml(note)}</td></tr>`).join('')}
+      <tr><td><b>Result</b></td><td><b>${escapeHtml(matchNote)}</b></td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+dev('cssclamp','CSS Clamp Builder', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Property</label><select id="clProp"><option>font-size</option><option>padding</option><option>margin</option><option>gap</option><option>width</option></select></div>
+      <div class="field"><label>Unit</label><select id="clUnit"><option>rem</option><option>px</option></select></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Min</label><input type="number" id="clMin" value="1" step="0.1"></div>
+      <div class="field"><label>Max</label><input type="number" id="clMax" value="2.2" step="0.1"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Small viewport (px)</label><input type="number" id="clSmall" value="360"></div>
+      <div class="field"><label>Large viewport (px)</label><input type="number" id="clLarge" value="1440"></div>
+    </div>
+    <div class="output" id="clOut" style="font-family:var(--mono);white-space:pre-wrap">—</div>
+    <div id="clPreview" style="margin-top:12px;padding:10px;border:1px solid var(--line);overflow:hidden">
+      <div id="clDemo" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Fluid type, one line of CSS</div>
+    </div>
+    <div class="hint">A clamp between two viewport widths, which is what every fluid-type article is doing. The middle term is a slope and an intercept — shown below so you can see why the numbers are what they are.</div>`;
+  function draw(){
+    const unit = root.querySelector('#clUnit').value;
+    const min = Number(root.querySelector('#clMin').value) || 0;
+    const max = Number(root.querySelector('#clMax').value) || 0;
+    const small = Number(root.querySelector('#clSmall').value) || 320;
+    const large = Number(root.querySelector('#clLarge').value) || 1440;
+    const prop = root.querySelector('#clProp').value;
+    const minPx = unit === 'rem' ? min * 16 : min;
+    const maxPx = unit === 'rem' ? max * 16 : max;
+    const slope = (maxPx - minPx) / (large - small);
+    const intercept = minPx - slope * small;
+    const slopeVw = (slope * 100).toFixed(4);
+    const interceptRem = (intercept / 16).toFixed(4);
+    const middle = Math.abs(intercept) < 0.001 ? slopeVw + 'vw' : interceptRem + 'rem + ' + slopeVw + 'vw';
+    const css = prop + ': clamp(' + min + unit + ', ' + middle + ', ' + max + unit + ');';
+    root.querySelector('#clOut').textContent = css + '\n\n' +
+      '/* ' + minPx.toFixed(1) + 'px at ' + small + 'px, ' + maxPx.toFixed(1) + 'px at ' + large + 'px */\n' +
+      '/* slope ' + (slope * 1000).toFixed(2) + 'px per 1000px of viewport */';
+    const demo = root.querySelector('#clDemo');
+    demo.style.fontSize = 'clamp(' + min + unit + ', ' + middle + ', ' + max + unit + ')';
+  }
+  root.querySelectorAll('input,select').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+/* ---------------- Science (2) ---------------- */
+
+sci('resistor','Resistor Colour Code', root=>{
+  const BANDS = [['Black',0],['Brown',1],['Red',2],['Orange',3],['Yellow',4],['Green',5],['Blue',6],['Violet',7],['Grey',8],['White',9]];
+  const MULT = ['×1','×10','×100','×1k','×10k','×100k','×1M','×10M','×100M','×1G'];
+  const TOL = [['Brown','±1%'],['Red','±2%'],['Green','±0.5%'],['Blue','±0.25%'],['Violet','±0.1%'],['Grey','±0.05%'],['Gold','±5%'],['Silver','±10%']];
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Band 1</label><select id="rs1">${BANDS.map((b,i)=>`<option value="${i}"${i===1?' selected':''}>${b[0]}</option>`).join('')}</select></div>
+      <div class="field"><label>Band 2</label><select id="rs2">${BANDS.map((b,i)=>`<option value="${i}"${i===0?' selected':''}>${b[0]}</option>`).join('')}</select></div>
+      <div class="field"><label>Multiplier</label><select id="rs3">${MULT.map((m,i)=>`<option value="${i}"${i===2?' selected':''}>${m}</option>`).join('')}</select></div>
+      <div class="field"><label>Tolerance</label><select id="rs4">${TOL.map((t,i)=>`<option value="${i}"${i===6?' selected':''}>${t[0]} ${t[1]}</option>`).join('')}</select></div>
+    </div>
+    <div id="rsBands" style="display:flex;gap:0;align-items:center;margin:14px 0">
+      <div style="height:44px;width:18px;background:#c9a227;border-radius:4px 0 0 4px"></div>
+      <div id="rsSwatches" style="display:flex;gap:8px;padding:0 14px;height:44px;background:#e8d8b0;align-items:center;flex:1"></div>
+      <div style="height:44px;width:18px;background:#c9a227;border-radius:0 4px 4px 0"></div>
+    </div>
+    <div class="output" id="rsOut">—</div>
+    <div class="hint">Four bands: two significant figures, a multiplier and a tolerance. Reading is the same in both directions — set the dropdowns and the value follows.</div>`;
+  const COLORS = ['#000','#8b4513','#d32f2f','#f57c00','#fbc02d','#388e3c','#1976d2','#7b1fa2','#757575','#fafafa','#c9a227','#bdbdbd'];
+  function draw(){
+    const d1 = Number(root.querySelector('#rs1').value), d2 = Number(root.querySelector('#rs2').value);
+    const mult = Number(root.querySelector('#rs3').value), tol = Number(root.querySelector('#rs4').value);
+    const value = (d1 * 10 + d2) * Math.pow(10, mult);
+    const fmt = v => v >= 1e6 ? (v/1e6).toFixed(2).replace(/\.?0+$/,'') + ' MΩ'
+      : v >= 1e3 ? (v/1e3).toFixed(2).replace(/\.?0+$/,'') + ' kΩ' : v.toFixed(0) + ' Ω';
+    const tolPct = parseFloat(TOL[tol][1].replace(/[±%]/g, ''));
+    root.querySelector('#rsSwatches').innerHTML = [d1, d2, mult + 1, tol + 2]
+      .map((idx, i)=>`<div style="width:20px;height:36px;background:${COLORS[idx] || '#888'};border:1px solid rgba(0,0,0,0.2)" title="${i < 2 ? BANDS[idx][0] : i === 2 ? MULT[idx] : TOL[tol][0]}"></div>`).join('');
+    root.querySelector('#rsOut').innerHTML = `<table class="mono">
+      <tr><td>Value</td><td>${fmt(value)}</td></tr>
+      <tr><td>Tolerance</td><td>${TOL[tol][1]}</td></tr>
+      <tr><td>Range</td><td>${fmt(value * (1 - tolPct/100))} – ${fmt(value * (1 + tolPct/100))}</td></tr>
+      <tr><td>Four-band code</td><td>${BANDS[d1][0].toLowerCase()}, ${BANDS[d2][0].toLowerCase()}, ${MULT[mult].replace('×','×')}, ${TOL[tol][0].toLowerCase()}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('select').forEach(el=>el.addEventListener('change', draw));
+  draw();
+});
+
+sci('bufferph','Buffer pH', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Weak acid pKa</label><input type="number" id="bpKa" value="4.76" step="0.01"></div>
+      <div class="field"><label>Acid concentration (M)</label><input type="number" id="bpA" value="0.1" step="0.01"></div>
+      <div class="field"><label>Conjugate base (M)</label><input type="number" id="bpB" value="0.1" step="0.01"></div>
+    </div>
+    <div class="output" id="bpOut">—</div>
+    <div class="hint">Henderson–Hasselbalch: pH = pKa + log([base]/[acid]). It assumes the concentrations you type are the ones at equilibrium, which is true near the buffer's working range and not true far from it.</div>`;
+  function draw(){
+    const pKa = Number(root.querySelector('#bpKa').value) || 0;
+    const a = Number(root.querySelector('#bpA').value) || 0;
+    const b = Number(root.querySelector('#bpB').value) || 0;
+    const out = root.querySelector('#bpOut');
+    if(!a || !b){ out.textContent = 'Both concentrations need to be above zero — the ratio is the whole equation.'; return; }
+    const pH = pKa + Math.log10(b / a);
+    const ratio = b / a;
+    out.innerHTML = `<table class="mono">
+      <tr><td>pH</td><td>${pH.toFixed(2)}</td></tr>
+      <tr><td>Base : acid</td><td>${ratio.toFixed(3)} : 1</td></tr>
+      <tr><td>Buffer capacity</td><td>${(pH > pKa - 1 && pH < pKa + 1) ? 'good — within one pH unit of the pKa' : 'poor — more than one pH unit from the pKa, so it resists change badly here'}</td></tr>
+      <tr><td>Ratio for pH = pKa</td><td>1 : 1</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+/* ---------------- Almanac (1) ---------------- */
+
+alm('ekadashi','Ekadashi List', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Year</label><input type="number" id="ekYear" value="2026" min="1900" max="2100"></div>
+      <div class="field"><label>Latitude</label><input type="number" id="ekLat" value="22.3072" step="0.0001"></div>
+      <div class="field"><label>Longitude</label><input type="number" id="ekLon" value="73.1812" step="0.0001"></div>
+    </div>
+    <div class="output" id="ekOut">—</div>
+    <div class="hint">Ekadashi is the eleventh tithi of each lunar fortnight, so it falls twice a month. Found by walking the year a day at a time and asking which tithi the sunrise carries — the same calculation the Panchang uses. Dates are for the location given; the tithi at sunrise is the one that names the day.</div>`;
+  function draw(){
+    const year = Number(root.querySelector('#ekYear').value) || new Date().getFullYear();
+    const lat = Number(root.querySelector('#ekLat').value) || 0;
+    const lon = Number(root.querySelector('#ekLon').value) || 0;
+    const tz = -(new Date().getTimezoneOffset()) / 60;
+    // Collect the tithi at sunrise for every day of the year, then keep the
+    // first day of each run of ekadashi tithi. A tithi can last into a second
+    // sunrise, so comparing against the previous *row* is not enough — the run
+    // has to be measured.
+    const days = [];
+    for(let month=0; month<12; month++){
+      for(let day=1; day<=31; day++){
+        const d = new Date(Date.UTC(year, month, day));
+        if(d.getUTCMonth() !== month) break;
+        const ss = ASTRO.sunriseSunset(new Date(Date.UTC(year, month, day, 12)), lat, lon);
+        if(ss.polar) continue;
+        const jd = ASTRO.jd({ y: year, m: month + 1, d: day, h: ss.sunrise + tz });
+        const p = ASTRO.panchang(jd);
+        days.push({ date: d.toISOString().slice(0, 10), num: p.tithi.num, paksha: p.tithi.paksha, name: p.tithi.name });
+      }
+    }
+    const rows = [];
+    let runKey = null;
+    for(const day of days){
+      const isEkadashi = day.num === 11 || day.num === 26;
+      const key = day.num + ':' + day.paksha;
+      if(isEkadashi && key !== runKey){
+        rows.push([day.date, day.paksha + ' Ekadashi', day.name]);
+      }
+      runKey = isEkadashi ? key : null;
+    }
+    root.querySelector('#ekOut').innerHTML = rows.length
+      ? `<table class="mono">${rows.map(([date, label, tithi])=>`<tr><td>${date}</td><td>${escapeHtml(label)}</td><td style="color:var(--muted)">${escapeHtml(tithi)}</td></tr>`).join('')}</table>
+         <div class="hint">${rows.length} in ${year}</div>`
+      : '<div class="hint">No ekadashi found for that year and place — try a different location.</div>';
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+/* ================================================================
    GEO TOOLS
    ================================================================ */
 TOOLS.geo = TOOLS.geo || [];   // idempotent: a part that sorts earlier may have registered already
@@ -6289,60 +7059,19 @@ dev('asn1','ASN.1 Parser', root=>{
     <div class="field"><label>DER, hex</label><textarea id="asIn" style="min-height:110px">30 1a 02 01 01 06 09 2a 86 48 86 f7 0d 01 01 0b 04 0a 6b 69 74 62 6f 78 2d 6b 65 79</textarea></div>
     <div class="output" id="asOut">—</div>
     <div class="hint">DER only, which is what a certificate or a key file actually contains. Every byte of a certificate is inside one of these structures, so this is the tool you reach for when a PEM has to be understood rather than trusted.</div>`;
-  const TYPES = { 0x01:'BOOLEAN', 0x02:'INTEGER', 0x03:'BIT STRING', 0x04:'OCTET STRING', 0x05:'NULL',
-    0x06:'OID', 0x0c:'UTF8String', 0x13:'PrintableString', 0x16:'IA5String', 0x17:'UTCTime',
-    0x18:'GeneralizedTime', 0x30:'SEQUENCE', 0x31:'SET', 0xa0:'[0]', 0xa1:'[1]', 0xa3:'[3]' };
-  function oid(bytes){
-    const parts = [Math.floor(bytes[0] / 40), bytes[0] % 40];
-    let v = 0;
-    for(let i=1;i<bytes.length;i++){
-      v = (v << 7) | (bytes[i] & 0x7f);
-      if(!(bytes[i] & 0x80)){ parts.push(v); v = 0; }
-    }
-    return parts.join('.');
-  }
-  function parse(bytes, offset, end, depth, rows){
-    while(offset < end){
-      const tag = bytes[offset++];
-      let len = bytes[offset++];
-      if(len & 0x80){
-        const n = len & 0x7f;
-        len = 0;
-        for(let i=0;i<n;i++) len = (len << 8) | bytes[offset++];
-      }
-      const start = offset, stop = offset + len;
-      if(stop > end) throw new Error('a length runs past the end of its parent at offset ' + start);
-      const type = TYPES[tag] || ('tag 0x' + tag.toString(16));
-      const pad = '&nbsp;&nbsp;'.repeat(depth);
-      const raw = bytes.slice(start, stop);
-      let value = '';
-      if(tag === 0x02) value = '0x' + Array.from(raw).map(b=>b.toString(16).padStart(2,'0')).join('');
-      else if(tag === 0x06) value = oid(raw);
-      else if(tag === 0x01) value = raw[0] ? 'true' : 'false';
-      else if(tag === 0x05) value = 'null';
-      else if(tag === 0x17 || tag === 0x18) value = textFromBytes(raw);
-      else if(tag === 0x0c || tag === 0x13 || tag === 0x16) value = textFromBytes(raw);
-      else if(tag === 0x04) value = raw.length + ' bytes' + (raw.length <= 32 ? ' — ' + textFromBytes(raw).replace(/[^\x20-\x7e]/g, '.') : '');
-      else if(tag === 0x03) value = (raw[0] === 0 ? '0 unused bits, ' : raw[0] + ' unused bits, ') + (raw.length - 1) + ' bytes';
-      rows.push(`<tr><td style="white-space:nowrap">${pad}${escapeHtml(type)}</td><td>${raw.length}</td><td style="word-break:break-all">${escapeHtml(value)}</td></tr>`);
-      if((tag & 0x20) || tag === 0x30 || tag === 0x31 || (tag >= 0xa0 && tag <= 0xbf)){
-        if(depth < 12) parse(bytes, start, stop, depth + 1, rows);
-      }
-      offset = stop;
-    }
-  }
   function draw(){
     const out = root.querySelector('#asOut');
     const hex = root.querySelector('#asIn').value.replace(/[^0-9a-fA-F]/g, '');
     if(!hex){ out.textContent = 'Paste some DER bytes in hex.'; return; }
     if(hex.length % 2){ out.textContent = 'An odd number of hex digits — one byte is incomplete.'; return; }
     const bytes = Uint8Array.from(hex.match(/.{2}/g).map(h=>parseInt(h, 16)));
-    const rows = [];
     try{
-      parse(bytes, 0, bytes.length, 0, rows);
+      const nodes = parseASN1(bytes, 0, bytes.length, 0);
+      const rows = asn1Rows(nodes, []).map(([type, len, value, depth])=>
+        `<tr><td style="white-space:nowrap">${'&nbsp;&nbsp;'.repeat(depth)}${escapeHtml(type)}</td><td>${len}</td><td style="word-break:break-all">${escapeHtml(String(value))}</td></tr>`);
       out.innerHTML = `<table class="mono"><tr><th style="text-align:left">Type</th><th>Len</th><th style="text-align:left">Value</th></tr>${rows.join('')}</table>`;
     }catch(e){
-      out.innerHTML = `<div class="hint">${escapeHtml(e.message)}</div>` + (rows.length ? `<table class="mono">${rows.join('')}</table>` : '');
+      out.innerHTML = `<div class="hint">${escapeHtml(e.message)}</div>`;
     }
   }
   root.querySelector('#asIn').addEventListener('input', draw);

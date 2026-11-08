@@ -26,7 +26,8 @@ const PURE = [
   'md5', 'toBase32', 'fromBase32', 'toBase58', 'fromBase58', 'B32', 'B58',
   'passStrength', 'contrastWith', 'tileLuminance',
   'readOrientation', 'minimalExif', 'stripJpegMetadata',
-  'bytesFromText', 'textFromBytes', 'ASTRO'
+  'bytesFromText', 'textFromBytes', 'ASTRO',
+  'ASN1_TYPES', 'asn1Oid', 'parseASN1', 'asn1Rows'
 ];
 
 const html = fs.readFileSync(APP, 'utf8');

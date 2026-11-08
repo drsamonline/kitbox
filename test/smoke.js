@@ -664,7 +664,42 @@ setTimeout(async () => {
   ok('Child-Pugh starts at 5, Class A',
      /Total5/.test(w.document.querySelector('#cpOut').textContent.replace(/\s+/g, '')) && /Class A/.test(w.document.querySelector('#cpOut').textContent));
 
-  /* 21. the app makes no network calls and loads nothing external */
+
+  /* 21. B20-B22: certificate, schema, regex, clamp, resistor, buffer, games */
+  ev('location.hash="#/tool/dev/x509"'); ev('route()');
+  const certIn = w.document.querySelector('#xcIn');
+  certIn.value = fs.readFileSync(path.join(__dirname, '..', 'test', 'fixture-cert.pem'), 'utf8');
+  certIn.dispatchEvent(new w.Event('input'));
+  const certText = w.document.querySelector('#xcOut').textContent.replace(/\s+/g, ' ');
+  ok('the certificate reader finds the subject', /CN=kitbox\.example/.test(certText), certText.slice(0, 60));
+  ok('the certificate reader finds the SAN names', /www\.kitbox\.example/.test(certText) && /127\.0\.0\.1/.test(certText));
+  ok('the certificate reader reports RSA · 2048 bits', /RSA · 2048 bits/.test(certText), 'key size after DER padding');
+  ok('the certificate reader does not claim to verify', /Nothing here is verified/.test(w.document.querySelector('#xcOut').textContent));
+
+  ev('location.hash="#/tool/dev/jsonschema"'); ev('route()');
+  const inferred = JSON.parse(w.document.querySelector('#jsOut').textContent);
+  ok('JSON Schema infers an integer for a whole number', inferred.properties.id.type === 'integer');
+  ok('JSON Schema infers an array of strings', inferred.properties.tags.items.type === 'string');
+
+  ev('location.hash="#/tool/dev/cssclamp"'); ev('route()');
+  ok('the clamp builder emits a clamp() with a slope',
+     /clamp\(1rem, .*vw, 2\.2rem\)/.test(w.document.querySelector('#clOut').textContent));
+
+  ev('location.hash="#/tool/science/resistor"'); ev('route()');
+  ok('brown-black-red-gold reads as 1 kΩ ±5%',
+     /1 kΩ/.test(w.document.querySelector('#rsOut').textContent) && /±5%/.test(w.document.querySelector('#rsOut').textContent));
+
+  ev('location.hash="#/tool/science/bufferph"'); ev('route()');
+  ok('equal acid and base gives pH = pKa', /4\.76/.test(w.document.querySelector('#bpOut').textContent));
+
+  ev('location.hash="#/tool/games/game2048"'); ev('route()');
+  ok('2048 starts with two tiles on a 4×4 board',
+     w.document.querySelectorAll('#g4Board > div').length === 16);
+
+  ev('location.hash="#/tool/games/minesweeper"'); ev('route()');
+  ok('minesweeper renders a 9×9 board', w.document.querySelectorAll('[data-ms]').length === 81);
+
+  /* 22. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

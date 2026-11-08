@@ -83,60 +83,19 @@ dev('asn1','ASN.1 Parser', root=>{
     <div class="field"><label>DER, hex</label><textarea id="asIn" style="min-height:110px">30 1a 02 01 01 06 09 2a 86 48 86 f7 0d 01 01 0b 04 0a 6b 69 74 62 6f 78 2d 6b 65 79</textarea></div>
     <div class="output" id="asOut">—</div>
     <div class="hint">DER only, which is what a certificate or a key file actually contains. Every byte of a certificate is inside one of these structures, so this is the tool you reach for when a PEM has to be understood rather than trusted.</div>`;
-  const TYPES = { 0x01:'BOOLEAN', 0x02:'INTEGER', 0x03:'BIT STRING', 0x04:'OCTET STRING', 0x05:'NULL',
-    0x06:'OID', 0x0c:'UTF8String', 0x13:'PrintableString', 0x16:'IA5String', 0x17:'UTCTime',
-    0x18:'GeneralizedTime', 0x30:'SEQUENCE', 0x31:'SET', 0xa0:'[0]', 0xa1:'[1]', 0xa3:'[3]' };
-  function oid(bytes){
-    const parts = [Math.floor(bytes[0] / 40), bytes[0] % 40];
-    let v = 0;
-    for(let i=1;i<bytes.length;i++){
-      v = (v << 7) | (bytes[i] & 0x7f);
-      if(!(bytes[i] & 0x80)){ parts.push(v); v = 0; }
-    }
-    return parts.join('.');
-  }
-  function parse(bytes, offset, end, depth, rows){
-    while(offset < end){
-      const tag = bytes[offset++];
-      let len = bytes[offset++];
-      if(len & 0x80){
-        const n = len & 0x7f;
-        len = 0;
-        for(let i=0;i<n;i++) len = (len << 8) | bytes[offset++];
-      }
-      const start = offset, stop = offset + len;
-      if(stop > end) throw new Error('a length runs past the end of its parent at offset ' + start);
-      const type = TYPES[tag] || ('tag 0x' + tag.toString(16));
-      const pad = '&nbsp;&nbsp;'.repeat(depth);
-      const raw = bytes.slice(start, stop);
-      let value = '';
-      if(tag === 0x02) value = '0x' + Array.from(raw).map(b=>b.toString(16).padStart(2,'0')).join('');
-      else if(tag === 0x06) value = oid(raw);
-      else if(tag === 0x01) value = raw[0] ? 'true' : 'false';
-      else if(tag === 0x05) value = 'null';
-      else if(tag === 0x17 || tag === 0x18) value = textFromBytes(raw);
-      else if(tag === 0x0c || tag === 0x13 || tag === 0x16) value = textFromBytes(raw);
-      else if(tag === 0x04) value = raw.length + ' bytes' + (raw.length <= 32 ? ' — ' + textFromBytes(raw).replace(/[^\x20-\x7e]/g, '.') : '');
-      else if(tag === 0x03) value = (raw[0] === 0 ? '0 unused bits, ' : raw[0] + ' unused bits, ') + (raw.length - 1) + ' bytes';
-      rows.push(`<tr><td style="white-space:nowrap">${pad}${escapeHtml(type)}</td><td>${raw.length}</td><td style="word-break:break-all">${escapeHtml(value)}</td></tr>`);
-      if((tag & 0x20) || tag === 0x30 || tag === 0x31 || (tag >= 0xa0 && tag <= 0xbf)){
-        if(depth < 12) parse(bytes, start, stop, depth + 1, rows);
-      }
-      offset = stop;
-    }
-  }
   function draw(){
     const out = root.querySelector('#asOut');
     const hex = root.querySelector('#asIn').value.replace(/[^0-9a-fA-F]/g, '');
     if(!hex){ out.textContent = 'Paste some DER bytes in hex.'; return; }
     if(hex.length % 2){ out.textContent = 'An odd number of hex digits — one byte is incomplete.'; return; }
     const bytes = Uint8Array.from(hex.match(/.{2}/g).map(h=>parseInt(h, 16)));
-    const rows = [];
     try{
-      parse(bytes, 0, bytes.length, 0, rows);
+      const nodes = parseASN1(bytes, 0, bytes.length, 0);
+      const rows = asn1Rows(nodes, []).map(([type, len, value, depth])=>
+        `<tr><td style="white-space:nowrap">${'&nbsp;&nbsp;'.repeat(depth)}${escapeHtml(type)}</td><td>${len}</td><td style="word-break:break-all">${escapeHtml(String(value))}</td></tr>`);
       out.innerHTML = `<table class="mono"><tr><th style="text-align:left">Type</th><th>Len</th><th style="text-align:left">Value</th></tr>${rows.join('')}</table>`;
     }catch(e){
-      out.innerHTML = `<div class="hint">${escapeHtml(e.message)}</div>` + (rows.length ? `<table class="mono">${rows.join('')}</table>` : '');
+      out.innerHTML = `<div class="hint">${escapeHtml(e.message)}</div>`;
     }
   }
   root.querySelector('#asIn').addEventListener('input', draw);

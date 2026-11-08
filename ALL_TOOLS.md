@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**402 tools across 27 categories.**
+**412 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -16,17 +16,17 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 52 |
+| 10 | Development Tools | `DEV` | 56 |
 | 11 | Colors Tools | `CLR` | 10 |
-| 12 | Science Tools | `SCI` | 15 |
+| 12 | Science Tools | `SCI` | 17 |
 | 13 | Geo Tools | `GEO` | 10 |
 | 14 | Audio Tools | `AUD` | 10 |
-| 15 | Games | `GAM` | 10 |
+| 15 | Games | `GAM` | 13 |
 | 16 | Travel Tools | `TRV` | 5 |
 | 17 | Nature Tools | `NAT` | 6 |
 | 18 | Productivity | `PRD` | 8 |
 | 19 | Files & Data | `FIL` | 13 |
-| 20 | Almanac | `ALM` | 7 |
+| 20 | Almanac | `ALM` | 8 |
 | 21 | Communication | `COM` | 5 |
 | 22 | Reference | `REF` | 5 |
 | 23 | System | `SYS` | 4 |
@@ -335,7 +335,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 52 tools
+## Development Tools — 56 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -360,6 +360,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-53` **X.509 Certificate Reader** — `dev/x509`
+- `DEV-54` **JSON Schema From a Sample** — `dev/jsonschema`
+- `DEV-55` **Regex Explainer** — `dev/regexexplain`
+- `DEV-56` **CSS Clamp Builder** — `dev/cssclamp`
 - `DEV-50` **PBKDF2 Derive** — `dev/pbkdf2`
 - `DEV-51` **HKDF Derive** — `dev/hkdf`
 - `DEV-52` **ASN.1 Parser** — `dev/asn1`
@@ -403,7 +407,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `CLR-09` **Tints & Shades** — `colors/tintshade`
 - `CLR-10` **Random Colour** — `colors/randomcolor`
 
-## Science Tools — 15 tools
+## Science Tools — 17 tools
 
 - `SCI-01` **Ohm's Law** — `science/ohmslaw`
 - `SCI-02` **Force & Acceleration** — `science/forceaccel`
@@ -414,6 +418,8 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `SCI-07` **Density Calculator** — `science/density`
 - `SCI-08` **Wavelength ↔ Frequency** — `science/wavelengthfreq`
 - `SCI-09` **Periodic Table** — `science/periodictable`
+- `SCI-16` **Resistor Colour Code** — `science/resistor`
+- `SCI-17` **Buffer pH** — `science/bufferph`
 - `SCI-13` **RC Time Constant** — `science/rc`
 - `SCI-14` **Lens Equation** — `science/lens`
 - `SCI-15` **Doppler Shift** — `science/doppler`
@@ -447,8 +453,11 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `AUD-08` **Tap Tempo** — `audio/taptempo`
 - `AUD-09` **Frequency → Note** — `audio/hznote`
 
-## Games — 10 tools
+## Games — 13 tools
 
+- `GAM-11` **2048** — `games/game2048`
+- `GAM-12` **Minesweeper** — `games/minesweeper`
+- `GAM-13` **Snake** — `games/snake`
 - `GAM-01` **Tic-Tac-Toe** — `games/tictactoe`
 - `GAM-02` **Number Guessing Game** — `games/numberguess`
 - `GAM-03` **Memory Match** — `games/memorymatch`
@@ -504,8 +513,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `FIL-11` **File Type Detector** — `files/filetype`
 - `FIL-12` **Base64 → File** — `files/b64file`
 
-## Almanac — 7 tools
+## Almanac — 8 tools
 
+- `ALM-08` **Ekadashi List** — `almanac/ekadashi`
 - `ALM-06` **Choghadiya** — `almanac/choghadiya`
 - `ALM-07` **Moonrise & Moonset** — `almanac/moonrise`
 - `ALM-01` **Panchang** — `almanac/panchang`
