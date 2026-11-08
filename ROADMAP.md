@@ -223,11 +223,8 @@ Today: 27 checks, all DOM-level.
 
 | # | Item | Effort | Impact |
 |:--|:--|:--|:--|
-| E-100 | **UI strings in one dictionary** — the first step before any translation, and the reason to do it now | M | ★★ |
-| E-101 | **English / Hindi / Gujarati — and nothing else.** Those three, following `web-kit`'s approach; the language set is fixed, not a roadmap | L | ★★★ |
 | E-102 | **Locale-aware number and date formatting** everywhere, replacing hard-coded `en-IN` and `en-US` | M | ★★★ |
 | E-103 | **Translatable tool names and descriptions** in the registry, with an English fallback | M | ★★ |
-| E-104 | **Devanagari and Gujarati rendering check** in the screenshot suite | S | ★ |
 
 ---
 
@@ -310,7 +307,12 @@ Each of these has been considered and rejected for a stated reason. If a reason 
 | **Anything requiring a bundled dataset over ~1 MB** | Country boundaries, ICD codes, drug databases. They belong in a separate app, as `repertory-reader` and `app-panchang` already do. |
 | **AI features** | A model means a network call or a 100 MB download, and the app's honesty depends on being able to say "nothing leaves this device". |
 | **Moving existing tools between categories** | Breaks pins, links and muscle memory for no functional gain. New categories get new tools. |
-| **Any language beyond English, Hindi and Gujarati** | The set is fixed at three on purpose: those are the languages this author's users actually read, and every extra language is a dictionary that has to be maintained and re-checked on every release. A half-translated fourth language is worse than none. |
+| **E-100 — interface string dictionary** | Dropped: no translation layer. |
+| **E-101 — English / Hindi / Gujarati** | Dropped: the interface is English-only, by decision. |
+| **E-102 — locale-aware numbers and dates** | Dropped: the B6 number-format preference covers the case that matters. |
+| **E-103 — translatable tool names** | Dropped: follows from E-101. |
+| **E-104 — Devanagari rendering check** | Dropped: follows from E-101. |
+| **Any interface language other than English** | Decided, not deferred. Every language is a dictionary to maintain, re-check on every release and re-test in the layout, and a half-translated interface is worse than none. The app is English-only; the tools themselves already work in any script you paste into them. |
 | **A dark mode for the panel** | The white panel on the dark shell is the app's identity, and the contrast it gives is better than most "dark modes". The text-size and contrast preferences in §2 cover the real need. |
 
 ---

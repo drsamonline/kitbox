@@ -8,6 +8,36 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.1.0 — 2026-11-08
+
+Batch **B13** of [PLAN.md](PLAN.md): four categories that were missing. Internationalisation was dropped by decision, not deferred.
+
+### Added — Accessibility (5)
+
+Reading Ruler · Dyslexia-Friendly Preview · Text Spacing Checker · Alt Text Checker · Focus Ring Preview. Each answers a question someone actually asks: does my text survive WCAG 1.4.12 spacing, does this alt text say anything, is my focus ring 2 px and 3:1.
+
+### Added — Education (4)
+
+Multiplication Table · Times Table Quiz · Unit Circle · Formula Sheet.
+
+### Added — Clinical (4)
+
+Paediatric Dose · IV Drip Rate · eGFR (CKD-EPI 2021) · Corrected Calcium & Anion Gap. **Every one carries a disclaimer and always will**: a calculator is not a clinician, and the numbers depend on assumptions a patient may not fit.
+
+### Added — Money, India (4)
+
+HRA Exemption · EPF Corpus · Gratuity · PPF / FD Maturity — in the rules an Indian salary actually follows (15/26 gratuity, 3.67% to EPF and 8.33% to EPS, metro HRA at 50%).
+
+### Changed
+
+- 356 tools across 27 categories (was 339 in 23).
+- Installability without a second file: `apple-mobile-web-app-*` tags, an inline SVG touch icon, and a `data:` manifest. iOS honours these; Chrome requires a same-origin manifest, which one file cannot provide, so it offers install from its own menu instead. Recorded rather than pretended.
+- The interaction sweep now drives 317 tools (was 301) — the 16 new ones with inputs all survive being typed into.
+
+### Dropped
+
+- **Internationalisation (E-100 … E-104).** The interface is English-only, by decision. Each language is a dictionary to maintain, re-check on every release and re-test in the layout, and a half-translated interface is worse than none. The tools themselves still accept and display any script you paste into them.
+
 ## 2.0.0 — 2026-11-08
 
 Batch **B12** of [PLAN.md](PLAN.md): architecture. The app still ships as one file; it is no longer *edited* as one file.

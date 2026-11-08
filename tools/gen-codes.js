@@ -22,7 +22,8 @@ const path = require('path');
 const { JSDOM } = require('jsdom');
 
 const ROOT = path.join(__dirname, '..');
-const APP = path.join(ROOT, 'kitbox.html');
+const APP = path.join(ROOT, 'kitbox.html');          // the built file, read for the registry
+const SOURCE = path.join(ROOT, 'src', 'js', '00-core.js');  // where the map is written
 const CODES = path.join(ROOT, 'codes.json');
 const IDS = path.join(ROOT, 'ids.json');
 const CHECK = process.argv.includes('--check');
@@ -68,8 +69,8 @@ setTimeout(() => {
     const unaliased = gone.filter(k => !Object.prototype.hasOwnProperty.call(aliases, k));
     say(unaliased.length === 0, 'every retired id has an alias' + (unaliased.length ? ': ' + unaliased.join(', ') : ''));
 
-    const embedded = (fs.readFileSync(APP, 'utf8').match(new RegExp(START.replace(/[/*]/g, '\\$&') + '[\\s\\S]*?' + END.replace(/[/*]/g, '\\$&'))) || [''])[0];
-    say(embedded.includes('"files/zipcreate": "FIL-01"') || Object.keys(codes).every(k => embedded.includes(JSON.stringify(k))),
+    const embedded = (fs.readFileSync(SOURCE, 'utf8').match(new RegExp(START.replace(/[/*]/g, '\\$&') + '[\\s\\S]*?' + END.replace(/[/*]/g, '\\$&'))) || [''])[0];
+    say(Object.keys(codes).every(k => embedded.includes(JSON.stringify(k))),
         'the app embeds the same map as codes.json');
 
     console.log('\n' + Object.keys(codes).length + ' codes pinned, ' + ids.ids.length + ' ids on record');
@@ -101,7 +102,7 @@ setTimeout(() => {
   fs.writeFileSync(IDS, JSON.stringify({ schema: 1, ids: allIds }, null, 2) + '\n');
 
   // rewrite the embedded block in the app
-  const app = fs.readFileSync(APP, 'utf8');
+  const app = fs.readFileSync(SOURCE, 'utf8');
   const block = START + '\nconst STABLE_CODES = ' + JSON.stringify(sortedCodes, null, 0)
     .replace(/","/g, '", "').replace(/^{/, '{ ').replace(/}$/, ' }') + ';\n' + END;
   const re = new RegExp(START.replace(/[/*]/g, '\\$&') + '[\\s\\S]*?' + END.replace(/[/*]/g, '\\$&'));
@@ -109,10 +110,10 @@ setTimeout(() => {
     console.error('The app has no ' + START + ' / ' + END + ' markers — add them before running this.');
     process.exit(1);
   }
-  fs.writeFileSync(APP, app.replace(re, block));
+  fs.writeFileSync(SOURCE, app.replace(re, block));
 
   console.log('codes: ' + Object.keys(sortedCodes).length + ' pinned (' + added + ' new)');
   console.log('ids:   ' + allIds.length + ' on record');
-  console.log('wrote the embedded map into kitbox.html');
+  console.log('wrote the embedded map into src/js/00-core.js — run tools/build.py');
   process.exit(0);
 }, 700);

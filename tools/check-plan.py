@@ -14,9 +14,19 @@ road = open('ROADMAP.md', encoding='utf-8').read()
 plan = open('PLAN.md', encoding='utf-8').read()
 
 road_items = set(re.findall(r'\|\s*(E-\d{2,3})\s*\|', road))
-index = plan.split('## Item index')[1] if '## Item index' in plan else plan
-mapped = ID.findall(index)
-counts = collections.Counter(mapped)
+# Items may be scheduled (the index) or dropped with a reason. Both count as
+# accounted for; an item in neither is the failure this check exists to catch.
+scheduled_part, _, dropped_part = plan.partition('## Dropped')
+dropped_part = dropped_part.split('## Item index')[0] if dropped_part else ''
+index = plan.split('## Item index')[1]
+scheduled = set(ID.findall(index))
+dropped = set(ID.findall(dropped_part)) if '## Item index' in plan else plan
+mapped = ID.findall(index) + ID.findall(dropped_part)
+# An id may be mentioned more than once inside a section ("follows from E-101");
+# what matters is that it is scheduled in one place and dropped in none.
+counts = collections.Counter(set(ID.findall(index)))
+counts.update(set(ID.findall(dropped_part)))
+both = set(ID.findall(index)) & set(ID.findall(dropped_part))
 
 fail = 0
 def check(label, bad):
@@ -25,6 +35,7 @@ def check(label, bad):
     if bad: fail += 1
 
 check('every roadmap item is batched', road_items - set(mapped))
+check('no item is both scheduled and dropped', both)
 check('no roadmap item is batched twice', {k for k, v in counts.items() if v > 1})
 check('every batched item exists in the roadmap', set(mapped) - set(ID.findall(road)))
 check('no gap in the item numbering', {'E-%02d' % i for i in range(1, len(road_items) + 1)} - set(mapped))

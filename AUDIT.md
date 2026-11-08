@@ -455,3 +455,29 @@ Nothing broke — 301 tools took input and none threw. That is worth stating pla
 - `register()` attaches `keywords` and `requires` from the side maps rather than taking them as arguments. The next tool can pass them directly; the 339 existing ones keep working.
 - The library extraction is by name, from a whitelist in `tools/build-lib.js`. A new pure function is not testable until it is added to that list.
 - `tsconfig.json` sets `noImplicitAny: false`. Turning it on would need JSDoc on every parameter of the 22 extracted functions; that is the natural next step, not a blocker.
+
+## B13 — four categories (2.1.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 356 / 27 (was 339 / 23) |
+| Codes pinned for the new tools | 17 added |
+| axe across pages | 58 pages, 0 violations |
+| Interaction sweep | 317 tools driven, 0 failures |
+| ESLint | 0 errors, 0 warnings |
+| Full suite | 146 checks, 0 failures |
+| Size | 700 KB → 723 KB |
+
+### Findings
+
+**1. axe caught a table with an empty header cell.** The multiplication table's corner cell was `<th></th>`, which is a real violation (`empty-table-header`) and a real problem for a screen reader: it announces a column with no name. Fixed with `scope="col"` and an `aria-label`, and the sweep now covers 58 pages instead of 50 because the four new categories each get one.
+
+**2. Every new tool had to be registered before it could be pinned.** The test that every tool wears its pinned code failed for all 17 new tools until `tools/gen-codes.js` ran — which is the design working: a tool cannot appear in the app with a code nobody has recorded.
+
+**3. A disclaimer is part of the tool, not a footer.** The four clinical calculators carry the same note in the same place, and it says what the numbers assume. The alternative — a clean-looking calculator with a caveat in a README nobody reads — is the version that gets someone hurt.
+
+### Known limitations added
+
+- Clinical tools implement textbook formulas (CKD-EPI 2021, 15/26 gratuity, 0.8 mg/dL calcium correction). They do not know your patient, your lab's reference range, or your protocol.
+- The Money category is the old tax regime for HRA, and does not model surcharge, cess or state-specific professional tax.
+- Accessibility tools preview and check; they cannot test with an actual screen reader, which remains the only real test.

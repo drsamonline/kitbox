@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**339 tools across 23 categories.**
+**356 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -30,6 +30,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 21 | Communication | `COM` | 5 |
 | 22 | Reference | `REF` | 5 |
 | 23 | System | `SYS` | 4 |
+| 24 | Accessibility | `ACC` | 5 |
+| 25 | Education | `EDU` | 4 |
+| 26 | Clinical | `CLN` | 4 |
+| 27 | Money (India) | `MNY` | 4 |
 
 ## General Tools — 13 tools
 
@@ -495,3 +499,32 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `SYS-02` **Error Log** — `system/errorlog`
 - `SYS-03` **Browser Feature Check** — `system/features`
 - `SYS-04` **Local Storage Usage** — `system/storage`
+
+## Accessibility — 5 tools
+
+- `ACC-01` **Reading Ruler** — `accessibility/readingruler`
+- `ACC-02` **Dyslexia-Friendly Preview** — `accessibility/dyslexiapreview`
+- `ACC-03` **Text Spacing Checker** — `accessibility/textspacing`
+- `ACC-04` **Alt Text Checker** — `accessibility/altcheck`
+- `ACC-05` **Focus Ring Preview** — `accessibility/focuspreview`
+
+## Education — 4 tools
+
+- `EDU-01` **Multiplication Table** — `education/timestable`
+- `EDU-02` **Times Table Quiz** — `education/timesquiz`
+- `EDU-03` **Unit Circle** — `education/unitcircle`
+- `EDU-04` **Formula Sheet** — `education/formulasheet`
+
+## Clinical — 4 tools
+
+- `CLN-01` **Paediatric Dose** — `clinical/paeddose`
+- `CLN-02` **IV Drip Rate** — `clinical/drip`
+- `CLN-03` **eGFR (CKD-EPI 2021)** — `clinical/egfr`
+- `CLN-04` **Corrected Calcium & Anion Gap** — `clinical/electrolytes`
+
+## Money (India) — 4 tools
+
+- `MNY-01` **HRA Exemption** — `money/hra`
+- `MNY-02` **EPF Corpus** — `money/epf`
+- `MNY-03` **Gratuity** — `money/gratuity`
+- `MNY-04` **PPF / FD Maturity** — `money/ppf`

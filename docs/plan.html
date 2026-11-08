@@ -153,9 +153,16 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <td style="text-align: right;">700 KB</td>
 </tr>
 <tr>
-<td style="text-align: left;">—</td>
-<td style="text-align: left;">—</td>
-<td style="text-align: left;"><strong>cut line reached at B10.</strong> B13–B14 are reach and packaging, not repairs</td>
+<td style="text-align: left;">B13</td>
+<td style="text-align: left;">2.1.0</td>
+<td style="text-align: left;"><strong>shipped</strong> — Accessibility, Education, Clinical and Money categories (17 tools); i18n dropped</td>
+<td style="text-align: right;">146</td>
+<td style="text-align: right;">723 KB</td>
+</tr>
+<tr>
+<td style="text-align: left;">B14</td>
+<td style="text-align: left;">2.2.0</td>
+<td style="text-align: left;">next — packaging: EXE, APK, IndexedDB</td>
 <td style="text-align: right;">—</td>
 <td style="text-align: right;">—</td>
 </tr>
@@ -394,7 +401,7 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <p><em>The rule that keeps it honest:</em> the committed <code>kitbox.html</code> must be byte-identical to what <code>build.py</code> produces, asserted in CI. If that check is ever removed, the split has failed.</p>
 <hr />
 <h3>B13 — Reach (12 days)</h3>
-<p><strong>Items:</strong> E-100 string dictionary · E-101 English/Hindi/Gujarati <strong>only — the language set is fixed at three, by decision, not by capacity</strong> · E-102 locale-aware numbers and dates · E-103 translatable names and descriptions · E-104 Devanagari rendering check · E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category.</p>
+<p><strong>Items:</strong> E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category. E-100–E-104 (internationalisation) are <strong>dropped</strong> — see below.</p>
 <p><em>Split into two releases in practice:</em> i18n (E-100–E-104) is one version; the four categories and the tools behind them are another. The clinical category cannot ship without a clinician's sign-off recorded in <code>AUDIT.md</code>, and that is a calendar dependency, not a coding one.</p>
 <hr />
 <h3>B14 — Packaging (10 days)</h3>
@@ -421,6 +428,25 @@ B0 ─────────────────────────�
 <p>If time is short, ship B0 through B10 and stop. That is ~25 days and it delivers: nothing broken, nothing silently lost, everything findable, every number verified, and a tagged release. B11–B14 are worth doing but none of them fix a problem a user has today.</p>
 <p><strong>The three batches not to skip even under pressure:</strong> B0 (the guards are cheap and permanent), B4 (stable references — every later shortcut depends on it), and B10 (the tests are what make the next two years safe).</p>
 <hr />
+<h2>Dropped</h2>
+<p>Items removed from the plan by decision, with the reason. They keep their roadmap
+numbers so the index stays complete and nothing silently disappears.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">What it was</th>
+<th style="text-align: left;">Why it is not being built</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2>Item index — every roadmap item, and where it ships</h2>
 <table>
 <thead>

@@ -23,7 +23,8 @@ The 119 items in [ROADMAP.md](ROADMAP.md), grouped into 15 batches. Quick wins f
 | B10 | 1.7.0 | **shipped** — interaction sweep over 301 tools, 15 fixtures, round trips, real files, landing links | 118 | 695 KB |
 | B11 | 1.7.1 | **shipped** — release per tag with checksums, `/latest/`, verified minified copy | 123 | 697 KB |
 | B12 | 2.0.0 | **shipped** — `src/` + build (byte-identical split), one `register()`, testable library, ESLint, tsc. E-116/E-87 deferred | 146 | 700 KB |
-| — | — | **cut line reached at B10.** B13–B14 are reach and packaging, not repairs | — | — |
+| B13 | 2.1.0 | **shipped** — Accessibility, Education, Clinical and Money categories (17 tools); i18n dropped | 146 | 723 KB |
+| B14 | 2.2.0 | next — packaging: EXE, APK, IndexedDB | — | — |
 
 Every shipped batch is green on CI: the suite, the axe sweep, the badge and manifest and plan checks, the landing and docs freshness checks, the security greps and the size budget.
 
@@ -200,7 +201,7 @@ Every shipped batch is green on CI: the suite, the axe sweep, the badge and mani
 
 ### B13 — Reach (12 days)
 
-**Items:** E-100 string dictionary · E-101 English/Hindi/Gujarati **only — the language set is fixed at three, by decision, not by capacity** · E-102 locale-aware numbers and dates · E-103 translatable names and descriptions · E-104 Devanagari rendering check · E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category.
+**Items:** E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category. E-100–E-104 (internationalisation) are **dropped** — see below.
 
 *Split into two releases in practice:* i18n (E-100–E-104) is one version; the four categories and the tools behind them are another. The clinical category cannot ship without a clinician's sign-off recorded in `AUDIT.md`, and that is a calendar dependency, not a coding one.
 
@@ -242,6 +243,14 @@ If time is short, ship B0 through B10 and stop. That is ~25 days and it delivers
 **The three batches not to skip even under pressure:** B0 (the guards are cheap and permanent), B4 (stable references — every later shortcut depends on it), and B10 (the tests are what make the next two years safe).
 
 ---
+
+## Dropped
+
+Items removed from the plan by decision, with the reason. They keep their roadmap
+numbers so the index stays complete and nothing silently disappears.
+
+| Item | What it was | Why it is not being built |
+|:--|:--|:--|
 
 ## Item index — every roadmap item, and where it ships
 

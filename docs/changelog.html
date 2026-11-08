@@ -52,6 +52,26 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.1.0 — 2026-11-08</h2>
+<p>Batch <strong>B13</strong> of <a href="plan.html">PLAN.md</a>: four categories that were missing. Internationalisation was dropped by decision, not deferred.</p>
+<h3>Added — Accessibility (5)</h3>
+<p>Reading Ruler · Dyslexia-Friendly Preview · Text Spacing Checker · Alt Text Checker · Focus Ring Preview. Each answers a question someone actually asks: does my text survive WCAG 1.4.12 spacing, does this alt text say anything, is my focus ring 2 px and 3:1.</p>
+<h3>Added — Education (4)</h3>
+<p>Multiplication Table · Times Table Quiz · Unit Circle · Formula Sheet.</p>
+<h3>Added — Clinical (4)</h3>
+<p>Paediatric Dose · IV Drip Rate · eGFR (CKD-EPI 2021) · Corrected Calcium &amp; Anion Gap. <strong>Every one carries a disclaimer and always will</strong>: a calculator is not a clinician, and the numbers depend on assumptions a patient may not fit.</p>
+<h3>Added — Money, India (4)</h3>
+<p>HRA Exemption · EPF Corpus · Gratuity · PPF / FD Maturity — in the rules an Indian salary actually follows (15/26 gratuity, 3.67% to EPF and 8.33% to EPS, metro HRA at 50%).</p>
+<h3>Changed</h3>
+<ul>
+<li>356 tools across 27 categories (was 339 in 23).</li>
+<li>Installability without a second file: <code>apple-mobile-web-app-*</code> tags, an inline SVG touch icon, and a <code>data:</code> manifest. iOS honours these; Chrome requires a same-origin manifest, which one file cannot provide, so it offers install from its own menu instead. Recorded rather than pretended.</li>
+<li>The interaction sweep now drives 317 tools (was 301) — the 16 new ones with inputs all survive being typed into.</li>
+</ul>
+<h3>Dropped</h3>
+<ul>
+<li><strong>Internationalisation (E-100 … E-104).</strong> The interface is English-only, by decision. Each language is a dictionary to maintain, re-check on every release and re-test in the layout, and a half-translated interface is worse than none. The tools themselves still accept and display any script you paste into them.</li>
+</ul>
 <h2>2.0.0 — 2026-11-08</h2>
 <p>Batch <strong>B12</strong> of <a href="plan.html">PLAN.md</a>: architecture. The app still ships as one file; it is no longer <em>edited</em> as one file.</p>
 <h3>Changed — the file is now built</h3>
