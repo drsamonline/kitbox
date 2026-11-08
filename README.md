@@ -25,7 +25,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 <a href="https://drsamonline.github.io/kitbox/">Landing page</a> &nbsp;·&nbsp;
 <a href="#categories">What's inside</a> &nbsp;·&nbsp;
 <a href="ROADMAP.md">Roadmap</a> &nbsp;·&nbsp;
-<a href="BACKLOG-TOOLS.md">Tools to add</a> &nbsp;·&nbsp;
+<a href="BACKLOG-TOOLS.md">Tools to add (54)</a> &nbsp;·&nbsp;
 <a href="PLAN.md">Plan</a> &nbsp;·&nbsp;
 <a href="#support">Support</a>
 
