@@ -20,8 +20,8 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 <br>
 
-<a href="kitbox.html"><strong>Open the app →</strong></a> &nbsp;·&nbsp;
-<a href="index.html">Landing page</a> &nbsp;·&nbsp;
+<a href="https://drsamonline.github.io/kitbox/kitbox.html"><strong>Open the live app →</strong></a> &nbsp;·&nbsp;
+<a href="https://drsamonline.github.io/kitbox/">Landing page</a> &nbsp;·&nbsp;
 <a href="#categories">What's inside</a> &nbsp;·&nbsp;
 <a href="ROADMAP.md">Roadmap</a> &nbsp;·&nbsp;
 <a href="PLAN.md">Plan</a> &nbsp;·&nbsp;
@@ -36,6 +36,8 @@ No install, no build step, no dependencies, no account — and no network call, 
 <p align="center"><sub>One search box over 338 tools. Pinned and recent tools appear above the categories once you have used it for a day.</sub></p>
 
 ---
+
+**Live demo:** [drsamonline.github.io/kitbox](https://drsamonline.github.io/kitbox/) — the same single file, served over https. Download it from a release and it works with the network off.
 
 ## What it is
 

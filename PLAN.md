@@ -16,7 +16,8 @@ The 119 items in [ROADMAP.md](ROADMAP.md), grouped into 15 batches. Quick wins f
 | B3 | 1.3.0 | **shipped** — aliases, category filter, prev/next, recent searches, `g`-chords | 63 | 647 KB |
 | B4 | 1.4.0 | **shipped** — pinned codes, id aliases, error boundary, capability chips, timer-leak sweep | 70 | 656 KB |
 | B5 | 1.5.0 | **shipped** — state memory, reset, examples, disabled reasons, drop, paste chip, CSV from tables | 82 | 668 KB |
-| B6 | 1.5.1 | next — preferences and permalinks | — | — |
+| B6 | 1.5.1 | **shipped** — number format, units preference, permalinks from every tool page | 87 | 677 KB |
+| B7 | 1.6.0 | next — storage you can trust | — | — |
 
 Every shipped batch is green on CI: the suite, the axe sweep, the badge and manifest and plan checks, the landing and docs freshness checks, the security greps and the size budget.
 
