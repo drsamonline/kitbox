@@ -277,7 +277,57 @@ setTimeout(async () => {
   const dupFns = [...new Set(fnames.filter((n, i) => fnames.indexOf(n) !== i))];
   ok('no duplicate top-level function names', dupFns.length === 0, dupFns.join(', '));
 
-  /* 11. the app makes no network calls and loads nothing external */
+
+  /* 11. findability (B3) */
+  const searchIds = q => ev('searchTools(' + JSON.stringify(q) + ').map(t=>t.id)');
+  ok('an alias finds the tool people mean by it', searchIds('emi')[0] === 'loanemi', searchIds('emi').slice(0, 3).join(','));
+  ok('a keyword finds a tool whose name does not contain it',
+     searchIds('checksum').slice(0, 3).includes('filehash'), searchIds('checksum').slice(0, 3).join(','));
+  ok('the group label is searchable', searchIds('remove').length > 0, searchIds('remove').slice(0, 3).join(','));
+
+  const scoreOf = id => ev("(function(){const t=TOOL_INDEX.find(x=>x.id===" + JSON.stringify(id) + ");return scoreTool(t,'hash');})()");
+  const bare = scoreOf('md5');
+  ev("togglePin('dev','md5')");
+  ok('a pin raises the score without overturning a better name match', scoreOf('md5') === bare + 8, bare + ' -> ' + scoreOf('md5'));
+  ev("togglePin('dev','md5')");
+
+  ev('location.hash="#/category/files"'); ev('route()');
+  ok('tools added in 1.1.0 are marked new', w.document.querySelectorAll('.newchip').length > 0,
+     w.document.querySelectorAll('.newchip').length + ' chips');
+
+  const filter = w.document.querySelector('#catFilter');
+  ok('a large category gets a filter box', !!filter);
+  if (filter) {
+    filter.value = 'hash'; filter.dispatchEvent(new w.Event('input'));
+    const shown = [...w.document.querySelectorAll('#catBody [data-tool]')].filter(b => b.style.display !== 'none');
+    ok('the category filter narrows the grid', shown.length === 1 && /Hash/.test(shown[0].textContent),
+       shown.map(b => b.textContent.trim().slice(0, 18)).join(' | '));
+  }
+
+  ev('location.hash="#/tool/files/zipcreate"'); ev('route()');
+  const prevBtn = w.document.querySelector('#prevBtn'), nextBtn = w.document.querySelector('#nextBtn');
+  ok('the first tool has a disabled previous arrow', !!prevBtn && prevBtn.disabled && !nextBtn.disabled);
+  nextBtn.click();
+  ok('the next arrow moves within the category', ev('location.hash') === '#/tool/files/gzip', ev('location.hash'));
+
+  ev("store.set('palette-history', ['panchang'])");
+  const ov = w.document.querySelector('.palette-overlay');
+  ov.hidden = false;
+  const palInput = w.document.querySelector('#palInput');
+  palInput.value = ''; palInput.dispatchEvent(new w.Event('input'));
+  ok('recent searches are offered in the empty palette', /Recent searches/.test(ov.textContent));
+  const histBtn = w.document.querySelector('[data-hist]');
+  if (histBtn) {
+    histBtn.click();
+    ok('a recent search fills the box', palInput.value === 'panchang', palInput.value);
+  }
+  ov.hidden = true;
+
+  w.document.body.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'g', bubbles: true }));
+  w.document.body.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'a', bubbles: true }));
+  ok('g then a opens the A–Z list', ev('location.hash') === '#/all', ev('location.hash'));
+
+  /* 12. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

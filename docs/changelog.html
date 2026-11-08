@@ -47,6 +47,26 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.3.0 — 2026-11-08</h2>
+<p>Batch <strong>B3</strong> of <a href="plan.html">PLAN.md</a>: findability. Nine items, all in the search index and the category page.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>Keyword aliases.</strong> A tool's name is what it was called; a keyword list is what people call it. <code>emi</code> finds the EMI calculator, <code>checksum</code> finds hashing, <code>tithi</code> finds the almanac, <code>wpm</code> finds the typing test. About ninety tools now carry keywords — the vocabulary of the problem, not of the implementation.</li>
+<li><strong>A filter box on any category with more than eight tools.</strong> Calculation has 51; typing three letters beats scanning four screens.</li>
+<li><strong>Previous and next arrows</strong> on a tool page, so a category can be walked without going back to the grid.</li>
+<li><strong>A "new" chip</strong> on the 58 tools that arrived in 1.1.0, so a returning user can see what changed.</li>
+<li><strong>Recent searches</strong> in the empty palette, remembered locally, clickable to re-run.</li>
+<li><strong><code>⌘1</code>–<code>⌘9</code></strong> opens the nth result; <strong><code>g</code> then <code>h</code> / <code>a</code> / <code>s</code> / <code>t</code></strong> goes home, to the A–Z list, to Support, to About.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li><strong>Ranking.</strong> A keyword hit now scores between a name match and a substring match, and a pin adds 8 to the score — enough to break a tie, not enough to overturn a better name match. That is deliberate: <code>hash</code> should still find <em>Hash Generator</em> first even if you pinned MD5.</li>
+<li>63 tests (was 51).</li>
+</ul>
+<h3>Notes</h3>
+<ul>
+<li>Searching by group label (<code>remove</code>, <code>analysis</code>, <code>time</code>) already worked, because the group was in the index. It now has a test so it keeps working.</li>
+</ul>
 <h2>1.2.1 — 2026-11-08</h2>
 <p>Batch <strong>B2</strong> of <a href="plan.html">PLAN.md</a>: contrast and accessibility. Nine items, and the app is measurably better for each.</p>
 <h3>Fixed — contrast</h3>

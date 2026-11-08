@@ -37,7 +37,7 @@ setTimeout(() => {
   expect('tools', toolCount, 'badge-tools.svg');
   expect('categories', catCount, 'badge-categories.svg');
 
-  const tests = (read('test/smoke.js').match(/\n\s*ok\(/g) || []).length;
+  const tests = (read('test/smoke.js').match(/\bok\(/g) || []).length;
   expect('tests', tests, 'badge-tests.svg');
 
   const kb = Math.round(fs.statSync(path.join(ROOT, 'kitbox.html')).size / 1024);

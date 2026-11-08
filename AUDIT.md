@@ -180,3 +180,25 @@ Widening the sweep to all 50 pages then found **two more**: an unnamed colour sw
 
 - `body{zoom}` is the least-invasive way to scale an app whose type is set in pixels. It is supported in Chrome, Safari and Firefox 126+, and it is not a standard property. If it ever stops working the app is unchanged at 100%, which is the default.
 - axe's colour-contrast rule needs layout and skips in jsdom, so contrast is asserted by computing the ratios directly instead — which is stricter, since it covers every tile rather than the ones axe happens to render.
+
+## B3 — findability (1.3.0)
+
+| Check | Result |
+|---|---|
+| Full suite | 63 passed, 0 failed |
+| axe across 50 pages | 0 violations |
+| Size | 638 KB → 646 KB |
+| Every category with > 8 tools has a filter | 18 of 18 |
+
+### Findings
+
+**1. A pin must not outrank a better name.** The first version added a flat bonus to any pinned tool, and the test that expected the pinned MD5 to top a search for `hash` failed — correctly. *Hash Generator* starts with the query; MD5 contains it as a second word. A pin is a tie-breaker, not a trump card, so the test was rewritten to assert the bonus (+8) rather than the outcome. The behaviour is now stated in a comment so the next person does not "fix" it.
+
+**2. Recent searches were rendered in the wrong branch of the palette.** The history block went inside the `if(!results.length)` guard, which is only reached when there are no pinned or recent *tools* — so anyone with a pin saw their history never appear. *Fixed* by appending the history group after the pinned/recent list, unconditionally.
+
+**3. Two of the nine items were already true.** Searching by group label worked because the group was already in the index string, and the index already carried the category name. Rather than invent work, both got tests and a line in the changelog saying so.
+
+### Known limitations added
+
+- The "new" chip is a hand-maintained list of ids, not derived from release metadata. When B12 adds `since` to every registration, the list should be replaced by a comparison against the current version. Until then, a tool added in 1.3.0 will not be chipped unless its id is added to `NEW_TOOLS`.
+- `g`-chords are single-key and time-boxed to 1.2 s. They are ignored while a text field has focus, which is the only sane default, but it does mean they do not work from the palette.

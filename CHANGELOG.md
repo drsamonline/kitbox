@@ -2,6 +2,28 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.3.0 — 2026-11-08
+
+Batch **B3** of [PLAN.md](PLAN.md): findability. Nine items, all in the search index and the category page.
+
+### Added
+
+- **Keyword aliases.** A tool's name is what it was called; a keyword list is what people call it. `emi` finds the EMI calculator, `checksum` finds hashing, `tithi` finds the almanac, `wpm` finds the typing test. About ninety tools now carry keywords — the vocabulary of the problem, not of the implementation.
+- **A filter box on any category with more than eight tools.** Calculation has 51; typing three letters beats scanning four screens.
+- **Previous and next arrows** on a tool page, so a category can be walked without going back to the grid.
+- **A "new" chip** on the 58 tools that arrived in 1.1.0, so a returning user can see what changed.
+- **Recent searches** in the empty palette, remembered locally, clickable to re-run.
+- **`⌘1`–`⌘9`** opens the nth result; **`g` then `h` / `a` / `s` / `t`** goes home, to the A–Z list, to Support, to About.
+
+### Changed
+
+- **Ranking.** A keyword hit now scores between a name match and a substring match, and a pin adds 8 to the score — enough to break a tie, not enough to overturn a better name match. That is deliberate: `hash` should still find *Hash Generator* first even if you pinned MD5.
+- 63 tests (was 51).
+
+### Notes
+
+- Searching by group label (`remove`, `analysis`, `time`) already worked, because the group was in the index. It now has a test so it keeps working.
+
 ## 1.2.1 — 2026-11-08
 
 Batch **B2** of [PLAN.md](PLAN.md): contrast and accessibility. Nine items, and the app is measurably better for each.
