@@ -5,18 +5,18 @@
 <br>
 
 <a href="https://github.com/drsamonline/kitbox/releases/latest"><img src="docs/assets/badge-version.svg" alt="version 2.3.0"></a>
-<a href="kitbox.html"><img src="docs/assets/badge-tools.svg" alt="421 tools"></a>
+<a href="kitbox.html"><img src="docs/assets/badge-tools.svg" alt="428 tools"></a>
 <a href="#categories"><img src="docs/assets/badge-categories.svg" alt="27 categories"></a>
-<a href="#tests"><img src="docs/assets/badge-checks.svg" alt="182 checks"></a>
+<a href="#tests"><img src="docs/assets/badge-checks.svg" alt="190 checks"></a>
 <a href="#what-it-refuses-to-do"><img src="docs/assets/badge-network.svg" alt="no network"></a>
 <a href="#what-it-is"><img src="docs/assets/badge-runtime.svg" alt="0 dependencies"></a>
 <a href="#what-it-is"><img src="docs/assets/badge-file.svg" alt="1 HTML file"></a>
-<a href="#what-it-is"><img src="docs/assets/badge-size.svg" alt="902 KB"></a>
+<a href="#what-it-is"><img src="docs/assets/badge-size.svg" alt="932 KB"></a>
 <a href="LICENSE"><img src="docs/assets/badge-licence.svg" alt="PolyForm Noncommercial 1.0.0"></a>
 
 <br><br>
 
-<strong>421 tools across 27 categories in one HTML file.</strong><br>
+<strong>428 tools across 27 categories in one HTML file.</strong><br>
 No install, no build step, no dependencies, no account — and no network call, ever.
 
 <br>
@@ -33,9 +33,9 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 <br>
 
-<img src="docs/shot-home.png" alt="Kitbox home screen: a search box over 421 tools and a grid of 27 colour-coded categories" width="100%">
+<img src="docs/shot-home.png" alt="Kitbox home screen: a search box over 428 tools and a grid of 27 colour-coded categories" width="100%">
 
-<p align="center"><sub>One search box over 421 tools. Pinned and recent tools appear above the categories once you have used it for a day.</sub></p>
+<p align="center"><sub>One search box over 428 tools. Pinned and recent tools appear above the categories once you have used it for a day.</sub></p>
 
 ---
 
@@ -45,7 +45,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 |  |  |  |
 |:--|:--|:--|
-| 🧰 **421 tools** | 🗂️ **27 categories** | 📄 **1 HTML file** |
+| 🧰 **428 tools** | 🗂️ **27 categories** | 📄 **1 HTML file** |
 | 📦 **0 dependencies** | 🔌 **0 network calls** | 👤 **0 accounts** |
 
 Save the file. Open it from a USB stick on a machine with the router switched off. It works — that is the entire design brief, and everything below follows from it.
@@ -58,24 +58,24 @@ Save the file. Open it from a USB stick on a machine with the router switched of
 |:--:|:--|--:|:--|
 | 🧰 | General | 13 | Ruler, counters, countdown, stopwatch, Morse, Roman numerals, compass, level, world clock, text-to-speech, big clock |
 | ✍️ | Text | 47 | Case, find and replace, sorting, ciphers, slugify, braille, ASCII banners, readability, keywords, accents, smart quotes, invisible characters |
-| ✨ | Generator | 10 | QR codes, Lorem Ipsum, number generators, barcode scanning, passphrases, usernames |
+| ✨ | Generator | 11 | QR codes, Lorem Ipsum, number generators, barcode scanning, passphrases, usernames |
 | 🧮 | Calculation | 55 | Everyday maths, algebra, geometry and solids, statistics, regression, dates, sleep cycles, rounding, fuel and electricity cost, pricing |
 | 🖼️ | Image | 18 | Resize, crop, compress, convert, filters, collage, ASCII art — all local |
 | 📐 | Unit converter | 33 | Length, mass, volume, energy, pressure, data, typography, paper sizes, shoe sizes |
 | 💰 | Finance | 19 | EMI, investment, tax, amortisation, savings goal, debt payoff, simple interest, SIP, GST split |
 | 🎲 | Randomizer | 11 | Wheel, dice, coin, rock-paper-scissors, random from a list, PINs, teams, 8-ball |
 | ❤️ | Health | 8 | BMI, BMR, water, ideal weight, clinical calculations, TDEE and macros, heart-rate zones, due date |
-| ⌨️ | Development | 59 | JSON and schema, YAML, base64, hashes, HMAC, JWT, certificates, ASN.1, cron, ULID, CIDR, MIME, Markdown, configs, regex, SQL, CSS clamp |
+| ⌨️ | Development | 60 | JSON and schema, YAML, base64, hashes, HMAC, JWT, certificates, ASN.1, cron, ULID, CIDR, MIME, Markdown, configs, regex, SQL, CSS clamp |
 | 🎨 | Colours | 10 | Picker, blend, WCAG contrast, colour-blindness simulation, palette from an image, harmony, tints and shades |
 | ⚗️ | Science | 17 | Ohm's law, molar mass, pH, half-life, density, wavelength, periodic table, ideal gas, projectiles, molarity |
-| 🧭 | Geo | 10 | Distance, bearing, midpoint, DMS, sunrise, GPS speed, polygon area, antipodes, cardinal points, coordinate rounding |
+| 🧭 | Geo | 11 | Distance, bearing, midpoint, DMS, sunrise, GPS speed, polygon area, antipodes, cardinal points, coordinate rounding |
 | 🎵 | Audio | 10 | Tone generator, metronome, noise, binaural beats, decibel meter, recorder, tap tempo, Hz to note |
-| 🕹️ | Games | 13 | Tic-tac-toe, memory, hangman, Wordle, Simon, trivia, reaction time, typing speed, 2048, minesweeper, snake |
+| 🕹️ | Games | 14 | Tic-tac-toe, memory, hangman, Wordle, Simon, trivia, reaction time, typing speed, 2048, minesweeper, snake |
 | ✈️ | Travel | 5 | Packing lists, flight duration, bag sizes, plug types, flight carbon |
 | 🌙 | Nature | 6 | Moon phase, solstices, sun exposure, night-sky brightness, golden hour, day length |
 | ⏱️ | Productivity | 8 | Pomodoro, habits, notepad, sketch pad, flashcards, backup and restore, checklists, meeting cost |
-| 📁 | Files & Data | 14 | ZIP create and extract, gzip, hashing, encryption, sealed notes, CSV, EXIF and GPS, base64 both ways, file type detection |
-| ☀️ | Almanac | 8 | Panchang, rahu kaal, sun and moon times, planetary hours, tithi calendar |
+| 📁 | Files & Data | 16 | ZIP create and extract, gzip, hashing, encryption, sealed notes, CSV, EXIF and GPS, base64 both ways, file type detection |
+| ☀️ | Almanac | 9 | Panchang, rahu kaal, sun and moon times, planetary hours, tithi calendar |
 | ✉️ | Communication | 5 | vCard, calendar invites, message links, SMS counting, phone formatting |
 | 📚 | Reference | 7 | ASCII table, Big-O cheatsheet, regex cheatsheet, country dial codes, keyboard shortcuts |
 | 🖥️ | System | 4 | Device and screen info, error log, browser feature check, local storage usage |
@@ -101,7 +101,7 @@ Save the file. Open it from a USB stick on a machine with the router switched of
 
 | Key | Does |
 |:--|:--|
-| <kbd>Ctrl</kbd> <kbd>K</kbd> / <kbd>⌘</kbd> <kbd>K</kbd> | Search all 421 tools from anywhere |
+| <kbd>Ctrl</kbd> <kbd>K</kbd> / <kbd>⌘</kbd> <kbd>K</kbd> | Search all 428 tools from anywhere |
 | <kbd>/</kbd> | The same search, when you are not already typing |
 | <kbd>↑</kbd> <kbd>↓</kbd> <kbd>↵</kbd> | Move through results, open one |
 | <kbd>Esc</kbd> | Close the search, then step back a page |
@@ -157,9 +157,9 @@ npm ci
 npm test
 ```
 
-182 checks, run against the real file in jsdom:
+190 checks, run against the real file in jsdom:
 
-- every tool renders — 421 of them
+- every tool renders — 428 of them
 - tool ids and names are unique
 - all 50 routes resolve
 - the ported astronomy matches Meeus 25.b and 47.a; Delhi's midsummer sunrise and sunset land where they should

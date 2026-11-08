@@ -730,7 +730,48 @@ setTimeout(async () => {
   ok('the link checker flags "click here"',
      /meaningless out of context/.test(w.document.querySelector('#ltOut').textContent));
 
-  /* 23. the app makes no network calls and loads nothing external */
+
+  /* 23. B25-B26: QR payloads, UTM, sun table, Sudoku, MIME */
+  ev('location.hash="#/tool/generator/qrpayload"'); ev('route()');
+  const qpType = w.document.querySelector('#qpType');
+  qpType.value = 'wifi'; qpType.dispatchEvent(new w.Event('change'));
+  w.document.querySelector('#qpSsid').value = 'My Net';
+  w.document.querySelector('#qpPass').value = 'p;w';
+  w.document.querySelector('#qpSsid').dispatchEvent(new w.Event('input'));
+  ok('the WiFi payload escapes a semicolon in the password',
+     w.document.querySelector('#qpOut').textContent === 'WIFI:T:WPA;S:My Net;P:p\\;w;;',
+     w.document.querySelector('#qpOut').textContent);
+  qpType.value = 'otp'; qpType.dispatchEvent(new w.Event('change'));
+  w.document.querySelector('#qpIssuer').value = 'Kitbox';
+  w.document.querySelector('#qpAcct').value = 'a@b.com';
+  w.document.querySelector('#qpSecret').value = 'JBSWY3DPEHPK3PXP';
+  w.document.querySelector('#qpSecret').dispatchEvent(new w.Event('input'));
+  ok('the otpauth URI carries the secret and the digits',
+     /^otpauth:\/\/totp\/Kitbox:a%40b\.com\?secret=JBSWY3DPEHPK3PXP&issuer=Kitbox&digits=6&period=30$/
+       .test(w.document.querySelector('#qpOut').textContent));
+
+  ev('location.hash="#/tool/geo/utm"'); ev('route()');
+  ok('22.3072, 73.1812 falls in UTM zone 43Q',
+     /Zone43Q/.test(w.document.querySelector('#utOut').textContent.replace(/\s+/g, '')));
+
+  ev('location.hash="#/tool/almanac/suntable"'); ev('route()');
+  ok('the sun table has one row per day of the month',
+     w.document.querySelector('#stOut').querySelectorAll('tr').length === 31);
+
+  ev('location.hash="#/tool/games/sudoku"'); ev('route()');
+  w.document.querySelector('#sdSample').click();
+  const solvedCells = [...w.document.querySelectorAll('#sdBoard > div')].map(d => d.textContent).join('');
+  ok('the Sudoku solver returns the published solution',
+     solvedCells.slice(0, 9) === '534678912', solvedCells.slice(0, 9));
+  ok('the solved Sudoku grid has no blanks', /^\d{81}$/.test(solvedCells));
+
+  ev('location.hash="#/tool/dev/mimeparse"'); ev('route()');
+  const mimeText = w.document.querySelector('#mpOut').textContent;
+  ok('the MIME decoder resolves an encoded-word subject', /Test — email/.test(mimeText));
+  ok('the MIME decoder finds both parts of a multipart body',
+     /Part 2/.test(mimeText) && /plain part/.test(mimeText));
+
+  /* 24. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

@@ -52,6 +52,31 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.8.0 — 2026-11-08</h2>
+<p>B25 and B26 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
+<h3>B25 — QR payloads, UTM, a month of sun (3)</h3>
+<ul>
+<li><strong>QR Payload Builder</strong> — the thing you actually scan: WiFi join, contact card, email, SMS, location, otpauth URI, or a plain link, rendered as a QR with the app's own encoder and downloadable as PNG. One tool with a type selector rather than seven tools with the same canvas, for the same reason the extractors are one tool.</li>
+<li><strong>UTM Converter</strong> — latitude/longitude ↔ UTM easting/northing and zone, WGS84, with the band letter and the Norway exception named.</li>
+<li><strong>Sun Table for a Month</strong> — sunrise, sunset and daylight for every day, which is what you want when planning around light rather than asking about one day.</li>
+</ul>
+<h3>B26 — what is inside a file (4)</h3>
+<ul>
+<li><strong>ELF Header Reader</strong> — class, endianness, type, machine, entry point, section names, and whether it is stripped.</li>
+<li><strong>File Carver</strong> — PNG, JPEG, PDF, ZIP and GIF recovered from a blob by signature and end marker, each one saveable.</li>
+<li><strong>MIME Decoder</strong> — multipart bodies split, quoted-printable and base64 decoded, encoded-word subjects resolved.</li>
+<li><strong>Sudoku Solver</strong> — backtracking, with a contradiction check and an ambiguity warning.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li><strong>The Sudoku solver printed the puzzle back.</strong> The grid is restored on the way out of the recursion, so the "solution" was the board it started with — and it said "Solved in 8 ms" while doing it. The finished board is now copied at the moment it completes. My first verification caught it only because it compared the digits to the published solution rather than checking that the grid looked full.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>428 tools across 27 categories (was 421).</li>
+<li>182 checks (was 182 → 147 in the suite, 189 across all files).</li>
+<li>The gzipped budget moved from 260 KB to 285 KB: 428 tools at roughly 620 bytes gzipped each. Recorded as a decision, not a drift.</li>
+</ul>
 <h2>2.7.0 — 2026-11-08</h2>
 <p>B23 and B24 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
 <h3>B23 — keys, files, data (5)</h3>

@@ -658,3 +658,30 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - JWK ↔ PEM covers RSA only. An EC key would need the curve OIDs and the point format, and saying so is better than half-supporting it.
 - Duplicate Finder hashes in the page, so it is limited by memory; a folder of hundreds of large files is not its job.
 - File splitting does not add parity or checksums; a missing part is detected by name, not repaired.
+
+## B25–B26 (2.8.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 428 / 27 (was 421 / 27) |
+| Full suite | 189 checks, 0 failures |
+| Interaction sweep | 378 tools driven, 0 failures |
+| Fuzz | 238 fields across 428 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 902 KB → 929 KB raw · 260 KB gzipped |
+
+### Findings
+
+**1. A solver that restores its grid on the way out prints the puzzle.** The Sudoku "solution" was the starting board, with a confident "Solved in 8 ms" above it. The recursion unwinds by resetting each cell, so the completed board has to be copied the instant it completes. The test that caught it compared the digits to the published solution — a test that only checked "is the grid full" would have passed, because it was full.
+
+**2. The QR encoder was reused, not rewritten.** It has been in the app since 1.0.0 and the payload builder calls `QR.encode` directly. That is the first real payoff of the B12 split: a new tool reaching into an existing one instead of copying it.
+
+**3. The gzip budget did its job twice in a row.** It refused 2.7.0's predecessor at 260 KB and this release landed 492 bytes under the limit — close enough that the next tool would have failed it. Raised to 285 KB with the per-tool arithmetic written down.
+
+### Known limitations added
+
+- UTM does not model the Norway/Svalbard zone exceptions or the polar stereographic zones.
+- File carving finds signatures, not valid files: a candidate inside compressed data may not open.
+- The MIME decoder handles text parts; attachments are listed by name, not extracted.
+- The Sudoku solver reports ambiguity but shows only the first solution.

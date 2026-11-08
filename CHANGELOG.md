@@ -8,6 +8,33 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.8.0 — 2026-11-08
+
+B25 and B26 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).
+
+### B25 — QR payloads, UTM, a month of sun (3)
+
+- **QR Payload Builder** — the thing you actually scan: WiFi join, contact card, email, SMS, location, otpauth URI, or a plain link, rendered as a QR with the app's own encoder and downloadable as PNG. One tool with a type selector rather than seven tools with the same canvas, for the same reason the extractors are one tool.
+- **UTM Converter** — latitude/longitude ↔ UTM easting/northing and zone, WGS84, with the band letter and the Norway exception named.
+- **Sun Table for a Month** — sunrise, sunset and daylight for every day, which is what you want when planning around light rather than asking about one day.
+
+### B26 — what is inside a file (4)
+
+- **ELF Header Reader** — class, endianness, type, machine, entry point, section names, and whether it is stripped.
+- **File Carver** — PNG, JPEG, PDF, ZIP and GIF recovered from a blob by signature and end marker, each one saveable.
+- **MIME Decoder** — multipart bodies split, quoted-printable and base64 decoded, encoded-word subjects resolved.
+- **Sudoku Solver** — backtracking, with a contradiction check and an ambiguity warning.
+
+### Fixed
+
+- **The Sudoku solver printed the puzzle back.** The grid is restored on the way out of the recursion, so the "solution" was the board it started with — and it said "Solved in 8 ms" while doing it. The finished board is now copied at the moment it completes. My first verification caught it only because it compared the digits to the published solution rather than checking that the grid looked full.
+
+### Changed
+
+- 428 tools across 27 categories (was 421).
+- 182 checks (was 182 → 147 in the suite, 189 across all files).
+- The gzipped budget moved from 260 KB to 285 KB: 428 tools at roughly 620 bytes gzipped each. Recorded as a decision, not a drift.
+
 ## 2.7.0 — 2026-11-08
 
 B23 and B24 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).

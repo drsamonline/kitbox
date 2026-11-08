@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**421 tools across 27 categories.**
+**428 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -9,24 +9,24 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 |--:|:--|:--|--:|
 | 1 | General Tools | `GEN` | 13 |
 | 2 | Text Tools | `TXT` | 47 |
-| 3 | Generator Tools | `GNR` | 10 |
+| 3 | Generator Tools | `GNR` | 11 |
 | 4 | Calculation Tools | `CAL` | 55 |
 | 5 | Image Tools | `IMG` | 18 |
 | 6 | Unit Converter | `UNI` | 33 |
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 59 |
+| 10 | Development Tools | `DEV` | 60 |
 | 11 | Colors Tools | `CLR` | 10 |
 | 12 | Science Tools | `SCI` | 17 |
-| 13 | Geo Tools | `GEO` | 10 |
+| 13 | Geo Tools | `GEO` | 11 |
 | 14 | Audio Tools | `AUD` | 10 |
-| 15 | Games | `GAM` | 13 |
+| 15 | Games | `GAM` | 14 |
 | 16 | Travel Tools | `TRV` | 5 |
 | 17 | Nature Tools | `NAT` | 6 |
 | 18 | Productivity | `PRD` | 8 |
-| 19 | Files & Data | `FIL` | 14 |
-| 20 | Almanac | `ALM` | 8 |
+| 19 | Files & Data | `FIL` | 16 |
+| 20 | Almanac | `ALM` | 9 |
 | 21 | Communication | `COM` | 5 |
 | 22 | Reference | `REF` | 7 |
 | 23 | System | `SYS` | 4 |
@@ -121,13 +121,14 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `TXT-37` **Smart Quotes Fixer** — `text/smartquotes`
 - `TXT-40` **Invisible Character Detector** — `text/invisible`
 
-## Generator Tools — 10 tools
+## Generator Tools — 11 tools
 
 - `GNR-01` **QR Code** — `generator/qrcode`
 - `GNR-02` **Lorem Ipsum** — `generator/lorem`
 - `GNR-03` **Simple Number Generator** — `generator/numgen`
 - `GNR-04` **Multiple Numbers Generator** — `generator/multinumgen`
 - `GNR-05` **Barcode/QR code Scanner** — `generator/scanner`
+- `GNR-11` **QR Payload Builder** — `generator/qrpayload`
 - `GNR-10` **SVG Placeholder** — `generator/placeholder`
 - `GNR-06` **Speak Text** — `generator/tts`
 - `GNR-07` **Big Clock** — `generator/bigclock`
@@ -336,7 +337,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 59 tools
+## Development Tools — 60 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -361,6 +362,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-60` **MIME Decoder** — `dev/mimeparse`
 - `DEV-57` **JWK ↔ PEM** — `dev/jwkpem`
 - `DEV-58` **File Splitter & Joiner** — `dev/filesplit`
 - `DEV-59` **Duplicate Finder** — `dev/dupfinder`
@@ -431,8 +433,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `SCI-11` **Projectile Range** — `science/projectile`
 - `SCI-12` **Molarity & Dilution** — `science/molarity`
 
-## Geo Tools — 10 tools
+## Geo Tools — 11 tools
 
+- `GEO-11` **UTM Converter** — `geo/utm`
 - `GEO-01` **Distance** — `geo/distance`
 - `GEO-02` **Bearing** — `geo/bearing`
 - `GEO-03` **Midpoint** — `geo/midpoint`
@@ -457,8 +460,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `AUD-08` **Tap Tempo** — `audio/taptempo`
 - `AUD-09` **Frequency → Note** — `audio/hznote`
 
-## Games — 13 tools
+## Games — 14 tools
 
+- `GAM-14` **Sudoku Solver** — `games/sudoku`
 - `GAM-11` **2048** — `games/game2048`
 - `GAM-12` **Minesweeper** — `games/minesweeper`
 - `GAM-13` **Snake** — `games/snake`
@@ -501,8 +505,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `PRD-07` **Checklist** — `productivity/checklist`
 - `PRD-08` **Meeting Cost** — `productivity/meetingcost`
 
-## Files & Data — 14 tools
+## Files & Data — 16 tools
 
+- `FIL-15` **ELF Header Reader** — `files/elf`
+- `FIL-16` **File Carver** — `files/filecarve`
 - `FIL-14` **CSV to SQL** — `files/csvtosql`
 - `FIL-13` **ZIP Extract** — `files/zipextract`
 - `FIL-01` **ZIP Creator** — `files/zipcreate`
@@ -518,8 +524,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `FIL-11` **File Type Detector** — `files/filetype`
 - `FIL-12` **Base64 → File** — `files/b64file`
 
-## Almanac — 8 tools
+## Almanac — 9 tools
 
+- `ALM-09` **Sun Table for a Month** — `almanac/suntable`
 - `ALM-08` **Ekadashi List** — `almanac/ekadashi`
 - `ALM-06` **Choghadiya** — `almanac/choghadiya`
 - `ALM-07` **Moonrise & Moonset** — `almanac/moonrise`
