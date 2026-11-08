@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**435 tools across 27 categories.**
+**444 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -11,14 +11,14 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 2 | Text Tools | `TXT` | 50 |
 | 3 | Generator Tools | `GNR` | 11 |
 | 4 | Calculation Tools | `CAL` | 55 |
-| 5 | Image Tools | `IMG` | 18 |
+| 5 | Image Tools | `IMG` | 21 |
 | 6 | Unit Converter | `UNI` | 33 |
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 62 |
+| 10 | Development Tools | `DEV` | 65 |
 | 11 | Colors Tools | `CLR` | 10 |
-| 12 | Science Tools | `SCI` | 17 |
+| 12 | Science Tools | `SCI` | 19 |
 | 13 | Geo Tools | `GEO` | 11 |
 | 14 | Audio Tools | `AUD` | 10 |
 | 15 | Games | `GAM` | 16 |
@@ -26,7 +26,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 17 | Nature Tools | `NAT` | 6 |
 | 18 | Productivity | `PRD` | 8 |
 | 19 | Files & Data | `FIL` | 16 |
-| 20 | Almanac | `ALM` | 9 |
+| 20 | Almanac | `ALM` | 10 |
 | 21 | Communication | `COM` | 5 |
 | 22 | Reference | `REF` | 7 |
 | 23 | System | `SYS` | 4 |
@@ -225,8 +225,11 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 
 - `CAL-47` **Markup, Margin & Break-even** — `calc/pricing`
 
-## Image Tools — 18 tools
+## Image Tools — 21 tools
 
+- `IMG-19` **Image HSL** — `image/imghsl`
+- `IMG-20` **Invert Image** — `image/imginvert`
+- `IMG-21` **Image Opacity** — `image/imgopacity`
 - `IMG-01` **Resize Image** — `image/resize`
 - `IMG-02` **Crop Image** — `image/crop`
 - `IMG-03` **Rounded Image** — `image/rounded`
@@ -343,7 +346,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 62 tools
+## Development Tools — 65 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -368,6 +371,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-63` **RSA Sign / Verify** — `dev/rsasign`
+- `DEV-64` **IPv6 Header & ICMPv6** — `dev/ipv6`
+- `DEV-65` **JSONPath Query** — `dev/jsonpath`
 - `DEV-61` **Packet Header Parser** — `dev/packet`
 - `DEV-62` **RSA Encrypt / Decrypt** — `dev/rsacrypt`
 - `DEV-60` **MIME Decoder** — `dev/mimeparse`
@@ -421,8 +427,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `CLR-09` **Tints & Shades** — `colors/tintshade`
 - `CLR-10` **Random Colour** — `colors/randomcolor`
 
-## Science Tools — 17 tools
+## Science Tools — 19 tools
 
+- `SCI-18` **Decibels & Sound Level** — `science/decibel`
+- `SCI-19` **RC Filter Response** — `science/rcfilter`
 - `SCI-01` **Ohm's Law** — `science/ohmslaw`
 - `SCI-02` **Force & Acceleration** — `science/forceaccel`
 - `SCI-03` **Molar Mass Calculator** — `science/molarmass`
@@ -534,8 +542,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `FIL-11` **File Type Detector** — `files/filetype`
 - `FIL-12` **Base64 → File** — `files/b64file`
 
-## Almanac — 9 tools
+## Almanac — 10 tools
 
+- `ALM-10` **Moon Table for a Month** — `almanac/moontable`
 - `ALM-09` **Sun Table for a Month** — `almanac/suntable`
 - `ALM-08` **Ekadashi List** — `almanac/ekadashi`
 - `ALM-06` **Choghadiya** — `almanac/choghadiya`

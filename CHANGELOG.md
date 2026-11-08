@@ -8,6 +8,29 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.10.0 — 2026-11-09
+
+B29 and B30 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).
+
+### B29 — signing, IPv6, JSONPath (3)
+
+- **RSA Sign / Verify** — RSASSA-PKCS1-v1_5 or RSA-PSS, pasted key, and a clear verdict. Signing proves who sent it; the encryption tool beside it hides it from everyone else, and the hints say which is which.
+- **IPv6 Header & ICMPv6** — the 40-byte fixed header from pasted hex, plus an address expander that turns `2001:db8::1` into eight groups and names the address type (link-local, ULA, multicast, documentation, global unicast).
+- **JSONPath Query** — `$`, `.key`, `[0]`, `[*]`, `..key` and `[?(@.price > 10)]`, and it says when it meets a path it does not implement rather than quietly returning nothing.
+
+### B30 — image controls, sound levels, a month of moon (5)
+
+- **Image HSL**, **Invert Image**, **Image Opacity** — the individual controls, where the existing filters tool has presets. Built on one shared harness, so the file loading, the sliders and the download behave identically in all three.
+- **Decibels & Sound Level** — dB SPL, a power ratio, a voltage ratio and dBm, with the factor-of-two difference explained rather than assumed.
+- **RC Filter Response** — cut-off, time constant, and the response an octave and a decade either side.
+- **Moon Table for a Month** — moonrise, moonset, phase and illumination per day.
+
+### Fixed
+
+- **The JSONPath filter could never match.** The token is `[?(@.price > 10)]` and the parser stripped `[?` and `]` but left the parentheses, so the expression started with `(` and failed its own check — reporting "only @.field <op> value filters are supported" for the exact syntax the hint advertises.
+- **IPv6 addresses were printed without zero padding**, so `2001:0db8::1` came out as `2001:db8:0:0:…` and could not be compared with the expanded form below it.
+- An image-apply callback referenced `root` from outside its closure; the linter's `no-undef` caught it before the build.
+
 ## 2.9.0 — 2026-11-09
 
 B27 and B28 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).

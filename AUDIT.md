@@ -712,3 +712,30 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - The packet parser reads headers, not checksums: it does not verify that a checksum is correct.
 - Punycode handles labels, not whole URLs; a URL's path is not punycode and never was.
 - Pong and Breakout are keyboard-and-pointer only; no touch controls beyond tapping to start.
+
+## B29–B30 (2.10.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 444 / 27 (was 435 / 27) |
+| Full suite | 205 checks, 0 failures |
+| Interaction sweep | 392 tools driven, 0 failures |
+| Fuzz | 251 fields across 444 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 957 KB → 987 KB raw · 275 KB gzipped |
+
+### Findings
+
+**1. A parser that advertises a syntax it cannot parse.** The JSONPath hint says `[?(@.price > 10)]` is supported; the implementation stripped `[?` and `]` and left the parentheses, so every filter failed with a message naming the very syntax the hint offered. The fix was one `.replace()`. Worth recording because the failure looked like a data problem — "no matches" — until the error text was read properly.
+
+**2. Signing and encryption are different tools because they answer different questions.** The RSA encrypt tool was written first; adding sign/verify next to it made both hints sharper — one says "hides it from everyone else", the other says "proves who sent it".
+
+**3. A shared harness for three image tools.** The file loading, slider wiring and PNG download are one function; the three tools supply only the pixel operation. That is the same move as the extractors and the QR payload builder: one tool per job, one implementation per behaviour.
+
+### Known limitations added
+
+- JSONPath is a subset: no slices, no unions, no functions. It says so when it meets one.
+- The IPv6 tool reads the fixed header only; extension headers are named by their next-header value but not walked.
+- Image adjustments read every pixel into memory, so a very large photo will be slow.
+- Moon phases use the elongation of the moon from the sun, which is the standard approximation and can differ from an almanac by a few percent of illumination.

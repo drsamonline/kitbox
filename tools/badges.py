@@ -28,10 +28,10 @@ FONT = "Verdana,DejaVu Sans,Helvetica,Arial,sans-serif"
 MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 
 BADGES = [
-    ('version',    '2.9.0',                                '#2f86eb'),
-    ('tools',      '435',                                  '#2F86EB'),
+    ('version',    '2.10.0',                                '#2f86eb'),
+    ('tools',      '444',                                  '#2F86EB'),
     ('categories', '27',                                   '#E31C7D'),
-    ('checks',     '198',                           '#3FCB6B'),
+    ('checks',     '207',                           '#3FCB6B'),
     ('licence',    'PolyForm Noncommercial 1.0.0',         '#A93CF5'),
     ('runtime',    '0 dependencies',                       '#12A99A'),
     ('network',    'none',                                 '#495057'),

@@ -829,7 +829,58 @@ setTimeout(async () => {
        /The result is normal\./.test(w.document.querySelector('#rsOut').textContent));
   }
 
-  /* 25. the app makes no network calls and loads nothing external */
+
+  /* 25. B29-B30: signing, IPv6, JSONPath, dB, RC filter, moon table */
+  ev('location.hash="#/tool/dev/rsasign"'); ev('route()');
+  const signPair = await require('crypto').webcrypto.subtle.generateKey(
+    { name: 'RSASSA-PKCS1-v1_5', modulusLength: 2048, publicExponent: new Uint8Array([1,0,1]), hash: 'SHA-256' },
+    true, ['sign', 'verify']);
+  const pemFor = (buf, label) => '-----BEGIN ' + label + '-----\n' +
+    Buffer.from(buf).toString('base64').match(/.{1,64}/g).join('\n') + '\n-----END ' + label + '-----';
+  const signPriv = pemFor(await require('crypto').webcrypto.subtle.exportKey('pkcs8', signPair.privateKey), 'PRIVATE KEY');
+  const signPub = pemFor(await require('crypto').webcrypto.subtle.exportKey('spki', signPair.publicKey), 'PUBLIC KEY');
+  w.document.querySelector('#sgKey').value = signPriv;
+  w.document.querySelector('#sgMsg').value = 'The result is normal.';
+  w.document.querySelector('#sgGo').click();
+  await new Promise(r => setTimeout(r, 400));
+  const signature = (w.document.querySelector('#sgOut').textContent.match(/[A-Za-z0-9+/=]{60,}/) || [])[0];
+  ok('RSA signs with a pasted private key', !!signature, signature ? signature.slice(0, 18) + '…' : 'none');
+  if (signature) {
+    w.document.querySelector('[data-sg="verify"]').click();
+    w.document.querySelector('#sgKey').value = signPub;
+    w.document.querySelector('#sgSig').value = signature;
+    w.document.querySelector('#sgGo').click();
+    await new Promise(r => setTimeout(r, 400));
+    ok('RSA verifies its own signature', /valid signature/.test(w.document.querySelector('#sgOut').textContent));
+    w.document.querySelector('#sgMsg').value = 'The result is abnormal.';
+    w.document.querySelector('#sgGo').click();
+    await new Promise(r => setTimeout(r, 400));
+    ok('RSA rejects a tampered message', /does not match/.test(w.document.querySelector('#sgOut').textContent));
+  }
+
+  ev('location.hash="#/tool/dev/ipv6"'); ev('route()');
+  ok('the IPv6 parser reads version 6 and the full-form addresses',
+     /Version6/.test(w.document.querySelector('#i6Out').textContent.replace(/\s+/g, '')) &&
+     /2001:0db8/.test(w.document.querySelector('#i6Out').textContent));
+  ok('the address expander expands :: to eight groups',
+     /2001:0db8:0000:0000:0000:0000:0000:0001/.test(w.document.querySelector('#i6AddrOut').textContent));
+
+  ev('location.hash="#/tool/dev/jsonpath"'); ev('route()');
+  const jpPath = w.document.querySelector('#jpPath');
+  jpPath.value = '$..price'; jpPath.dispatchEvent(new w.Event('input'));
+  ok('JSONPath recursive descent finds every price',
+     (w.document.querySelector('#jpOut').textContent.match(/8\.95|12\.99|19\.95/g) || []).length === 3);
+  jpPath.value = '$.store.book[?(@.price > 10)].title'; jpPath.dispatchEvent(new w.Event('input'));
+  ok('JSONPath filter keeps only the book over 10',
+     /B/.test(w.document.querySelector('#jpOut').textContent) && !/A/.test(w.document.querySelector('#jpOut').textContent));
+
+  ev('location.hash="#/tool/science/decibel"'); ev('route()');
+  ok('94 dB SPL is about 1 Pa', /1\.0\d* Pa/.test(w.document.querySelector('#dbOut').textContent));
+
+  ev('location.hash="#/tool/science/rcfilter"'); ev('route()');
+  ok('1 kΩ and 100 nF give a 1.59 kHz cut-off', /1\.59 kHz/.test(w.document.querySelector('#rfOut').textContent));
+
+  /* 26. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

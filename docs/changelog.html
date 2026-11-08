@@ -52,6 +52,27 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.10.0 — 2026-11-09</h2>
+<p>B29 and B30 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
+<h3>B29 — signing, IPv6, JSONPath (3)</h3>
+<ul>
+<li><strong>RSA Sign / Verify</strong> — RSASSA-PKCS1-v1_5 or RSA-PSS, pasted key, and a clear verdict. Signing proves who sent it; the encryption tool beside it hides it from everyone else, and the hints say which is which.</li>
+<li><strong>IPv6 Header &amp; ICMPv6</strong> — the 40-byte fixed header from pasted hex, plus an address expander that turns <code>2001:db8::1</code> into eight groups and names the address type (link-local, ULA, multicast, documentation, global unicast).</li>
+<li><strong>JSONPath Query</strong> — <code>$</code>, <code>.key</code>, <code>[0]</code>, <code>[*]</code>, <code>..key</code> and <code>[?(@.price &gt; 10)]</code>, and it says when it meets a path it does not implement rather than quietly returning nothing.</li>
+</ul>
+<h3>B30 — image controls, sound levels, a month of moon (5)</h3>
+<ul>
+<li><strong>Image HSL</strong>, <strong>Invert Image</strong>, <strong>Image Opacity</strong> — the individual controls, where the existing filters tool has presets. Built on one shared harness, so the file loading, the sliders and the download behave identically in all three.</li>
+<li><strong>Decibels &amp; Sound Level</strong> — dB SPL, a power ratio, a voltage ratio and dBm, with the factor-of-two difference explained rather than assumed.</li>
+<li><strong>RC Filter Response</strong> — cut-off, time constant, and the response an octave and a decade either side.</li>
+<li><strong>Moon Table for a Month</strong> — moonrise, moonset, phase and illumination per day.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li><strong>The JSONPath filter could never match.</strong> The token is <code>[?(@.price &gt; 10)]</code> and the parser stripped <code>[?</code> and <code>]</code> but left the parentheses, so the expression started with <code>(</code> and failed its own check — reporting "only @.field <op> value filters are supported" for the exact syntax the hint advertises.</li>
+<li><strong>IPv6 addresses were printed without zero padding</strong>, so <code>2001:0db8::1</code> came out as <code>2001:db8:0:0:…</code> and could not be compared with the expanded form below it.</li>
+<li>An image-apply callback referenced <code>root</code> from outside its closure; the linter's <code>no-undef</code> caught it before the build.</li>
+</ul>
 <h2>2.9.0 — 2026-11-09</h2>
 <p>B27 and B28 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
 <h3>B27 — text at the level of code points and bits (3)</h3>

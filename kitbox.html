@@ -390,7 +390,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '2.9.0';
+const APP_VERSION = '2.10.0';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -683,7 +683,7 @@ const TOOL_REQUIRES = {
 };
 
 /* CODES:START */
-const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/captions":"ACC-07", "accessibility/cbpalette":"ACC-08", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/linktext":"ACC-10", "accessibility/motionpreview":"ACC-09", "accessibility/readingruler":"ACC-01", "accessibility/srpreview":"ACC-06", "accessibility/textspacing":"ACC-03", "accessibility/zoomsim":"ACC-11", "almanac/choghadiya":"ALM-06", "almanac/ekadashi":"ALM-08", "almanac/horas":"ALM-04", "almanac/moonrise":"ALM-07", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/suntable":"ALM-09", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/modular":"CAL-55", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/asn1":"DEV-52", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssclamp":"DEV-56", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/dupfinder":"DEV-59", "dev/filesplit":"DEV-58", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hkdf":"DEV-51", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/jsondiff":"DEV-23", "dev/jsonschema":"DEV-54", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwkpem":"DEV-57", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/mimeparse":"DEV-60", "dev/packet":"DEV-61", "dev/pbkdf2":"DEV-50", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/regexexplain":"DEV-55", "dev/regextester":"DEV-15", "dev/rsacrypt":"DEV-62", "dev/rsakeys":"DEV-44", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "dev/x509":"DEV-53", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/csvtosql":"FIL-14", "files/elf":"FIL-15", "files/exif":"FIL-08", "files/filecarve":"FIL-16", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "files/zipextract":"FIL-13", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/breakout":"GAM-16", "games/game2048":"GAM-11", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/minesweeper":"GAM-12", "games/numberguess":"GAM-02", "games/pong":"GAM-15", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/snake":"GAM-13", "games/sudoku":"GAM-14", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/qrpayload":"GNR-11", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "geo/utm":"GEO-11", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/greek":"REF-07", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "reference/siunits":"REF-06", "science/bufferph":"SCI-17", "science/density":"SCI-07", "science/doppler":"SCI-15", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/lens":"SCI-14", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/rc":"SCI-13", "science/resistor":"SCI-16", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affix":"TXT-11", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charfreq":"TXT-30", "text/codepoints":"TXT-49", "text/entropy":"TXT-43", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/huffman":"TXT-50", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/numberlines":"TXT-12", "text/punycode":"TXT-48", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
+const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/captions":"ACC-07", "accessibility/cbpalette":"ACC-08", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/linktext":"ACC-10", "accessibility/motionpreview":"ACC-09", "accessibility/readingruler":"ACC-01", "accessibility/srpreview":"ACC-06", "accessibility/textspacing":"ACC-03", "accessibility/zoomsim":"ACC-11", "almanac/choghadiya":"ALM-06", "almanac/ekadashi":"ALM-08", "almanac/horas":"ALM-04", "almanac/moonrise":"ALM-07", "almanac/moontable":"ALM-10", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/suntable":"ALM-09", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/modular":"CAL-55", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/asn1":"DEV-52", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssclamp":"DEV-56", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/dupfinder":"DEV-59", "dev/filesplit":"DEV-58", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hkdf":"DEV-51", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/ipv6":"DEV-64", "dev/jsondiff":"DEV-23", "dev/jsonpath":"DEV-65", "dev/jsonschema":"DEV-54", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwkpem":"DEV-57", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/mimeparse":"DEV-60", "dev/packet":"DEV-61", "dev/pbkdf2":"DEV-50", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/regexexplain":"DEV-55", "dev/regextester":"DEV-15", "dev/rsacrypt":"DEV-62", "dev/rsakeys":"DEV-44", "dev/rsasign":"DEV-63", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "dev/x509":"DEV-53", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/csvtosql":"FIL-14", "files/elf":"FIL-15", "files/exif":"FIL-08", "files/filecarve":"FIL-16", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "files/zipextract":"FIL-13", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/breakout":"GAM-16", "games/game2048":"GAM-11", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/minesweeper":"GAM-12", "games/numberguess":"GAM-02", "games/pong":"GAM-15", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/snake":"GAM-13", "games/sudoku":"GAM-14", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/qrpayload":"GNR-11", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "geo/utm":"GEO-11", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/imghsl":"IMG-19", "image/imginvert":"IMG-20", "image/imgopacity":"IMG-21", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/greek":"REF-07", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "reference/siunits":"REF-06", "science/bufferph":"SCI-17", "science/decibel":"SCI-18", "science/density":"SCI-07", "science/doppler":"SCI-15", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/lens":"SCI-14", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/rc":"SCI-13", "science/rcfilter":"SCI-19", "science/resistor":"SCI-16", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affix":"TXT-11", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charfreq":"TXT-30", "text/codepoints":"TXT-49", "text/entropy":"TXT-43", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/huffman":"TXT-50", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/numberlines":"TXT-12", "text/punycode":"TXT-48", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
 /* CODES:END */
 
 /* ---------- Search metadata ----------
@@ -4934,6 +4934,513 @@ clr('isdarkened','Is Color Darkened', root=>{
   update();
 });
 
+/* ================================================================
+   B29 — signing, IPv6, and querying JSON by path.
+   ================================================================ */
+
+/* ---------------- Development (3) ---------------- */
+
+dev('rsasign','RSA Sign / Verify', root=>{
+  root.innerHTML = `
+    <div class="segrow" id="sgMode">
+      <button class="btn" data-sg="sign">Sign with a private key</button>
+      <button class="btn" data-sg="verify">Verify with a public key</button>
+    </div>
+    <div class="field"><label id="sgKeyLabel">Private key (PEM)</label><textarea id="sgKey" style="min-height:90px;font-family:var(--mono)" placeholder="-----BEGIN PRIVATE KEY-----"></textarea></div>
+    <div class="field"><label id="sgMsgLabel">Message</label><textarea id="sgMsg" style="min-height:70px">The result is normal.</textarea></div>
+    <div class="field" id="sgSigRow" style="display:none"><label>Signature (base64)</label><textarea id="sgSig" style="min-height:60px;font-family:var(--mono)"></textarea></div>
+    <div class="row">
+      <div class="field"><label>Algorithm</label><select id="sgAlg"><option value="RSASSA-PKCS1-v1_5">RSASSA-PKCS1-v1_5</option><option value="RSA-PSS">RSA-PSS</option></select></div>
+      <div class="field"><label>Hash</label><select id="sgHash"><option>SHA-256</option><option>SHA-384</option><option>SHA-512</option></select></div>
+    </div>
+    <div class="segrow"><button class="btn primary" id="sgGo">Run</button></div>
+    <div class="output" id="sgOut">—</div>
+    <div class="hint">Signing proves the message came from whoever holds the private key; encryption hides it from everyone else. Different jobs, and this is the first one. The signature is over the bytes you paste, not over a hash of them — the algorithm hashes internally.</div>`;
+  let mode = 'sign';
+  const pemToDer = pem => {
+    const m = pem.match(/-----BEGIN [^-]+-----([\s\S]*?)-----END [^-]+-----/);
+    if(!m) throw new Error('that does not look like a PEM block');
+    return Uint8Array.from(atob(m[1].replace(/\s+/g, '')), c=>c.charCodeAt(0));
+  };
+  root.querySelectorAll('[data-sg]').forEach(b=>b.addEventListener('click', ()=>{
+    mode = b.dataset.sg;
+    root.querySelector('#sgKeyLabel').textContent = mode === 'sign' ? 'Private key (PEM)' : 'Public key (PEM)';
+    root.querySelector('#sgKey').placeholder = mode === 'sign' ? '-----BEGIN PRIVATE KEY-----' : '-----BEGIN PUBLIC KEY-----';
+    root.querySelector('#sgSigRow').style.display = mode === 'verify' ? 'block' : 'none';
+    root.querySelector('#sgMsgLabel').textContent = mode === 'sign' ? 'Message' : 'Message that was signed';
+    root.querySelector('#sgOut').textContent = '—';
+  }));
+  root.querySelector('#sgGo').addEventListener('click', async ()=>{
+    const out = root.querySelector('#sgOut');
+    if(!cryptoAvailable()){ out.textContent = CRYPTO_MSG; return; }
+    const alg = root.querySelector('#sgAlg').value;
+    const hash = root.querySelector('#sgHash').value;
+    const keyText = root.querySelector('#sgKey').value;
+    const msg = bytesFromText(root.querySelector('#sgMsg').value);
+    if(!keyText.trim()){ out.textContent = 'Paste a key.'; return; }
+    try{
+      if(mode === 'sign'){
+        const params = alg === 'RSA-PSS'
+          ? { name:'RSA-PSS', hash, saltLength: hash === 'SHA-256' ? 32 : hash === 'SHA-384' ? 48 : 64 }
+          : { name:'RSASSA-PKCS1-v1_5', hash };
+        const key = await crypto.subtle.importKey('pkcs8', pemToDer(keyText), params, false, ['sign']);
+        const sig = new Uint8Array(await crypto.subtle.sign(params, key, msg));
+        out.innerHTML = `<table class="mono">
+          <tr><td>Signature (base64)</td><td style="word-break:break-all">${btoa(String.fromCharCode(...sig))}</td></tr>
+          <tr><td>Length</td><td>${sig.length} bytes — the key size, always</td></tr>
+          <tr><td>Algorithm</td><td>${alg} with ${hash}</td></tr>
+        </table>`;
+      } else {
+        const sigText = root.querySelector('#sgSig').value.replace(/\s+/g, '');
+        if(!sigText){ out.textContent = 'Paste the signature to verify.'; return; }
+        const sig = Uint8Array.from(atob(sigText), c=>c.charCodeAt(0));
+        const params = alg === 'RSA-PSS'
+          ? { name:'RSA-PSS', hash, saltLength: hash === 'SHA-256' ? 32 : hash === 'SHA-384' ? 48 : 64 }
+          : { name:'RSASSA-PKCS1-v1_5', hash };
+        const key = await crypto.subtle.importKey('spki', pemToDer(keyText), params, false, ['verify']);
+        const valid = await crypto.subtle.verify(params, key, sig, msg);
+        out.innerHTML = `<table class="mono">
+          <tr><td>Result</td><td style="color:${valid ? '#1a7f37' : '#c0392b'}"><b>${valid ? 'valid signature' : 'does not match'}</b></td></tr>
+          <tr><td>Algorithm</td><td>${alg} with ${hash}</td></tr>
+        </table>
+        ${valid ? '' : '<div class="hint">A mismatch means the message, the key or the algorithm changed — check the hash first, because the wrong hash is the usual cause.</div>'}`;
+      }
+    }catch(e){ out.textContent = 'That did not work: ' + (e.message || e); }
+  });
+});
+
+dev('ipv6','IPv6 Header & ICMPv6', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Header bytes (hex)</label><textarea id="i6In" style="min-height:100px;font-family:var(--mono)">60 00 00 00 00 20 3a 40 20 01 0d b8 00 00 00 00 00 00 00 00 00 00 00 01 20 01 0d b8 00 00 00 00 00 00 00 00 00 00 00 02</textarea></div>
+    <div class="output" id="i6Out">—</div>
+    <div class="hint">The fixed 40-byte IPv6 header: traffic class, flow label, payload length, next header and the two addresses in full. There is no checksum in IPv6 — that is not a bug in this parser.</div>
+    <div class="section-label" style="margin-top:16px">Address expander</div>
+    <div class="field"><label>IPv6 address</label><input type="text" id="i6Addr" value="2001:db8::1" style="font-family:var(--mono)"></div>
+    <div class="output" id="i6AddrOut">—</div>`;
+  function parseHex(text){
+    const hex = text.replace(/[^0-9a-fA-F]/g, '');
+    if(hex.length % 2) throw new Error('an odd number of hex digits');
+    return Uint8Array.from(hex.match(/.{2}/g).map(h=>parseInt(h, 16)));
+  }
+  function addr(b, off){
+    const parts = [];
+    for(let i=0;i<8;i++) parts.push(((b[off+i*2] << 8) | b[off+i*2+1]).toString(16).padStart(4, '0'));
+    return parts.join(':');
+  }
+  const NEXT = { 0:'hop-by-hop options', 6:'TCP', 17:'UDP', 43:'routing', 44:'fragment', 50:'ESP', 51:'AH', 58:'ICMPv6', 59:'no next header', 60:'destination options' };
+  function draw(){
+    const out = root.querySelector('#i6Out');
+    let b;
+    try{ b = parseHex(root.querySelector('#i6In').value); }
+    catch(e){ out.textContent = 'Could not read that hex: ' + e.message; return; }
+    if(b.length < 40){ out.textContent = 'An IPv6 header is 40 bytes; that is ' + b.length + '.'; return; }
+    const version = b[0] >> 4;
+    const trafficClass = ((b[0] & 0x0f) << 4) | (b[1] >> 4);
+    const flowLabel = ((b[1] & 0x0f) << 16) | (b[2] << 8) | b[3];
+    const payloadLength = (b[4] << 8) | b[5];
+    const nextHeader = b[6];
+    const hopLimit = b[7];
+    out.innerHTML = `<table class="mono">
+      <tr><td>Version</td><td>${version}${version !== 6 ? ' — that is not IPv6' : ''}</td></tr>
+      <tr><td>Traffic class</td><td>0x${trafficClass.toString(16).padStart(2, '0')}</td></tr>
+      <tr><td>Flow label</td><td>0x${flowLabel.toString(16).padStart(5, '0')}</td></tr>
+      <tr><td>Payload length</td><td>${payloadLength} bytes</td></tr>
+      <tr><td>Next header</td><td>${nextHeader} — ${NEXT[nextHeader] || 'other'}</td></tr>
+      <tr><td>Hop limit</td><td>${hopLimit}</td></tr>
+      <tr><td>Source</td><td style="word-break:break-all">${addr(b, 8)}</td></tr>
+      <tr><td>Destination</td><td style="word-break:break-all">${addr(b, 24)}</td></tr>
+    </table>`;
+  }
+  function drawAddr(){
+    const out = root.querySelector('#i6AddrOut');
+    const v = root.querySelector('#i6Addr').value.trim();
+    try{
+      const halves = v.split('::');
+      if(halves.length > 2) throw new Error('more than one :: in the address');
+      const left = halves[0] ? halves[0].split(':') : [];
+      const right = halves.length === 2 && halves[1] ? halves[1].split(':') : [];
+      const missing = 8 - left.length - right.length;
+      if(halves.length === 2 && missing < 0) throw new Error('too many groups');
+      const groups = halves.length === 2 ? [...left, ...Array(missing).fill('0'), ...right] : left;
+      if(groups.length !== 8) throw new Error('an IPv6 address has eight groups of 16 bits');
+      const nums = groups.map(g=>{
+        if(!/^[0-9a-fA-F]{1,4}$/.test(g)) throw new Error('"' + g + '" is not a hex group');
+        return parseInt(g, 16);
+      });
+      const full = nums.map(n=>n.toString(16).padStart(4, '0')).join(':');
+      const bytes = nums.flatMap(n=>[(n >> 8) & 0xff, n & 0xff]);
+      const first = nums[0];
+      const kind = first === 0xfe80 ? 'link-local' : (first & 0xfe00) === 0xfc00 ? 'unique local (ULA)'
+        : (first & 0xff00) === 0xff00 ? 'multicast' : first === 0x2001 && nums[1] === 0x0db8 ? 'documentation'
+        : (first & 0xe000) === 0x2000 ? 'global unicast' : 'other';
+      out.innerHTML = `<table class="mono">
+        <tr><td>Full form</td><td style="word-break:break-all">${full}</td></tr>
+        <tr><td>Compressed</td><td>${v}</td></tr>
+        <tr><td>Type</td><td>${kind}</td></tr>
+        <tr><td>Bytes</td><td style="word-break:break-all">${bytes.map(x=>x.toString(16).padStart(2,'0')).join(' ')}</td></tr>
+        <tr><td>Interface ID</td><td>${nums.slice(4).map(n=>n.toString(16).padStart(4,'0')).join(':')}</td></tr>
+      </table>`;
+    }catch(e){ out.textContent = 'Not an IPv6 address: ' + e.message; }
+  }
+  root.querySelector('#i6In').addEventListener('input', draw);
+  root.querySelector('#i6Addr').addEventListener('input', drawAddr);
+  draw(); drawAddr();
+});
+
+dev('jsonpath','JSONPath Query', root=>{
+  root.innerHTML = `
+    <div class="field"><label>JSON</label><textarea id="jpIn" style="min-height:130px">{"store":{"book":[{"title":"A","price":8.95},{"title":"B","price":12.99}],"bicycle":{"color":"red","price":19.95}}}</textarea></div>
+    <div class="row">
+      <div class="field"><label>Path</label><input type="text" id="jpPath" value="$.store.book[*].title" style="font-family:var(--mono)"></div>
+      <button class="btn primary" id="jpGo">Query</button>
+    </div>
+    <div class="output" id="jpOut">—</div>
+    <div class="hint">A deliberate subset: <span class="mono">$</span>, <span class="mono">.key</span>, <span class="mono">[0]</span>, <span class="mono">[*]</span>, <span class="mono">..key</span> for a deep search, and <span class="mono">[?(@.price &gt; 10)]</span> for a filter. It says when it meets a path it does not implement rather than quietly returning nothing.</div>`;
+  function query(data, path){
+    if(!path.startsWith('$')) throw new Error('a path starts with $');
+    let nodes = [data];
+    let rest = path.slice(1);
+    const tokenRe = /(\.\.[A-Za-z_$][\w$]*)|(\.\*)|(\.[A-Za-z_$][\w$]*)|(\[\*])|(\[\d+\])|(\[\?\([^\]]+\)\])|(\[['"][^'"]+['"]\])/g;
+    let match;
+    let consumed = 0;
+    while((match = tokenRe.exec(rest))){
+      if(match.index !== consumed) throw new Error('could not read "' + rest.slice(consumed, match.index) + '"');
+      consumed = match.index + match[0].length;
+      const tok = match[0];
+      if(tok.startsWith('..')){                       // recursive descent
+        const key = tok.slice(2);
+        const found = [];
+        (function walk(n){
+          if(n && typeof n === 'object'){
+            if(!Array.isArray(n) && Object.prototype.hasOwnProperty.call(n, key)) found.push(n[key]);
+            Object.values(n).forEach(walk);
+          }
+        })(nodes.length === 1 ? nodes[0] : { root: nodes });
+        nodes = found;
+      } else if(tok === '.*' || tok === '[*]'){
+        nodes = nodes.flatMap(n=> n && typeof n === 'object' ? Object.values(n) : []);
+      } else if(tok.startsWith('[') && /^\[\d+\]$/.test(tok)){
+        const i = Number(tok.slice(1, -1));
+        nodes = nodes.map(n=> Array.isArray(n) ? n[i] : n && n[i]).filter(n=>n !== undefined);
+      } else if(tok.startsWith("[?'") || tok.startsWith('[?')){
+        // the token is [?(@.price > 10)] — strip the wrapper and the parentheses
+        const expr = tok.slice(2, -1).replace(/^\(/, '').replace(/\)$/, '').trim();
+        const m = expr.match(/^@\.([\w$]+)\s*(>=|<=|==|!=|>|<)\s*(.+)$/);
+        if(!m) throw new Error('only @.field <op> value filters are supported');
+        const [, key, op, raw] = m;
+        const want = /^['"].*['"]$/.test(raw) ? raw.slice(1, -1) : Number(raw);
+        nodes = nodes.flatMap(n=> Array.isArray(n) ? n : [n]).filter(item=>{
+          const v = item && item[key];
+          switch(op){
+            case '>': return v > want; case '<': return v < want;
+            case '>=': return v >= want; case '<=': return v <= want;
+            case '==': return v === want || String(v) === String(want);
+            case '!=': return v !== want && String(v) !== String(want);
+            default: return false;
+          }
+        });
+      } else if(tok.startsWith("['") || tok.startsWith('["')){
+        const key = tok.slice(2, -1);
+        nodes = nodes.map(n=> n && n[key]).filter(n=>n !== undefined);
+      } else {
+        const key = tok.slice(1);
+        nodes = nodes.map(n=> n && typeof n === 'object' ? n[key] : undefined).filter(n=>n !== undefined);
+      }
+    }
+    if(consumed !== rest.length) throw new Error('could not read "' + rest.slice(consumed) + '"');
+    return nodes;
+  }
+  function draw(){
+    const out = root.querySelector('#jpOut');
+    let data;
+    try{ data = JSON.parse(root.querySelector('#jpIn').value); }
+    catch(e){ out.textContent = 'That is not valid JSON: ' + e.message; return; }
+    try{
+      const results = query(data, root.querySelector('#jpPath').value.trim());
+      out.innerHTML = results.length
+        ? `<table class="mono"><tr><th>#</th><th style="text-align:left">Value</th></tr>
+            ${results.slice(0, 50).map((r, i)=>`<tr><td>${i}</td><td style="word-break:break-all">${escapeHtml(typeof r === 'string' ? r : JSON.stringify(r))}</td></tr>`).join('')}
+          </table>${results.length > 50 ? '<div class="hint">First 50 of ' + results.length + '.</div>' : '<div class="hint">' + results.length + ' match(es).</div>'}`
+        : '<div class="hint">No matches. A missing key and a wrong path look the same here, so check the path before the data.</div>';
+    }catch(e){ out.textContent = e.message; }
+  }
+  root.querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input', draw));
+  root.querySelector('#jpGo').addEventListener('click', draw);
+  draw();
+});
+/* ================================================================
+   B30 — three image adjustments and two sound-level references.
+   The image tools have presets; these are the individual controls, which is
+   what you reach for when a preset is close but not right.
+   ================================================================ */
+
+/* ---------------- Image (3) ---------------- */
+
+function imageAdjustTool(id, name, intro, controls, apply){
+  imgtool(id, name, root=>{
+    root.innerHTML = `
+      ${FILES_HINT}
+      <div class="field"><label>Image</label><input type="file" id="${id}File" accept="image/*"></div>
+      <div class="row">${controls}</div>
+      <div class="hint">${intro}</div>
+      <div id="${id}Stage" style="margin-top:12px;text-align:center"></div>
+      <div class="segrow" id="${id}Actions" style="display:none"><button class="btn primary" id="${id}Save">Download PNG</button></div>`;
+    let image = null, canvas = null;
+    const stage = root.querySelector('#' + id + 'Stage');
+    const actions = root.querySelector('#' + id + 'Actions');
+    root.querySelector('#' + id + 'File').addEventListener('change', e=>{
+      const file = e.target.files[0];
+      if(!file) return;
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = ()=>{
+        image = img;
+        canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        stage.innerHTML = '';
+        canvas.style.maxWidth = '100%';
+        canvas.style.borderRadius = '8px';
+        stage.appendChild(canvas);
+        actions.style.display = 'flex';
+        render();
+      };
+      img.onerror = ()=>{ stage.textContent = 'That file could not be decoded as an image.'; };
+      img.src = url;
+    });
+    function render(){
+      if(!image || !canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const values = {};
+      root.querySelectorAll('[data-adj]').forEach(el=>{ values[el.dataset.adj] = Number(el.value); });
+      apply(ctx, image, canvas, values, root);
+    }
+    root.querySelectorAll('[data-adj]').forEach(el=>{
+      el.addEventListener('input', ()=>{
+        const label = root.querySelector('[data-adj-out="' + el.dataset.adj + '"]');
+        if(label) label.textContent = el.value;
+        render();
+      });
+    });
+    root.querySelector('#' + id + 'Save').addEventListener('click', ()=>{
+      if(canvas) canvas.toBlob(b=>saveBlob(b, name.toLowerCase().replace(/[^a-z]+/g, '-') + '.png'));
+    });
+  });
+}
+
+imageAdjustTool('imghsl', 'Image HSL',
+  'Hue rotation, saturation and lightness applied per pixel. Saturation 0 is a proper greyscale that keeps the alpha channel; the CSS filter of the same name does not touch the image data, so this is what you use when you need a file rather than a preview.',
+  `<div class="field"><label>Hue <span data-adj-out="hue">0</span>°</label><input type="range" data-adj="hue" min="-180" max="180" value="0"></div>
+   <div class="field"><label>Saturation <span data-adj-out="sat">100</span>%</label><input type="range" data-adj="sat" min="0" max="200" value="100"></div>
+   <div class="field"><label>Lightness <span data-adj-out="light">100</span>%</label><input type="range" data-adj="light" min="0" max="200" value="100"></div>`,
+  (ctx, img, canvas, v)=>{
+    ctx.drawImage(img, 0, 0);
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const px = data.data;
+    const hueShift = v.hue / 360, sat = v.sat / 100, light = v.light / 100;
+    for(let i=0;i<px.length;i+=4){
+      const r = px[i]/255, g = px[i+1]/255, b = px[i+2]/255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h = 0;
+      const l = (max + min) / 2;
+      const s = max === min ? 0 : l > 0.5 ? (max - min) / (2 - max - min) : (max - min) / (max + min);
+      if(max !== min){
+        if(max === r) h = ((g - b) / (max - min)) / 6;
+        else if(max === g) h = (2 + (b - r) / (max - min)) / 6;
+        else h = (4 + (r - g) / (max - min)) / 6;
+      }
+      h = ((h + hueShift) % 1 + 1) % 1;
+      const s2 = Math.min(1, s * sat), l2 = Math.min(1, l * light);
+      const hue2rgb = (p, q, t)=>{
+        if(t < 0) t += 1;
+        if(t > 1) t -= 1;
+        if(t < 1/6) return p + (q - p) * 6 * t;
+        if(t < 1/2) return q;
+        if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      let nr, ng, nb;
+      if(s2 === 0){ nr = ng = nb = l2; }
+      else {
+        const q = l2 < 0.5 ? l2 * (1 + s2) : l2 + s2 - l2 * s2;
+        const p = 2 * l2 - q;
+        nr = hue2rgb(p, q, h + 1/3); ng = hue2rgb(p, q, h); nb = hue2rgb(p, q, h - 1/3);
+      }
+      px[i] = Math.round(nr * 255); px[i+1] = Math.round(ng * 255); px[i+2] = Math.round(nb * 255);
+    }
+    ctx.putImageData(data, 0, 0);
+  });
+
+imageAdjustTool('imginvert', 'Invert Image',
+  'The negative of the image, with the alpha channel untouched. Useful for checking a scanned document, and for turning a dark screenshot into one that prints without eating a cartridge.',
+  `<div class="field"><label>Strength <span data-adj-out="amount">100</span>%</label><input type="range" data-adj="amount" min="0" max="100" value="100"></div>`,
+  (ctx, img, canvas, v)=>{
+    ctx.drawImage(img, 0, 0);
+    const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const px = data.data, k = v.amount / 100;
+    for(let i=0;i<px.length;i+=4){
+      px[i] = px[i] + (255 - 2 * px[i]) * k;
+      px[i+1] = px[i+1] + (255 - 2 * px[i+1]) * k;
+      px[i+2] = px[i+2] + (255 - 2 * px[i+2]) * k;
+    }
+    ctx.putImageData(data, 0, 0);
+  });
+
+imageAdjustTool('imgopacity', 'Image Opacity',
+  'Composites the image onto a solid background at an alpha you choose — which is what "make it transparent" usually means in practice, and what a PNG with real transparency should look like against white or a brand colour.',
+  `<div class="field"><label>Opacity <span data-adj-out="alpha">100</span>%</label><input type="range" data-adj="alpha" min="0" max="100" value="100"></div>
+   <div class="field"><label>Background</label><input type="color" data-adj="bg" value="#ffffff" style="height:34px"></div>`,
+  (ctx, img, canvas, v, host)=>{
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const bg = host.querySelector('[data-adj="bg"]');
+    ctx.fillStyle = bg ? bg.value : '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = v.alpha / 100;
+    ctx.drawImage(img, 0, 0);
+    ctx.globalAlpha = 1;
+  });
+
+/* ---------------- Science (2) ---------------- */
+
+sci('decibel','Decibels & Sound Level', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Value</label><input type="number" id="dbVal" value="94" step="0.1"></div>
+      <div class="field"><label>It is</label><select id="dbKind">
+        <option value="spl">sound pressure level (dB SPL)</option>
+        <option value="power">a power ratio in dB</option>
+        <option value="voltage">a voltage ratio in dB</option>
+        <option value="dbm">a power level in dBm</option>
+      </select></div>
+    </div>
+    <div class="output" id="dbOut">—</div>
+    <div class="hint">Three different things share the name "decibel": a sound level with a reference, a ratio of powers, and a ratio of voltages — and the ratio formulas differ by a factor of two because power goes as the square. dBm is a power relative to one milliwatt, which is where the negative numbers come from.</div>`;
+  function draw(){
+    const v = Number(root.querySelector('#dbVal').value) || 0;
+    const kind = root.querySelector('#dbKind').value;
+    const out = root.querySelector('#dbOut');
+    let rows = [];
+    if(kind === 'spl'){
+      const p = 20e-6 * Math.pow(10, v / 20);       // pascals
+      const w = 1e-12 * Math.pow(10, v / 10);       // watts per square metre
+      rows = [
+        ['Sound pressure', p.toFixed(6) + ' Pa'],
+        ['Intensity', w.toExponential(3) + ' W/m²'],
+        ['Pressure ratio to 20 µPa', Math.pow(10, v / 20).toExponential(3)],
+        ['Familiar comparison', v < 30 ? 'a quiet room' : v < 50 ? 'a library' : v < 70 ? 'conversation' : v < 85 ? 'busy traffic' : v < 100 ? 'a power tool' : v < 120 ? 'a rock concert' : 'painful — hearing damage risk']
+      ];
+    } else if(kind === 'power'){
+      const ratio = Math.pow(10, v / 10);
+      rows = [['Power ratio', ratio.toExponential(4)], ['+3 dB is', (Math.pow(10, 0.3)).toFixed(3) + '× — the doubling everyone quotes'], ['Voltage ratio for the same dB', Math.pow(10, v / 20).toExponential(4)]];
+    } else if(kind === 'voltage'){
+      const ratio = Math.pow(10, v / 20);
+      rows = [['Voltage ratio', ratio.toExponential(4)], ['+6 dB is', (Math.pow(10, 0.3)).toFixed(3) + '× — doubling the voltage'], ['Power ratio for the same dB', Math.pow(10, v / 10).toExponential(4)]];
+    } else {
+      const mw = Math.pow(10, v / 10);
+      rows = [['Power', mw.toExponential(4) + ' mW'], ['In watts', (mw / 1000).toExponential(4) + ' W'], ['In dBW', (v - 30).toFixed(2) + ' dBW'], ['Note', v < 0 ? 'negative is below one milliwatt, which is normal for a receiver' : 'above one milliwatt']];
+    }
+    out.innerHTML = `<table class="mono">${rows.map(([k, val])=>`<tr><td>${escapeHtml(k)}</td><td>${escapeHtml(String(val))}</td></tr>`).join('')}</table>`;
+  }
+  root.querySelectorAll('input,select').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+sci('rcfilter','RC Filter Response', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Resistance (Ω)</label><input type="number" id="rfR" value="1000"></div>
+      <div class="field"><label>Capacitance (nF)</label><input type="number" id="rfC" value="100"></div>
+      <div class="field"><label>Type</label><select id="rfType"><option value="low">low-pass</option><option value="high">high-pass</option></select></div>
+    </div>
+    <div class="output" id="rfOut">—</div>
+    <div class="hint">The cut-off is where the output is 3 dB down — 70.7% of the input, not half. The table shows what happens an octave and a decade either side, which is the part people misremember: a single RC rolls off at 6 dB per octave, 20 dB per decade.</div>`;
+  function draw(){
+    const R = Number(root.querySelector('#rfR').value) || 0;
+    const C = (Number(root.querySelector('#rfC').value) || 0) * 1e-9;
+    const type = root.querySelector('#rfType').value;
+    const out = root.querySelector('#rfOut');
+    if(!R || !C){ out.textContent = 'Resistance and capacitance, both non-zero.'; return; }
+    const fc = 1 / (2 * Math.PI * R * C);
+    const gain = f => {
+      const x = f / fc;
+      return type === 'low' ? 1 / Math.sqrt(1 + x*x) : x / Math.sqrt(1 + x*x);
+    };
+    const db = f => 20 * Math.log10(gain(f));
+    const fmt = f => f >= 1e6 ? (f/1e6).toFixed(2) + ' MHz' : f >= 1e3 ? (f/1e3).toFixed(2) + ' kHz' : f.toFixed(1) + ' Hz';
+    const points = [fc/100, fc/10, fc/2, fc, fc*2, fc*10, fc*100];
+    out.innerHTML = `<table class="mono">
+      <tr><td>Cut-off (−3 dB)</td><td>${fmt(fc)}</td></tr>
+      <tr><td>Time constant τ</td><td>${(R*C*1e3).toFixed(3)} ms</td></tr>
+      ${points.map(f=>`<tr><td>${fmt(f)}</td><td>${gain(f).toFixed(3)} × · ${db(f).toFixed(1)} dB</td></tr>`).join('')}
+    </table>`;
+  }
+  root.querySelectorAll('input,select').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+/* ---------------- Almanac (1) ---------------- */
+
+alm('moontable','Moon Table for a Month', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Year</label><input type="number" id="mtYear" value="2026" min="1900" max="2100"></div>
+      <div class="field"><label>Month</label><select id="mtMonth">${['January','February','March','April','May','June','July','August','September','October','November','December'].map((m, i)=>`<option value="${i+1}"${i===10?' selected':''}>${m}</option>`).join('')}</select></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Latitude</label><input type="number" id="mtLat" value="22.3072" step="0.0001"></div>
+      <div class="field"><label>Longitude</label><input type="number" id="mtLon" value="73.1812" step="0.0001"></div>
+    </div>
+    <div class="output" id="mtOut">—</div>
+    <div class="hint">Moonrise, moonset and the phase for each day. The phase is the elongation — 0° new, 180° full — computed from the same lunar position as the rise times, so the two cannot disagree.</div>`;
+  function draw(){
+    const year = Number(root.querySelector('#mtYear').value) || 2026;
+    const month = Number(root.querySelector('#mtMonth').value);
+    const lat = (Number(root.querySelector('#mtLat').value) || 0) * Math.PI / 180;
+    const lon = Number(root.querySelector('#mtLon').value) || 0;
+    const tz = -(new Date().getTimezoneOffset()) / 60;
+    const D2R = Math.PI / 180, R2D = 180 / Math.PI;
+    const obl = 23.4393 * D2R;
+    function altAt(jd){
+      const lam = ASTRO.moonLongitude(jd) * D2R;
+      const ra = Math.atan2(Math.sin(lam) * Math.cos(obl), Math.cos(lam));
+      const dec = Math.asin(Math.sin(lam) * Math.sin(obl));
+      const gmst = (280.46061837 + 360.98564736629 * (jd - 2451545)) % 360;
+      const H = (gmst + lon) * D2R - ra;
+      return Math.asin(Math.sin(lat) * Math.sin(dec) + Math.cos(lat) * Math.cos(dec) * Math.cos(H)) * R2D;
+    }
+    const days = new Date(Date.UTC(year, month, 0)).getUTCDate();
+    const fmt = h => {
+      const hh = Math.floor(((h % 24) + 24) % 24), mm = Math.round((h - Math.floor(h)) * 60);
+      return String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+    };
+    const rows = [];
+    for(let d=1; d<=days; d++){
+      let rise = null, set = null;
+      let prev = altAt(ASTRO.jd({ y: year, m: month, d, h: 0 }));
+      for(let min=1; min<=1440; min++){
+        const jd = ASTRO.jd({ y: year, m: month, d, h: min / 60 });
+        const alt = altAt(jd);
+        if(prev < 0 && alt >= 0 && rise === null) rise = min / 60 + tz;
+        if(prev >= 0 && alt < 0 && set === null) set = min / 60 + tz;
+        prev = alt;
+      }
+      const jdNoon = ASTRO.jd({ y: year, m: month, d, h: 12 - tz });
+      const elong = ((ASTRO.moonLongitude(jdNoon) - ASTRO.sunLongitude(jdNoon)) % 360 + 360) % 360;
+      const illum = Math.round((1 - Math.cos(elong * D2R)) / 2 * 100);
+      const name = elong < 22.5 ? 'new' : elong < 67.5 ? 'waxing crescent' : elong < 112.5 ? 'first quarter'
+        : elong < 157.5 ? 'waxing gibbous' : elong < 202.5 ? 'full' : elong < 247.5 ? 'waning gibbous'
+        : elong < 292.5 ? 'last quarter' : elong < 337.5 ? 'waning crescent' : 'new';
+      rows.push([d, rise === null ? '—' : fmt(rise), set === null ? '—' : fmt(set), name, illum + '%']);
+    }
+    root.querySelector('#mtOut').innerHTML = `<table class="mono">
+      <tr><th style="text-align:left">Day</th><th>Rise</th><th>Set</th><th style="text-align:left">Phase</th><th>Lit</th></tr>
+      ${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('')}
+    </table>`;
+  }
+  root.querySelectorAll('input,select').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
 /* ================================================================
    B27 — text at the level of code points and bits.
    ================================================================ */
