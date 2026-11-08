@@ -1,6 +1,6 @@
 {
   "name": "kitbox",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "private": true,
   "description": "Kitbox — a single-file offline toolbox. 338 tools, no dependencies, no network.",
   "license": "PolyForm-Noncommercial-1.0.0",
@@ -9,6 +9,7 @@
     "test": "node test/smoke.js",
     "a11y": "node test/axe.js",
     "fuzz": "node test/fuzz.js",
+    "dist": "python3 tools/dist.py",
     "badges": "node tools/check-badges.js",
     "shots": "python3 tools/shots.py",
     "tools": "node tools/gen-all-tools.js",

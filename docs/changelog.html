@@ -47,6 +47,24 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.6.2 — 2026-11-08</h2>
+<p>Batch <strong>B9</strong> of <a href="plan.html">PLAN.md</a>: performance — measured in a browser this time, not in jsdom.</p>
+<h3>Added</h3>
+<ul>
+<li><strong><code>?bench=1</code></strong> renders all 339 tools into a detached container and reports the time, cold and warm, with a median of three renders each. In Chromium: <strong>331 ms cold, ~180 ms warm, 0.53 ms mean per tool</strong>. The jsdom figure the roadmap was written from was 5.2 s — thirteen times worse, and it was measuring the harness, not the app.</li>
+<li><strong><code>tools/dist.py</code></strong> builds <code>dist/kitbox.html.gz</code> (711 KB → 195 KB, 27%), the same for the landing page, and a <code>SHA256SUMS</code> file. CI uploads them as an artefact on every push until B11 gives them a release.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li><strong>The timezone converter no longer builds 400+ <code>&lt;option&gt;</code> elements.</strong> It was the slowest thing in the app at 80.8 ms — a fifth of the total render time — and most of that was <code>Intl.supportedValuesOf</code> building the IANA list on first use, with the DOM cost on top. It now has a filter field and shows the first 80 matches, keeping whatever is currently selected even when the filter excludes it. Warm render: <strong>2.4–3.7 ms</strong>.</li>
+<li>The world clock's add-a-city list got the same treatment.</li>
+<li>Two literals that only one tool needs (<code>WORDLE_WORDS</code>, <code>ASCII_FONT</code>) moved out of the top-level scope into the tools that use them.</li>
+<li>103 tests (was 99).</li>
+</ul>
+<h3>Not done, and why</h3>
+<ul>
+<li><strong>Virtualising long tables</strong> was conditional on the bench saying it was needed. The largest table in the app is the ASCII table at 129 rows, then the periodic table at 73 and the dial codes at 69. Nothing is near the 500-row threshold, so there is nothing to virtualise. Recorded rather than invented.</li>
+</ul>
 <h2>1.6.1 — 2026-11-08</h2>
 <p>Batch <strong>B8</strong> of <a href="plan.html">PLAN.md</a>: security hardening.</p>
 <h3>Added</h3>

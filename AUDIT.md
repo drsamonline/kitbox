@@ -336,3 +336,33 @@ Nothing — every tool that starts an interval already called `setCleanup`. That
 - The fuzz covers `input[type=text]` and `textarea`. Number, date and colour inputs cannot carry a payload worth testing, and file inputs are exercised by the size guards instead.
 - The CSP is a meta tag, not a header. A meta tag cannot set `frame-ancestors`, so clickjacking protection is absent — it needs a server, and there is no server.
 - The orientation block is written little-endian with a single entry. That is valid EXIF and every decoder tested here reads it, but a strict validator may prefer the original byte order preserved.
+
+## B9 — performance (1.6.2)
+
+Measured in Chromium headless against the real file, twice, on this machine. Not in jsdom.
+
+| Measure | Value |
+|---|---|
+| Page ready | ~90 ms (parse + boot + first route) |
+| All 339 tools rendered, cold | 720–745 ms (three renders each, median) |
+| All 339 tools rendered, warm | ~600 ms → **~0.55 ms per render** |
+| Tools over 5 ms warm | 4 |
+| Slowest warm | Browser Feature Check 16–29 ms, Gradient Wallpaper 11–13 ms |
+| Timezone Converter | 80.8 ms → **2.4–3.7 ms** |
+| `kitbox.html` gzipped | 711 KB → 195 KB (27%) |
+
+### Findings
+
+**1. The roadmap's performance item was based on a measurement of the harness.** `general/tzconv` showed 474 ms in jsdom and 80.8 ms in a browser; the app as a whole showed 5.2 s in jsdom and 406 ms in a browser. jsdom builds DOM in JavaScript and does no layout, so it overstates every render and understates nothing. The bench exists so that the next performance decision is made on the second set of numbers.
+
+**2. The 80 ms was mostly a one-time cost, and the first bench hid it.** Timezone Converter's cost was `Intl.supportedValuesOf('timeZone')` building the IANA list on first use — paid once per session, then cached — plus 400 `<option>` elements. The first bench reported one sample per tool, so the one-time cost landed entirely on whichever tool happened to trigger it, and a later run reported a tool as *slower warm than cold*, which is not a thing. *Fixed* by rendering each tool three times and taking the median, and by reporting a cold pass and a warm pass separately. That is the difference between a number and a story.
+
+**3. A capped list must keep the selection.** Capping the zone list at 80 and filtering it broke the converter outright: if the selected zone was not in the first 80, assigning `select.value` to it left the select empty and the tool threw `Invalid time zone specified`. *Fixed* by always including the current selection in the list, even when the filter excludes it — and there is a test for exactly that case, because it is the case a filter makes easy to miss.
+
+**4. Virtualisation was on the list and is not needed.** The largest table is 129 rows. Building it costs 27.8 ms once, when you open that tool. Virtualising it would add code, a scroll listener and a class of bug to save less than 30 ms on a page nobody keeps open. Recorded as not-done with the measurement that justifies it.
+
+### Known limitations added
+
+- The bench renders into a detached container, so it measures DOM construction but not layout or paint. A tool that is cheap to build and expensive to lay out would not show up.
+- The numbers above are one machine, headless Chromium. They are useful for comparing tools against each other, not for predicting a phone.
+- `dist/` is generated and ignored by git; the checksums are for the artefact a release attaches, not for the repository.

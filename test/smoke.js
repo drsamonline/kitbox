@@ -534,7 +534,37 @@ setTimeout(async () => {
      ev('readOrientation')(exifJpeg) === 6 && ev('readOrientation')(strippedJpeg) === 6,
      'before ' + ev('readOrientation')(exifJpeg) + ', after ' + ev('readOrientation')(strippedJpeg));
 
-  /* 17. the app makes no network calls and loads nothing external */
+
+  /* 17. performance (B9) */
+  ev('location.hash="#/tool/general/tzconv"'); ev('route()');
+  const tzFrom = w.document.querySelector('#tzFrom');
+  const allZones = tzFrom.options.length;
+  ok('the timezone converter does not build every zone up front', allZones <= 82, allZones + ' options');
+  const tzFilter = w.document.querySelector('#tzFilter');
+  tzFilter.value = 'europe/lon'; tzFilter.dispatchEvent(new w.Event('input'));
+  const filtered = [...w.document.querySelector('#tzFrom').options].map(o => o.value);
+  // The currently chosen zone stays in the list, so the assertion is
+  // "matches plus the selection", not "matches only".
+  const chosenZone = w.document.querySelector('#tzFrom').value;
+  ok('filtering narrows the zone list',
+     filtered.length > 0 && filtered.filter(z => z !== chosenZone).every(z => /europe\/lon/i.test(z)),
+     filtered.slice(0, 3).join(', '));
+  tzFilter.value = 'zzzz'; tzFilter.dispatchEvent(new w.Event('input'));
+  ok('a filter that matches nothing keeps the chosen zone',
+     w.document.querySelector('#tzFrom').options.length === 1 && w.document.querySelector('#tzFrom').value === chosenZone,
+     w.document.querySelector('#tzFrom').value);
+
+  const benchHtml = new JSDOM(html, { runScripts: 'dangerously', pretendToBeVisual: true, url: 'https://local.test/?bench=1' });
+  stubCanvas(benchHtml.window);
+  await new Promise(r => setTimeout(r, 900));
+  const bench = benchHtml.window.__bench;
+  ok('?bench=1 measures every tool, cold and warm',
+     !!bench && bench.results.length === ev('TOOLS && Object.keys(TOOLS).reduce((a,k)=>a+TOOLS[k].length,0)') &&
+     bench.total > 0 && bench.coldTotal > 0,
+     bench ? bench.results.length + ' tools, warm ' + Math.round(bench.total) + ' ms' : 'no bench');
+  benchHtml.window.close();
+
+  /* 18. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

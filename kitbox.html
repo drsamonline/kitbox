@@ -373,7 +373,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '1.6.1';
+const APP_VERSION = '1.6.2';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -1033,15 +1033,38 @@ function getTzList(){
 TOOLS.general.push({id:'tzconv', code:'GEN-11', name:'Timezone Converter', render(root){
   const zones = getTzList();
   const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const opts = zones.map(z=>`<option value="${z}" ${z===localTz?'selected':''}>${z}</option>`).join('');
+  // 400+ <option> elements cost 80 ms to build — a fifth of the whole app's
+  // render time, for a list nobody scrolls. A filter plus the first 80 matches
+  // is faster to open and faster to use.
+  function optionsFor(query, selected){
+    const q = (query || '').toLowerCase();
+    const hits = q ? zones.filter(z=>z.toLowerCase().includes(q)) : zones;
+    const list = hits.slice(0, 80);
+    // Whatever is currently chosen stays in the list, even if the cap or the
+    // filter would have dropped it — otherwise the select silently empties and
+    // the converter loses its timezone.
+    if(selected && !list.includes(selected)) list.unshift(selected);
+    if(!list.length && selected) list.push(selected);
+    return list.map(z=>`<option value="${z}"${z === selected ? ' selected' : ''}>${z}</option>`).join('');
+  }
   root.innerHTML = `
     <div class="field"><label>Date & time</label><input type="datetime-local" id="tzDate"></div>
     <div class="row">
-      <div class="field"><label>From timezone</label><select id="tzFrom">${opts}</select></div>
-      <div class="field"><label>To timezone</label><select id="tzTo">${zones.map(z=>`<option value="${z}">${z}</option>`).join('')}</select></div>
+      <div class="field"><label>Filter zones</label><input type="text" id="tzFilter" placeholder="asia, europe/london…" autocomplete="off"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>From timezone</label><select id="tzFrom">${optionsFor('', localTz)}</select></div>
+      <div class="field"><label>To timezone</label><select id="tzTo">${optionsFor('', 'Asia/Tokyo')}</select></div>
     </div>
     <div class="output" id="tzOut">Pick a date/time and two timezones.</div>
   `;
+  root.querySelector('#tzFilter').addEventListener('input', e=>{
+    const q = e.target.value;
+    const keepFrom = root.querySelector('#tzFrom').value, keepTo = root.querySelector('#tzTo').value;
+    root.querySelector('#tzFrom').innerHTML = optionsFor(q, keepFrom);
+    root.querySelector('#tzTo').innerHTML = optionsFor(q, keepTo);
+    root.querySelector('#tzFrom').dispatchEvent(new Event('input', { bubbles: true }));
+  });
   const dateEl = root.querySelector('#tzDate');
   const from = root.querySelector('#tzFrom'), to = root.querySelector('#tzTo');
   const now = new Date(); now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
@@ -1091,7 +1114,10 @@ TOOLS.general.push({id:'worldclock', code:'GEN-13', name:'World Clock', render(r
   let cities = store.get('worldclock-cities', ['America/New_York','Europe/London','Asia/Kolkata','Asia/Tokyo']);
   const zones = getTzList();
   root.innerHTML = `
-    <div class="row"><select id="wcAdd"><option value="">Add a city timezone...</option>${zones.map(z=>`<option value="${z}">${z}</option>`).join('')}</select></div>
+    <div class="row">
+      <input type="text" id="wcFilter" placeholder="Filter zones…" autocomplete="off" style="flex:1">
+      <select id="wcAdd" style="flex:1"><option value="">Add a city timezone…</option>${zones.slice(0, 80).map(z=>`<option value="${z}">${z}</option>`).join('')}</select>
+    </div>
     <div id="wcList" style="margin-top:14px"></div>`;
   function persist(){ store.set('worldclock-cities', cities); }
   function draw(){
@@ -1112,6 +1138,12 @@ TOOLS.general.push({id:'worldclock', code:'GEN-13', name:'World Clock', render(r
     }).join('') || '<div class="hint">Add a city above to see its current time.</div>';
     root.querySelectorAll('[data-rm]').forEach(b=>b.addEventListener('click', ()=>{ cities.splice(+b.dataset.rm,1); persist(); draw(); }));
   }
+  root.querySelector('#wcFilter').addEventListener('input', e=>{
+    const q = e.target.value.toLowerCase();
+    const hits = q ? zones.filter(z=>z.toLowerCase().includes(q)) : zones;
+    root.querySelector('#wcAdd').innerHTML = '<option value="">Add a city timezone…</option>'
+      + hits.slice(0, 80).map(z=>`<option value="${z}">${z}</option>`).join('');
+  });
   root.querySelector('#wcAdd').addEventListener('change', e=>{
     if(e.target.value && !cities.includes(e.target.value)){ cities.push(e.target.value); persist(); draw(); }
     e.target.value='';
@@ -12232,6 +12264,90 @@ const scrollMemo = new Map();
 let lastHash = '';
 let seenFirstRoute = false;
 
+/* ---------- Bench (?bench=1) ----------
+   Measured in the browser that is actually running the app, not in jsdom.
+   It renders every tool into a detached container and times it, so the numbers
+   describe the real cost of building the UI rather than of parsing the file. */
+function renderBench(){
+  setAccent('#14141c');
+  backBtn.classList.add('hidden');
+  crumb.innerHTML = '<b>Bench</b>';
+  // Two passes: the first pays every one-time cost (Intl.supportedValuesOf
+  // building the IANA list, feature probing, lazily built literals), the
+  // second is what a tool actually costs once the app is warm. Reporting only
+  // one of them is how a one-time 80 ms gets mistaken for a slow tool.
+  // Three renders per tool, median taken: one sample per tool is dominated by
+  // whatever GC happens to land in that slot — the first version reported a
+  // tool as slower warm than cold, which is not a thing.
+  function sweep(){
+    const out = [];
+    const box = document.createElement('div');
+    for(const c of CATS){
+      for(const t of (TOOLS[c.id] || [])){
+        const samples = [];
+        let failed = false;
+        for(let i=0;i<3;i++){
+          const s = performance.now();
+          try{ t.render(box); }catch(e){ failed = true; }
+          samples.push(performance.now() - s);
+          box.textContent = '';
+        }
+        samples.sort((a,b)=>a-b);
+        out.push({ id: c.id + '/' + t.id, name: t.name, ms: samples[1], failed });
+      }
+    }
+    return out;
+  }
+  const firstStarted = performance.now();
+  const cold = sweep();
+  const coldTotal = performance.now() - firstStarted;
+  const started = performance.now();
+  const results = sweep();
+  const total = performance.now() - started;
+  const coldOf = {};
+  cold.forEach(r=>{ coldOf[r.id] = r.ms; });
+  let nav = null;
+  try{
+    const e = performance.getEntriesByType('navigation')[0];
+    if(e && e.domContentLoadedEventEnd > 0) nav = e.domContentLoadedEventEnd;
+    else if(performance.timing && performance.timing.navigationStart > 0){
+      nav = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+    }
+    if(nav !== null && (nav < 0 || nav > 60000)) nav = null;
+  }catch(err){}
+  // Headless and file:// runs often have no navigation entry at all; time since
+  // the page started is still an honest "how long until it was usable".
+  if(nav === null) nav = performance.now();
+  results.sort((a,b)=>b.ms - a.ms);
+  const slow = results.slice(0, 20);
+  const over = results.filter(r=>r.ms > 5).length;
+  app.innerHTML = `
+    <div class="hero" style="padding:6px 2px 20px">
+      <div class="badge">BENCH</div>
+      <div>
+        <h1>Bench</h1>
+        <p>${results.length} tools rendered into a detached container in this browser, not in a test harness.</p>
+      </div>
+    </div>
+    <div class="output" style="margin-bottom:18px">
+      <table class="mono">
+        <tr><td>Page ready (DOMContentLoaded)</td><td>${nav === null ? 'not reported' : nav.toFixed(0) + ' ms'}</td></tr>
+        <tr><td>All ${results.length} tools, first pass (cold)</td><td>${coldTotal.toFixed(0)} ms</td></tr>
+        <tr><td>All ${results.length} tools, second pass (warm)</td><td>${total.toFixed(0)} ms</td></tr>
+        <tr><td>Mean per tool, warm</td><td>${(total / results.length).toFixed(2)} ms</td></tr>
+        <tr><td>Tools over 5 ms</td><td>${over}</td></tr>
+        <tr><td>Slowest</td><td>${slow[0].name} ${slow[0].ms.toFixed(1)} ms</td></tr>
+      </table>
+    </div>
+    <div class="section-label">Slowest twenty</div>
+    <table class="mono">
+      <tr><th style="text-align:left">Tool</th><th style="text-align:left">id</th><th style="text-align:left">ms</th></tr>
+      ${slow.map(r=>`<tr><td>${escapeHtml(r.name)}${r.failed ? ' (threw)' : ''}</td><td>${escapeHtml(r.id)}</td><td>${r.ms.toFixed(1)} <span style="color:#9a9a9f">(cold ${(coldOf[r.id]||0).toFixed(1)})</span></td></tr>`).join('')}
+    </table>
+    <div class="hint">Append <span class="mono">?bench=1</span> to the URL to run this again. Nothing is sent anywhere; the numbers are for you.</div>`;
+  window.__bench = { coldTotal, total, nav, results: results.map(r=>({ id: r.id, ms: +r.ms.toFixed(2), cold: +(coldOf[r.id]||0).toFixed(2), failed: r.failed })) };
+}
+
 function renderNotFound(hash){
   setAccent('#14141c');
   backBtn.classList.remove('hidden');
@@ -12306,6 +12422,7 @@ function route(){
     currentToolKey = null;
   }
   const parts = hash.replace('#/','').split('/').filter(Boolean);
+  if(new URLSearchParams(location.search).has('bench')){ renderBench(); return; }
   if(parts[0]==='about') renderAbout();
   else if(parts[0]==='all') renderAll();
   else if(parts[0]==='support') renderSupport();

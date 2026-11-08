@@ -2,6 +2,26 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.6.2 — 2026-11-08
+
+Batch **B9** of [PLAN.md](PLAN.md): performance — measured in a browser this time, not in jsdom.
+
+### Added
+
+- **`?bench=1`** renders all 339 tools into a detached container and reports the time, cold and warm, with a median of three renders each. In Chromium: **331 ms cold, ~180 ms warm, 0.53 ms mean per tool**. The jsdom figure the roadmap was written from was 5.2 s — thirteen times worse, and it was measuring the harness, not the app.
+- **`tools/dist.py`** builds `dist/kitbox.html.gz` (711 KB → 195 KB, 27%), the same for the landing page, and a `SHA256SUMS` file. CI uploads them as an artefact on every push until B11 gives them a release.
+
+### Changed
+
+- **The timezone converter no longer builds 400+ `<option>` elements.** It was the slowest thing in the app at 80.8 ms — a fifth of the total render time — and most of that was `Intl.supportedValuesOf` building the IANA list on first use, with the DOM cost on top. It now has a filter field and shows the first 80 matches, keeping whatever is currently selected even when the filter excludes it. Warm render: **2.4–3.7 ms**.
+- The world clock's add-a-city list got the same treatment.
+- Two literals that only one tool needs (`WORDLE_WORDS`, `ASCII_FONT`) moved out of the top-level scope into the tools that use them.
+- 103 tests (was 99).
+
+### Not done, and why
+
+- **Virtualising long tables** was conditional on the bench saying it was needed. The largest table in the app is the ASCII table at 129 rows, then the periodic table at 73 and the dial codes at 69. Nothing is near the 500-row threshold, so there is nothing to virtualise. Recorded rather than invented.
+
 ## 1.6.1 — 2026-11-08
 
 Batch **B8** of [PLAN.md](PLAN.md): security hardening.

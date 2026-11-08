@@ -101,6 +101,15 @@ jobs:
             exit 1
           fi
 
+      - name: Build the distribution artefacts
+        run: python3 tools/dist.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kitbox-dist
+          path: dist/
+          if-no-files-found: error
+
       - name: Fail if the landing page loads anything external
         run: |
           if grep -Eq '<script[^>]+src="https?://|<link[^>]+href="https?://|<img[^>]+src="https?://' index.html; then
