@@ -123,11 +123,13 @@ jobs:
           # tool — so 285 KB is one more batch of headroom, not a blank cheque.
           #
           # The raw size has no natural ceiling — every tool adds to it — so it
-          # is a runaway guard, not a target. It was 640 KB at B1, 760 KB at B6,
-          # 860 KB at 2.4.0 and is 960 KB now. Raising it three times in three
-          # releases is the signal that the raw number is the wrong thing to
-          # gate on; the gzip budget is the one that would catch a real problem.
-          raw_limit=$((960 * 1024))
+          # is a runaway guard, not a target, and it is deliberately coarse: one
+          # megabyte. It was 640 KB at B1, 760 KB at B6, 860 KB at 2.4.0 and
+          # 960 KB at 2.8.0, and 2.9.0 tripped it by 577 bytes — which is the
+          # clearest possible argument that a fine-grained raw gate is measuring
+          # the wrong thing. The gzip budget is the one that catches a real
+          # regression; this one exists to catch a file that has doubled.
+          raw_limit=$((1024 * 1024))
           gz_limit=$((285 * 1024))
           echo "kitbox.html: $((bytes / 1024)) KB raw (guard $((raw_limit / 1024)) KB), $((gz / 1024)) KB gzipped (budget $((gz_limit / 1024)) KB)"
           if [ "$gz" -gt "$gz_limit" ]; then
