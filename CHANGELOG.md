@@ -8,6 +8,33 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.5.0 — 2026-11-08
+
+B18 and B19 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).
+
+### B18 — derivation, ASN.1, three physics calculators (6)
+
+- **PBKDF2 Derive** and **HKDF Derive** — the two key-derivation functions the app was missing, with the salt shown as bytes so the same one can be pasted back. The hint says which is for a password and which is for a key that already has entropy, because using the wrong one is the common mistake.
+- **ASN.1 Parser** — DER in hex to a tree: SEQUENCE, INTEGER, OID, BIT STRING, the string types, and the time types. This is the tool that makes a certificate readable rather than trusted, and it is the first step towards the X.509 reader.
+- **RC Time Constant**, **Lens Equation**, **Doppler Shift** — each checked by hand: 10 kΩ and 100 µF is 1 s; a 50 mm lens with the object at 500 mm puts the image at 55.6 mm and 0.11× inverted; 440 Hz approaching at 30 m/s reads 482 Hz.
+
+### B19 — the almanac's missing two, and four accessibility previews (6)
+
+- **Choghadiya** — the day cut into eight parts from sunrise and the night into eight from sunset, with the sequence chosen by weekday, which is why Tuesday and Friday are not the same table. Good and avoid parts are marked.
+- **Moonrise & Moonset** — found by scanning the moon's altitude minute by minute and interpolating the crossing. The hint says plainly that it is good to a few minutes, not to the second.
+- **Screen Reader Preview**, **Caption Length Checker**, **Colour-Blind Safe Pair**, **Reduced Motion Preview**.
+
+### Fixed — the same bug as 2.4.0, one layer down
+
+`TOOLS.clinical = []` was fixed last release, but twenty-three *other* category initialisers had the same shape. Adding a tool from a part that sorts earlier than its category's initialiser meant the category was emptied a moment later: the two new Almanac tools registered, then vanished, and the build stayed green because nothing asserted they existed. All 23 initialisers are now `TOOLS.x = TOOLS.x || []`, so load order cannot destroy a registration anywhere in the app.
+
+Also: a test that named `files/zipcreate` as "the first tool in Files" broke when ZIP Extract was added ahead of it. The test now asks the registry which tool is first, because adding a tool to a category legitimately changes the order.
+
+### Changed
+
+- 402 tools across 27 categories (was 389).
+- 164 checks (was 164).
+
 ## 2.4.0 — 2026-11-08
 
 Three batches from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md), plus the clinical scores that were on the "deliberately not doing" list.

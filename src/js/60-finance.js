@@ -1,7 +1,7 @@
 /* ================================================================
    FINANCE TOOLS
    ================================================================ */
-TOOLS.finance = [];
+TOOLS.finance = TOOLS.finance || [];   // idempotent: a part that sorts earlier may have registered already
 let FIN_N = 0;
 function fin(id, name, render){ register({cat:'finance', id, name, render}); }
 

@@ -1,7 +1,7 @@
 /* ================================================================
    RANDOMIZER TOOLS
    ================================================================ */
-TOOLS.random = [];
+TOOLS.random = TOOLS.random || [];   // idempotent: a part that sorts earlier may have registered already
 let RND_N = 0;
 function rnd(id, name, render){ register({cat:'random', id, name, render}); }
 
@@ -192,7 +192,7 @@ rnd('rolldice','Roll Dice', root=>{
 /* ================================================================
    HEALTH TOOLS
    ================================================================ */
-TOOLS.health = [];
+TOOLS.health = TOOLS.health || [];   // idempotent: a part that sorts earlier may have registered already
 let HLT_N = 0;
 function health(id, name, render){ register({cat:'health', id, name, render}); }
 const HEALTH_DISCLAIMER = `<div class="hint">General estimate for informational purposes only — not a substitute for professional medical advice.</div>`;

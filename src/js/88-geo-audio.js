@@ -1,7 +1,7 @@
 /* ================================================================
    GEO TOOLS
    ================================================================ */
-TOOLS.geo = [];
+TOOLS.geo = TOOLS.geo || [];   // idempotent: a part that sorts earlier may have registered already
 let GEO_N = 0;
 function geo(id, name, render){ register({cat:'geo', id, name, render}); }
 function toRad(d){ return d*Math.PI/180; }
@@ -171,7 +171,7 @@ geo('polygonarea','Polygon Area', root=>{
 /* ================================================================
    AUDIO TOOLS (uses Web Audio API — no files, no dependencies)
    ================================================================ */
-TOOLS.audio = [];
+TOOLS.audio = TOOLS.audio || [];   // idempotent: a part that sorts earlier may have registered already
 let AUD_N = 0;
 function aud(id, name, render){ register({cat:'audio', id, name, render}); }
 let sharedAudioCtx = null;

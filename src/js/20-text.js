@@ -1,7 +1,7 @@
 /* ================================================================
    TEXT TOOLS, grouped into Basic / Remove / Edit / Stylish
    ================================================================ */
-TOOLS.text = [];
+TOOLS.text = TOOLS.text || [];   // idempotent: a part that sorts earlier may have registered already
 let TXT_N = 0;
 function txt(group, id, name, render){ register({cat:'text', group, id, name, render}); }
 

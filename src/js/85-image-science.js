@@ -1,7 +1,7 @@
 /* ================================================================
    IMAGE TOOLS (all processing happens locally in-browser)
    ================================================================ */
-TOOLS.image = [];
+TOOLS.image = TOOLS.image || [];   // idempotent: a part that sorts earlier may have registered already
 let IMG_N = 0;
 function imgtool(id, name, render){ register({cat:'image', id, name, render}); }
 function readImageFile(file){ return new Promise((resolve,reject)=>{ const im=new Image(); const url=URL.createObjectURL(file); im.onload=()=>{ URL.revokeObjectURL(url); resolve(im); }; im.onerror=reject; im.src=url; }); }
@@ -661,7 +661,7 @@ imgtool('asciiart','ASCII Art from Image', root=>{
 /* ================================================================
    SCIENCE TOOLS
    ================================================================ */
-TOOLS.science = [];
+TOOLS.science = TOOLS.science || [];   // idempotent: a part that sorts earlier may have registered already
 let SCI_N = 0;
 function sci(id, name, render){ register({cat:'science', id, name, render}); }
 

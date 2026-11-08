@@ -1,7 +1,7 @@
 /* ================================================================
    DEVELOPMENT TOOLS
    ================================================================ */
-TOOLS.dev = [];
+TOOLS.dev = TOOLS.dev || [];   // idempotent: a part that sorts earlier may have registered already
 let DEV_N = 0;
 function dev(id, name, render){ register({cat:'dev', id, name, render}); }
 
@@ -579,7 +579,7 @@ dev('jsondiff','JSON Diff', root=>{
    COLORS TOOLS
 
    ================================================================ */
-TOOLS.colors = [];
+TOOLS.colors = TOOLS.colors || [];   // idempotent: a part that sorts earlier may have registered already
 let CLR_N = 0;
 function clr(id, name, render){ register({cat:'colors', id, name, render}); }
 function hexToRgb(hex){ hex=hex.replace('#',''); if(hex.length===3) hex=hex.split('').map(c=>c+c).join(''); const n=parseInt(hex,16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255}; }

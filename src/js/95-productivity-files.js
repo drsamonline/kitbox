@@ -1,7 +1,7 @@
 /* ================================================================
    PRODUCTIVITY
    ================================================================ */
-TOOLS.productivity = [];
+TOOLS.productivity = TOOLS.productivity || [];   // idempotent: a part that sorts earlier may have registered already
 let PRD_N = 0;
 function prod(id, name, render){ register({cat:'productivity', id, name, render}); }
 
@@ -647,7 +647,7 @@ prod('flashcards','Flashcards & Spaced Repetition', root=>{
    drsamonline/TTB (data + media utilities).
    Everything runs in this page: no upload, no dependency, no network.
    ================================================================ */
-TOOLS.files = [];
+TOOLS.files = TOOLS.files || [];   // idempotent: a part that sorts earlier may have registered already
 let FIL_N = 0;
 function fil(id, name, render){ register({cat:'files', id, name, render}); }
 

@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**389 tools across 27 categories.**
+**402 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -16,21 +16,21 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 49 |
+| 10 | Development Tools | `DEV` | 52 |
 | 11 | Colors Tools | `CLR` | 10 |
-| 12 | Science Tools | `SCI` | 12 |
+| 12 | Science Tools | `SCI` | 15 |
 | 13 | Geo Tools | `GEO` | 10 |
 | 14 | Audio Tools | `AUD` | 10 |
 | 15 | Games | `GAM` | 10 |
 | 16 | Travel Tools | `TRV` | 5 |
 | 17 | Nature Tools | `NAT` | 6 |
 | 18 | Productivity | `PRD` | 8 |
-| 19 | Files & Data | `FIL` | 12 |
-| 20 | Almanac | `ALM` | 5 |
+| 19 | Files & Data | `FIL` | 13 |
+| 20 | Almanac | `ALM` | 7 |
 | 21 | Communication | `COM` | 5 |
 | 22 | Reference | `REF` | 5 |
 | 23 | System | `SYS` | 4 |
-| 24 | Accessibility | `ACC` | 5 |
+| 24 | Accessibility | `ACC` | 9 |
 | 25 | Education | `EDU` | 4 |
 | 26 | Clinical | `CLN` | 12 |
 | 27 | Money (India) | `MNY` | 4 |
@@ -335,7 +335,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 49 tools
+## Development Tools — 52 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -360,6 +360,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-50` **PBKDF2 Derive** — `dev/pbkdf2`
+- `DEV-51` **HKDF Derive** — `dev/hkdf`
+- `DEV-52` **ASN.1 Parser** — `dev/asn1`
 - `DEV-45` **IP Format Converter** — `dev/ipformat`
 - `DEV-46` **Hash Identifier** — `dev/hashid`
 - `DEV-47` **UUID Analyser** — `dev/uuidanalyse`
@@ -400,7 +403,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `CLR-09` **Tints & Shades** — `colors/tintshade`
 - `CLR-10` **Random Colour** — `colors/randomcolor`
 
-## Science Tools — 12 tools
+## Science Tools — 15 tools
 
 - `SCI-01` **Ohm's Law** — `science/ohmslaw`
 - `SCI-02` **Force & Acceleration** — `science/forceaccel`
@@ -411,6 +414,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `SCI-07` **Density Calculator** — `science/density`
 - `SCI-08` **Wavelength ↔ Frequency** — `science/wavelengthfreq`
 - `SCI-09` **Periodic Table** — `science/periodictable`
+- `SCI-13` **RC Time Constant** — `science/rc`
+- `SCI-14` **Lens Equation** — `science/lens`
+- `SCI-15` **Doppler Shift** — `science/doppler`
 - `SCI-10` **Ideal Gas Law** — `science/idealgas`
 - `SCI-11` **Projectile Range** — `science/projectile`
 - `SCI-12` **Molarity & Dilution** — `science/molarity`
@@ -482,8 +488,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `PRD-07` **Checklist** — `productivity/checklist`
 - `PRD-08` **Meeting Cost** — `productivity/meetingcost`
 
-## Files & Data — 12 tools
+## Files & Data — 13 tools
 
+- `FIL-13` **ZIP Extract** — `files/zipextract`
 - `FIL-01` **ZIP Creator** — `files/zipcreate`
 - `FIL-02` **GZIP Compress / Decompress** — `files/gzip`
 - `FIL-03` **File Hash & Checksum** — `files/filehash`
@@ -497,8 +504,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `FIL-11` **File Type Detector** — `files/filetype`
 - `FIL-12` **Base64 → File** — `files/b64file`
 
-## Almanac — 5 tools
+## Almanac — 7 tools
 
+- `ALM-06` **Choghadiya** — `almanac/choghadiya`
+- `ALM-07` **Moonrise & Moonset** — `almanac/moonrise`
 - `ALM-01` **Panchang** — `almanac/panchang`
 - `ALM-02` **Rahu Kaal & Muhurat** — `almanac/rahukaal`
 - `ALM-03` **Sun & Moon Times** — `almanac/sunmoon`
@@ -528,8 +537,12 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `SYS-03` **Browser Feature Check** — `system/features`
 - `SYS-04` **Local Storage Usage** — `system/storage`
 
-## Accessibility — 5 tools
+## Accessibility — 9 tools
 
+- `ACC-06` **Screen Reader Preview** — `accessibility/srpreview`
+- `ACC-07` **Caption Length Checker** — `accessibility/captions`
+- `ACC-08` **Colour-Blind Safe Pair** — `accessibility/cbpalette`
+- `ACC-09` **Reduced Motion Preview** — `accessibility/motionpreview`
 - `ACC-01` **Reading Ruler** — `accessibility/readingruler`
 - `ACC-02` **Dyslexia-Friendly Preview** — `accessibility/dyslexiapreview`
 - `ACC-03` **Text Spacing Checker** — `accessibility/textspacing`

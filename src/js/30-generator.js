@@ -343,7 +343,7 @@ const QR = (function(){
 
 if(typeof module!=='undefined') module.exports = QR;
 
-TOOLS.generator = [];
+TOOLS.generator = TOOLS.generator || [];   // idempotent: a part that sorts earlier may have registered already
 let GEN_N = 0;
 function gen(id, name, render){ register({cat:'generator', id, name, render}); }
 

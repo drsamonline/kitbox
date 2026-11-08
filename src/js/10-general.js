@@ -1,7 +1,7 @@
 /* ================================================================
    GENERAL TOOLS
    ================================================================ */
-TOOLS.general = [];
+TOOLS.general = TOOLS.general || [];   // idempotent: a part that sorts earlier may have registered already
 
 /* 1. Ruler */
 TOOLS.general.push({id:'ruler', code:'GEN-01', name:'Ruler', render(root){

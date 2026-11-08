@@ -1,7 +1,7 @@
 /* ================================================================
    CALCULATION TOOLS
    ================================================================ */
-TOOLS.calc = [];
+TOOLS.calc = TOOLS.calc || [];   // idempotent: a part that sorts earlier may have registered already
 let CALC_N = 0;
 function calc(group, id, name, render){ register({cat:'calc', group, id, name, render}); }
 function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }

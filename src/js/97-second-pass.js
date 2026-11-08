@@ -1036,12 +1036,12 @@ function unitTool(group, id, name, render){
 }
 
 /* Reference — tables and cheat sheets. Static, instant, no input. */
-TOOLS.reference = [];
+TOOLS.reference = TOOLS.reference || [];   // idempotent: a part that sorts earlier may have registered already
 let REF_N = 0;
 function ref(id, name, render){ register({cat:'reference', id, name, render}); }
 
 /* System — what this browser and this device can actually do. */
-TOOLS.system = [];
+TOOLS.system = TOOLS.system || [];   // idempotent: a part that sorts earlier may have registered already
 let SYS_N = 0;
 function sys(id, name, render){ register({cat:'system', id, name, render}); }
 

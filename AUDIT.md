@@ -578,3 +578,29 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - Clinical scores are implemented from the published instruments, without the validation studies behind them. They do not know the patient.
 - ZIP Extract handles store and deflate. Encrypted archives are listed and refused rather than half-read; other methods are named in the error.
 - The tuner needs a microphone and a quiet room; it reports nonsense on a chord and says so.
+
+## B18–B19 (2.5.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 402 / 27 (was 389 / 27) |
+| Full suite | 164 checks, 0 failures |
+| Interaction sweep | 355 tools driven, 0 failures |
+| Fuzz | 224 fields across 402 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 803 KB → 832 KB |
+
+### Findings
+
+**1. The category-wipe bug had twenty-three more instances.** Last release fixed `TOOLS.clinical = []`; this release found the same shape in every other category initialiser. The two new Almanac tools registered from a part that sorts before `96-almanac-comms.js`, which then set `TOOLS.almanac = []` and emptied the category — and the build, the suite and axe all stayed green. Fixed by making every initialiser idempotent, which makes part order irrelevant rather than merely currently-correct.
+
+**2. A test that hard-coded an order broke for a good reason.** "The first tool in Files is zipcreate" stopped being true when ZIP Extract was added, and the arrow test failed. The fix was to ask the registry, not to rename the tool — a test that pins incidental order will fail on every legitimate addition.
+
+**3. A duplicate key in a lookup table was caught by lint, not by a test.** The ASN.1 tag table listed `0x03` twice. `no-dupe-keys` is one of the eleven ESLint rules chosen in B12, and this is the first time it earned its place.
+
+### Known limitations added
+
+- ASN.1 handles DER, not BER or indefinite lengths, and does not verify signatures.
+- Moonrise is good to a few minutes; it does not account for parallax or refraction the way an almanac does.
+- Choghadiya uses the standard weekday table and local sunrise; regional variants exist.

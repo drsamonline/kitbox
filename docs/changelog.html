@@ -52,6 +52,28 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.5.0 — 2026-11-08</h2>
+<p>B18 and B19 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
+<h3>B18 — derivation, ASN.1, three physics calculators (6)</h3>
+<ul>
+<li><strong>PBKDF2 Derive</strong> and <strong>HKDF Derive</strong> — the two key-derivation functions the app was missing, with the salt shown as bytes so the same one can be pasted back. The hint says which is for a password and which is for a key that already has entropy, because using the wrong one is the common mistake.</li>
+<li><strong>ASN.1 Parser</strong> — DER in hex to a tree: SEQUENCE, INTEGER, OID, BIT STRING, the string types, and the time types. This is the tool that makes a certificate readable rather than trusted, and it is the first step towards the X.509 reader.</li>
+<li><strong>RC Time Constant</strong>, <strong>Lens Equation</strong>, <strong>Doppler Shift</strong> — each checked by hand: 10 kΩ and 100 µF is 1 s; a 50 mm lens with the object at 500 mm puts the image at 55.6 mm and 0.11× inverted; 440 Hz approaching at 30 m/s reads 482 Hz.</li>
+</ul>
+<h3>B19 — the almanac's missing two, and four accessibility previews (6)</h3>
+<ul>
+<li><strong>Choghadiya</strong> — the day cut into eight parts from sunrise and the night into eight from sunset, with the sequence chosen by weekday, which is why Tuesday and Friday are not the same table. Good and avoid parts are marked.</li>
+<li><strong>Moonrise &amp; Moonset</strong> — found by scanning the moon's altitude minute by minute and interpolating the crossing. The hint says plainly that it is good to a few minutes, not to the second.</li>
+<li><strong>Screen Reader Preview</strong>, <strong>Caption Length Checker</strong>, <strong>Colour-Blind Safe Pair</strong>, <strong>Reduced Motion Preview</strong>.</li>
+</ul>
+<h3>Fixed — the same bug as 2.4.0, one layer down</h3>
+<p><code>TOOLS.clinical = []</code> was fixed last release, but twenty-three <em>other</em> category initialisers had the same shape. Adding a tool from a part that sorts earlier than its category's initialiser meant the category was emptied a moment later: the two new Almanac tools registered, then vanished, and the build stayed green because nothing asserted they existed. All 23 initialisers are now <code>TOOLS.x = TOOLS.x || []</code>, so load order cannot destroy a registration anywhere in the app.</p>
+<p>Also: a test that named <code>files/zipcreate</code> as "the first tool in Files" broke when ZIP Extract was added ahead of it. The test now asks the registry which tool is first, because adding a tool to a category legitimately changes the order.</p>
+<h3>Changed</h3>
+<ul>
+<li>402 tools across 27 categories (was 389).</li>
+<li>164 checks (was 164).</li>
+</ul>
 <h2>2.4.0 — 2026-11-08</h2>
 <p>Three batches from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>, plus the clinical scores that were on the "deliberately not doing" list.</p>
 <h3>B15 — the small ones (8)</h3>

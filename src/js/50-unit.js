@@ -1,7 +1,7 @@
 /* ================================================================
    UNIT CONVERTER — ~31 unit types
    ================================================================ */
-TOOLS.unit = [];
+TOOLS.unit = TOOLS.unit || [];   // idempotent: a part that sorts earlier may have registered already
 let UNIT_N = 0;
 function uconv(group, id, name, units){
   UNIT_N++;

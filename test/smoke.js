@@ -305,11 +305,16 @@ setTimeout(async () => {
        shown.map(b => b.textContent.trim().slice(0, 18)).join(' | '));
   }
 
-  ev('location.hash="#/tool/files/zipcreate"'); ev('route()');
+  // Ask the registry which tool is first rather than naming one: adding a tool
+  // to a category legitimately changes the order, and a test that hard-codes
+  // the old order fails for a reason that is not a bug.
+  const filesFirst = ev('TOOLS.files[0].id'), filesSecond = ev('TOOLS.files[1].id');
+  ev('location.hash="#/tool/files/' + filesFirst + '"'); ev('route()');
   const prevBtn = w.document.querySelector('#prevBtn'), nextBtn = w.document.querySelector('#nextBtn');
-  ok('the first tool has a disabled previous arrow', !!prevBtn && prevBtn.disabled && !nextBtn.disabled);
+  ok('the first tool has a disabled previous arrow', !!prevBtn && prevBtn.disabled && !nextBtn.disabled, filesFirst);
   nextBtn.click();
-  ok('the next arrow moves within the category', ev('location.hash') === '#/tool/files/gzip', ev('location.hash'));
+  ok('the next arrow moves within the category', ev('location.hash') === '#/tool/files/' + filesSecond,
+     filesFirst + ' → ' + filesSecond);
 
   ev("store.set('palette-history', ['panchang'])");
   const ov = w.document.querySelector('.palette-overlay');

@@ -390,7 +390,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '2.4.0';
+const APP_VERSION = '2.5.0';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -680,7 +680,7 @@ const TOOL_REQUIRES = {
 };
 
 /* CODES:START */
-const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/readingruler":"ACC-01", "accessibility/textspacing":"ACC-03", "almanac/horas":"ALM-04", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/jsondiff":"DEV-23", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/regextester":"DEV-15", "dev/rsakeys":"DEV-44", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/exif":"FIL-08", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/numberguess":"GAM-02", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "science/density":"SCI-07", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affix":"TXT-11", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charfreq":"TXT-30", "text/entropy":"TXT-43", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/numberlines":"TXT-12", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
+const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/captions":"ACC-07", "accessibility/cbpalette":"ACC-08", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/motionpreview":"ACC-09", "accessibility/readingruler":"ACC-01", "accessibility/srpreview":"ACC-06", "accessibility/textspacing":"ACC-03", "almanac/choghadiya":"ALM-06", "almanac/horas":"ALM-04", "almanac/moonrise":"ALM-07", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/asn1":"DEV-52", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hkdf":"DEV-51", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/jsondiff":"DEV-23", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/pbkdf2":"DEV-50", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/regextester":"DEV-15", "dev/rsakeys":"DEV-44", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/exif":"FIL-08", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "files/zipextract":"FIL-13", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/numberguess":"GAM-02", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "science/density":"SCI-07", "science/doppler":"SCI-15", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/lens":"SCI-14", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/rc":"SCI-13", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affix":"TXT-11", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charfreq":"TXT-30", "text/entropy":"TXT-43", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/numberlines":"TXT-12", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
 /* CODES:END */
 
 /* ---------- Search metadata ----------
@@ -968,7 +968,7 @@ const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 /* ================================================================
    GENERAL TOOLS
    ================================================================ */
-TOOLS.general = [];
+TOOLS.general = TOOLS.general || [];   // idempotent: a part that sorts earlier may have registered already
 
 /* 1. Ruler */
 TOOLS.general.push({id:'ruler', code:'GEN-01', name:'Ruler', render(root){
@@ -1465,7 +1465,7 @@ TOOLS.general.push({id:'worldclock', code:'GEN-13', name:'World Clock', render(r
 /* ================================================================
    TEXT TOOLS, grouped into Basic / Remove / Edit / Stylish
    ================================================================ */
-TOOLS.text = [];
+TOOLS.text = TOOLS.text || [];   // idempotent: a part that sorts earlier may have registered already
 let TXT_N = 0;
 function txt(group, id, name, render){ register({cat:'text', group, id, name, render}); }
 
@@ -2395,7 +2395,7 @@ const QR = (function(){
 
 if(typeof module!=='undefined') module.exports = QR;
 
-TOOLS.generator = [];
+TOOLS.generator = TOOLS.generator || [];   // idempotent: a part that sorts earlier may have registered already
 let GEN_N = 0;
 function gen(id, name, render){ register({cat:'generator', id, name, render}); }
 
@@ -2594,7 +2594,7 @@ gen('scanner','Barcode/QR code Scanner', root => {
 /* ================================================================
    CALCULATION TOOLS
    ================================================================ */
-TOOLS.calc = [];
+TOOLS.calc = TOOLS.calc || [];   // idempotent: a part that sorts earlier may have registered already
 let CALC_N = 0;
 function calc(group, id, name, render){ register({cat:'calc', group, id, name, render}); }
 function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }
@@ -3061,7 +3061,7 @@ calc('Advanced Math','logarithm','Logarithm', root=>{
 /* ================================================================
    UNIT CONVERTER — ~31 unit types
    ================================================================ */
-TOOLS.unit = [];
+TOOLS.unit = TOOLS.unit || [];   // idempotent: a part that sorts earlier may have registered already
 let UNIT_N = 0;
 function uconv(group, id, name, units){
   UNIT_N++;
@@ -3310,7 +3310,7 @@ uconv('Other','tempgradient','Temperature Gradient', [
 /* ================================================================
    FINANCE TOOLS
    ================================================================ */
-TOOLS.finance = [];
+TOOLS.finance = TOOLS.finance || [];   // idempotent: a part that sorts earlier may have registered already
 let FIN_N = 0;
 function fin(id, name, render){ register({cat:'finance', id, name, render}); }
 
@@ -3734,7 +3734,7 @@ fin('wageconverter','Wage Converter', root=>{
 /* ================================================================
    RANDOMIZER TOOLS
    ================================================================ */
-TOOLS.random = [];
+TOOLS.random = TOOLS.random || [];   // idempotent: a part that sorts earlier may have registered already
 let RND_N = 0;
 function rnd(id, name, render){ register({cat:'random', id, name, render}); }
 
@@ -3925,7 +3925,7 @@ rnd('rolldice','Roll Dice', root=>{
 /* ================================================================
    HEALTH TOOLS
    ================================================================ */
-TOOLS.health = [];
+TOOLS.health = TOOLS.health || [];   // idempotent: a part that sorts earlier may have registered already
 let HLT_N = 0;
 function health(id, name, render){ register({cat:'health', id, name, render}); }
 const HEALTH_DISCLAIMER = `<div class="hint">General estimate for informational purposes only — not a substitute for professional medical advice.</div>`;
@@ -4183,7 +4183,7 @@ health('clinicalhealth','Clinical Health Calculator', root=>{
 /* ================================================================
    DEVELOPMENT TOOLS
    ================================================================ */
-TOOLS.dev = [];
+TOOLS.dev = TOOLS.dev || [];   // idempotent: a part that sorts earlier may have registered already
 let DEV_N = 0;
 function dev(id, name, render){ register({cat:'dev', id, name, render}); }
 
@@ -4761,7 +4761,7 @@ dev('jsondiff','JSON Diff', root=>{
    COLORS TOOLS
 
    ================================================================ */
-TOOLS.colors = [];
+TOOLS.colors = TOOLS.colors || [];   // idempotent: a part that sorts earlier may have registered already
 let CLR_N = 0;
 function clr(id, name, render){ register({cat:'colors', id, name, render}); }
 function hexToRgb(hex){ hex=hex.replace('#',''); if(hex.length===3) hex=hex.split('').map(c=>c+c).join(''); const n=parseInt(hex,16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255}; }
@@ -4877,7 +4877,7 @@ clr('isdarkened','Is Color Darkened', root=>{
 /* ================================================================
    IMAGE TOOLS (all processing happens locally in-browser)
    ================================================================ */
-TOOLS.image = [];
+TOOLS.image = TOOLS.image || [];   // idempotent: a part that sorts earlier may have registered already
 let IMG_N = 0;
 function imgtool(id, name, render){ register({cat:'image', id, name, render}); }
 function readImageFile(file){ return new Promise((resolve,reject)=>{ const im=new Image(); const url=URL.createObjectURL(file); im.onload=()=>{ URL.revokeObjectURL(url); resolve(im); }; im.onerror=reject; im.src=url; }); }
@@ -5537,7 +5537,7 @@ imgtool('asciiart','ASCII Art from Image', root=>{
 /* ================================================================
    SCIENCE TOOLS
    ================================================================ */
-TOOLS.science = [];
+TOOLS.science = TOOLS.science || [];   // idempotent: a part that sorts earlier may have registered already
 let SCI_N = 0;
 function sci(id, name, render){ register({cat:'science', id, name, render}); }
 
@@ -5746,7 +5746,7 @@ sci('periodictable','Periodic Table', root=>{
 /* ================================================================
    GEO TOOLS
    ================================================================ */
-TOOLS.geo = [];
+TOOLS.geo = TOOLS.geo || [];   // idempotent: a part that sorts earlier may have registered already
 let GEO_N = 0;
 function geo(id, name, render){ register({cat:'geo', id, name, render}); }
 function toRad(d){ return d*Math.PI/180; }
@@ -5916,7 +5916,7 @@ geo('polygonarea','Polygon Area', root=>{
 /* ================================================================
    AUDIO TOOLS (uses Web Audio API — no files, no dependencies)
    ================================================================ */
-TOOLS.audio = [];
+TOOLS.audio = TOOLS.audio || [];   // idempotent: a part that sorts earlier may have registered already
 let AUD_N = 0;
 function aud(id, name, render){ register({cat:'audio', id, name, render}); }
 let sharedAudioCtx = null;
@@ -6205,6 +6205,520 @@ aud('soundrecorder','Sound Recorder', root=>{
 });
 
 /* ================================================================
+   B18 — key derivation, ASN.1, and three physics calculators.
+   ================================================================ */
+
+/* ---------------- Development (3) ---------------- */
+
+dev('pbkdf2','PBKDF2 Derive', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Passphrase</label><input type="text" id="pbPass" value="correct horse battery staple"></div>
+    <div class="row">
+      <div class="field"><label>Salt (text or hex 0x…)</label><input type="text" id="pbSalt" value="kitbox-salt"></div>
+      <div class="field"><label>Iterations</label><input type="number" id="pbIter" value="250000" step="1000"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Hash</label><select id="pbHash"><option>SHA-256</option><option>SHA-384</option><option>SHA-512</option><option>SHA-1</option></select></div>
+      <div class="field"><label>Output bytes</label><input type="number" id="pbLen" value="32" min="1" max="64"></div>
+    </div>
+    <div class="segrow"><button class="btn primary" id="pbGo">Derive</button></div>
+    <div class="output" id="pbOut" style="word-break:break-all">—</div>
+    <div class="hint">The KDF behind most password storage and many file formats. 250,000 iterations is the current floor for a password; a random key needs none of this. The salt is shown as bytes so you can paste the same one back.</div>`;
+  root.querySelector('#pbGo').addEventListener('click', async ()=>{
+    const out = root.querySelector('#pbOut');
+    if(!cryptoAvailable()){ out.textContent = CRYPTO_MSG; return; }
+    const saltRaw = root.querySelector('#pbSalt').value;
+    const salt = /^0x[0-9a-fA-F]+$/.test(saltRaw)
+      ? Uint8Array.from(saltRaw.slice(2).match(/.{2}/g).map(h=>parseInt(h, 16)))
+      : bytesFromText(saltRaw);
+    const iter = Math.max(1, Number(root.querySelector('#pbIter').value) || 100000);
+    const len = Math.min(64, Math.max(1, Number(root.querySelector('#pbLen').value) || 32));
+    out.textContent = 'Deriving…';
+    try{
+      const base = await crypto.subtle.importKey('raw', bytesFromText(root.querySelector('#pbPass').value), 'PBKDF2', false, ['deriveBits']);
+      const bits = new Uint8Array(await crypto.subtle.deriveBits(
+        { name:'PBKDF2', salt, iterations: iter, hash: root.querySelector('#pbHash').value },
+        base, len * 8));
+      out.innerHTML = `<table class="mono">
+        <tr><td>Salt (hex)</td><td>0x${Array.from(salt).map(b=>b.toString(16).padStart(2,'0')).join('')}</td></tr>
+        <tr><td>Key (hex)</td><td>${Array.from(bits).map(b=>b.toString(16).padStart(2,'0')).join('')}</td></tr>
+        <tr><td>Key (base64)</td><td>${btoa(String.fromCharCode(...bits))}</td></tr>
+        <tr><td>Work</td><td>${iter.toLocaleString(numLocale())} iterations of ${root.querySelector('#pbHash').value}</td></tr>
+      </table>`;
+    }catch(e){ out.textContent = 'Could not derive: ' + (e.message || e); }
+  });
+});
+
+dev('hkdf','HKDF Derive', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Input key material</label><input type="text" id="hkIkm" value="a shared secret"></div>
+    <div class="row">
+      <div class="field"><label>Salt (optional)</label><input type="text" id="hkSalt" value=""></div>
+      <div class="field"><label>Info (optional)</label><input type="text" id="hkInfo" value="context"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Hash</label><select id="hkHash"><option>SHA-256</option><option>SHA-384</option><option>SHA-512</option></select></div>
+      <div class="field"><label>Output bytes</label><input type="number" id="hkLen" value="32" min="1" max="64"></div>
+    </div>
+    <div class="segrow"><button class="btn primary" id="hkGo">Derive</button></div>
+    <div class="output" id="hkOut" style="word-break:break-all">—</div>
+    <div class="hint">HKDF is for turning a key that already has entropy into one or more keys for a purpose — the <span class="mono">info</span> field is what separates two keys from the same secret. It is not a password hash; use PBKDF2 or Argon2 for that.</div>`;
+  root.querySelector('#hkGo').addEventListener('click', async ()=>{
+    const out = root.querySelector('#hkOut');
+    if(!cryptoAvailable()){ out.textContent = CRYPTO_MSG; return; }
+    const len = Math.min(64, Math.max(1, Number(root.querySelector('#hkLen').value) || 32));
+    out.textContent = 'Deriving…';
+    try{
+      const key = await crypto.subtle.importKey('raw', bytesFromText(root.querySelector('#hkIkm').value), 'HKDF', false, ['deriveBits']);
+      const bits = new Uint8Array(await crypto.subtle.deriveBits({
+        name:'HKDF',
+        hash: root.querySelector('#hkHash').value,
+        salt: bytesFromText(root.querySelector('#hkSalt').value),
+        info: bytesFromText(root.querySelector('#hkInfo').value)
+      }, key, len * 8));
+      out.innerHTML = `<table class="mono">
+        <tr><td>Key (hex)</td><td>${Array.from(bits).map(b=>b.toString(16).padStart(2,'0')).join('')}</td></tr>
+        <tr><td>Key (base64)</td><td>${btoa(String.fromCharCode(...bits))}</td></tr>
+      </table>`;
+    }catch(e){ out.textContent = 'Could not derive: ' + (e.message || e); }
+  });
+});
+
+dev('asn1','ASN.1 Parser', root=>{
+  root.innerHTML = `
+    <div class="field"><label>DER, hex</label><textarea id="asIn" style="min-height:110px">30 1a 02 01 01 06 09 2a 86 48 86 f7 0d 01 01 0b 04 0a 6b 69 74 62 6f 78 2d 6b 65 79</textarea></div>
+    <div class="output" id="asOut">—</div>
+    <div class="hint">DER only, which is what a certificate or a key file actually contains. Every byte of a certificate is inside one of these structures, so this is the tool you reach for when a PEM has to be understood rather than trusted.</div>`;
+  const TYPES = { 0x01:'BOOLEAN', 0x02:'INTEGER', 0x03:'BIT STRING', 0x04:'OCTET STRING', 0x05:'NULL',
+    0x06:'OID', 0x0c:'UTF8String', 0x13:'PrintableString', 0x16:'IA5String', 0x17:'UTCTime',
+    0x18:'GeneralizedTime', 0x30:'SEQUENCE', 0x31:'SET', 0xa0:'[0]', 0xa1:'[1]', 0xa3:'[3]' };
+  function oid(bytes){
+    const parts = [Math.floor(bytes[0] / 40), bytes[0] % 40];
+    let v = 0;
+    for(let i=1;i<bytes.length;i++){
+      v = (v << 7) | (bytes[i] & 0x7f);
+      if(!(bytes[i] & 0x80)){ parts.push(v); v = 0; }
+    }
+    return parts.join('.');
+  }
+  function parse(bytes, offset, end, depth, rows){
+    while(offset < end){
+      const tag = bytes[offset++];
+      let len = bytes[offset++];
+      if(len & 0x80){
+        const n = len & 0x7f;
+        len = 0;
+        for(let i=0;i<n;i++) len = (len << 8) | bytes[offset++];
+      }
+      const start = offset, stop = offset + len;
+      if(stop > end) throw new Error('a length runs past the end of its parent at offset ' + start);
+      const type = TYPES[tag] || ('tag 0x' + tag.toString(16));
+      const pad = '&nbsp;&nbsp;'.repeat(depth);
+      const raw = bytes.slice(start, stop);
+      let value = '';
+      if(tag === 0x02) value = '0x' + Array.from(raw).map(b=>b.toString(16).padStart(2,'0')).join('');
+      else if(tag === 0x06) value = oid(raw);
+      else if(tag === 0x01) value = raw[0] ? 'true' : 'false';
+      else if(tag === 0x05) value = 'null';
+      else if(tag === 0x17 || tag === 0x18) value = textFromBytes(raw);
+      else if(tag === 0x0c || tag === 0x13 || tag === 0x16) value = textFromBytes(raw);
+      else if(tag === 0x04) value = raw.length + ' bytes' + (raw.length <= 32 ? ' — ' + textFromBytes(raw).replace(/[^\x20-\x7e]/g, '.') : '');
+      else if(tag === 0x03) value = (raw[0] === 0 ? '0 unused bits, ' : raw[0] + ' unused bits, ') + (raw.length - 1) + ' bytes';
+      rows.push(`<tr><td style="white-space:nowrap">${pad}${escapeHtml(type)}</td><td>${raw.length}</td><td style="word-break:break-all">${escapeHtml(value)}</td></tr>`);
+      if((tag & 0x20) || tag === 0x30 || tag === 0x31 || (tag >= 0xa0 && tag <= 0xbf)){
+        if(depth < 12) parse(bytes, start, stop, depth + 1, rows);
+      }
+      offset = stop;
+    }
+  }
+  function draw(){
+    const out = root.querySelector('#asOut');
+    const hex = root.querySelector('#asIn').value.replace(/[^0-9a-fA-F]/g, '');
+    if(!hex){ out.textContent = 'Paste some DER bytes in hex.'; return; }
+    if(hex.length % 2){ out.textContent = 'An odd number of hex digits — one byte is incomplete.'; return; }
+    const bytes = Uint8Array.from(hex.match(/.{2}/g).map(h=>parseInt(h, 16)));
+    const rows = [];
+    try{
+      parse(bytes, 0, bytes.length, 0, rows);
+      out.innerHTML = `<table class="mono"><tr><th style="text-align:left">Type</th><th>Len</th><th style="text-align:left">Value</th></tr>${rows.join('')}</table>`;
+    }catch(e){
+      out.innerHTML = `<div class="hint">${escapeHtml(e.message)}</div>` + (rows.length ? `<table class="mono">${rows.join('')}</table>` : '');
+    }
+  }
+  root.querySelector('#asIn').addEventListener('input', draw);
+  draw();
+});
+
+/* ---------------- Science (3) ---------------- */
+
+sci('rc','RC Time Constant', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Resistance (Ω)</label><input type="number" id="rcR" value="10000"></div>
+      <div class="field"><label>Capacitance (µF)</label><input type="number" id="rcC" value="100" step="0.1"></div>
+      <div class="field"><label>Supply (V)</label><input type="number" id="rcV" value="5"></div>
+    </div>
+    <div class="output" id="rcOut">—</div>
+    <div class="hint">τ = RC. One τ reaches 63.2% of the supply, five τ is 99.3% and is what "fully charged" means in practice. The table shows the voltage at each τ.</div>`;
+  function draw(){
+    const R = Number(root.querySelector('#rcR').value) || 0;
+    const C = (Number(root.querySelector('#rcC').value) || 0) * 1e-6;
+    const V = Number(root.querySelector('#rcV').value) || 0;
+    if(!R || !C){ root.querySelector('#rcOut').textContent = 'Resistance and capacitance, both non-zero.'; return; }
+    const tau = R * C;
+    const rows = [1,2,3,4,5].map(n=>{
+      const t = n * tau;
+      const v = V * (1 - Math.exp(-n));
+      return `<tr><td>${n}τ · ${(t*1000).toFixed(2)} ms</td><td>${v.toFixed(3)} V</td><td>${(100 * (1 - Math.exp(-n))).toFixed(1)}%</td></tr>`;
+    }).join('');
+    root.querySelector('#rcOut').innerHTML = `<table class="mono">
+      <tr><td>τ</td><td>${(tau*1000).toFixed(3)} ms</td></tr>
+      <tr><td>Cut-off frequency</td><td>${(1/(2*Math.PI*tau)).toFixed(1)} Hz</td></tr>
+      ${rows}
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+sci('lens','Lens Equation', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Focal length (mm)</label><input type="number" id="lnF" value="50"></div>
+      <div class="field"><label>Object distance (mm)</label><input type="number" id="lnDo" value="500"></div>
+    </div>
+    <div class="output" id="lnOut">—</div>
+    <div class="hint">1/f = 1/do + 1/di, with distances measured from the lens. A negative image distance means a virtual image on the same side as the object — what a magnifying glass makes.</div>`;
+  function draw(){
+    const f = Number(root.querySelector('#lnF').value) || 0;
+    const dObj = Number(root.querySelector('#lnDo').value) || 0;
+    const out = root.querySelector('#lnOut');
+    if(!f || !dObj){ out.textContent = 'Focal length and object distance, both non-zero.'; return; }
+    const inv = 1/f - 1/dObj;
+    if(Math.abs(inv) < 1e-9){ out.textContent = 'The object is at the focal point — the image is at infinity.'; return; }
+    const dImg = 1 / inv;
+    const mag = -dImg / dObj;
+    out.innerHTML = `<table class="mono">
+      <tr><td>Image distance</td><td>${dImg.toFixed(1)} mm ${dImg > 0 ? '(real, opposite side)' : '(virtual, same side)'}</td></tr>
+      <tr><td>Magnification</td><td>${mag.toFixed(2)}× ${Math.abs(mag) > 1 ? '(enlarged)' : '(reduced)'}${mag < 0 ? ', inverted' : ', upright'}</td></tr>
+      <tr><td>Power</td><td>${(1000/f).toFixed(1)} dioptres</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+sci('doppler','Doppler Shift', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Source frequency (Hz)</label><input type="number" id="dpF" value="440"></div>
+      <div class="field"><label>Speed of sound (m/s)</label><input type="number" id="dpC" value="343"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Source speed (m/s)</label><input type="number" id="dpVs" value="30"></div>
+      <div class="field"><label>Observer speed (m/s)</label><input type="number" id="dpVo" value="0"></div>
+    </div>
+    <div class="field"><label>Direction</label><select id="dpDir">
+      <option value="approach">Approaching each other</option>
+      <option value="recede">Moving apart</option>
+    </select></div>
+    <div class="output" id="dpOut">—</div>
+    <div class="hint">f′ = f (c ± v₀) / (c ∓ vₛ). Positive speeds are toward the other party when approaching. Past the speed of sound the formula stops meaning anything, which the tool says rather than returning a number.</div>`;
+  function draw(){
+    const f = Number(root.querySelector('#dpF').value) || 0;
+    const c = Number(root.querySelector('#dpC').value) || 343;
+    const vs = Number(root.querySelector('#dpVs').value) || 0;
+    const vo = Number(root.querySelector('#dpVo').value) || 0;
+    const approach = root.querySelector('#dpDir').value === 'approach';
+    const out = root.querySelector('#dpOut');
+    if(Math.abs(vs) >= c){ out.textContent = 'The source is at or past the speed of sound — a shock wave, not a shift. Use the Mach angle instead.'; return; }
+    const sign = approach ? 1 : -1;
+    const observed = f * (c + sign * vo) / (c - sign * vs);
+    const cents = 1200 * Math.log2(observed / f);
+    out.innerHTML = `<table class="mono">
+      <tr><td>Observed frequency</td><td>${observed.toFixed(2)} Hz</td></tr>
+      <tr><td>Shift</td><td>${(observed - f).toFixed(2)} Hz (${cents.toFixed(0)} cents)</td></tr>
+      <tr><td>Ratio</td><td>${(observed / f).toFixed(4)}</td></tr>
+      <tr><td>Mach number of the source</td><td>${(Math.abs(vs) / c).toFixed(3)}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input,select').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+/* ================================================================
+   B19 — the almanac's missing two, and four accessibility previews.
+   ================================================================ */
+
+/* ---------------- Almanac (2) ---------------- */
+
+alm('choghadiya','Choghadiya', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Date</label><input type="date" id="cgDate"></div>
+      <div class="field"><label>Place</label><input type="text" id="cgPlace" value="Vadodara"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Latitude</label><input type="number" id="cgLat" value="22.3072" step="0.0001"></div>
+      <div class="field"><label>Longitude</label><input type="number" id="cgLon" value="73.1812" step="0.0001"></div>
+    </div>
+    <div class="output" id="cgOut">—</div>
+    <div class="hint">The day from sunrise to sunset is cut into eight equal parts, and the night into eight more. Which part gets which name depends on the weekday, so the table below is not the same on a Tuesday as on a Friday. Times are local and approximate — a part boundary is only as good as the sunrise it is measured from.</div>`;
+  // Day sequences start at sunrise for each weekday (Sun..Sat), night at sunset.
+  const DAY = {
+    0: ['Udveg','Chal','Labh','Amrit','Kaal','Shubh','Rog','Udveg'],
+    1: ['Amrit','Kaal','Shubh','Rog','Udveg','Chal','Labh','Amrit'],
+    2: ['Rog','Udveg','Chal','Labh','Amrit','Kaal','Shubh','Rog'],
+    3: ['Labh','Amrit','Kaal','Shubh','Rog','Udveg','Chal','Labh'],
+    4: ['Shubh','Rog','Udveg','Chal','Labh','Amrit','Kaal','Shubh'],
+    5: ['Chal','Labh','Amrit','Kaal','Shubh','Rog','Udveg','Chal'],
+    6: ['Kaal','Shubh','Rog','Udveg','Chal','Labh','Amrit','Kaal']
+  };
+  const NIGHT = {
+    0: ['Shubh','Amrit','Chal','Rog','Kaal','Labh','Udveg','Shubh'],
+    1: ['Chal','Rog','Kaal','Labh','Udveg','Shubh','Amrit','Chal'],
+    2: ['Kaal','Labh','Udveg','Shubh','Amrit','Chal','Rog','Kaal'],
+    3: ['Udveg','Shubh','Amrit','Chal','Rog','Kaal','Labh','Udveg'],
+    4: ['Amrit','Chal','Rog','Kaal','Labh','Udveg','Shubh','Amrit'],
+    5: ['Rog','Kaal','Labh','Udveg','Shubh','Amrit','Chal','Rog'],
+    6: ['Labh','Udveg','Shubh','Amrit','Chal','Rog','Kaal','Labh']
+  };
+  const GOOD = new Set(['Amrit','Shubh','Labh','Chal']);
+  function draw(){
+    const dateEl = root.querySelector('#cgDate');
+    if(!dateEl.value){ const now = new Date(); dateEl.value = now.toISOString().slice(0,10); }
+    const [y, m, d] = dateEl.value.split('-').map(Number);
+    const lat = Number(root.querySelector('#cgLat').value) || 0;
+    const lon = Number(root.querySelector('#cgLon').value) || 0;
+    const ss = ASTRO.sunriseSunset(new Date(Date.UTC(y, m-1, d, 12)), lat, lon);
+    const out = root.querySelector('#cgOut');
+    if(ss.polar){ out.textContent = 'At this latitude the sun does not rise or set on this date, so the day cannot be divided this way.'; return; }
+    const tz = -(new Date().getTimezoneOffset()) / 60;
+    const riseH = ss.sunrise + tz, setH = ss.sunset + tz;
+    const nextSet = setH + 24;
+    const weekday = new Date(Date.UTC(y, m-1, d)).getUTCDay();
+    const fmt = h => {
+      const hh = Math.floor(((h % 24) + 24) % 24), mm = Math.round((h - Math.floor(h)) * 60);
+      return String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+    };
+    const dayParts = (setH - riseH) / 8, nightParts = (nextSet - setH) / 8;
+    const rows = [];
+    DAY[weekday].forEach((name, i)=>{
+      const a = riseH + i*dayParts, b = a + dayParts;
+      rows.push([name, fmt(a) + ' – ' + fmt(b), 'day']);
+    });
+    NIGHT[weekday].forEach((name, i)=>{
+      const a = setH + i*nightParts, b = a + nightParts;
+      rows.push([name, fmt(a) + ' – ' + fmt(b), 'night']);
+    });
+    out.innerHTML = `<table class="mono">
+      <tr><td>Sunrise</td><td>${fmt(riseH)}</td></tr>
+      <tr><td>Sunset</td><td>${fmt(setH)}</td></tr>
+      <tr><td colspan="2" style="padding-top:10px"><b>${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][weekday]}</b></td></tr>
+      ${rows.map(([name, span, part])=>`<tr><td>${part === 'day' ? '☀' : '☾'} ${name}</td><td>${span}${GOOD.has(name) ? '' : ' <span style="color:var(--muted)">— avoid</span>'}</td></tr>`).join('')}
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+alm('moonrise','Moonrise & Moonset', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Date</label><input type="date" id="mrDate"></div>
+      <div class="field"><label>Latitude</label><input type="number" id="mrLat" value="22.3072" step="0.0001"></div>
+      <div class="field"><label>Longitude</label><input type="number" id="mrLon" value="73.1812" step="0.0001"></div>
+    </div>
+    <div class="output" id="mrOut">—</div>
+    <div class="hint">Found by scanning the moon's altitude minute by minute and reporting where it crosses the horizon — the same method as the sun, with the moon's own position. Accurate to a few minutes; the moon moves about half a degree an hour, which is a minute of time, and this model is coarser than that.</div>`;
+  function draw(){
+    const dateEl = root.querySelector('#mrDate');
+    if(!dateEl.value){ dateEl.value = new Date().toISOString().slice(0,10); }
+    const [y, m, d] = dateEl.value.split('-').map(Number);
+    const lat = (Number(root.querySelector('#mrLat').value) || 0) * Math.PI / 180;
+    const lon = Number(root.querySelector('#mrLon').value) || 0;
+    const tz = -(new Date().getTimezoneOffset()) / 60;
+    const D2R = Math.PI / 180, R2D = 180 / Math.PI;
+    const obliquity = 23.4393 * D2R;
+    function altitude(hourUTC){
+      const jd = ASTRO.jd({ y, m, d, h: hourUTC });
+      const lam = ASTRO.moonLongitude(jd) * D2R;
+      const ra = Math.atan2(Math.sin(lam) * Math.cos(obliquity), Math.cos(lam));
+      const dec = Math.asin(Math.sin(lam) * Math.sin(obliquity));
+      const gmst = (280.46061837 + 360.98564736629 * (jd - 2451545)) % 360;
+      const lst = (gmst + lon) * D2R;
+      const H = lst - ra;
+      return Math.asin(Math.sin(lat) * Math.sin(dec) + Math.cos(lat) * Math.cos(dec) * Math.cos(H)) * R2D;
+    }
+    const events = [];
+    let prev = altitude(0);
+    for(let min=1; min<=24*60; min++){
+      const h = min / 60;
+      const alt = altitude(h);
+      if((prev < 0 && alt >= 0) || (prev >= 0 && alt < 0)){
+        // linear interpolation between the two minutes for a nicer time
+        const frac = Math.abs(prev) / (Math.abs(prev) + Math.abs(alt) || 1);
+        const at = (min - 1 + frac) / 60 + tz;
+        events.push({ type: prev < 0 ? 'rise' : 'set', at });
+      }
+      prev = alt;
+    }
+    const fmt = h => {
+      const hh = Math.floor(((h % 24) + 24) % 24), mm = Math.round((h - Math.floor(h)) * 60);
+      return String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+    };
+    root.querySelector('#mrOut').innerHTML = `<table class="mono">
+      ${events.length
+        ? events.map(e=>`<tr><td>Moon${e.type}</td><td>${fmt(e.at)}</td></tr>`).join('')
+        : '<tr><td colspan="2">No crossing in this 24 hours — the moon is up or down all day at this latitude.</td></tr>'}
+      <tr><td>Note</td><td>Approximate; a moonrise can differ by minutes from an almanac</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+/* ---------------- Accessibility (4) ---------------- */
+
+acc('srpreview','Screen Reader Preview', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Markup</label><textarea id="srIn" style="min-height:120px"><h2>Discharge summary</h2><p>Seen in clinic on <strong>8 November</strong>. Blood pressure <em>138/86</em>.</p><ul><li>Continue amlodipine 5&nbsp;mg</li><li>Review in 4 weeks</li></ul></textarea></div>
+    <div class="output" id="srOut" style="white-space:pre-wrap">—</div>
+    <div class="hint">What a screen reader announces, roughly: tags gone, entities resolved, list items marked, and headings called out. It is a preview, not a simulation — real readers differ, and only a real one with a real user is a test.</div>`;
+  function draw(){
+    const raw = root.querySelector('#srIn').value;
+    const doc = new DOMParser().parseFromString('<div>' + raw + '</div>', 'text/html');
+    const body = doc.body.firstChild || doc.body;
+    const lines = [];
+    body.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,blockquote').forEach(el=>{
+      const tag = el.tagName.toLowerCase();
+      const text = el.textContent.replace(/\s+/g, ' ').trim();
+      if(!text) return;
+      if(/^h[1-6]$/.test(tag)) lines.push('Heading level ' + tag[1] + ': ' + text);
+      else if(tag === 'li') lines.push('  • ' + text);
+      else lines.push(text);
+    });
+    if(!lines.length) lines.push(body.textContent.replace(/\s+/g, ' ').trim());
+    const words = lines.join(' ').split(/\s+/).filter(Boolean).length;
+    root.querySelector('#srOut').textContent = lines.join('\n') + '\n\n— ' + words + ' words, about ' + Math.max(1, Math.round(words / 200)) + ' minute(s) of speech';
+  }
+  root.querySelector('#srIn').addEventListener('input', draw);
+  draw();
+});
+
+acc('captions','Caption Length Checker', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Caption line</label><textarea id="cpIn" style="min-height:80px">The sample was sent to the laboratory on Tuesday and the result is expected within four working days.</textarea></div>
+    <div class="row">
+      <div class="field"><label>Seconds on screen</label><input type="number" id="cpSec" value="4" step="0.5"></div>
+      <div class="field"><label>Target characters per line</label><input type="number" id="cpMax" value="42"></div>
+    </div>
+    <div class="output" id="cpOut">—</div>
+    <div class="hint">Two limits matter: characters per line (about 42 is the usual ceiling for subtitles) and characters per second (17 is a common maximum, 20 is pushing it). A caption can be short and still be too fast.</div>`;
+  function draw(){
+    const text = root.querySelector('#cpIn').value;
+    const secs = Math.max(0.5, Number(root.querySelector('#cpSec').value) || 1);
+    const maxChars = Number(root.querySelector('#cpMax').value) || 42;
+    const longest = text.split('\n').reduce((a, l)=>Math.max(a, l.length), 0);
+    const cps = text.replace(/\s+/g, ' ').length / secs;
+    const issues = [];
+    if(longest > maxChars) issues.push('A line is ' + longest + ' characters — split it at ' + maxChars + ' or fewer.');
+    if(cps > 20) issues.push(cps.toFixed(1) + ' characters per second is too fast; give it ' + Math.ceil(text.length / 17) + ' seconds.');
+    else if(cps > 17) issues.push(cps.toFixed(1) + ' characters per second is at the limit.');
+    root.querySelector('#cpOut').innerHTML = `<table class="mono">
+      <tr><td>Characters</td><td>${text.length}</td></tr>
+      <tr><td>Longest line</td><td>${longest}${longest > maxChars ? ' — over' : ''}</td></tr>
+      <tr><td>Characters per second</td><td>${cps.toFixed(1)}</td></tr>
+      <tr><td>Suggested duration</td><td>${Math.max(1, Math.ceil(text.length / 17))} s at 17 cps</td></tr>
+      <tr><td>Reading</td><td>${issues.length ? escapeHtml(issues.join(' ')) : 'within both limits'}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+acc('cbpalette','Colour-Blind Safe Pair', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>First colour</label><input type="color" id="cbA" value="#2f86eb"></div>
+      <div class="field"><label>Second colour</label><input type="color" id="cbB" value="#e31c7d"></div>
+    </div>
+    <div id="cbSwatches" style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0"></div>
+    <div class="output" id="cbOut">—</div>
+    <div class="hint">Simulates the three common forms of colour blindness with the standard matrices and reports whether the pair stays distinguishable. Distinguishable is not the same as accessible — contrast is checked separately by the WCAG Contrast tool.</div>`;
+  const MATRIX = {
+    normal: [1,0,0, 0,1,0, 0,0,1],
+    protanopia: [0.567,0.433,0, 0.558,0.442,0, 0,0.242,0.758],
+    deuteranopia: [0.625,0.375,0, 0.7,0.3,0, 0,0.3,0.7],
+    tritanopia: [0.95,0.05,0, 0,0.433,0.567, 0,0.475,0.525]
+  };
+  const hex2rgb = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+  const rgb2hex = ([r,g,b]) => '#' + [r,g,b].map(v=>Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2,'0')).join('');
+  function simulate(hex, kind){
+    const m = MATRIX[kind], [r,g,b] = hex2rgb(hex);
+    return rgb2hex([m[0]*r + m[1]*g + m[2]*b, m[3]*r + m[4]*g + m[5]*b, m[6]*r + m[7]*g + m[8]*b]);
+  }
+  function draw(){
+    const a = root.querySelector('#cbA').value, b = root.querySelector('#cbB').value;
+    const sw = root.querySelector('#cbSwatches');
+    sw.innerHTML = Object.keys(MATRIX).map(kind=>`
+      <div style="text-align:center">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:4px">${kind}</div>
+        <div style="display:flex">
+          <div style="width:34px;height:34px;background:${simulate(a, kind)}"></div>
+          <div style="width:34px;height:34px;background:${simulate(b, kind)}"></div>
+        </div>
+      </div>`).join('');
+    const rows = Object.keys(MATRIX).map(kind=>{
+      const ca = simulate(a, kind), cb = simulate(b, kind);
+      const ratio = contrastWith(ca, cb);
+      return [kind, ca, cb, ratio, ratio >= 1.5 ? 'distinguishable' : 'too close'];
+    });
+    root.querySelector('#cbOut').innerHTML = `<table class="mono">
+      ${rows.map(([kind, ca, cb, ratio, verdict])=>`<tr><td>${kind}</td><td>${ca} / ${cb}</td><td>${ratio.toFixed(2)}:1</td><td style="color:${verdict === 'too close' ? '#c0392b' : '#1a7f37'}">${verdict}</td></tr>`).join('')}
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+acc('motionpreview','Reduced Motion Preview', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Distance (px)</label><input type="number" id="mpD" value="120"></div>
+      <div class="field"><label>Duration (ms)</label><input type="number" id="mpT" value="700"></div>
+      <div class="field"><label>Easing</label><select id="mpE"><option>ease-out</option><option>linear</option><option>ease-in-out</option><option>cubic-bezier(.2,.8,.2,1)</option></select></div>
+    </div>
+    <div id="mpStage" style="position:relative;height:90px;background:var(--panel);border:1px solid var(--line);overflow:hidden;margin:12px 0">
+      <div id="mpBox" style="position:absolute;top:26px;left:0;width:38px;height:38px;background:var(--accent)"></div>
+    </div>
+    <div class="segrow">
+      <button class="btn primary" id="mpGo">Play</button>
+      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="mpReduce"> Simulate reduced motion</label>
+    </div>
+    <div class="hint">With reduced motion on, the element appears at its destination instead of travelling. If your animation carries meaning — "this moved here" — a fade or a highlight has to carry it instead, because a reader who asked for less motion will not see the journey.</div>`;
+  function play(){
+    const box = root.querySelector('#mpBox');
+    const d = Number(root.querySelector('#mpD').value) || 100;
+    const t = Number(root.querySelector('#mpT').value) || 500;
+    const ease = root.querySelector('#mpE').value;
+    const reduce = root.querySelector('#mpReduce').checked;
+    box.style.transition = 'none';
+    box.style.left = '0px';
+    box.style.opacity = '1';
+    void box.offsetWidth;
+    if(reduce){
+      box.style.left = d + 'px';
+      box.style.opacity = '0.6';
+      return;
+    }
+    box.style.transition = 'left ' + t + 'ms ' + ease + ', opacity ' + t + 'ms ' + ease;
+    box.style.left = d + 'px';
+  }
+  root.querySelector('#mpGo').addEventListener('click', play);
+  root.querySelector('#mpReduce').addEventListener('change', play);
+  play();
+});
+/* ================================================================
    B17 — clinical scores, added because a clinician asked for them.
 
    The roadmap had these under "deliberately not doing", with the reason: a
@@ -6458,7 +6972,7 @@ clin('childpugh','Child-Pugh', root=>{
 /* ================================================================
    GAMES
    ================================================================ */
-TOOLS.games = [];
+TOOLS.games = TOOLS.games || [];   // idempotent: a part that sorts earlier may have registered already
 let GAM_N = 0;
 function game(id, name, render){ register({cat:'games', id, name, render}); }
 
@@ -6839,7 +7353,7 @@ game('triviacreator','Trivia Creator', root=>{
 /* ================================================================
    TRAVEL TOOLS
    ================================================================ */
-TOOLS.travel = [];
+TOOLS.travel = TOOLS.travel || [];   // idempotent: a part that sorts earlier may have registered already
 let TRV_N = 0;
 function trv(id, name, render){ register({cat:'travel', id, name, render}); }
 
@@ -6945,7 +7459,7 @@ trv('plugguide','Plug Type Guide', root=>{
 /* ================================================================
    NATURE TOOLS
    ================================================================ */
-TOOLS.nature = [];
+TOOLS.nature = TOOLS.nature || [];   // idempotent: a part that sorts earlier may have registered already
 let NAT_N = 0;
 function nat(id, name, render){ register({cat:'nature', id, name, render}); }
 
@@ -8145,7 +8659,7 @@ gen('placeholder','SVG Placeholder', root=>{
 /* ================================================================
    PRODUCTIVITY
    ================================================================ */
-TOOLS.productivity = [];
+TOOLS.productivity = TOOLS.productivity || [];   // idempotent: a part that sorts earlier may have registered already
 let PRD_N = 0;
 function prod(id, name, render){ register({cat:'productivity', id, name, render}); }
 
@@ -8791,7 +9305,7 @@ prod('flashcards','Flashcards & Spaced Repetition', root=>{
    drsamonline/TTB (data + media utilities).
    Everything runs in this page: no upload, no dependency, no network.
    ================================================================ */
-TOOLS.files = [];
+TOOLS.files = TOOLS.files || [];   // idempotent: a part that sorts earlier may have registered already
 let FIL_N = 0;
 function fil(id, name, render){ register({cat:'files', id, name, render}); }
 
@@ -9488,7 +10002,7 @@ fil('lineendings','Line Ending Converter', root=>{
    Meeus solar/lunar longitude, Lahiri ayanamsa, sunrise equation.
    Timings are approximate (see the note in each tool).
    ================================================================ */
-TOOLS.almanac = [];
+TOOLS.almanac = TOOLS.almanac || [];   // idempotent: a part that sorts earlier may have registered already
 let ALM_N = 0;
 function alm(id, name, render){ register({cat:'almanac', id, name, render}); }
 
@@ -9730,7 +10244,7 @@ alm('sunmoon','Sun & Moon Times', root=>{
 /* ================================================================
    COMMUNICATION, from drsamonline/TTB
    ================================================================ */
-TOOLS.comms = [];
+TOOLS.comms = TOOLS.comms || [];   // idempotent: a part that sorts earlier may have registered already
 let COM_N = 0;
 function com(id, name, render){ register({cat:'comms', id, name, render}); }
 
@@ -10894,12 +11408,12 @@ function unitTool(group, id, name, render){
 }
 
 /* Reference — tables and cheat sheets. Static, instant, no input. */
-TOOLS.reference = [];
+TOOLS.reference = TOOLS.reference || [];   // idempotent: a part that sorts earlier may have registered already
 let REF_N = 0;
 function ref(id, name, render){ register({cat:'reference', id, name, render}); }
 
 /* System — what this browser and this device can actually do. */
-TOOLS.system = [];
+TOOLS.system = TOOLS.system || [];   // idempotent: a part that sorts earlier may have registered already
 let SYS_N = 0;
 function sys(id, name, render){ register({cat:'system', id, name, render}); }
 

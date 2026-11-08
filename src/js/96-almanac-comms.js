@@ -3,7 +3,7 @@
    Meeus solar/lunar longitude, Lahiri ayanamsa, sunrise equation.
    Timings are approximate (see the note in each tool).
    ================================================================ */
-TOOLS.almanac = [];
+TOOLS.almanac = TOOLS.almanac || [];   // idempotent: a part that sorts earlier may have registered already
 let ALM_N = 0;
 function alm(id, name, render){ register({cat:'almanac', id, name, render}); }
 
@@ -245,7 +245,7 @@ alm('sunmoon','Sun & Moon Times', root=>{
 /* ================================================================
    COMMUNICATION, from drsamonline/TTB
    ================================================================ */
-TOOLS.comms = [];
+TOOLS.comms = TOOLS.comms || [];   // idempotent: a part that sorts earlier may have registered already
 let COM_N = 0;
 function com(id, name, render){ register({cat:'comms', id, name, render}); }
 

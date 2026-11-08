@@ -1,7 +1,7 @@
 /* ================================================================
    GAMES
    ================================================================ */
-TOOLS.games = [];
+TOOLS.games = TOOLS.games || [];   // idempotent: a part that sorts earlier may have registered already
 let GAM_N = 0;
 function game(id, name, render){ register({cat:'games', id, name, render}); }
 
@@ -382,7 +382,7 @@ game('triviacreator','Trivia Creator', root=>{
 /* ================================================================
    TRAVEL TOOLS
    ================================================================ */
-TOOLS.travel = [];
+TOOLS.travel = TOOLS.travel || [];   // idempotent: a part that sorts earlier may have registered already
 let TRV_N = 0;
 function trv(id, name, render){ register({cat:'travel', id, name, render}); }
 
@@ -488,7 +488,7 @@ trv('plugguide','Plug Type Guide', root=>{
 /* ================================================================
    NATURE TOOLS
    ================================================================ */
-TOOLS.nature = [];
+TOOLS.nature = TOOLS.nature || [];   // idempotent: a part that sorts earlier may have registered already
 let NAT_N = 0;
 function nat(id, name, render){ register({cat:'nature', id, name, render}); }
 
