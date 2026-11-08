@@ -1,8 +1,8 @@
 {
   "name": "kitbox",
-  "version": "1.7.1",
+  "version": "2.0.0",
   "private": true,
-  "description": "Kitbox — a single-file offline toolbox. 338 tools, no dependencies, no network.",
+  "description": "Kitbox \u2014 a single-file offline toolbox. 338 tools, no dependencies, no network.",
   "license": "PolyForm-Noncommercial-1.0.0",
   "author": "Dr Sohil Momin",
   "scripts": {
@@ -22,11 +22,18 @@
     "docs": "python3 tools/build-docs.py",
     "landing": "python3 tools/build-landing.py",
     "manifest": "python3 tools/check-manifest.py",
-    "check": "npm test && npm run a11y && npm run fuzz && npm run interact && npm run deep && npm run links && npm run codes && node tools/check-badges.js && node tools/gen-all-tools.js --check && python3 tools/check-plan.py && python3 tools/check-manifest.py"
+    "check": "npm test && npm run a11y && npm run fuzz && npm run interact && npm run deep && npm run links && npm run lib && node test/lib.js && npm run lint && npm run types && npm run codes && npm run badges && npm run tools && npm run docs && npm run dist",
+    "build": "python3 tools/build.py",
+    "lib": "node tools/build-lib.js",
+    "lint": "python3 tools/build.py && eslint dist/app.js",
+    "types": "node tools/build-lib.js && tsc -p tsconfig.json"
   },
   "devDependencies": {
     "acorn": "^8.19.0",
     "axe-core": "^4.14.0",
-    "jsdom": "^29.1.1"
+    "eslint": "^10.14.0",
+    "globals": "^17.14.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^7.0.2"
   }
 }

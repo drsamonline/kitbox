@@ -52,6 +52,31 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.0.0 — 2026-11-08</h2>
+<p>Batch <strong>B12</strong> of <a href="plan.html">PLAN.md</a>: architecture. The app still ships as one file; it is no longer <em>edited</em> as one file.</p>
+<h3>Changed — the file is now built</h3>
+<ul>
+<li><strong><code>src/</code> is the source.</strong> Sixteen parts under <code>src/js/</code>, in filename order, concatenated into <code>src/index.template.html</code> by <code>python3 tools/build.py</code>. CI fails if the committed <code>kitbox.html</code> differs from what the source produces, so the file that ships is always the file the source describes.</li>
+<li><strong>The split was proven before it was trusted.</strong> <code>tools/split-once.py</code> cut the original 12,459-line file at section boundaries, and <code>build(split(x))</code> was checked to be <strong>byte-identical</strong> to <code>x</code>. Only then did anything else change.</li>
+<li><strong>One registration path.</strong> <code>register()</code> in the core is now the only place a tool becomes a tool: it assigns the code, validates the id, and attaches the metadata. The 21 helper functions (<code>txt</code>, <code>gen</code>, <code>calc</code> …) are six-line adapters over it — kept because they read well at 339 call sites, but there is one implementation.</li>
+<li><strong>Metadata lives on the tool.</strong> <code>since</code>, <code>tags</code>, <code>keywords</code> and <code>requires</code> are fields of the registered object rather than three side maps consulted at render time. <code>since</code> is derived from the 1.1.0 list, <code>keywords</code> and <code>requires</code> fall back to the maps until they are inlined.</li>
+</ul>
+<h3>Added</h3>
+<ul>
+<li><strong>A library that can be tested without a browser.</strong> <code>node tools/build-lib.js</code> lifts 22 pure declarations out of the built app with <strong>acorn</strong> and writes <code>dist/lib.js</code>. <code>node test/lib.js</code> then runs 23 assertions against it in Node, in about 200 ms.</li>
+<li><strong>ESLint over the concatenated script</strong> — 0 errors, 0 warnings. It found six genuinely dead variables (<code>nums</code>, <code>score</code>, <code>re</code>, <code>guessedWord</code>, <code>rise</code>, an uncalled <code>today()</code>), all removed.</li>
+<li><strong><code>tsc --checkJs</code></strong> over <code>dist/lib.js</code>, clean, with a <code>tsconfig.json</code> that says why the app's other 12,000 lines are not typechecked.</li>
+</ul>
+<h3>Fixed — found by the new unit tests</h3>
+<ul>
+<li><strong>Base58 round-tripped the empty string into two zero bytes.</strong> <code>fromBase58</code> seeded its accumulator with <code>[0]</code> and <code>toBase58</code> emitted <code>"1"</code> for no input, so encode-then-decode invented data. Both fixed, with the empty case now in the test.</li>
+<li><strong>The Meeus 47.a assertion in my own test used the wrong Julian day</strong> (2448908.5, an October date, for an April example). The code was right; the test was wrong.</li>
+</ul>
+<h3>Not done, and why</h3>
+<ul>
+<li><strong>A page per category (E-116) and per-category generated docs (E-87)</strong> are deferred. <code>ALL_TOOLS.md</code> is already generated from the registry, and the landing page already lists every category with live counts; a third surface would need its own freshness check for little gain.</li>
+<li><strong>Typechecking the app itself</strong> would need JSDoc on 12,000 lines. The library is where types pay for themselves; the UI is DOM glue that a type checker mostly restates.</li>
+</ul>
 <h2>1.7.1 — 2026-11-08</h2>
 <p>Batch <strong>B11</strong> of <a href="plan.html">PLAN.md</a>: distribution. Nothing in the app changed except the version string.</p>
 <h3>Added</h3>

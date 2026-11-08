@@ -8,6 +8,33 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.0.0 — 2026-11-08
+
+Batch **B12** of [PLAN.md](PLAN.md): architecture. The app still ships as one file; it is no longer *edited* as one file.
+
+### Changed — the file is now built
+
+- **`src/` is the source.** Sixteen parts under `src/js/`, in filename order, concatenated into `src/index.template.html` by `python3 tools/build.py`. CI fails if the committed `kitbox.html` differs from what the source produces, so the file that ships is always the file the source describes.
+- **The split was proven before it was trusted.** `tools/split-once.py` cut the original 12,459-line file at section boundaries, and `build(split(x))` was checked to be **byte-identical** to `x`. Only then did anything else change.
+- **One registration path.** `register()` in the core is now the only place a tool becomes a tool: it assigns the code, validates the id, and attaches the metadata. The 21 helper functions (`txt`, `gen`, `calc` …) are six-line adapters over it — kept because they read well at 339 call sites, but there is one implementation.
+- **Metadata lives on the tool.** `since`, `tags`, `keywords` and `requires` are fields of the registered object rather than three side maps consulted at render time. `since` is derived from the 1.1.0 list, `keywords` and `requires` fall back to the maps until they are inlined.
+
+### Added
+
+- **A library that can be tested without a browser.** `node tools/build-lib.js` lifts 22 pure declarations out of the built app with **acorn** and writes `dist/lib.js`. `node test/lib.js` then runs 23 assertions against it in Node, in about 200 ms.
+- **ESLint over the concatenated script** — 0 errors, 0 warnings. It found six genuinely dead variables (`nums`, `score`, `re`, `guessedWord`, `rise`, an uncalled `today()`), all removed.
+- **`tsc --checkJs`** over `dist/lib.js`, clean, with a `tsconfig.json` that says why the app's other 12,000 lines are not typechecked.
+
+### Fixed — found by the new unit tests
+
+- **Base58 round-tripped the empty string into two zero bytes.** `fromBase58` seeded its accumulator with `[0]` and `toBase58` emitted `"1"` for no input, so encode-then-decode invented data. Both fixed, with the empty case now in the test.
+- **The Meeus 47.a assertion in my own test used the wrong Julian day** (2448908.5, an October date, for an April example). The code was right; the test was wrong.
+
+### Not done, and why
+
+- **A page per category (E-116) and per-category generated docs (E-87)** are deferred. `ALL_TOOLS.md` is already generated from the registry, and the landing page already lists every category with live counts; a third surface would need its own freshness check for little gain.
+- **Typechecking the app itself** would need JSDoc on 12,000 lines. The library is where types pay for themselves; the UI is DOM glue that a type checker mostly restates.
+
 ## 1.7.1 — 2026-11-08
 
 Batch **B11** of [PLAN.md](PLAN.md): distribution. Nothing in the app changed except the version string.

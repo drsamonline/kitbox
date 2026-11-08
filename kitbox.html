@@ -373,7 +373,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '1.7.1';
+const APP_VERSION = '2.0.0';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -654,7 +654,262 @@ function exportImportRow(container, key, filename, onImport){
     }catch(err){ msg.style.display='block'; msg.textContent = 'That file was not valid — import cancelled.'; }
   });
 }
+const TOOL_REQUIRES = {
+  scanner: 'camera', soundrecorder: 'microphone', decibelmeter: 'microphone', visualizer: 'microphone',
+  compass: 'motion', level: 'motion', gpsspeed: 'geolocation',
+  tonegen: 'audio', metronome: 'audio', noise: 'audio', binaural: 'audio',
+  tts: 'speech',
+  filecrypt: 'secure', sealednote: 'secure', filehash: 'secure', hmac: 'secure'
+};
 
+/* ---------- Search metadata ----------
+   Two maps, both small enough to read and both checked by the test suite:
+   NEW_TOOLS marks what arrived in 1.1.0, KEYWORDS is the vocabulary people
+   actually use for a tool rather than the name it was given. */
+const NEW_TOOLS = new Set('tts bigclock accents smartquotes wordfreq wrapwidth invisible passphrase usernames datediff percentchange sleepcalc rounding papersize shoesize simpleinterest sip gstsplit teamshuffler eightball heartzones duedate jsontots querystring cronnext sqlin harmony tintshade randomcolor idealgas projectile molarity antipode cardinal coordround taptempo hznote reaction typingtest carbon goldenhour daylength checklist meetingcost filetype b64file horas tithical smscount phoneformat asciitable bigo regexcheat dialcodes shortcuts deviceinfo features storage'.split(' '));
+
+const KEYWORDS = {
+  'loanemi': 'emi instalment mortgage repayment loan',
+  'investment': 'compound interest growth corpus',
+  'sip': 'systematic investment plan mutual fund monthly',
+  'taxcalc': 'income tax slab deduction',
+  'gstsplit': 'gst cgst sgst igst tax invoice',
+  'qrcode': 'qr barcode scan link url',
+  'scanner': 'qr barcode camera scan',
+  'base64': 'b64 encode decode',
+  'hashgen': 'sha sha256 checksum digest fingerprint',
+  'filehash': 'sha checksum digest md5 crc integrity verify',
+  'md5': 'checksum legacy digest',
+  'hmac': 'signature webhook sign',
+  'uuid': 'guid identifier unique id',
+  'ulid': 'guid sortable identifier',
+  'unixtime': 'epoch timestamp utc unix',
+  'tzconv': 'timezone time zone utc offset convert',
+  'worldclock': 'time zone clock cities',
+  'panchang': 'tithi nakshatra yoga karana almanac hindu calendar',
+  'rahukaal': 'rahu kaal muhurat abhijit inauspicious',
+  'tithical': 'tithi calendar month almanac',
+  'horas': 'hora planetary hours chaldean',
+  'moonphase': 'lunar phase moon',
+  'goldenhour': 'sunset sunrise blue hour photography light',
+  'sunmoon': 'sunrise sunset moonrise almanac',
+  'zipcreate': 'zip archive compress bundle package',
+  'gzip': 'gzip compress decompress tgz',
+  'filecrypt': 'encrypt decrypt aes password protect',
+  'sealednote': 'encrypt note one time secret',
+  'exif': 'metadata gps location privacy strip photo',
+  'csvjson': 'csv json convert table',
+  'csvtable': 'csv table spreadsheet view',
+  'contrast': 'wcag accessibility a11y contrast ratio',
+  'colorblind': 'colour blindness deuteranopia accessibility',
+  'harmony': 'complementary triadic analogous palette scheme',
+  'tintshade': 'lighten darken ramp palette scale',
+  'regexcheat': 'regex regular expression pattern reference',
+  'regextester': 'regex regular expression test match',
+  'bigo': 'complexity algorithm performance reference',
+  'asciitable': 'ascii char code reference',
+  'dialcodes': 'country calling code phone prefix',
+  'shortcuts': 'keyboard hotkey shortcut reference',
+  'deviceinfo': 'screen viewport dpr browser system info',
+  'features': 'browser support capability detection',
+  'storage': 'localstorage quota data usage',
+  'bmi': 'body mass index weight health',
+  'bmr': 'basal metabolic rate calories',
+  'tdeemacros': 'tdee calories macros protein body fat',
+  'water': 'hydration intake litres',
+  'datediff': 'date difference between days business',
+  'agecalc': 'age birthday years old',
+  'percentage': 'percent increase decrease change',
+  'statistics': 'mean median mode standard deviation quartile',
+  'regression': 'correlation r squared linear fit trend',
+  'idealgas': 'pv nrt moles gas',
+  'projectile': 'trajectory range ballistic throw',
+  'molarity': 'dilution c1v1 concentration solution',
+  'ohm': 'resistance voltage current electricity',
+  'ohmslaw': 'resistance voltage current electricity',
+  'morse': 'morse code dit dah telegraph',
+  'braille': 'braille dots accessibility',
+  'caesar': 'caesar shift cipher rot',
+  'roman': 'roman numerals',
+  'num2word': 'number to words spelling',
+  'notepad': 'notes text memo write',
+  'flashcards': 'spaced repetition srs study cards',
+  'pomodoro': 'focus timer tomato',
+  'habittracker': 'habit streak daily',
+  'checklist': 'todo task list tick',
+  'backup': 'export import restore data',
+  'sketchpad': 'draw canvas paint sketch',
+  'meetingcost': 'meeting cost salary time',
+  'reaction': 'reflex speed reaction time',
+  'typingtest': 'typing speed wpm',
+  'carbon': 'flight emissions co2 climate travel',
+  'packinglist': 'travel packing checklist luggage',
+  'papersize': 'a4 a3 letter paper dimensions dpi',
+  'shoesize': 'shoe size uk eu us foot',
+  'heartzones': 'heart rate zone cardio training bpm',
+  'duedate': 'pregnancy due date naegele gestation',
+  'smscount': 'sms characters ucs2 gsm parts',
+  'phoneformat': 'e164 phone number format whatsapp',
+  'vcard': 'contact card address book',
+  'icsinvite': 'calendar invite ics event',
+  'password': 'password passphrase credential',
+  'pwgen': 'password generate random credential',
+  'pin': 'pin code digits',
+  'passphrase': 'passphrase diceware words',
+};
+
+/* Codes come from a counter at registration, so inserting a tool renumbers
+   every tool after it in that category — and the code is what a user quotes in
+   a bug report. STABLE_CODES pins each tool to the code it was first given;
+   tools/gen-codes.js assigns new ones and writes the map back into this file. */
+CATS.forEach(c=>{
+  (TOOLS[c.id]||[]).forEach(t=>{
+    const pinned = STABLE_CODES[c.id + '/' + t.id];
+    if(pinned) t.code = pinned;
+  });
+});
+
+/* An aliased id resolves to the tool that replaced it. */
+function resolveToolId(catId, toolId){
+  const alias = ID_ALIASES[catId + '/' + toolId];
+  return alias ? alias.split('/')[1] : toolId;
+}
+
+/* ---------- One registration path ----------
+   Every tool arrives through here. The 22 helper functions (txt, gen, calc …)
+   are six-line adapters over this, kept because they read well at 339 call
+   sites. Metadata that used to live in side maps is attached here, so a tool
+   carries its own description: when it arrived, what it needs, what people
+   call it. */
+function register(spec){
+  const cat = CATS.find(x => x.id === spec.cat);
+  if(!cat) throw new Error('register: unknown category "' + spec.cat + '"');
+  const list = TOOLS[cat.id] || (TOOLS[cat.id] = []);
+  if(list.some(t => t.id === spec.id)) throw new Error('register: duplicate id "' + cat.id + '/' + spec.id + '"');
+  list.push({
+    id: spec.id,
+    code: spec.code || cat.code + '-' + String(list.length + 1).padStart(2, '0'),
+    name: spec.name,
+    group: spec.group || '',
+    render: spec.render,
+    since: spec.since || (NEW_TOOLS.has(spec.id) ? '1.1.0' : '1.0.0'),
+    tags: spec.tags || [],
+    keywords: spec.keywords || KEYWORDS[spec.id] || '',
+    requires: spec.requires || TOOL_REQUIRES[spec.id] || null
+  });
+}
+/* ================================================================
+   Pure algorithms — no DOM, no storage, no side effects.
+
+   These live at the top of the build so that they can be lifted out and
+   tested in Node (see tools/build-lib.js and test/lib.js). A function that
+   touches the page cannot be tested without a page; a function that only
+   maps bytes to bytes can be tested in a millisecond and trusted everywhere.
+   ================================================================ */
+
+const B32 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+  function toBase32(bytes){
+    let bits = 0, val = 0, out = '';
+    for(const b of bytes){
+      val = (val << 8) | b; bits += 8;
+      while(bits >= 5){ out += B32[(val >>> (bits-5)) & 31]; bits -= 5; }
+    }
+    if(bits > 0) out += B32[(val << (5-bits)) & 31];
+    while(out.length % 8) out += '=';
+    return out;
+  }
+
+  function fromBase32(s){
+    const clean = s.toUpperCase().replace(/=+$/,'').replace(/\s/g,'');
+    let bits = 0, val = 0; const out = [];
+    for(const c of clean){
+      const idx = B32.indexOf(c);
+      if(idx < 0) throw new Error('not a base32 character: '+c);
+      val = (val << 5) | idx; bits += 5;
+      if(bits >= 8){ out.push((val >>> (bits-8)) & 0xFF); bits -= 8; }
+    }
+    return new Uint8Array(out);
+  }
+
+  function toBase58(bytes){
+    // An empty input encodes to an empty string. Without this, the leading-zero
+    // loop leaves `digits = [0]` and the result is "1", which decodes to one
+    // zero byte — a round trip that silently invents data.
+    if(!bytes || !bytes.length) return '';
+    let zeros = 0;
+    while(zeros < bytes.length && bytes[zeros] === 0) zeros++;
+    const digits = [0];
+    for(let i=zeros;i<bytes.length;i++){
+      let carry = bytes[i];
+      for(let j=0;j<digits.length;j++){
+        carry += digits[j] << 8;
+        digits[j] = carry % 58;
+        carry = (carry / 58) | 0;
+      }
+      while(carry){ digits.push(carry % 58); carry = (carry/58)|0; }
+    }
+    let out = '1'.repeat(zeros);
+    for(let i=digits.length-1;i>=0;i--) out += B58[digits[i]];
+    return out;
+  }
+
+  function fromBase58(s){
+  let zeros = 0;
+  while(zeros < s.length && s[zeros] === '1') zeros++;
+  const bytes = [];
+  for(const c of s.slice(zeros)){
+    let carry = B58.indexOf(c);
+    if(carry < 0) throw new Error('not a base58 character: ' + c);
+    for(let j=0;j<bytes.length;j++){
+      carry += bytes[j] * 58;
+      bytes[j] = carry & 0xFF;
+      carry >>= 8;
+    }
+    while(carry){ bytes.push(carry & 0xFF); carry >>= 8; }
+  }
+  const out = new Uint8Array(zeros + bytes.length);
+  for(let i2=0;i2<bytes.length;i2++) out[zeros + i2] = bytes[bytes.length - 1 - i2];
+  return out;
+}
+
+  function md5(bytes){
+    const S = [7,12,17,22,7,12,17,22,7,12,17,22,7,12,17,22,5,9,14,20,5,9,14,20,5,9,14,20,5,9,14,20,
+      4,11,16,23,4,11,16,23,4,11,16,23,4,11,16,23,6,10,15,21,6,10,15,21,6,10,15,21,6,10,15,21];
+    const K = new Uint32Array(64);
+    for(let i=0;i<64;i++) K[i] = Math.floor(Math.abs(Math.sin(i+1)) * 4294967296) >>> 0;
+    const msgLen = bytes.length;
+    const withPad = new Uint8Array((((msgLen + 8) >> 6) + 1) << 6);
+    withPad.set(bytes);
+    withPad[msgLen] = 0x80;
+    const bitLen = msgLen * 8;
+    const dv = new DataView(withPad.buffer);
+    dv.setUint32(withPad.length - 8, bitLen >>> 0, true);
+    dv.setUint32(withPad.length - 4, Math.floor(bitLen / 4294967296), true);
+    let a0 = 0x67452301, b0 = 0xefcdab89, c0 = 0x98badcfe, d0 = 0x10325476;
+    const rotl = (x,c)=> (x << c) | (x >>> (32-c));
+    for(let off=0; off<withPad.length; off+=64){
+      const M = new Uint32Array(16);
+      for(let i=0;i<16;i++) M[i] = dv.getUint32(off + i*4, true);
+      let A=a0, B=b0, C=c0, D=d0;
+      for(let i=0;i<64;i++){
+        let F, g;
+        if(i<16){ F = (B & C) | (~B & D); g = i; }
+        else if(i<32){ F = (D & B) | (~D & C); g = (5*i + 1) % 16; }
+        else if(i<48){ F = B ^ C ^ D; g = (3*i + 5) % 16; }
+        else { F = C ^ (B | ~D); g = (7*i) % 16; }
+        F = (F + A + K[i] + M[g]) >>> 0;
+        A = D; D = C; C = B;
+        B = (B + rotl(F, S[i])) >>> 0;
+      }
+      a0 = (a0 + A) >>> 0; b0 = (b0 + B) >>> 0; c0 = (c0 + C) >>> 0; d0 = (d0 + D) >>> 0;
+    }
+    const hex = v=>[0,1,2,3].map(i=>((v >>> (i*8)) & 0xFF).toString(16).padStart(2,'0')).join('');
+    return hex(a0)+hex(b0)+hex(c0)+hex(d0);
+  }
+
+/* MD5 is here for legacy checksums, not for security. */
 /* ================================================================
    GENERAL TOOLS
    ================================================================ */
@@ -997,7 +1252,6 @@ TOOLS.general.push({id:'str2byte', code:'GEN-10', name:'String To Byte', render(
   });
   root.querySelector('#sbDecode').addEventListener('click', ()=>{
     try{
-      const nums = inp.value.trim().split(/[\s,]+/).map(x=> x.match(/^[0-9a-fA-F]+$/) && x.length<=2 && inp.value.includes(' ') && !x.match(/^\d+$/) ? parseInt(x,16) : parseInt(x,10));
       const clean = inp.value.trim().split(/[\s,]+/).map(x=>{
         if(/^(0x)?[0-9a-fA-F]{2}$/.test(x) && !/^\d+$/.test(x)) return parseInt(x.replace('0x',''),16);
         return parseInt(x,10);
@@ -1158,7 +1412,7 @@ TOOLS.general.push({id:'worldclock', code:'GEN-13', name:'World Clock', render(r
    ================================================================ */
 TOOLS.text = [];
 let TXT_N = 0;
-function txt(group, id, name, render){ TXT_N++; TOOLS.text.push({id, code:'TXT-'+String(TXT_N).padStart(2,'0'), name, group, render}); }
+function txt(group, id, name, render){ register({cat:'text', group, id, name, render}); }
 
 /* -- Basic Tools -- */
 txt('Basic Tools','cases','Text Cases', root=>{
@@ -2088,7 +2342,7 @@ if(typeof module!=='undefined') module.exports = QR;
 
 TOOLS.generator = [];
 let GEN_N = 0;
-function gen(id, name, render){ GEN_N++; TOOLS.generator.push({id, code:'GNR-'+String(GEN_N).padStart(2,'0'), name, render}); }
+function gen(id, name, render){ register({cat:'generator', id, name, render}); }
 
 gen('qrcode','QR Code', root => {
   root.innerHTML = `
@@ -2287,7 +2541,7 @@ gen('scanner','Barcode/QR code Scanner', root => {
    ================================================================ */
 TOOLS.calc = [];
 let CALC_N = 0;
-function calc(group, id, name, render){ CALC_N++; TOOLS.calc.push({id, code:'CAL-'+String(CALC_N).padStart(2,'0'), name, group, render}); }
+function calc(group, id, name, render){ register({cat:'calc', group, id, name, render}); }
 function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }
 function fmtNum(n, dp=4){ if(!Number.isFinite(n)) return '—'; const r = Math.round(n*Math.pow(10,dp))/Math.pow(10,dp); return r.toString(); }
 
@@ -3003,7 +3257,7 @@ uconv('Other','tempgradient','Temperature Gradient', [
    ================================================================ */
 TOOLS.finance = [];
 let FIN_N = 0;
-function fin(id, name, render){ FIN_N++; TOOLS.finance.push({id, code:'FIN-'+String(FIN_N).padStart(2,'0'), name, render}); }
+function fin(id, name, render){ register({cat:'finance', id, name, render}); }
 
 fin('currency','Currency', root=>{
   const DEFAULT_RATES = { USD:1, EUR:0.92, GBP:0.79, INR:83.5, JPY:156.5, AUD:1.52, CAD:1.37, CHF:0.88, CNY:7.24, SGD:1.35, AED:3.67, SAR:3.75, ZAR:18.4, BRL:5.4, MXN:18.1, RUB:88, KRW:1370, NZD:1.65, HKD:7.82, SEK:10.4, NOK:10.6, TRY:32.5, THB:36.2, IDR:15900, PKR:278 };
@@ -3427,7 +3681,7 @@ fin('wageconverter','Wage Converter', root=>{
    ================================================================ */
 TOOLS.random = [];
 let RND_N = 0;
-function rnd(id, name, render){ RND_N++; TOOLS.random.push({id, code:'RND-'+String(RND_N).padStart(2,'0'), name, render}); }
+function rnd(id, name, render){ register({cat:'random', id, name, render}); }
 
 rnd('luckywheel','Lucky Wheel', root=>{
   root.innerHTML = `
@@ -3618,7 +3872,7 @@ rnd('rolldice','Roll Dice', root=>{
    ================================================================ */
 TOOLS.health = [];
 let HLT_N = 0;
-function health(id, name, render){ HLT_N++; TOOLS.health.push({id, code:'HLT-'+String(HLT_N).padStart(2,'0'), name, render}); }
+function health(id, name, render){ register({cat:'health', id, name, render}); }
 const HEALTH_DISCLAIMER = `<div class="hint">General estimate for informational purposes only — not a substitute for professional medical advice.</div>`;
 
 health('bmi','BMI Calculator', root=>{
@@ -3876,7 +4130,7 @@ health('clinicalhealth','Clinical Health Calculator', root=>{
    ================================================================ */
 TOOLS.dev = [];
 let DEV_N = 0;
-function dev(id, name, render){ DEV_N++; TOOLS.dev.push({id, code:'DEV-'+String(DEV_N).padStart(2,'0'), name, render}); }
+function dev(id, name, render){ register({cat:'dev', id, name, render}); }
 
 dev('baseconverter','Base Converter', root=>{
   root.innerHTML = `
@@ -4136,7 +4390,6 @@ dev('pwstrength','Password Strength', root=>{
     const p = e.target.value;
     const out = root.querySelector('#psOut');
     if(!p){ out.innerHTML=''; return; }
-    let score=0;
     const checks = [
       ['Length ≥ 12', p.length>=12], ['Length ≥ 8', p.length>=8 && p.length<12],
       ['Has uppercase', /[A-Z]/.test(p)], ['Has lowercase', /[a-z]/.test(p)],
@@ -4191,7 +4444,6 @@ dev('regextester','Regex Tester', root=>{
     const out = root.querySelector('#rtOut');
     if(!pat){ out.textContent='Matches will appear here.'; return; }
     try{
-      const re = new RegExp(pat, flags);
       const matches = [...text.matchAll(new RegExp(pat, flags.includes('g')?flags:flags+'g'))];
       out.textContent = matches.length ? matches.map((m,i)=>`Match ${i+1}: "${m[0]}" at index ${m.index}${m.length>1?'\n  Groups: '+m.slice(1).map(g=>g===undefined?'—':`"${g}"`).join(', '):''}`).join('\n') : 'No matches.';
     }catch(e){ out.textContent = 'Invalid regex: '+e.message; }
@@ -4456,7 +4708,7 @@ dev('jsondiff','JSON Diff', root=>{
    ================================================================ */
 TOOLS.colors = [];
 let CLR_N = 0;
-function clr(id, name, render){ CLR_N++; TOOLS.colors.push({id, code:'CLR-'+String(CLR_N).padStart(2,'0'), name, render}); }
+function clr(id, name, render){ register({cat:'colors', id, name, render}); }
 function hexToRgb(hex){ hex=hex.replace('#',''); if(hex.length===3) hex=hex.split('').map(c=>c+c).join(''); const n=parseInt(hex,16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255}; }
 function rgbToHex(r,g,b){ return '#'+[r,g,b].map(v=>Math.round(Math.max(0,Math.min(255,v))).toString(16).padStart(2,'0')).join(''); }
 function rgbToHsl(r,g,b){
@@ -4572,7 +4824,7 @@ clr('isdarkened','Is Color Darkened', root=>{
    ================================================================ */
 TOOLS.image = [];
 let IMG_N = 0;
-function imgtool(id, name, render){ IMG_N++; TOOLS.image.push({id, code:'IMG-'+String(IMG_N).padStart(2,'0'), name, render}); }
+function imgtool(id, name, render){ register({cat:'image', id, name, render}); }
 function readImageFile(file){ return new Promise((resolve,reject)=>{ const im=new Image(); const url=URL.createObjectURL(file); im.onload=()=>{ URL.revokeObjectURL(url); resolve(im); }; im.onerror=reject; im.src=url; }); }
 function downloadCanvas(canvas, filename, type, quality){ const a=document.createElement('a'); a.download=filename; a.href=canvas.toDataURL(type||'image/png', quality); a.click(); }
 const IMG_HINT = `<div class="hint">Processing happens entirely on your device — the image is never uploaded anywhere.</div>`;
@@ -5232,7 +5484,7 @@ imgtool('asciiart','ASCII Art from Image', root=>{
    ================================================================ */
 TOOLS.science = [];
 let SCI_N = 0;
-function sci(id, name, render){ SCI_N++; TOOLS.science.push({id, code:'SCI-'+String(SCI_N).padStart(2,'0'), name, render}); }
+function sci(id, name, render){ register({cat:'science', id, name, render}); }
 
 sci('ohmslaw','Ohm\'s Law', root=>{
   root.innerHTML = `
@@ -5441,7 +5693,7 @@ sci('periodictable','Periodic Table', root=>{
    ================================================================ */
 TOOLS.geo = [];
 let GEO_N = 0;
-function geo(id, name, render){ GEO_N++; TOOLS.geo.push({id, code:'GEO-'+String(GEO_N).padStart(2,'0'), name, render}); }
+function geo(id, name, render){ register({cat:'geo', id, name, render}); }
 function toRad(d){ return d*Math.PI/180; }
 function toDeg(r){ return r*180/Math.PI; }
 
@@ -5611,7 +5863,7 @@ geo('polygonarea','Polygon Area', root=>{
    ================================================================ */
 TOOLS.audio = [];
 let AUD_N = 0;
-function aud(id, name, render){ AUD_N++; TOOLS.audio.push({id, code:'AUD-'+String(AUD_N).padStart(2,'0'), name, render}); }
+function aud(id, name, render){ register({cat:'audio', id, name, render}); }
 let sharedAudioCtx = null;
 function getAudioCtx(){
   if(!sharedAudioCtx) sharedAudioCtx = new (window.AudioContext||window.webkitAudioContext)();
@@ -5902,7 +6154,7 @@ aud('soundrecorder','Sound Recorder', root=>{
    ================================================================ */
 TOOLS.games = [];
 let GAM_N = 0;
-function game(id, name, render){ GAM_N++; TOOLS.games.push({id, code:'GAM-'+String(GAM_N).padStart(2,'0'), name, render}); }
+function game(id, name, render){ register({cat:'games', id, name, render}); }
 
 game('tictactoe','Tic-Tac-Toe', root=>{
   root.innerHTML = `<div id="tttBoard" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:280px;margin:10px auto"></div>
@@ -6158,7 +6410,7 @@ game('wordle','Wordle', root=>{
       if(!keyState[ch] || rank[colors[i]]>rank[keyState[ch]]) keyState[ch]=colors[i];
     });
     const won = guesses[guesses.length-1].letters===answer;
-    const guessedWord = current; current='';
+    current='';
     drawGrid(); drawKeyboard();
     if(won){ over=true; root.querySelector('#wdOut').textContent = `You got it — ${answer}! 🎉`; }
     else if(guesses.length>=ROWS){ over=true; root.querySelector('#wdOut').textContent = `Out of guesses — the word was ${answer}.`; }
@@ -6283,7 +6535,7 @@ game('triviacreator','Trivia Creator', root=>{
    ================================================================ */
 TOOLS.travel = [];
 let TRV_N = 0;
-function trv(id, name, render){ TRV_N++; TOOLS.travel.push({id, code:'TRV-'+String(TRV_N).padStart(2,'0'), name, render}); }
+function trv(id, name, render){ register({cat:'travel', id, name, render}); }
 
 trv('packinglist','Packing List', root=>{
   const DEFAULTS = {
@@ -6389,7 +6641,7 @@ trv('plugguide','Plug Type Guide', root=>{
    ================================================================ */
 TOOLS.nature = [];
 let NAT_N = 0;
-function nat(id, name, render){ NAT_N++; TOOLS.nature.push({id, code:'NAT-'+String(NAT_N).padStart(2,'0'), name, render}); }
+function nat(id, name, render){ register({cat:'nature', id, name, render}); }
 
 nat('moonphase','Moon Phase', root=>{
   root.innerHTML = `<div style="font-size:64px;text-align:center" id="mpEmoji"></div><div class="output" id="mpInfo" style="text-align:center"></div>`;
@@ -6489,7 +6741,7 @@ nat('nightsky','Night Sky Brightness', root=>{
    ================================================================ */
 TOOLS.productivity = [];
 let PRD_N = 0;
-function prod(id, name, render){ PRD_N++; TOOLS.productivity.push({id, code:'PRD-'+String(PRD_N).padStart(2,'0'), name, render}); }
+function prod(id, name, render){ register({cat:'productivity', id, name, render}); }
 
 prod('pomodoro','Pomodoro Timer', root=>{
   root.innerHTML = `
@@ -6538,7 +6790,6 @@ prod('habittracker','Habit Tracker', root=>{
     <div id="htExport"></div>`;
   exportImportRow(root.querySelector('#htExport'), 'habits-list', 'kitbox-habits.json', data=>{ habits = data||[]; draw(); });
   function persist(){ store.set('habits-list', habits); }
-  function today(){ return localDateStr(); }
   function last7Days(){ const days=[]; for(let i=6;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); days.push(localDateStr(d)); } return days; }
   function streak(h){
     let s=0; let d=new Date();
@@ -7126,7 +7377,7 @@ prod('flashcards','Flashcards & Spaced Repetition', root=>{
    ================================================================ */
 TOOLS.files = [];
 let FIL_N = 0;
-function fil(id, name, render){ FIL_N++; TOOLS.files.push({id, code:'FIL-'+String(FIL_N).padStart(2,'0'), name, render}); }
+function fil(id, name, render){ register({cat:'files', id, name, render}); }
 
 const FILES_HINT = `<div class="hint">Your file is read by this page only — nothing is uploaded, and nothing leaves this device.</div>`;
 
@@ -7823,7 +8074,7 @@ fil('lineendings','Line Ending Converter', root=>{
    ================================================================ */
 TOOLS.almanac = [];
 let ALM_N = 0;
-function alm(id, name, render){ ALM_N++; TOOLS.almanac.push({id, code:'ALM-'+String(ALM_N).padStart(2,'0'), name, render}); }
+function alm(id, name, render){ register({cat:'almanac', id, name, render}); }
 
 const ASTRO = (()=>{
   const D2R = Math.PI/180, R2D = 180/Math.PI;
@@ -7957,7 +8208,6 @@ alm('panchang','Panchang', root=>{
     if(ss.polar){
       out.innerHTML = `<div class="hint">At this latitude the sun ${ss.polar==='day'?'does not set':'does not rise'} on this date, so sunrise-based timings do not apply.</div>`;
     }
-    const rise = ss.polar ? null : ss.sunrise - lon/15*0 + 0; // UTC hours
     const tz = -(new Date().getTimezoneOffset())/60;
     const localRise = ss.polar ? null : ss.sunrise + tz;
     const localSet = ss.polar ? null : ss.sunset + tz;
@@ -8066,7 +8316,7 @@ alm('sunmoon','Sun & Moon Times', root=>{
    ================================================================ */
 TOOLS.comms = [];
 let COM_N = 0;
-function com(id, name, render){ COM_N++; TOOLS.comms.push({id, code:'COM-'+String(COM_N).padStart(2,'0'), name, render}); }
+function com(id, name, render){ register({cat:'comms', id, name, render}); }
 
 /* 14. vCard Generator */
 com('vcard','vCard Generator', root=>{
@@ -8238,61 +8488,6 @@ dev('ulid','ULID & NanoID', root=>{
 
 /* 18. Base32 / Base58 */
 dev('base32','Base32 / Base58 Codec', root=>{
-  const B32 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
-  const B58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-  function toBase32(bytes){
-    let bits = 0, val = 0, out = '';
-    for(const b of bytes){
-      val = (val << 8) | b; bits += 8;
-      while(bits >= 5){ out += B32[(val >>> (bits-5)) & 31]; bits -= 5; }
-    }
-    if(bits > 0) out += B32[(val << (5-bits)) & 31];
-    while(out.length % 8) out += '=';
-    return out;
-  }
-  function fromBase32(s){
-    const clean = s.toUpperCase().replace(/=+$/,'').replace(/\s/g,'');
-    let bits = 0, val = 0; const out = [];
-    for(const c of clean){
-      const idx = B32.indexOf(c);
-      if(idx < 0) throw new Error('not a base32 character: '+c);
-      val = (val << 5) | idx; bits += 5;
-      if(bits >= 8){ out.push((val >>> (bits-8)) & 0xFF); bits -= 8; }
-    }
-    return new Uint8Array(out);
-  }
-  function toBase58(bytes){
-    let zeros = 0;
-    while(zeros < bytes.length && bytes[zeros] === 0) zeros++;
-    const digits = [0];
-    for(let i=zeros;i<bytes.length;i++){
-      let carry = bytes[i];
-      for(let j=0;j<digits.length;j++){
-        carry += digits[j] << 8;
-        digits[j] = carry % 58;
-        carry = (carry / 58) | 0;
-      }
-      while(carry){ digits.push(carry % 58); carry = (carry/58)|0; }
-    }
-    let out = '1'.repeat(zeros);
-    for(let i=digits.length-1;i>=0;i--) out += B58[digits[i]];
-    return out;
-  }
-  function fromBase58(s){
-    const bytes = [0];
-    for(const c of s){
-      let carry = B58.indexOf(c);
-      if(carry < 0) throw new Error('not a base58 character: '+c);
-      for(let j=0;j<bytes.length;j++){
-        carry += bytes[j] * 58;
-        bytes[j] = carry & 0xFF;
-        carry >>= 8;
-      }
-      while(carry){ bytes.push(carry & 0xFF); carry >>= 8; }
-    }
-    for(let i=0;i<s.length && s[i]==='1';i++) bytes.push(0);
-    return new Uint8Array(bytes.reverse());
-  }
   root.innerHTML = `
     <div class="field"><label>Text</label><textarea id="b58In" placeholder="Type text to encode"></textarea></div>
     <div class="row">
@@ -8338,40 +8533,6 @@ dev('hmac','HMAC Generator', root=>{
 
 /* 20. MD5 */
 dev('md5','MD5 Hash', root=>{
-  function md5(bytes){
-    const S = [7,12,17,22,7,12,17,22,7,12,17,22,7,12,17,22,5,9,14,20,5,9,14,20,5,9,14,20,5,9,14,20,
-      4,11,16,23,4,11,16,23,4,11,16,23,4,11,16,23,6,10,15,21,6,10,15,21,6,10,15,21,6,10,15,21];
-    const K = new Uint32Array(64);
-    for(let i=0;i<64;i++) K[i] = Math.floor(Math.abs(Math.sin(i+1)) * 4294967296) >>> 0;
-    const msgLen = bytes.length;
-    const withPad = new Uint8Array((((msgLen + 8) >> 6) + 1) << 6);
-    withPad.set(bytes);
-    withPad[msgLen] = 0x80;
-    const bitLen = msgLen * 8;
-    const dv = new DataView(withPad.buffer);
-    dv.setUint32(withPad.length - 8, bitLen >>> 0, true);
-    dv.setUint32(withPad.length - 4, Math.floor(bitLen / 4294967296), true);
-    let a0 = 0x67452301, b0 = 0xefcdab89, c0 = 0x98badcfe, d0 = 0x10325476;
-    const rotl = (x,c)=> (x << c) | (x >>> (32-c));
-    for(let off=0; off<withPad.length; off+=64){
-      const M = new Uint32Array(16);
-      for(let i=0;i<16;i++) M[i] = dv.getUint32(off + i*4, true);
-      let A=a0, B=b0, C=c0, D=d0;
-      for(let i=0;i<64;i++){
-        let F, g;
-        if(i<16){ F = (B & C) | (~B & D); g = i; }
-        else if(i<32){ F = (D & B) | (~D & C); g = (5*i + 1) % 16; }
-        else if(i<48){ F = B ^ C ^ D; g = (3*i + 5) % 16; }
-        else { F = C ^ (B | ~D); g = (7*i) % 16; }
-        F = (F + A + K[i] + M[g]) >>> 0;
-        A = D; D = C; C = B;
-        B = (B + rotl(F, S[i])) >>> 0;
-      }
-      a0 = (a0 + A) >>> 0; b0 = (b0 + B) >>> 0; c0 = (c0 + C) >>> 0; d0 = (d0 + D) >>> 0;
-    }
-    const hex = v=>[0,1,2,3].map(i=>((v >>> (i*8)) & 0xFF).toString(16).padStart(2,'0')).join('');
-    return hex(a0)+hex(b0)+hex(c0)+hex(d0);
-  }
   root.innerHTML = `
     <div class="field"><label>Text</label><textarea id="md5In" placeholder="text to hash"></textarea></div>
     <div class="output" id="md5Out">—</div>
@@ -9319,12 +9480,12 @@ function unitTool(group, id, name, render){
 /* Reference — tables and cheat sheets. Static, instant, no input. */
 TOOLS.reference = [];
 let REF_N = 0;
-function ref(id, name, render){ REF_N++; TOOLS.reference.push({id, code:'REF-'+String(REF_N).padStart(2,'0'), name, render}); }
+function ref(id, name, render){ register({cat:'reference', id, name, render}); }
 
 /* System — what this browser and this device can actually do. */
 TOOLS.system = [];
 let SYS_N = 0;
-function sys(id, name, render){ SYS_N++; TOOLS.system.push({id, code:'SYS-'+String(SYS_N).padStart(2,'0'), name, render}); }
+function sys(id, name, render){ register({cat:'system', id, name, render}); }
 
 /* ================================================================
    SECOND PASS — small, fast tools, added category by category.
@@ -11304,119 +11465,6 @@ const STABLE_CODES = { "almanac/horas":"ALM-04", "almanac/panchang":"ALM-01", "a
    retired id appears in this map. */
 const ID_ALIASES = {};
 
-/* ---------- Search metadata ----------
-   Two maps, both small enough to read and both checked by the test suite:
-   NEW_TOOLS marks what arrived in 1.1.0, KEYWORDS is the vocabulary people
-   actually use for a tool rather than the name it was given. */
-const NEW_TOOLS = new Set('tts bigclock accents smartquotes wordfreq wrapwidth invisible passphrase usernames datediff percentchange sleepcalc rounding papersize shoesize simpleinterest sip gstsplit teamshuffler eightball heartzones duedate jsontots querystring cronnext sqlin harmony tintshade randomcolor idealgas projectile molarity antipode cardinal coordround taptempo hznote reaction typingtest carbon goldenhour daylength checklist meetingcost filetype b64file horas tithical smscount phoneformat asciitable bigo regexcheat dialcodes shortcuts deviceinfo features storage'.split(' '));
-
-const KEYWORDS = {
-  'loanemi': 'emi instalment mortgage repayment loan',
-  'investment': 'compound interest growth corpus',
-  'sip': 'systematic investment plan mutual fund monthly',
-  'taxcalc': 'income tax slab deduction',
-  'gstsplit': 'gst cgst sgst igst tax invoice',
-  'qrcode': 'qr barcode scan link url',
-  'scanner': 'qr barcode camera scan',
-  'base64': 'b64 encode decode',
-  'hashgen': 'sha sha256 checksum digest fingerprint',
-  'filehash': 'sha checksum digest md5 crc integrity verify',
-  'md5': 'checksum legacy digest',
-  'hmac': 'signature webhook sign',
-  'uuid': 'guid identifier unique id',
-  'ulid': 'guid sortable identifier',
-  'unixtime': 'epoch timestamp utc unix',
-  'tzconv': 'timezone time zone utc offset convert',
-  'worldclock': 'time zone clock cities',
-  'panchang': 'tithi nakshatra yoga karana almanac hindu calendar',
-  'rahukaal': 'rahu kaal muhurat abhijit inauspicious',
-  'tithical': 'tithi calendar month almanac',
-  'horas': 'hora planetary hours chaldean',
-  'moonphase': 'lunar phase moon',
-  'goldenhour': 'sunset sunrise blue hour photography light',
-  'sunmoon': 'sunrise sunset moonrise almanac',
-  'zipcreate': 'zip archive compress bundle package',
-  'gzip': 'gzip compress decompress tgz',
-  'filecrypt': 'encrypt decrypt aes password protect',
-  'sealednote': 'encrypt note one time secret',
-  'exif': 'metadata gps location privacy strip photo',
-  'csvjson': 'csv json convert table',
-  'csvtable': 'csv table spreadsheet view',
-  'contrast': 'wcag accessibility a11y contrast ratio',
-  'colorblind': 'colour blindness deuteranopia accessibility',
-  'harmony': 'complementary triadic analogous palette scheme',
-  'tintshade': 'lighten darken ramp palette scale',
-  'regexcheat': 'regex regular expression pattern reference',
-  'regextester': 'regex regular expression test match',
-  'bigo': 'complexity algorithm performance reference',
-  'asciitable': 'ascii char code reference',
-  'dialcodes': 'country calling code phone prefix',
-  'shortcuts': 'keyboard hotkey shortcut reference',
-  'deviceinfo': 'screen viewport dpr browser system info',
-  'features': 'browser support capability detection',
-  'storage': 'localstorage quota data usage',
-  'bmi': 'body mass index weight health',
-  'bmr': 'basal metabolic rate calories',
-  'tdeemacros': 'tdee calories macros protein body fat',
-  'water': 'hydration intake litres',
-  'datediff': 'date difference between days business',
-  'agecalc': 'age birthday years old',
-  'percentage': 'percent increase decrease change',
-  'statistics': 'mean median mode standard deviation quartile',
-  'regression': 'correlation r squared linear fit trend',
-  'idealgas': 'pv nrt moles gas',
-  'projectile': 'trajectory range ballistic throw',
-  'molarity': 'dilution c1v1 concentration solution',
-  'ohm': 'resistance voltage current electricity',
-  'ohmslaw': 'resistance voltage current electricity',
-  'morse': 'morse code dit dah telegraph',
-  'braille': 'braille dots accessibility',
-  'caesar': 'caesar shift cipher rot',
-  'roman': 'roman numerals',
-  'num2word': 'number to words spelling',
-  'notepad': 'notes text memo write',
-  'flashcards': 'spaced repetition srs study cards',
-  'pomodoro': 'focus timer tomato',
-  'habittracker': 'habit streak daily',
-  'checklist': 'todo task list tick',
-  'backup': 'export import restore data',
-  'sketchpad': 'draw canvas paint sketch',
-  'meetingcost': 'meeting cost salary time',
-  'reaction': 'reflex speed reaction time',
-  'typingtest': 'typing speed wpm',
-  'carbon': 'flight emissions co2 climate travel',
-  'packinglist': 'travel packing checklist luggage',
-  'papersize': 'a4 a3 letter paper dimensions dpi',
-  'shoesize': 'shoe size uk eu us foot',
-  'heartzones': 'heart rate zone cardio training bpm',
-  'duedate': 'pregnancy due date naegele gestation',
-  'smscount': 'sms characters ucs2 gsm parts',
-  'phoneformat': 'e164 phone number format whatsapp',
-  'vcard': 'contact card address book',
-  'icsinvite': 'calendar invite ics event',
-  'password': 'password passphrase credential',
-  'pwgen': 'password generate random credential',
-  'pin': 'pin code digits',
-  'passphrase': 'passphrase diceware words',
-};
-
-/* Codes come from a counter at registration, so inserting a tool renumbers
-   every tool after it in that category — and the code is what a user quotes in
-   a bug report. STABLE_CODES pins each tool to the code it was first given;
-   tools/gen-codes.js assigns new ones and writes the map back into this file. */
-CATS.forEach(c=>{
-  (TOOLS[c.id]||[]).forEach(t=>{
-    const pinned = STABLE_CODES[c.id + '/' + t.id];
-    if(pinned) t.code = pinned;
-  });
-});
-
-/* An aliased id resolves to the tool that replaced it. */
-function resolveToolId(catId, toolId){
-  const alias = ID_ALIASES[catId + '/' + toolId];
-  return alias ? alias.split('/')[1] : toolId;
-}
-
 /* ---------- Search index, across every tool in every category ---------- */
 const TOOL_INDEX = [];
 CATS.forEach(c=>{
@@ -11715,13 +11763,7 @@ function associateLabels(scope){
 
 /* What a tool needs from the machine. Shown as a chip before you use it, so a
    tool that cannot work here says so instead of failing halfway. */
-const TOOL_REQUIRES = {
-  scanner: 'camera', soundrecorder: 'microphone', decibelmeter: 'microphone', visualizer: 'microphone',
-  compass: 'motion', level: 'motion', gpsspeed: 'geolocation',
-  tonegen: 'audio', metronome: 'audio', noise: 'audio', binaural: 'audio',
-  tts: 'speech',
-  filecrypt: 'secure', sealednote: 'secure', filehash: 'secure', hmac: 'secure'
-};
+
 
 function capabilityIssue(toolId){
   const need = TOOL_REQUIRES[toolId];

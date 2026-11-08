@@ -44,6 +44,21 @@ jobs:
       - name: Every landing-page link resolves
         run: npm run links
 
+      - name: Unit tests for the pure functions
+        run: |
+          node tools/build-lib.js
+          node test/lib.js
+
+      - name: Lint
+        run: |
+          python3 tools/build.py
+          npx eslint dist/app.js
+
+      - name: Typecheck the library
+        run: |
+          node tools/build-lib.js
+          npx tsc -p tsconfig.json
+
       - name: Tool codes and ids are stable
         run: node tools/gen-codes.js --check
 

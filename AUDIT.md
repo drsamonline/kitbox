@@ -426,3 +426,32 @@ Nothing broke — 301 tools took input and none threw. That is worth stating pla
 - The release attaches files to a GitHub Release; it does not publish to any package registry, and there is no auto-update. That is deliberate — an offline-first app that phones home to check for updates has broken its own rule.
 - `dist/` is generated in CI and not committed, so the checksums describe the artefact, not the repository. The tag plus `APP_VERSION` is what ties them together.
 - The minified copy keeps all indentation, including indentation inside template literals, because that is content. It is smaller by comments only.
+
+## B12 — architecture (2.0.0)
+
+| Check | Result |
+|---|---|
+| `build(split(kitbox.html))` | byte-identical to the original |
+| Parts | 16 JS files, 12,163 lines |
+| Registration paths | 1 (`register()`), 21 adapters |
+| Unit tests on the extracted library | 23 passed, 0 failed |
+| ESLint (concatenated script) | 0 errors, 0 warnings |
+| `tsc --checkJs` (dist/lib.js) | 0 errors |
+| Full suite | 146 checks, 0 failed |
+| Size | 697 KB → 700 KB |
+
+### Findings
+
+**1. Splitting a single file is only safe if you can prove the split changed nothing.** The cut was made at section boundaries and verified by rebuilding and comparing bytes; the first attempt differed at line 658 because the parts were joined with an extra newline, and the second at the last line because the closing `</script>` had been swallowed into the final part. Both were caught by `cmp` before any other change, which is the entire argument for doing the split before doing anything else.
+
+**2. Two of the three "undefined at registration" bugs were ordering.** `register()` needed `NEW_TOOLS`, `KEYWORDS` and `TOOL_REQUIRES`, which lived in the shell part, after the tools. Moving them into the core was the fix — and the fact that `const` in a later file is a temporal dead zone, not `undefined`, is why the app failed loudly instead of half-registering tools.
+
+**3. The new unit tests found a real bug in twenty minutes.** Base58 of an empty byte array encoded to `"1"` and decoded back to two zero bytes: `fromBase58` seeded its accumulator with `[0]` and `toBase58` never special-cased empty input. It had been in the app since 1.1.0, reachable from the codec's Decode button, and no DOM-level test would ever have looked at it.
+
+**4. Lint and types found almost nothing, which is the honest result.** ESLint's only finds were six dead variables; `tsc` on the library is clean. That is what a well-written 12,000-line file looks like when you finally point a checker at it — and it is worth saying that the checkers did not justify themselves by volume, they justified themselves by existing.
+
+### Known limitations added
+
+- `register()` attaches `keywords` and `requires` from the side maps rather than taking them as arguments. The next tool can pass them directly; the 339 existing ones keep working.
+- The library extraction is by name, from a whitelist in `tools/build-lib.js`. A new pure function is not testable until it is added to that list.
+- `tsconfig.json` sets `noImplicitAny: false`. Turning it on would need JSDoc on every parameter of the 22 extracted functions; that is the natural next step, not a blocker.
