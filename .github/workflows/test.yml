@@ -114,11 +114,12 @@ jobs:
       - name: Size budget
         run: |
           bytes=$(wc -c < kitbox.html)
-          # Raised from 640 KB when B1 shipped, and to 760 KB for B6, which adds
-          # preferences and permalinks. Re-measure at B12 (source split), where
-          # the built file can be minified while the readable source stays
-          # readable. The point is that growth is a decision, not a drift.
-          limit=$((760 * 1024))
+          # Raised 640 KB (B1) -> 760 KB (B6) -> 860 KB (2.4.0, nineteen new
+          # tools). The budget is doing its job: it caught this release before
+          # it shipped. Raising it is a decision with a number attached, which
+          # is the whole point — the next honest step is B12's minified build
+          # (already produced in dist/), not another raise.
+          limit=$((860 * 1024))
           echo "kitbox.html: $((bytes / 1024)) KB (budget $((limit / 1024)) KB)"
           if [ "$bytes" -gt "$limit" ]; then
             echo "The app grew past the size budget. Either trim it, or raise the budget in this workflow deliberately."
