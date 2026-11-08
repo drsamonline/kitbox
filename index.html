@@ -6298,7 +6298,10 @@ prod('backup','Backup & Restore', root=>{
   const LABELS = {
     'simple-counter':'Simple Counter', 'scoreboard':'Scoreboard', 'ruler-scale':'Ruler calibration',
     'currency-rates':'Currency rates', 'notepad-notes':'Notepad', 'sketchpad-palette':'Sketch Pad palette',
-    'flashcard-decks':'Flashcard decks', 'trivia-decks':'Trivia quizzes'
+    'flashcard-decks':'Flashcard decks', 'trivia-decks':'Trivia quizzes',
+    'habits-list':'Habit Tracker', 'worldclock-cities':'World Clock cities',
+    'clinical-health-entries':'Clinical health entries', 'pinned':'Pinned tools',
+    'recent':'Recently used', 'panchang-place':'Panchang location'
   };
   root.innerHTML = `
     <div class="hint">Everything Kitbox saves on this device (notes, flashcard decks, quizzes, scoreboard, currency rates, calibration) lives only in this browser's local storage — nothing is synced anywhere. Use this to back it all up to one file, move it to another device, or restore it later.</div>
@@ -6310,7 +6313,8 @@ prod('backup','Backup & Restore', root=>{
     <div class="hint" id="bkMsg" style="display:none"></div>
     <div class="segrow" style="margin-top:16px"><button class="btn ghost" id="bkClearAll">Erase all Kitbox data on this device</button></div>`;
   const KNOWN_KEYS = new Set(['simple-counter','scoreboard','ruler-scale','currency-rates','notepad-notes',
-    'sketchpad-palette','flashcard-decks','trivia-decks','habits-list','worldclock-cities','clinical-health-entries']);
+    'sketchpad-palette','flashcard-decks','trivia-decks','habits-list','worldclock-cities','clinical-health-entries',
+    'pinned','recent','panchang-place']);
   function drawList(){
     const keys = store.allKeys();
     root.querySelector('#bkList').innerHTML = keys.length
