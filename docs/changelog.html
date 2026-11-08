@@ -52,6 +52,26 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.9.0 — 2026-11-09</h2>
+<p>B27 and B28 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
+<h3>B27 — text at the level of code points and bits (3)</h3>
+<ul>
+<li><strong>Punycode / IDN</strong> — RFC 3492 per label, both directions. Verified against the published vectors: <code>münchen.de</code> → <code>xn--mnchen-3ya.de</code>, and <code>例え.テスト</code> → <code>xn--r8jz45g.xn--zckzah</code>.</li>
+<li><strong>Code Point Inspector</strong> — each character's code point, UTF-8 bytes and UTF-16 units, with the astral characters marked. This is where <code>"🧰".length === 2</code> comes from.</li>
+<li><strong>Huffman Coding</strong> — builds the tree, prints the code table, and says when the text is too flat to save anything.</li>
+</ul>
+<h3>B28 — packets, RSA, two games (5)</h3>
+<ul>
+<li><strong>Packet Header Parser</strong> — IPv4, TCP, UDP and ICMP headers from pasted hex, with the payload offset taken from the IP header's own IHL rather than from counting.</li>
+<li><strong>RSA Encrypt / Decrypt</strong> — RSA-OAEP with SHA-256, using a pasted public or private key, and a plain refusal when the message exceeds what the key can carry.</li>
+<li><strong>Pong</strong> and <strong>Breakout</strong> — canvas, keyboard or pointer, scores kept locally.</li>
+</ul>
+<h3>Changed — the tests can now reach the crypto</h3>
+<p><code>test/smoke.js</code> hands the page <strong>Node's real <code>crypto.subtle</code></strong>, because jsdom ships none. Every crypto tool was previously untestable in CI and reported "needs Web Crypto" instead of doing its job. Now the RSA round trip, the JWK conversion and the certificate parsing run against a real engine in the suite.</p>
+<h3>Fixed</h3>
+<ul>
+<li>Two dead locals in the punycode and Pong code, caught by the linter: a shadowed <code>delta</code> in the bias adapter and an unused <code>target</code> in the Pong setup.</li>
+</ul>
 <h2>2.8.0 — 2026-11-08</h2>
 <p>B25 and B26 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
 <h3>B25 — QR payloads, UTM, a month of sun (3)</h3>

@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**428 tools across 27 categories.**
+**435 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -8,7 +8,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | # | Category | Code | Tools |
 |--:|:--|:--|--:|
 | 1 | General Tools | `GEN` | 13 |
-| 2 | Text Tools | `TXT` | 47 |
+| 2 | Text Tools | `TXT` | 50 |
 | 3 | Generator Tools | `GNR` | 11 |
 | 4 | Calculation Tools | `CAL` | 55 |
 | 5 | Image Tools | `IMG` | 18 |
@@ -16,12 +16,12 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 60 |
+| 10 | Development Tools | `DEV` | 62 |
 | 11 | Colors Tools | `CLR` | 10 |
 | 12 | Science Tools | `SCI` | 17 |
 | 13 | Geo Tools | `GEO` | 11 |
 | 14 | Audio Tools | `AUD` | 10 |
-| 15 | Games | `GAM` | 14 |
+| 15 | Games | `GAM` | 16 |
 | 16 | Travel Tools | `TRV` | 5 |
 | 17 | Nature Tools | `NAT` | 6 |
 | 18 | Productivity | `PRD` | 8 |
@@ -51,7 +51,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GEN-12` **Level Tool** — `general/level`
 - `GEN-13` **World Clock** — `general/worldclock`
 
-## Text Tools — 47 tools
+## Text Tools — 50 tools
 
 **Basic Tools**
 
@@ -105,6 +105,12 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `TXT-42` **Vigenère Cipher** — `text/vigenere`
 - `TXT-44` **Ascii85** — `text/ascii85`
 - `TXT-45` **Unicode Escapes** — `text/unicodeescape`
+
+**Encoding**
+
+- `TXT-48` **Punycode / IDN** — `text/punycode`
+- `TXT-49` **Code Point Inspector** — `text/codepoints`
+- `TXT-50` **Huffman Coding** — `text/huffman`
 
 **Analysis Tools**
 
@@ -337,7 +343,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 60 tools
+## Development Tools — 62 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -362,6 +368,8 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-61` **Packet Header Parser** — `dev/packet`
+- `DEV-62` **RSA Encrypt / Decrypt** — `dev/rsacrypt`
 - `DEV-60` **MIME Decoder** — `dev/mimeparse`
 - `DEV-57` **JWK ↔ PEM** — `dev/jwkpem`
 - `DEV-58` **File Splitter & Joiner** — `dev/filesplit`
@@ -460,8 +468,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `AUD-08` **Tap Tempo** — `audio/taptempo`
 - `AUD-09` **Frequency → Note** — `audio/hznote`
 
-## Games — 14 tools
+## Games — 16 tools
 
+- `GAM-15` **Pong** — `games/pong`
+- `GAM-16` **Breakout** — `games/breakout`
 - `GAM-14` **Sudoku Solver** — `games/sudoku`
 - `GAM-11` **2048** — `games/game2048`
 - `GAM-12` **Minesweeper** — `games/minesweeper`

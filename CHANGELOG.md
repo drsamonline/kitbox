@@ -8,6 +8,30 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.9.0 — 2026-11-09
+
+B27 and B28 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).
+
+### B27 — text at the level of code points and bits (3)
+
+- **Punycode / IDN** — RFC 3492 per label, both directions. Verified against the published vectors: `münchen.de` → `xn--mnchen-3ya.de`, and `例え.テスト` → `xn--r8jz45g.xn--zckzah`.
+- **Code Point Inspector** — each character's code point, UTF-8 bytes and UTF-16 units, with the astral characters marked. This is where `"🧰".length === 2` comes from.
+- **Huffman Coding** — builds the tree, prints the code table, and says when the text is too flat to save anything.
+
+### B28 — packets, RSA, two games (5)
+
+- **Packet Header Parser** — IPv4, TCP, UDP and ICMP headers from pasted hex, with the payload offset taken from the IP header's own IHL rather than from counting.
+- **RSA Encrypt / Decrypt** — RSA-OAEP with SHA-256, using a pasted public or private key, and a plain refusal when the message exceeds what the key can carry.
+- **Pong** and **Breakout** — canvas, keyboard or pointer, scores kept locally.
+
+### Changed — the tests can now reach the crypto
+
+`test/smoke.js` hands the page **Node's real `crypto.subtle`**, because jsdom ships none. Every crypto tool was previously untestable in CI and reported "needs Web Crypto" instead of doing its job. Now the RSA round trip, the JWK conversion and the certificate parsing run against a real engine in the suite.
+
+### Fixed
+
+- Two dead locals in the punycode and Pong code, caught by the linter: a shadowed `delta` in the bias adapter and an unused `target` in the Pong setup.
+
 ## 2.8.0 — 2026-11-08
 
 B25 and B26 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).

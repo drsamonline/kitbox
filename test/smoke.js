@@ -43,6 +43,11 @@ function stubCanvas(w) {
 const dom = new JSDOM(html, { runScripts: 'dangerously', pretendToBeVisual: true, url: 'https://local.test/' });
 const w = dom.window;
 stubCanvas(w);
+// jsdom ships no crypto.subtle, so every crypto tool used to be untestable here.
+// Handing the page Node's real implementation means the RSA, TOTP and JWK paths
+// run against a real engine rather than being skipped.
+try { Object.defineProperty(w.crypto, 'subtle', { value: require('crypto').webcrypto.subtle, configurable: true }); }
+catch (e) { w.crypto.subtle = require('crypto').webcrypto.subtle; }
 
 setTimeout(async () => {
   const ev = s => w.eval(s);
@@ -771,7 +776,60 @@ setTimeout(async () => {
   ok('the MIME decoder finds both parts of a multipart body',
      /Part 2/.test(mimeText) && /plain part/.test(mimeText));
 
-  /* 24. the app makes no network calls and loads nothing external */
+
+  /* 24. B27-B28: punycode, code points, Huffman, packet headers, RSA */
+  ev('location.hash="#/tool/text/punycode"'); ev('route()');
+  const pnIn = w.document.querySelector('#pnIn');
+  pnIn.value = 'münchen.de'; pnIn.dispatchEvent(new w.Event('input'));
+  ok('münchen.de encodes to xn--mnchen-3ya.de',
+     /xn--mnchen-3ya\.de/.test(w.document.querySelector('#pnOut').textContent));
+  pnIn.value = '例え.テスト'; pnIn.dispatchEvent(new w.Event('input'));
+  ok('the Japanese test vector encodes to xn--r8jz45g.xn--zckzah',
+     /xn--r8jz45g\.xn--zckzah/.test(w.document.querySelector('#pnOut').textContent),
+     w.document.querySelector('#pnOut').textContent.replace(/\s+/g, ' ').slice(0, 50));
+  w.document.querySelector('[data-pn="dec"]').click();
+  pnIn.value = 'xn--mnchen-3ya.de'; pnIn.dispatchEvent(new w.Event('input'));
+  ok('the ASCII form decodes back to münchen.de',
+     /münchen\.de/.test(w.document.querySelector('#pnOut').textContent));
+
+  ev('location.hash="#/tool/text/codepoints"'); ev('route()');
+  ok('the code point inspector marks an astral character as a surrogate pair',
+     /surrogate pair/.test(w.document.querySelector('#cpOut').textContent));
+
+  ev('location.hash="#/tool/dev/packet"'); ev('route()');
+  const pkText = w.document.querySelector('#pkOut').textContent;
+  ok('the packet parser reads the IPv4 addresses and the protocol',
+     /192\.168\.1\.1/.test(pkText) && /TCP/.test(pkText));
+  const pkNext = w.document.querySelector('#pkNext');
+  pkNext.value = 'tcp'; pkNext.dispatchEvent(new w.Event('input'));
+  ok('the packet parser continues into the TCP header at the IHL offset',
+     /Source port/.test(w.document.querySelector('#pkOut').textContent));
+
+  ev('location.hash="#/tool/dev/rsacrypt"'); ev('route()');
+  const rsaPair = await require('crypto').webcrypto.subtle.generateKey(
+    { name: 'RSA-OAEP', modulusLength: 2048, publicExponent: new Uint8Array([1,0,1]), hash: 'SHA-256' },
+    true, ['encrypt', 'decrypt']);
+  const pemOf = (buf, label) => '-----BEGIN ' + label + '-----\n' +
+    Buffer.from(buf).toString('base64').match(/.{1,64}/g).join('\n') + '\n-----END ' + label + '-----';
+  const spki = pemOf(await require('crypto').webcrypto.subtle.exportKey('spki', rsaPair.publicKey), 'PUBLIC KEY');
+  const pkcs8 = pemOf(await require('crypto').webcrypto.subtle.exportKey('pkcs8', rsaPair.privateKey), 'PRIVATE KEY');
+  w.document.querySelector('#rsKey').value = spki;
+  w.document.querySelector('#rsMsg').value = 'The result is normal.';
+  w.document.querySelector('#rsGo').click();
+  await new Promise(r => setTimeout(r, 400));
+  const rsaCipher = (w.document.querySelector('#rsOut').textContent.match(/[A-Za-z0-9+/=]{60,}/) || [])[0];
+  ok('RSA encrypts with a pasted public key', !!rsaCipher, rsaCipher ? rsaCipher.slice(0, 20) + '…' : 'no ciphertext');
+  if (rsaCipher) {
+    w.document.querySelector('[data-rs="dec"]').click();
+    w.document.querySelector('#rsKey').value = pkcs8;
+    w.document.querySelector('#rsMsg').value = rsaCipher;
+    w.document.querySelector('#rsGo').click();
+    await new Promise(r => setTimeout(r, 400));
+    ok('RSA decrypts back to the original text',
+       /The result is normal\./.test(w.document.querySelector('#rsOut').textContent));
+  }
+
+  /* 25. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

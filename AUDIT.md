@@ -685,3 +685,30 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - File carving finds signatures, not valid files: a candidate inside compressed data may not open.
 - The MIME decoder handles text parts; attachments are listed by name, not extracted.
 - The Sudoku solver reports ambiguity but shows only the first solution.
+
+## B27–B28 (2.9.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 435 / 27 (was 428 / 27) |
+| Full suite | 197 checks, 0 failures |
+| Interaction sweep | 383 tools driven, 0 failures |
+| Fuzz | 244 fields across 435 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 932 KB → 957 KB raw · 267 KB gzipped |
+
+### Findings
+
+**1. jsdom's missing `crypto.subtle` had been hiding the most consequential code in the app.** Six tools — RSA, JWK, TOTP, PBKDF2, HKDF, hashing — were only ever tested for "does it show the fallback message". Handing the page `require('crypto').webcrypto.subtle` means they now run against a real engine: this release's RSA round trip and the JWK conversion are proven in CI, not just by hand.
+
+**2. Punycode is a good test of a test.** The algorithm is fiddly enough that a plausible-looking implementation is usually wrong; the published vectors — `münchen.de`, and the Japanese `例え.テスト` which exercises non-BMP-free but still multi-byte labels — separate a correct implementation from a convincing one in one line.
+
+**3. The packet parser reads its own offsets.** Choosing "also parse as TCP" takes the transport header from the IP header's IHL, so the tool cannot disagree with itself about where the payload begins — which is exactly the mistake a person counting bytes makes.
+
+### Known limitations added
+
+- RSA-OAEP is limited by the key size (190 bytes at 2048 bits) and the tool says so instead of silently failing.
+- The packet parser reads headers, not checksums: it does not verify that a checksum is correct.
+- Punycode handles labels, not whole URLs; a URL's path is not punycode and never was.
+- Pong and Breakout are keyboard-and-pointer only; no touch controls beyond tapping to start.
