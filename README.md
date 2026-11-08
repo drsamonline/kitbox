@@ -24,6 +24,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 <a href="index.html">Landing page</a> &nbsp;·&nbsp;
 <a href="#categories">What's inside</a> &nbsp;·&nbsp;
 <a href="ROADMAP.md">Roadmap</a> &nbsp;·&nbsp;
+<a href="PLAN.md">Plan</a> &nbsp;·&nbsp;
 <a href="#support">Support</a>
 
 </div>
@@ -196,6 +197,8 @@ Nothing is gated behind it: no paid tier, no account, no tracking. Supporting it
 ## Roadmap
 
 Every enhancement worth doing — 119 numbered items, measured where measurement was possible, each with an effort and impact rating, plus what is deliberately *not* being built and why: **[ROADMAP.md](ROADMAP.md)**.
+
+Those 119 items are grouped into **15 shippable batches** — quick wins first, structural work later, small items merged where they share a file — in **[PLAN.md](PLAN.md)**. Fifteen batches, ~56 days, with the useful cut line at batch ten (~25 days).
 
 ## Licence
 

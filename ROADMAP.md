@@ -2,6 +2,8 @@
 
 An exhaustive backlog for Kitbox, written after building the 1.0–1.1.1 releases. Everything here is specific to this codebase: each item names the file, the mechanism, or the measurement that justifies it. Nothing is here because it would sound good in a pitch.
 
+**Scheduled in [PLAN.md](PLAN.md)** — every item below is assigned to exactly one of 15 batches, and `tools/check-plan.py` fails the build if that ever stops being true.
+
 **Legend.** Effort: **S** ≈ under half a day, **M** ≈ one to three days, **L** ≈ a week or more. Impact: **★★★** users feel it immediately, **★★** it removes a class of bug or friction, **★** hygiene that pays off later.
 
 **The rule that governs all of it:** the app stays one file, with no dependency, no network call, and no account. Any item that breaks that rule is listed at the end under [Deliberately not doing](#deliberately-not-doing) with the reason.

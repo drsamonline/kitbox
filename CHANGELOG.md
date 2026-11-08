@@ -6,6 +6,8 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 ### Added
 
+- **`PLAN.md`** — the 119 roadmap items grouped into 15 shippable batches, quick wins first and structural work last, with dependencies, effort, a "done when" per batch, and the cut line at batch ten. `tools/check-plan.py` asserts every item is scheduled exactly once and runs in CI.
+
 - **`ROADMAP.md`** — an exhaustive, numbered backlog (E-01 … E-119): quick wins, accessibility, search, tool consistency, storage, reliability, performance, security, architecture, testing, i18n, new tools and categories, distribution, documentation, and a "deliberately not doing" table with the reason for each refusal. Three findings are measured rather than asserted: 14 of 23 category tiles fail WCAG AA with white text, tool codes are positional and renumber when a tool is inserted, and pinned tools break silently if an id is renamed.
 
 ## 1.1.1 — 2026-11-08

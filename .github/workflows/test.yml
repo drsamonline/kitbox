@@ -26,6 +26,8 @@ jobs:
         run: npm test
       - name: Badge numbers match the app
         run: node tools/check-badges.js
+      - name: Every roadmap item is scheduled in one batch
+        run: python3 tools/check-plan.py
 
       # A loaded resource is fetched by the page by itself; a link is something
       # a person chooses to click. Only the first kind breaks the offline
