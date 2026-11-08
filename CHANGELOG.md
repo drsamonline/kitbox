@@ -25,6 +25,7 @@ Batch **B14** of [PLAN.md](PLAN.md): packaging.
 
 ### Notes
 
+- **The packaging workflow ran on this push: the Windows EXE and the Linux portable binary built successfully; the Android APK failed inside `app-builder`'s Gradle project with a Java compilation error** (the kit's own CI does not build the APK, so nothing there catches it). The rolling release was skipped rather than published half-built. Details and the job-by-job result are in `AUDIT.md`.
 - Notes moved out of localStorage, so the backup tool's `notepad-notes` key is now a migration source rather than the live copy. `bigStore.remove` keeps them in step.
 - The APK is a WebView wrapper of the same file; the EXE is a Python launcher that serves the folder on 127.0.0.1 and opens a browser. Neither adds a network call.
 

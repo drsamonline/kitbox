@@ -500,8 +500,27 @@ Nothing broke — 301 tools took input and none threw. That is worth stating pla
 
 **3. IndexedDB cannot be tested in jsdom, so the fallback is what is tested.** The suite asserts that `bigStore` degrades to localStorage when `indexedDB` is absent — which is exactly the jsdom case and exactly the case for a browser in private mode with storage blocked. The IndexedDB path itself is exercised only by using the app in a browser, and that is recorded rather than glossed.
 
+### Verified after the first run — and one cross-repo failure
+
+The packaging workflow ran on the 2.2.0 push. Job by job:
+
+| Job | Result |
+|---|---|
+| Portable EXE (Windows) | **success** |
+| Portable binary (Linux) | **success** |
+| The demo must be the app | success |
+| A retrofit must not remove a capability | success |
+| A kit is never retrofitted into a repository | success |
+| Version and changelog | success |
+| **Android APK** | **failure — Java compilation error** |
+| Publish the rolling release | skipped, correctly, because a job it depends on failed |
+
+So the wiring is right and the Windows and Linux binaries build; the **APK fails inside `app-builder`'s own Gradle project**, not in this repository. The kit's `apk/app/build.gradle.kts` targets `compileSdk = 34`, `sourceCompatibility 17`, `jvmTarget 17`, and the failing job ran on the `ubuntu-26.04` runner image — the likely shape of the problem is a toolchain mismatch between that image's JDK, AGP 8.x and the Kotlin plugin. `app-builder`'s own CI ("tests") passes because it does not build the APK, so nothing there catches this.
+
+Deliberately not worked around from here: patching another repository's Android project from a consumer repo would fork the kit, which is exactly the failure mode its own comments warn about. The rolling release is skipped rather than published half-built — that is the kit behaving correctly.
+
 ### Known limitations added
 
-- The binaries are built on GitHub's runners, not here; the first `app-latest` release appears after this workflow runs on `main`.
+- The APK cannot be produced until the kit's Android build is fixed; the EXE and the Linux binary are unaffected. When the kit is fixed, this repository inherits it with no change.
 - Notepad is the only tool on `bigStore`. Flashcards and trivia still use localStorage until someone hits the 5 MB ceiling with them.
 - `app/` duplicates 726 KB in the repository. A symlink would halve it and break the Windows runner, which does not follow them.

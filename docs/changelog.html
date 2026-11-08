@@ -67,6 +67,7 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 </ul>
 <h3>Notes</h3>
 <ul>
+<li><strong>The packaging workflow ran on this push: the Windows EXE and the Linux portable binary built successfully; the Android APK failed inside <code>app-builder</code>'s Gradle project with a Java compilation error</strong> (the kit's own CI does not build the APK, so nothing there catches it). The rolling release was skipped rather than published half-built. Details and the job-by-job result are in <code>AUDIT.md</code>.</li>
 <li>Notes moved out of localStorage, so the backup tool's <code>notepad-notes</code> key is now a migration source rather than the live copy. <code>bigStore.remove</code> keeps them in step.</li>
 <li>The APK is a WebView wrapper of the same file; the EXE is a Python launcher that serves the folder on 127.0.0.1 and opens a browser. Neither adds a network call.</li>
 </ul>
