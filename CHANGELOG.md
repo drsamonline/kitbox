@@ -2,6 +2,22 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.5.1 — 2026-11-08
+
+Batch **B6** of [PLAN.md](PLAN.md): preferences and permalinks.
+
+### Added
+
+- **A number-format preference** — Indian grouping (`₹1,00,000`) or international (`₹100,000`), in About → Display. All 31 formatting call sites now ask one helper instead of hard-coding `en-IN`, so no tool can disagree with another.
+- **A units preference** — metric or imperial. It sets which unit a converter opens on (length → feet, mass → pounds, volume → gallons, temperature → Fahrenheit) rather than converting anything behind your back.
+- **Copy link** on every tool page: a URL that carries the scalar inputs, so a calculation can be sent to someone. Fields over 200 characters are left out — a permalink with an essay in it is not a link anybody should paste into a chat. Following the link fills the fields and recomputes.
+
+### Changed
+
+- **Reset now clears the converter's remembered unit pair** as well as the session's inputs. Without that, the units preference could never take effect on a converter you had already used — the stored pair won, correctly, forever.
+- 87 tests (was 82).
+- The CI size budget was raised from 680 KB to 760 KB deliberately, with the reason in the workflow.
+
 ## 1.5.0 — 2026-11-08
 
 Batch **B5** of [PLAN.md](PLAN.md): the consistency sweep. Ten decisions made the same way 339 times — implemented once in the shell, not edited into 339 tools.

@@ -258,3 +258,26 @@ Nothing — every tool that starts an interval already called `setCleanup`. That
 - The state cache is per session, in memory. Reloading the page forgets it; that is deliberate, because persisting every field of every tool would fill `localStorage` with noise nobody asked for.
 - Examples are hand-written and cover 26 of 339 tools. A generic example would teach nothing, so the rest simply do not offer one until someone writes a good case for them.
 - The CSV copy quotes every field, including numbers. That is the safe default for spreadsheets; a consumer that wants typed columns will need to parse them.
+
+## B6 — preferences and permalinks (1.5.1)
+
+| Check | Result |
+|---|---|
+| Full suite | 87 passed, 0 failed |
+| axe across 50 pages | 0 violations |
+| Number-format call sites rewritten | 31 |
+| Size | 668 KB → 674 KB (budget raised to 760 KB deliberately) |
+
+### Findings
+
+**1. A preference cannot beat a memory, and should not.** The units preference sets which unit a converter *opens* on, but the converter already remembered the pair you last used — from B2 — and that memory won every time. That is the right behaviour (an explicit choice beats a default) and it made the preference look broken. *Fixed* by making **Reset** clear the remembered pair too, so there is a way to get back to the default, and by documenting the order: memory, then preference, then the unit's own position in the list.
+
+**2. `en-US` was used for two different jobs.** Grouping numbers and formatting dates. Only the first should follow the number preference; the second is about language, not digits. The rewrite touched `toLocaleString` call sites only, and left `Intl.DateTimeFormat('en-US', …)` in the world clock alone.
+
+**3. The size budget is now the binding constraint, not the tests.** 674 KB against 760 KB. B7 and B8 will take another 15–20 KB. This is the last batch that can grow freely; B12's source split is what makes the budget meaningful again, because a built file can be minified while the source stays readable.
+
+### Known limitations added
+
+- The units preference affects converter defaults only. Tools that print a unit they chose for themselves — a BMI in kg, a flight in km — keep their own unit, because silently converting an output is a worse surprise than showing the unit in the label.
+- Permalinks carry scalar fields up to 200 characters. A link with a long note in it is deliberately not offered.
+- A permalink exposes its inputs in the URL. For a calculator that is the point; for anything personal, do not copy the link.

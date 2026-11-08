@@ -47,6 +47,20 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.5.1 — 2026-11-08</h2>
+<p>Batch <strong>B6</strong> of <a href="plan.html">PLAN.md</a>: preferences and permalinks.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>A number-format preference</strong> — Indian grouping (<code>₹1,00,000</code>) or international (<code>₹100,000</code>), in About → Display. All 31 formatting call sites now ask one helper instead of hard-coding <code>en-IN</code>, so no tool can disagree with another.</li>
+<li><strong>A units preference</strong> — metric or imperial. It sets which unit a converter opens on (length → feet, mass → pounds, volume → gallons, temperature → Fahrenheit) rather than converting anything behind your back.</li>
+<li><strong>Copy link</strong> on every tool page: a URL that carries the scalar inputs, so a calculation can be sent to someone. Fields over 200 characters are left out — a permalink with an essay in it is not a link anybody should paste into a chat. Following the link fills the fields and recomputes.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li><strong>Reset now clears the converter's remembered unit pair</strong> as well as the session's inputs. Without that, the units preference could never take effect on a converter you had already used — the stored pair won, correctly, forever.</li>
+<li>87 tests (was 82).</li>
+<li>The CI size budget was raised from 680 KB to 760 KB deliberately, with the reason in the workflow.</li>
+</ul>
 <h2>1.5.0 — 2026-11-08</h2>
 <p>Batch <strong>B5</strong> of <a href="plan.html">PLAN.md</a>: the consistency sweep. Ten decisions made the same way 339 times — implemented once in the shell, not edited into 339 tools.</p>
 <h3>Added</h3>

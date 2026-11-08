@@ -436,7 +436,45 @@ setTimeout(async () => {
   await new Promise(r => setTimeout(r, 20));
   ok('double-clicking a table copies it as CSV', !!tableCopy && /^"Tithi"/.test(tableCopy), (tableCopy || '').split('\n')[0].slice(0, 30));
 
-  /* 14. the app makes no network calls and loads nothing external */
+
+  /* 14. preferences and permalinks (B6) */
+  ev('location.hash="#/tool/finance/savingsgoal"'); ev('route()');
+  const sgText = () => w.document.querySelector('#sgOut').textContent.replace(/\s+/g, ' ');
+  ok('numbers default to Indian grouping', /4,70,000/.test(sgText()), sgText().slice(0, 70));
+  ev("store.set('num-format','us')");
+  ev('location.hash="#/"'); ev('route()');
+  ev('location.hash="#/tool/finance/savingsgoal"'); ev('route()');
+  ok('the number preference switches to international grouping',
+     /470,000/.test(sgText()) && !/4,70,000/.test(sgText()), sgText().slice(0, 70));
+  ev("store.set('num-format','in')");
+
+  ev("store.set('units','imperial')");
+  ev('location.hash="#/"'); ev('route()');
+  ev('location.hash="#/tool/unit/length"'); ev('route()');
+  ok('the unit preference opens the converter on feet', w.document.querySelector('#ucTo').value === 'ft',
+     w.document.querySelector('#ucTo').value);
+  ev("store.set('units','metric')");
+
+  let permalink = null;
+  Object.defineProperty(w.navigator, 'clipboard', {
+    value: { writeText: t => { permalink = t; return Promise.resolve(); }, readText: () => Promise.resolve('') }, configurable: true });
+  ev('location.hash="#/tool/calc/percentchange"'); ev('route()');
+  const plA = w.document.querySelector('#pcA'), plB = w.document.querySelector('#pcB');
+  plA.value = '300'; plA.dispatchEvent(new w.Event('input'));
+  plB.value = '375'; plB.dispatchEvent(new w.Event('input'));
+  w.document.querySelector('#linkBtn').click();
+  await new Promise(r => setTimeout(r, 10));
+  ok('copy link builds a URL carrying the inputs',
+     !!permalink && /#\/tool\/calc\/percentchange\?pcA=300&pcB=375/.test(permalink), permalink);
+
+  const frag = (permalink || '').split('#')[1] || '';
+  ev('location.hash="#/"'); ev('route()');
+  ev('location.hash="#' + frag + '"'); ev('route()');
+  ok('following that link restores the inputs and the answer',
+     w.document.querySelector('#pcA').value === '300' && /\+25\.00%/.test(w.document.querySelector('#pcOut').textContent),
+     w.document.querySelector('#pcA').value + ' → ' + w.document.querySelector('#pcOut').textContent.slice(0, 30));
+
+  /* 15. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

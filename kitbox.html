@@ -485,6 +485,11 @@ document.addEventListener('dblclick', e=>{
   }
 });
 
+/* How numbers are grouped. Indian grouping is 1,00,000; international is
+   100,000. One preference, read at format time, so a tool cannot disagree. */
+function numLocale(){ return store.get('num-format', 'in') === 'us' ? 'en-US' : 'en-IN'; }
+function prefUnits(){ return store.get('units', 'metric') === 'imperial' ? 'imperial' : 'metric'; }
+
 /* Web Crypto needs a secure context. One place decides that, so no tool has to
    remember the rule and none of them can disagree about it. */
 function cryptoAvailable(){
@@ -2644,6 +2649,14 @@ function uconv(group, id, name, units){
     `;
     const val = root.querySelector('#ucVal'), from = root.querySelector('#ucFrom'), to = root.querySelector('#ucTo');
     if(units[1]) to.value = units[1].key;
+    // With the imperial preference set, a converter opens on the unit that
+    // preference implies rather than on whatever happened to be second.
+    const IMPERIAL_DEFAULT = { length: ['ft', 'mi'], mass: ['lb'], volume: ['gal'], temperature: ['F'], speed: ['mph'] };
+    const preferred = IMPERIAL_DEFAULT[id];
+    if(prefUnits() === 'imperial' && preferred){
+      const pick = preferred.find(k=>units.some(u=>u.key === k));
+      if(pick) to.value = pick;
+    }
     const memKey = 'unit-last-'+id;
     const mem = store.get(memKey, null);
     if(mem){
@@ -8132,7 +8145,7 @@ dev('subnet','CIDR / Subnet Calculator', root=>{
       ['Wildcard', intToIp(~mask >>> 0)],
       ['Prefix', '/'+bits],
       ['Address range', intToIp(network)+' – '+intToIp(broadcast)],
-      ['Usable hosts', hosts.toLocaleString('en-IN')],
+      ['Usable hosts', hosts.toLocaleString(numLocale())],
       ['First host', bits >= 31 ? intToIp(network) : intToIp(network+1)],
       ['Last host', bits >= 31 ? intToIp(broadcast) : intToIp(broadcast-1)],
       ['Class', ipPart.split('.')[0] < 128 ? 'A' : ipPart.split('.')[0] < 192 ? 'B' : ipPart.split('.')[0] < 224 ? 'C' : 'D/E'],
@@ -8529,8 +8542,8 @@ calc('Business','pricing','Markup, Margin & Break-even', root=>{
       ['Profit per unit', '₹'+profit.toFixed(2)],
       ['Markup on cost', markup.toFixed(1)+'%'],
       ['Margin on price', margin.toFixed(1)+'%'],
-      ['Break-even units', isFinite(beUnits) ? beUnits.toLocaleString('en-IN') : 'never at this price'],
-      ['Break-even revenue', isFinite(beUnits) ? '₹'+(beUnits*price).toLocaleString('en-IN') : '—'],
+      ['Break-even units', isFinite(beUnits) ? beUnits.toLocaleString(numLocale()) : 'never at this price'],
+      ['Break-even revenue', isFinite(beUnits) ? '₹'+(beUnits*price).toLocaleString(numLocale()) : '—'],
       ['Price for a 40% margin', '₹'+(cost/0.6).toFixed(2)]
     ];
     out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
@@ -8567,9 +8580,9 @@ fin('savingsgoal','Savings Goal', root=>{
     const rows = [
       ['Time to target', months >= 1200 ? 'more than 100 years' : `${years ? years+' yr ' : ''}${rem} mo`],
       ['Months', months >= 1200 ? '—' : months],
-      ['Total contributed', '₹'+Math.round(now + monthly*months).toLocaleString('en-IN')],
-      ['Balance at target', '₹'+Math.round(bal).toLocaleString('en-IN')],
-      ['Growth earned', '₹'+Math.round(bal - now - monthly*months).toLocaleString('en-IN')]
+      ['Total contributed', '₹'+Math.round(now + monthly*months).toLocaleString(numLocale())],
+      ['Balance at target', '₹'+Math.round(bal).toLocaleString(numLocale())],
+      ['Growth earned', '₹'+Math.round(bal - now - monthly*months).toLocaleString(numLocale())]
     ];
     out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
   }
@@ -8641,11 +8654,11 @@ Home loan, 1200000, 8.5, 18000</textarea></div>
     out.innerHTML = `
       <table class="mono">
         <tr><th style="text-align:left">Method</th><th style="text-align:left">Time</th><th style="text-align:left">Interest paid</th></tr>
-        <tr><td>Snowball</td><td>${fmt(s.months)}</td><td>₹${Math.round(s.interest).toLocaleString('en-IN')}</td></tr>
-        <tr><td>Avalanche</td><td>${fmt(a.months)}</td><td>₹${Math.round(a.interest).toLocaleString('en-IN')}</td></tr>
+        <tr><td>Snowball</td><td>${fmt(s.months)}</td><td>₹${Math.round(s.interest).toLocaleString(numLocale())}</td></tr>
+        <tr><td>Avalanche</td><td>${fmt(a.months)}</td><td>₹${Math.round(a.interest).toLocaleString(numLocale())}</td></tr>
       </table>
       <div class="hint">Snowball order: ${escapeHtml(s.order.join(' → ') || '—')}. Avalanche order: ${escapeHtml(a.order.join(' → ') || '—')}.
-      Difference in interest: ₹${Math.round(Math.abs(s.interest-a.interest)).toLocaleString('en-IN')}.</div>`;
+      Difference in interest: ₹${Math.round(Math.abs(s.interest-a.interest)).toLocaleString(numLocale())}.</div>`;
   });
 });
 
@@ -9325,11 +9338,11 @@ calc('Time','datediff','Date Difference', root=>{
     }
     const months = (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth()) - (b.getDate() < a.getDate() ? 1 : 0);
     const rows = [
-      ['Days', days.toLocaleString('en-IN')],
+      ['Days', days.toLocaleString(numLocale())],
       ['Weeks', (days/7).toFixed(1)],
       ['Months (whole)', months],
-      ['Business days', business.toLocaleString('en-IN')],
-      ['Hours', (days*24).toLocaleString('en-IN')],
+      ['Business days', business.toLocaleString(numLocale())],
+      ['Hours', (days*24).toLocaleString(numLocale())],
       ['Weekday of "to"', b.toLocaleDateString(undefined, {weekday:'long'})]
     ];
     out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
@@ -9354,7 +9367,7 @@ calc('Algebra','percentchange','Percentage Change', root=>{
     const change = (b-a)/a*100;
     const back = a ? (b-a)/b*100 : 0;
     const rows = [
-      ['Difference', (b-a).toLocaleString('en-IN')],
+      ['Difference', (b-a).toLocaleString(numLocale())],
       ['Change', (change>0?'+':'')+change.toFixed(2)+'%'],
       ['Direction', change>0 ? 'increase' : change<0 ? 'decrease' : 'unchanged'],
       ['Multiplier', (b/a).toFixed(4)+'×'],
@@ -9417,7 +9430,7 @@ calc('Algebra','rounding','Rounding', root=>{
       ['Round down', +((Math.floor(n/step)*step).toFixed(6))],
       ['Remainder', +(n - nearest).toFixed(6)]
     ];
-    out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v.toLocaleString('en-IN')}</td></tr>`).join('')}</table>`;
+    out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v.toLocaleString(numLocale())}</td></tr>`).join('')}</table>`;
   }
   root.querySelectorAll('input,select').forEach(el=>{ el.addEventListener('input', run); el.addEventListener('change', run); });
   run();
@@ -9509,10 +9522,10 @@ fin('simpleinterest','Simple Interest', root=>{
     if(!p || isNaN(r) || isNaN(t)){ out.textContent = 'Fill in all three fields.'; return; }
     const interest = p*r*t/100;
     const rows = [
-      ['Interest', '₹'+Math.round(interest).toLocaleString('en-IN')],
-      ['Total payable', '₹'+Math.round(p+interest).toLocaleString('en-IN')],
-      ['Interest per year', '₹'+Math.round(p*r/100).toLocaleString('en-IN')],
-      ['Interest per month', '₹'+Math.round(p*r/1200).toLocaleString('en-IN')],
+      ['Interest', '₹'+Math.round(interest).toLocaleString(numLocale())],
+      ['Total payable', '₹'+Math.round(p+interest).toLocaleString(numLocale())],
+      ['Interest per year', '₹'+Math.round(p*r/100).toLocaleString(numLocale())],
+      ['Interest per month', '₹'+Math.round(p*r/1200).toLocaleString(numLocale())],
       ['As a share of principal', (interest/p*100).toFixed(1)+'%']
     ];
     out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
@@ -9539,12 +9552,12 @@ fin('sip','SIP Calculator', root=>{
     for(let i=0;i<n;i++) bal = (bal + amt)*(1+rate);
     const invested = amt*n;
     const rows = [
-      ['Invested', '₹'+Math.round(invested).toLocaleString('en-IN')],
-      ['Value at the end', '₹'+Math.round(bal).toLocaleString('en-IN')],
-      ['Gain', '₹'+Math.round(bal-invested).toLocaleString('en-IN')],
+      ['Invested', '₹'+Math.round(invested).toLocaleString(numLocale())],
+      ['Value at the end', '₹'+Math.round(bal).toLocaleString(numLocale())],
+      ['Gain', '₹'+Math.round(bal-invested).toLocaleString(numLocale())],
       ['Gain as a share', ((bal-invested)/invested*100).toFixed(1)+'%'],
-      ['Months', n.toLocaleString('en-IN')],
-      ['Value if the return were 0%', '₹'+Math.round(invested).toLocaleString('en-IN')]
+      ['Months', n.toLocaleString(numLocale())],
+      ['Value if the return were 0%', '₹'+Math.round(invested).toLocaleString(numLocale())]
     ];
     out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
   }
@@ -10334,11 +10347,11 @@ trv('carbon','Flight Carbon', root=>{
     const total = km*(ret?2:1);
     const kg = total*factor;
     const rows = [
-      ['Distance flown', total.toLocaleString('en-IN')+' km'],
-      ['CO₂e', Math.round(kg).toLocaleString('en-IN')+' kg'],
+      ['Distance flown', total.toLocaleString(numLocale())+' km'],
+      ['CO₂e', Math.round(kg).toLocaleString(numLocale())+' kg'],
       ['Per passenger-km', factor.toFixed(2)+' kg'],
       ['Equivalent trees for a year', Math.ceil(kg/21)+' trees'],
-      ['Equivalent car km', Math.round(kg/0.17).toLocaleString('en-IN')+' km'],
+      ['Equivalent car km', Math.round(kg/0.17).toLocaleString(numLocale())+' km'],
       ['Compared with train (India)', Math.round(kg/0.012/1000)+'× a typical train seat']
     ];
     out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
@@ -10503,11 +10516,11 @@ prod('meetingcost','Meeting Cost', root=>{
     if(!p || !m || !r){ out.textContent = 'Fill in all three fields.'; return; }
     const cost = p*(m/60)*r;
     const rows = [
-      ['Cost', '₹'+Math.round(cost).toLocaleString('en-IN')],
-      ['Person-minutes', (p*m).toLocaleString('en-IN')],
+      ['Cost', '₹'+Math.round(cost).toLocaleString(numLocale())],
+      ['Person-minutes', (p*m).toLocaleString(numLocale())],
       ['Person-hours', (p*m/60).toFixed(1)],
-      ['Cost of the same meeting weekly', '₹'+Math.round(cost*52).toLocaleString('en-IN')+' a year'],
-      ['Cost per person', '₹'+Math.round(cost/p).toLocaleString('en-IN')]
+      ['Cost of the same meeting weekly', '₹'+Math.round(cost*52).toLocaleString(numLocale())+' a year'],
+      ['Cost per person', '₹'+Math.round(cost/p).toLocaleString(numLocale())]
     ];
     out.innerHTML = `<table class="mono">${rows.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
   }
@@ -10588,7 +10601,7 @@ fil('b64file','Base64 → File', root=>{
         if(ext) nameEl.value = 'decoded.'+ext;
       }
       saveBlob(new Blob([bytes], {type:mime}), nameEl.value || 'decoded.bin');
-      out.innerHTML = `<div class="hint">Decoded ${bytes.length.toLocaleString('en-IN')} bytes · ${escapeHtml(mime)}</div>`;
+      out.innerHTML = `<div class="hint">Decoded ${bytes.length.toLocaleString(numLocale())} bytes · ${escapeHtml(mime)}</div>`;
     }catch(e){
       out.innerHTML = '<div class="hint">That is not valid base64 — check for missing padding or a truncated paste.</div>';
     }
@@ -11660,6 +11673,7 @@ function renderTool(catId, toolId){
           <button class="btn ghost" id="prevBtn" style="font-size:12.5px" aria-label="Previous tool in this category" ${prevTool?'':'disabled title="This is the first tool in the category" aria-disabled="true"'}>←</button>
           <button class="btn ghost" id="nextBtn" style="font-size:12.5px" aria-label="Next tool in this category" ${nextTool?'':'disabled title="This is the last tool in the category" aria-disabled="true"'}>→</button>
           ${EXAMPLES[catId + '/' + toolId] ? `<button class="btn ghost" id="exBtn" style="font-size:12.5px">Try an example</button>` : ''}
+          <button class="btn ghost" id="linkBtn" style="font-size:12.5px" title="Copy a link that carries what you have typed">Copy link</button>
           <button class="btn ghost" id="rsBtn" style="font-size:12.5px" title="Clear what you typed and start again">Reset</button>
           <button class="btn ghost" id="pinBtn" style="font-size:12.5px" aria-pressed="${isPinned(catId,toolId)}">${isPinned(catId,toolId)?'★ Pinned':'☆ Pin'}</button>
         </div>
@@ -11670,8 +11684,21 @@ function renderTool(catId, toolId){
   `;
   const exBtn = app.querySelector('#exBtn');
   if(exBtn) exBtn.addEventListener('click', ()=>fillExample(catId + '/' + toolId, toolRoot));
+  app.querySelector('#linkBtn').addEventListener('click', ()=>{
+    const link = toolPermalink(catId, toolId, toolRoot);
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(link).then(()=>toast('Link copied'), ()=>toast('Could not copy'));
+    } else {
+      toast('Copy is not available in this browser');
+    }
+  });
   app.querySelector('#rsBtn').addEventListener('click', ()=>{
     TOOL_STATE.delete(catId + '/' + toolId);
+    // Reset means the converter forgets its remembered pair too, not just
+    // this session's inputs — otherwise the imperial default never applies.
+    store.allKeys().filter(k=>k.startsWith('unit-last-')).forEach(k=>{
+      try{ localStorage.removeItem('tooly:' + k); }catch(e){}
+    });
     renderTool(catId, toolId);
     toast('Reset');
   });
@@ -11688,6 +11715,7 @@ function renderTool(catId, toolId){
     tool.render(toolRoot);
     associateLabels(toolRoot);
     applyToolChrome(stateKey, toolRoot);
+    applyPendingParams(toolRoot);
   }catch(err){
     renderToolError(catId, tool, err, toolRoot);
   }
@@ -11702,6 +11730,14 @@ function applyTextSize(v){
   });
   const note = document.getElementById('tsNote');
   if(note) note.textContent = scale === 1 ? 'Default size.' : 'Scaled to ' + Math.round(scale*100) + '%.';
+}
+function applyPreferences(){
+  const num = store.get('num-format', 'in');
+  const units = store.get('units', 'metric');
+  document.querySelectorAll('[data-num]').forEach(b=>b.classList.toggle('primary', b.dataset.num === num));
+  document.querySelectorAll('[data-units]').forEach(b=>b.classList.toggle('primary', b.dataset.units === units));
+  const note = document.getElementById('prefNote');
+  if(note) note.textContent = 'Numbers in ' + (num === 'us' ? 'international' : 'Indian') + ' grouping; units ' + units + '. Tools already on screen keep their old formatting until you next calculate.';
 }
 function renderAbout(){
   setAccent('#14141c');
@@ -11740,6 +11776,17 @@ function renderAbout(){
       </div>
       <div class="hint" id="tsNote"></div>
 
+      <p style="color:var(--ink-soft);line-height:1.7;margin-top:18px">Numbers and units, for this device:</p>
+      <div class="segrow" id="numRow">
+        <button class="btn" data-num="in">Indian — ₹1,00,000</button>
+        <button class="btn" data-num="us">International — ₹100,000</button>
+      </div>
+      <div class="segrow" id="unitRow" style="margin-top:10px">
+        <button class="btn" data-units="metric">Metric — km, kg, °C</button>
+        <button class="btn" data-units="imperial">Imperial — mi, lb, °F</button>
+      </div>
+      <div class="hint" id="prefNote"></div>
+
       <h2>Where the tools came from</h2>
       <p style="color:var(--ink-soft);line-height:1.7">Kitbox began as a single-file toolbox. The Files &amp; Data, Almanac and Communication categories, and several of the newer calculation, development and colour tools, were folded in from the rest of the drsamonline projects — the ZIP writer from <b>export-kit</b>, compression from <b>compress-kit</b>, the AES-256-GCM envelope from <b>crypto-kit</b>, the panchang from <b>astro-kit</b> and <b>app-panchang</b>, EXIF stripping from <b>app-image-toolkit</b>, tf-idf from <b>ml-kit</b>, and a long list of everyday utilities from <b>TTB</b> and <b>All4ONE</b>. Everything was rewritten to run inside this one page, with no library and no network call.</p>
 
@@ -11748,7 +11795,16 @@ function renderAbout(){
     </div>
   `;
   app.querySelectorAll('[data-ts]').forEach(b=>b.addEventListener('click', ()=>applyTextSize(b.dataset.ts)));
+  app.querySelectorAll('[data-num]').forEach(b=>b.addEventListener('click', ()=>{
+    store.set('num-format', b.dataset.num);
+    applyPreferences();
+  }));
+  app.querySelectorAll('[data-units]').forEach(b=>b.addEventListener('click', ()=>{
+    store.set('units', b.dataset.units);
+    applyPreferences();
+  }));
   applyTextSize(store.get('text-size', 1));
+  applyPreferences();
 }
 
 /* ---------- Command palette (Ctrl/⌘ K, or /) ---------- */
@@ -11970,10 +12026,44 @@ function renderNotFound(hash){
 }
 
 let currentToolKey = null;
+let pendingParams = null;
+
+/* A link that carries the inputs. Scalar fields only — a permalink with a
+   2,000-character note in it is not a link anybody should send. */
+function toolPermalink(catId, toolId, rootEl){
+  const params = new URLSearchParams();
+  rootEl.querySelectorAll('input[id], textarea[id], select[id]').forEach(el=>{
+    if(el.type === 'file' || el.type === 'checkbox') return;
+    const v = el.value;
+    if(v === '' || v == null || v.length > 200) return;
+    params.set(el.id, v);
+  });
+  const base = location.protocol === 'file:' ? location.href.split('#')[0] : location.origin + location.pathname;
+  const q = params.toString();
+  return base + '#/tool/' + catId + '/' + toolId + (q ? '?' + q : '');
+}
+
+function applyPendingParams(rootEl){
+  if(!pendingParams) return;
+  Object.keys(pendingParams).forEach(id=>{
+    const el = rootEl.querySelector('[id="' + id + '"]');
+    if(!el || el.type === 'file') return;
+    el.value = pendingParams[id];
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  pendingParams = null;
+}
 
 function route(){
   runCleanup();
-  const hash = location.hash || '#/';
+  const rawHash = location.hash || '#/';
+  const qAt = rawHash.indexOf('?');
+  const hash = qAt >= 0 ? rawHash.slice(0, qAt) : rawHash;
+  if(qAt >= 0){
+    pendingParams = {};
+    new URLSearchParams(rawHash.slice(qAt + 1)).forEach((v, k)=>{ pendingParams[k] = v; });
+  }
   if(lastHash) scrollMemo.set(lastHash, window.scrollY);
   if(currentToolKey){
     captureToolState(currentToolKey, document.getElementById('toolRoot'));
