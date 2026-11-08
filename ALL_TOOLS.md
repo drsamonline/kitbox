@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**356 tools across 27 categories.**
+**370 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -8,15 +8,15 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | # | Category | Code | Tools |
 |--:|:--|:--|--:|
 | 1 | General Tools | `GEN` | 13 |
-| 2 | Text Tools | `TXT` | 40 |
-| 3 | Generator Tools | `GNR` | 9 |
+| 2 | Text Tools | `TXT` | 45 |
+| 3 | Generator Tools | `GNR` | 10 |
 | 4 | Calculation Tools | `CAL` | 51 |
 | 5 | Image Tools | `IMG` | 18 |
 | 6 | Unit Converter | `UNI` | 33 |
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 36 |
+| 10 | Development Tools | `DEV` | 44 |
 | 11 | Colors Tools | `CLR` | 10 |
 | 12 | Science Tools | `SCI` | 12 |
 | 13 | Geo Tools | `GEO` | 10 |
@@ -51,7 +51,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GEN-12` **Level Tool** — `general/level`
 - `GEN-13` **World Clock** — `general/worldclock`
 
-## Text Tools — 40 tools
+## Text Tools — 45 tools
 
 **Basic Tools**
 
@@ -101,9 +101,14 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `TXT-31` **Text Splitter** — `text/textsplitter`
 - `TXT-32` **ASCII Art Banner** — `text/asciibanner`
 - `TXT-33` **Braille Translator** — `text/braille`
+- `TXT-41` **XOR Cipher** — `text/xor`
+- `TXT-42` **Vigenère Cipher** — `text/vigenere`
+- `TXT-44` **Ascii85** — `text/ascii85`
+- `TXT-45` **Unicode Escapes** — `text/unicodeescape`
 
 **Analysis Tools**
 
+- `TXT-43` **Shannon Entropy** — `text/entropy`
 - `TXT-34` **Keywords & Text Similarity** — `text/keywords`
 - `TXT-35` **Readability & Reading Time** — `text/readability`
 - `TXT-38` **Word Frequency** — `text/wordfreq`
@@ -114,13 +119,14 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `TXT-37` **Smart Quotes Fixer** — `text/smartquotes`
 - `TXT-40` **Invisible Character Detector** — `text/invisible`
 
-## Generator Tools — 9 tools
+## Generator Tools — 10 tools
 
 - `GNR-01` **QR Code** — `generator/qrcode`
 - `GNR-02` **Lorem Ipsum** — `generator/lorem`
 - `GNR-03` **Simple Number Generator** — `generator/numgen`
 - `GNR-04` **Multiple Numbers Generator** — `generator/multinumgen`
 - `GNR-05` **Barcode/QR code Scanner** — `generator/scanner`
+- `GNR-10` **SVG Placeholder** — `generator/placeholder`
 - `GNR-06` **Speak Text** — `generator/tts`
 - `GNR-07` **Big Clock** — `generator/bigclock`
 - `GNR-08` **Passphrase Generator** — `generator/passphrase`
@@ -321,7 +327,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 36 tools
+## Development Tools — 44 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -346,6 +352,14 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-37` **chmod Calculator** — `dev/chmod`
+- `DEV-38` **Basic Auth Header** — `dev/basicauth`
+- `DEV-39` **MAC Address Generator** — `dev/macaddr`
+- `DEV-40` **IPv4 Range Expander** — `dev/iprange`
+- `DEV-41` **Meta Tag Generator** — `dev/metatags`
+- `DEV-42` **SQL Prettifier** — `dev/sqlpretty`
+- `DEV-43` **TOTP Generator** — `dev/totp`
+- `DEV-44` **RSA Key Pair** — `dev/rsakeys`
 - `DEV-24` **ULID & NanoID** — `dev/ulid`
 - `DEV-25` **Base32 / Base58 Codec** — `dev/base32`
 - `DEV-26` **HMAC Generator** — `dev/hmac`

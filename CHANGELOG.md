@@ -8,6 +8,55 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.3.0 — 2026-11-08
+
+Four projects were read for what they know that Kitbox did not: **CyberChef** (Apache-2.0), **it-tools** (GPL-3.0), **localpdfmerger** (Apache-2.0) and **compressorjs** (MIT). Fourteen tools came out of it.
+
+### Licensing, stated plainly
+
+No code was copied. it-tools is **GPL-3.0**, which cannot be relicensed into this project at all; CyberChef and localpdfmerger are Apache-2.0 and compressorjs is MIT, which would each require attribution of copied source. What travels freely between projects is the *idea* — "a chmod calculator", "XOR brute force", "Shannon entropy" — so each tool here is written from the definition, and the test suite checks it against a published value rather than against their output.
+
+### Added — from it-tools
+
+- **chmod Calculator** — octal ↔ symbolic, both directions, with setuid/setgid/sticky named.
+- **Basic Auth Header** — and a sentence saying it is encoding, not encryption.
+- **MAC Address Generator** — locally administered addresses only, because a test fixture with a real vendor prefix is how you end up impersonating one.
+- **IPv4 Range Expander** — accepts `a - b` or CIDR; answers "same /24?" which is what a firewall rule actually asks. The Subnet Calculator stays the other half.
+- **Meta Tag Generator** — the tags that make a link unfurl, with `og:image` named as the one that matters.
+- **SQL Prettifier** — a formatter, not a parser, and it says so.
+- **TOTP Generator** — RFC 6238, HMAC-SHA1, six or eight digits, with a countdown. Checked against a server, not used as your authenticator.
+- **RSA Key Pair** — RSASSA-PKCS1-v1_5, SPKI and PKCS#8 in PEM, generated in the page and never stored.
+
+### Added — from CyberChef
+
+- **XOR Cipher** with single-byte brute force, ranked by how much each result looks like English.
+- **Vigenère Cipher** — verified against the textbook vector: ATTACKATDAWN with LEMON is LXFOPVEFRNHR.
+- **Shannon Entropy** — bits per byte and in total, with a plain reading of the number.
+- **Ascii85** — encode and decode, including the `<~ ~>` form, and `z` for four zero bytes.
+
+### Added — from it-tools and CyberChef together
+
+- **Unicode Escapes** — `\uXXXX` (with surrogate pairs), `\xXX`, HTML entities, and one button that unescapes all three.
+
+### Added — from it-tools, in Generator
+
+- **SVG Placeholder** — a placeholder that weighs bytes instead of megabytes.
+
+### Not taken
+
+- **PDF merging** (`localpdfmerger`). It depends on pdf-lib; a hand-written merger is several hundred lines of object-stream parsing and would be the least-tested code in the app. The honest options are "ship a dependency" or "do not ship it", and the first rule of this project is no dependencies.
+- **bcrypt, BIP39, IPFS-style safelinks** — each needs a table or a cipher implementation that is not worth the bytes.
+- **`compressorjs`'s compression loop** — Kitbox already compresses with canvas; the useful part was the reminder that EXIF orientation matters, which the image tools already handle through the metadata strip.
+
+### Changed
+
+- 370 tools across 27 categories (was 356).
+- 151 checks (was 146), including five new assertions each verified against a published value.
+
+### Fixed
+
+- **Pinned codes were applied too early.** The pinning loop lived in the core part, so a tool registered in any later part got the counter's code instead of its pinned one. It now runs at the end of the load, and the check that compares `codes.json` with the app catches it if it ever moves again.
+
 ## 2.2.0 — 2026-11-08
 
 Batch **B14** of [PLAN.md](PLAN.md): packaging.

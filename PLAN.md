@@ -28,6 +28,8 @@ The 119 items in [ROADMAP.md](ROADMAP.md), grouped into 15 batches. Quick wins f
 
 **All fifteen batches are shipped or dropped.**
 
+**2.3.0 — borrowed ideas.** Four external projects read, fourteen tools written from their definitions (no code copied; see the licence note in CHANGELOG). This was not a planned batch: it is what the plan calls an enhancement, and it went through the same gates as one.
+
 Every shipped batch is green on CI: the suite, the axe sweep, the badge and manifest and plan checks, the landing and docs freshness checks, the security greps and the size budget.
 
 ---

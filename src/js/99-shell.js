@@ -15,6 +15,19 @@ function setAccent(color){ document.documentElement.style.setProperty('--accent'
    retired id appears in this map. */
 const ID_ALIASES = {};
 
+/* Pinned codes are applied here, at the end of the load, because a tool
+   registered in a later part cannot be pinned from an earlier one. */
+/* Codes come from a counter at registration, so inserting a tool renumbers
+   every tool after it in that category — and the code is what a user quotes in
+   a bug report. STABLE_CODES pins each tool to the code it was first given;
+   tools/gen-codes.js assigns new ones and writes the map back into this file. */
+CATS.forEach(c=>{
+  (TOOLS[c.id]||[]).forEach(t=>{
+    const pinned = STABLE_CODES[c.id + '/' + t.id];
+    if(pinned) t.code = pinned;
+  });
+});
+
 /* ---------- Search index, across every tool in every category ---------- */
 const TOOL_INDEX = [];
 CATS.forEach(c=>{

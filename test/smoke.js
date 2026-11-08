@@ -580,7 +580,39 @@ setTimeout(async () => {
      fs.existsSync(path.join(__dirname, '..', 'app', 'manifest.webmanifest')) &&
      fs.existsSync(path.join(__dirname, '..', 'app', 'icon.svg')));
 
-  /* 19. the app makes no network calls and loads nothing external */
+
+  /* 19. borrowed ideas (2.3.0) — each verified against a published value */
+  ev('location.hash="#/tool/dev/chmod"'); ev('route()');
+  ok('chmod 755 is rwxr-xr-x', w.document.querySelector('#cmSym').value === 'rwxr-xr-x', w.document.querySelector('#cmSym').value);
+
+  ev('location.hash="#/tool/text/vigenere"'); ev('route()');
+  const vgIn = w.document.querySelector('#vgIn'), vgKey = w.document.querySelector('#vgKey');
+  vgIn.value = 'ATTACKATDAWN'; vgKey.value = 'LEMON';
+  w.document.querySelector('#vgEnc').click();
+  ok('Vigenère ATTACKATDAWN with LEMON is LXFOPVEFRNHR',
+     w.document.querySelector('#vgOut').textContent === 'LXFOPVEFRNHR', w.document.querySelector('#vgOut').textContent);
+
+  ev('location.hash="#/tool/text/ascii85"'); ev('route()');
+  const a85In = w.document.querySelector('#a85In');
+  a85In.value = 'Kitbox — offline';
+  w.document.querySelector('#a85Enc').click();
+  const a85Encoded = w.document.querySelector('#a85Out').textContent;
+  a85In.value = a85Encoded;
+  w.document.querySelector('#a85Dec').click();
+  ok('Ascii85 round-trips a non-ASCII string', w.document.querySelector('#a85Out').textContent === 'Kitbox — offline', a85Encoded.slice(0, 20));
+
+  ev('location.hash="#/tool/text/entropy"'); ev('route()');
+  const enIn = w.document.querySelector('#enIn');
+  enIn.value = 'aaaaaaaaaa'; enIn.dispatchEvent(new w.Event('input'));
+  ok('a constant string has zero entropy', /0\.000/.test(w.document.querySelector('#enOut').textContent));
+
+  ev('location.hash="#/tool/dev/iprange"'); ev('route()');
+  const irIn = w.document.querySelector('#irIn');
+  irIn.value = '10.0.0.0/30'; irIn.dispatchEvent(new w.Event('input'));
+  ok('a /30 expands to four addresses', /4/.test(w.document.querySelector('#irOut').textContent),
+     w.document.querySelector('#irOut').textContent.replace(/\s+/g, ' ').slice(0, 60));
+
+  /* 20. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

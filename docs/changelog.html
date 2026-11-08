@@ -52,6 +52,51 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.3.0 — 2026-11-08</h2>
+<p>Four projects were read for what they know that Kitbox did not: <strong>CyberChef</strong> (Apache-2.0), <strong>it-tools</strong> (GPL-3.0), <strong>localpdfmerger</strong> (Apache-2.0) and <strong>compressorjs</strong> (MIT). Fourteen tools came out of it.</p>
+<h3>Licensing, stated plainly</h3>
+<p>No code was copied. it-tools is <strong>GPL-3.0</strong>, which cannot be relicensed into this project at all; CyberChef and localpdfmerger are Apache-2.0 and compressorjs is MIT, which would each require attribution of copied source. What travels freely between projects is the <em>idea</em> — "a chmod calculator", "XOR brute force", "Shannon entropy" — so each tool here is written from the definition, and the test suite checks it against a published value rather than against their output.</p>
+<h3>Added — from it-tools</h3>
+<ul>
+<li><strong>chmod Calculator</strong> — octal ↔ symbolic, both directions, with setuid/setgid/sticky named.</li>
+<li><strong>Basic Auth Header</strong> — and a sentence saying it is encoding, not encryption.</li>
+<li><strong>MAC Address Generator</strong> — locally administered addresses only, because a test fixture with a real vendor prefix is how you end up impersonating one.</li>
+<li><strong>IPv4 Range Expander</strong> — accepts <code>a - b</code> or CIDR; answers "same /24?" which is what a firewall rule actually asks. The Subnet Calculator stays the other half.</li>
+<li><strong>Meta Tag Generator</strong> — the tags that make a link unfurl, with <code>og:image</code> named as the one that matters.</li>
+<li><strong>SQL Prettifier</strong> — a formatter, not a parser, and it says so.</li>
+<li><strong>TOTP Generator</strong> — RFC 6238, HMAC-SHA1, six or eight digits, with a countdown. Checked against a server, not used as your authenticator.</li>
+<li><strong>RSA Key Pair</strong> — RSASSA-PKCS1-v1_5, SPKI and PKCS#8 in PEM, generated in the page and never stored.</li>
+</ul>
+<h3>Added — from CyberChef</h3>
+<ul>
+<li><strong>XOR Cipher</strong> with single-byte brute force, ranked by how much each result looks like English.</li>
+<li><strong>Vigenère Cipher</strong> — verified against the textbook vector: ATTACKATDAWN with LEMON is LXFOPVEFRNHR.</li>
+<li><strong>Shannon Entropy</strong> — bits per byte and in total, with a plain reading of the number.</li>
+<li><strong>Ascii85</strong> — encode and decode, including the <code>&lt;~ ~&gt;</code> form, and <code>z</code> for four zero bytes.</li>
+</ul>
+<h3>Added — from it-tools and CyberChef together</h3>
+<ul>
+<li><strong>Unicode Escapes</strong> — <code>\uXXXX</code> (with surrogate pairs), <code>\xXX</code>, HTML entities, and one button that unescapes all three.</li>
+</ul>
+<h3>Added — from it-tools, in Generator</h3>
+<ul>
+<li><strong>SVG Placeholder</strong> — a placeholder that weighs bytes instead of megabytes.</li>
+</ul>
+<h3>Not taken</h3>
+<ul>
+<li><strong>PDF merging</strong> (<code>localpdfmerger</code>). It depends on pdf-lib; a hand-written merger is several hundred lines of object-stream parsing and would be the least-tested code in the app. The honest options are "ship a dependency" or "do not ship it", and the first rule of this project is no dependencies.</li>
+<li><strong>bcrypt, BIP39, IPFS-style safelinks</strong> — each needs a table or a cipher implementation that is not worth the bytes.</li>
+<li><strong><code>compressorjs</code>'s compression loop</strong> — Kitbox already compresses with canvas; the useful part was the reminder that EXIF orientation matters, which the image tools already handle through the metadata strip.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>370 tools across 27 categories (was 356).</li>
+<li>151 checks (was 146), including five new assertions each verified against a published value.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li><strong>Pinned codes were applied too early.</strong> The pinning loop lived in the core part, so a tool registered in any later part got the counter's code instead of its pinned one. It now runs at the end of the load, and the check that compares <code>codes.json</code> with the app catches it if it ever moves again.</li>
+</ul>
 <h2>2.2.0 — 2026-11-08</h2>
 <p>Batch <strong>B14</strong> of <a href="plan.html">PLAN.md</a>: packaging.</p>
 <h3>Added</h3>

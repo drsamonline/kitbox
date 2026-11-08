@@ -524,3 +524,31 @@ Deliberately not worked around from here: patching another repository's Android 
 - The APK cannot be produced until the kit's Android build is fixed; the EXE and the Linux binary are unaffected. When the kit is fixed, this repository inherits it with no change.
 - Notepad is the only tool on `bigStore`. Flashcards and trivia still use localStorage until someone hits the 5 MB ceiling with them.
 - `app/` duplicates 726 KB in the repository. A symlink would halve it and break the Windows runner, which does not follow them.
+
+## Borrowed ideas (2.3.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 370 / 27 (was 356 / 27) |
+| Fuzz | 196 fields across 370 tools, 0 injections |
+| Interaction sweep | 331 tools driven, 0 failures |
+| axe | 58 pages, 0 violations |
+| ESLint | 0 errors, 0 warnings |
+| Full suite | 151 checks, 0 failures |
+| Size | 726 KB → 756 KB |
+
+### On licences
+
+Four repositories were read; none of their code is in this app. it-tools is GPL-3.0 and cannot be relicensed here at all — an idea is not copyrightable, an implementation is. CyberChef (Apache-2.0) and compressorjs (MIT) would permit copying with attribution; the tools were written from their definitions anyway, because the definition is what makes them testable. Each new tool is checked against a published value — the Vigenère textbook vector, the chmod octal table, RFC 6238 — rather than against another project's output, which is the difference between understanding a thing and copying it.
+
+### Findings
+
+**1. Pinned codes were being applied before the tools that needed them existed.** The loop lived in the core part; a tool registered in a later part got the counter's code, so `text/xor` came out TXT-34 while `codes.json` said TXT-41. It had been invisible because every earlier batch added tools to parts that loaded *after* the loop's old home in the shell. Moving the loop to the end of the load fixed it, and the existing check would have caught it sooner if the loop had ever been exercised by a later part.
+
+**2. A second full-tool sweep is cheap now.** Adding fourteen tools cost three minutes of verification: build, test, lint, axe, fuzz, interaction. That is the return on B12's structure — before the split, adding tools meant editing a 700 KB file by hand.
+
+### Known limitations added
+
+- The XOR brute force ranks by printable-character density, which is a heuristic and fails on short inputs.
+- TOTP and RSA need Web Crypto, so both say so on a page served over plain http.
+- The SQL prettifier is regex-based: it will mangle a subquery you wanted inline, and it does not validate anything.
