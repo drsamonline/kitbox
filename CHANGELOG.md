@@ -8,6 +8,36 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.4.0 — 2026-11-08
+
+Three batches from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md), plus the clinical scores that were on the "deliberately not doing" list.
+
+### B15 — the small ones (8)
+
+IP Format Converter (dotted, integer, hex, octal, binary, class, RFC 1918) · Hash Identifier · UUID Analyser (version, variant, and whether it leaks a timestamp) · Cron Generator, which completes the Cron Parser · JWT Signer (HS256/384/512) · Set Operations (union, intersection, difference, symmetric difference, power set, Cartesian product) · Edit Distance (Levenshtein, with the operations shown) · Hamming Distance.
+
+### B16 — the medium ones (4)
+
+**Word-Level Diff** — line diff is the wrong grain for prose; one changed word marked the whole line. **Extract From Text** — URLs, emails, IPv4, MACs, domains and hashes out of a log dump. **ZIP Extract** — reads the central directory and inflates each entry with `DecompressionStream('deflate-raw')`, which is why this needed no library. **Tuner** — autocorrelation on the microphone, nearest note and cents off.
+
+One deliberate deviation from "one tool per job": the extractors are one tool with checkboxes, because five tools with the same textarea and five different regexes would be five copies of one tool.
+
+### B17 — clinical scores (8)
+
+Glasgow Coma Scale · CURB-65 · qSOFA · Wells (DVT) · Wells (PE) · CHA₂DS₂-VASc · HAS-BLED · Child-Pugh.
+
+These were under "deliberately not doing", with the reason: a score that drives a decision needs a clinician to own it. The owner of this app is a clinician, so the reason no longer holds. Each carries the same note in the same place — a published score, implemented as written, a prompt for judgement and not a substitute for it. The Wells DVT score is shown able to go negative, because it can, and that surprises people.
+
+### Fixed
+
+- **A category array could wipe tools registered by an earlier part.** `TOOLS.clinical = []` ran after the clinical scores had already registered, silently emptying the category. The initialisers are now `TOOLS.x = TOOLS.x || []`, so load order cannot destroy a registration.
+- My own Hamming assertion said 9 bits when the characters differ in 9 bits — the arithmetic in the test was wrong twice before it was right.
+
+### Changed
+
+- 389 tools across 27 categories (was 370).
+- 155 checks (was 155 → 121 in the suite, 155 across all files).
+
 ## 2.3.0 — 2026-11-08
 
 Four projects were read for what they know that Kitbox did not: **CyberChef** (Apache-2.0), **it-tools** (GPL-3.0), **localpdfmerger** (Apache-2.0) and **compressorjs** (MIT). Fourteen tools came out of it.

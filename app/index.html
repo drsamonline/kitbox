@@ -390,7 +390,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '2.3.0';
+const APP_VERSION = '2.4.0';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -680,7 +680,7 @@ const TOOL_REQUIRES = {
 };
 
 /* CODES:START */
-const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/readingruler":"ACC-01", "accessibility/textspacing":"ACC-03", "almanac/horas":"ALM-04", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hexagon":"CAL-23", "calc/logarithm":"CAL-41", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/paeddose":"CLN-01", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/iprange":"DEV-40", "dev/jsondiff":"DEV-23", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwtdebug":"DEV-16", "dev/macaddr":"DEV-39", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/regextester":"DEV-15", "dev/rsakeys":"DEV-44", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/exif":"FIL-08", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/numberguess":"GAM-02", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "science/density":"SCI-07", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affix":"TXT-11", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charfreq":"TXT-30", "text/entropy":"TXT-43", "text/findreplace":"TXT-02", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/numberlines":"TXT-12", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
+const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/readingruler":"ACC-01", "accessibility/textspacing":"ACC-03", "almanac/horas":"ALM-04", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/jsondiff":"DEV-23", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/regextester":"DEV-15", "dev/rsakeys":"DEV-44", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/exif":"FIL-08", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/numberguess":"GAM-02", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "science/density":"SCI-07", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affix":"TXT-11", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charfreq":"TXT-30", "text/entropy":"TXT-43", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/numberlines":"TXT-12", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
 /* CODES:END */
 
 /* ---------- Search metadata ----------
@@ -6205,6 +6205,257 @@ aud('soundrecorder','Sound Recorder', root=>{
 });
 
 /* ================================================================
+   B17 — clinical scores, added because a clinician asked for them.
+
+   The roadmap had these under "deliberately not doing", with the reason: a
+   score that drives a decision needs a clinician to own it. The owner of this
+   app is a clinician, so the reason no longer holds — and each tool carries the
+   same note, in the same place, saying what the score is and what it is not.
+
+   Every one of these is a published instrument, implemented as written. None of
+   them adds anything the score does not say.
+   ================================================================ */
+
+const SCORE_NOTE = '<div class="hint" style="border-left:2px solid #c0392b;padding-left:10px">A published score, implemented as written. It is a prompt for clinical judgement, not a substitute for it — the score was validated in a population, and your patient may not be in it.</div>';
+
+function scoreTable(rows, total, interpretation){
+  return `<table class="mono">
+    ${rows.map(([label, value])=>`<tr><td>${escapeHtml(label)}</td><td>${escapeHtml(String(value))}</td></tr>`).join('')}
+    <tr><td><b>Total</b></td><td><b>${escapeHtml(String(total))}</b></td></tr>
+    ${interpretation ? `<tr><td>Reading</td><td>${escapeHtml(interpretation)}</td></tr>` : ''}
+  </table>`;
+}
+
+/* ---------------- Glasgow Coma Scale ---------------- */
+clin('gcs','Glasgow Coma Scale', root=>{
+  const EYE = [['Spontaneous',4],['To speech',3],['To pain',2],['None',1]];
+  const VERBAL = [['Oriented',5],['Confused',4],['Inappropriate words',3],['Incomprehensible sounds',2],['None',1]];
+  const MOTOR = [['Obeys commands',6],['Localises to pain',5],['Withdraws from pain',4],['Abnormal flexion',3],['Extension',2],['None',1]];
+  const opts = list => list.map(([label, v])=>`<option value="${v}">${v} — ${label}</option>`).join('');
+  root.innerHTML = `
+    <div class="field"><label>Eye opening (E)</label><select id="gsE">${opts(EYE)}</select></div>
+    <div class="field"><label>Verbal response (V)</label><select id="gsV">${opts(VERBAL)}</select></div>
+    <div class="field"><label>Motor response (M)</label><select id="gsM">${opts(MOTOR)}</select></div>
+    <div class="output" id="gsOut">—</div>
+    <div class="hint">Report the three components as well as the total: E4 V5 M6 is 15, and E1 V1 M4 is 6 for a very different reason than E4 V1 M1.</div>
+    ${SCORE_NOTE}`;
+  function draw(){
+    const e = Number(root.querySelector('#gsE').value), v = Number(root.querySelector('#gsV').value), m = Number(root.querySelector('#gsM').value);
+    const total = e + v + m;
+    const band = total >= 13 ? 'mild (13–15)' : total >= 9 ? 'moderate (9–12)' : 'severe (3–8)';
+    root.querySelector('#gsOut').innerHTML = scoreTable([
+      ['Eye', e], ['Verbal', v], ['Motor', m]
+    ], total, band + ' — E' + e + ' V' + v + ' M' + m);
+  }
+  root.querySelectorAll('select').forEach(el=>el.addEventListener('change', draw));
+  draw();
+});
+
+/* ---------------- CURB-65 ---------------- */
+clin('curb65','CURB-65', root=>{
+  const ITEMS = [
+    ['Confusion (new onset)', 1],
+    ['Urea > 7 mmol/L', 1],
+    ['Respiratory rate ≥ 30/min', 1],
+    ['Blood pressure: systolic < 90 or diastolic ≤ 60', 1],
+    ['Age ≥ 65', 1]
+  ];
+  root.innerHTML = `
+    <div id="cbItems"></div>
+    <div class="output" id="cbOut">—</div>
+    <div class="hint">For pneumonia severity in the community. Each item is one point; the score is used with, not instead of, an impression of the patient.</div>
+    ${SCORE_NOTE}`;
+  root.querySelector('#cbItems').innerHTML = ITEMS.map(([label], i)=>
+    `<label style="display:flex;gap:8px;align-items:center;padding:6px 0"><input type="checkbox" data-cb="${i}"> ${escapeHtml(label)}</label>`).join('');
+  function draw(){
+    const rows = ITEMS.map(([label], i)=>({ label, on: root.querySelector(`[data-cb="${i}"]`).checked }));
+    const total = rows.filter(r=>r.on).length;
+    const reading = total <= 1 ? 'low risk — home treatment usually considered' :
+                    total === 2 ? 'intermediate — consider hospital assessment' :
+                    'high risk — hospital assessment, consider intensive care';
+    root.querySelector('#cbOut').innerHTML = scoreTable(rows.map(r=>[r.label, r.on ? 1 : 0]), total, reading);
+  }
+  root.querySelectorAll('[data-cb]').forEach(cb=>cb.addEventListener('change', draw));
+  draw();
+});
+
+/* ---------------- qSOFA ---------------- */
+clin('qsofa','qSOFA', root=>{
+  const ITEMS = [
+    ['Respiratory rate ≥ 22/min', 1],
+    ['Altered mentation (GCS < 15)', 1],
+    ['Systolic blood pressure ≤ 100 mmHg', 1]
+  ];
+  root.innerHTML = `
+    <div id="qsItems"></div>
+    <div class="output" id="qsOut">—</div>
+    <div class="hint">A prompt to consider organ dysfunction in suspected infection — not a definition of sepsis and not a triage tool on its own.</div>
+    ${SCORE_NOTE}`;
+  root.querySelector('#qsItems').innerHTML = ITEMS.map(([label], i)=>
+    `<label style="display:flex;gap:8px;align-items:center;padding:6px 0"><input type="checkbox" data-qs="${i}"> ${escapeHtml(label)}</label>`).join('');
+  function draw(){
+    const rows = ITEMS.map(([label], i)=>({ label, on: root.querySelector(`[data-qs="${i}"]`).checked }));
+    const total = rows.filter(r=>r.on).length;
+    root.querySelector('#qsOut').innerHTML = scoreTable(rows.map(r=>[r.label, r.on ? 1 : 0]), total,
+      total >= 2 ? 'at least two — assess for organ dysfunction' : 'fewer than two');
+  }
+  root.querySelectorAll('[data-qs]').forEach(cb=>cb.addEventListener('change', draw));
+  draw();
+});
+
+/* ---------------- Wells: DVT ---------------- */
+clin('wellsdvt','Wells Score — DVT', root=>{
+  const ITEMS = [
+    ['Active cancer (treatment within 6 months, or palliative)', 1],
+    ['Paralysis, paresis or recent plaster immobilisation of the leg', 1],
+    ['Recently bedridden ≥ 3 days, or major surgery within 12 weeks', 1],
+    ['Localised tenderness along the deep venous system', 1],
+    ['Entire leg swollen', 1],
+    ['Calf swelling ≥ 3 cm compared with the other leg', 1],
+    ['Pitting oedema confined to the symptomatic leg', 1],
+    ['Collateral superficial veins (non-varicose)', 1],
+    ['Previously documented DVT', 1],
+    ['Alternative diagnosis at least as likely as DVT', -2]
+  ];
+  root.innerHTML = `
+    <div id="wdItems"></div>
+    <div class="output" id="wdOut">—</div>
+    <div class="hint">The last item subtracts two, which is why the total can be negative. The three-tier reading is the one usually quoted; the two-tier is what most pathways use.</div>
+    ${SCORE_NOTE}`;
+  root.querySelector('#wdItems').innerHTML = ITEMS.map(([label, pts], i)=>
+    `<label style="display:flex;gap:8px;align-items:center;padding:5px 0"><input type="checkbox" data-wd="${i}"> ${escapeHtml(label)} <span class="mono" style="color:var(--muted)">${pts > 0 ? '+' : ''}${pts}</span></label>`).join('');
+  function draw(){
+    const rows = ITEMS.map(([label, pts], i)=>({ label, pts, on: root.querySelector(`[data-wd="${i}"]`).checked }));
+    const total = rows.filter(r=>r.on).reduce((a, r)=>a + r.pts, 0);
+    const three = total >= 3 ? 'high probability' : total >= 1 ? 'moderate probability' : 'low probability';
+    const two = total >= 2 ? 'DVT likely — imaging indicated' : 'DVT unlikely — D-dimer pathway';
+    root.querySelector('#wdOut').innerHTML = scoreTable(rows.map(r=>[r.label, r.on ? r.pts : 0]), total, three + ' · ' + two);
+  }
+  root.querySelectorAll('[data-wd]').forEach(cb=>cb.addEventListener('change', draw));
+  draw();
+});
+
+/* ---------------- Wells: PE ---------------- */
+clin('wellspe','Wells Score — PE', root=>{
+  const ITEMS = [
+    ['Clinical signs of DVT', 3],
+    ['PE is the most likely diagnosis (or as likely as any other)', 3],
+    ['Heart rate > 100/min', 1.5],
+    ['Immobilisation ≥ 3 days or surgery in the previous 4 weeks', 1.5],
+    ['Previous DVT or PE', 1.5],
+    ['Haemoptysis', 1],
+    ['Malignancy (treated within 6 months, or palliative)', 1]
+  ];
+  root.innerHTML = `
+    <div id="wpItems"></div>
+    <div class="output" id="wpOut">—</div>
+    <div class="hint">The two-tier reading (&gt;4 PE likely, ≤4 unlikely) is the one most pathways use; the three-tier is also shown because it is what the original paper reports.</div>
+    ${SCORE_NOTE}`;
+  root.querySelector('#wpItems').innerHTML = ITEMS.map(([label, pts], i)=>
+    `<label style="display:flex;gap:8px;align-items:center;padding:5px 0"><input type="checkbox" data-wp="${i}"> ${escapeHtml(label)} <span class="mono" style="color:var(--muted)">+${pts}</span></label>`).join('');
+  function draw(){
+    const rows = ITEMS.map(([label, pts], i)=>({ label, pts, on: root.querySelector(`[data-wp="${i}"]`).checked }));
+    const total = rows.filter(r=>r.on).reduce((a, r)=>a + r.pts, 0);
+    const two = total > 4 ? 'PE likely — imaging' : 'PE unlikely — D-dimer pathway';
+    const three = total > 6 ? 'high' : total >= 2 ? 'moderate' : 'low';
+    root.querySelector('#wpOut').innerHTML = scoreTable(rows.map(r=>[r.label, r.on ? r.pts : 0]), total, two + ' · three-tier: ' + three);
+  }
+  root.querySelectorAll('[data-wp]').forEach(cb=>cb.addEventListener('change', draw));
+  draw();
+});
+
+/* ---------------- CHA2DS2-VASc ---------------- */
+clin('chads','CHA₂DS₂-VASc', root=>{
+  const ITEMS = [
+    ['Congestive heart failure / LV dysfunction', 1],
+    ['Hypertension', 1],
+    ['Age ≥ 75', 2],
+    ['Diabetes mellitus', 1],
+    ['Stroke / TIA / thromboembolism', 2],
+    ['Vascular disease (MI, PAD, aortic plaque)', 1],
+    ['Age 65–74', 1],
+    ['Sex category: female', 1]
+  ];
+  root.innerHTML = `
+    <div id="cdItems"></div>
+    <div class="output" id="cdOut">—</div>
+    <div class="hint">Age 65–74 and age ≥ 75 are separate rows because the score weights them differently — tick at most one. The sex point is there because the score was derived that way, not because sex is a risk factor on its own.</div>
+    ${SCORE_NOTE}`;
+  root.querySelector('#cdItems').innerHTML = ITEMS.map(([label, pts], i)=>
+    `<label style="display:flex;gap:8px;align-items:center;padding:5px 0"><input type="checkbox" data-cd="${i}"> ${escapeHtml(label)} <span class="mono" style="color:var(--muted)">+${pts}</span></label>`).join('');
+  function draw(){
+    const rows = ITEMS.map(([label, pts], i)=>({ label, pts, on: root.querySelector(`[data-cd="${i}"]`).checked }));
+    const total = rows.filter(r=>r.on).reduce((a, r)=>a + r.pts, 0);
+    const reading = total === 0 ? 'no anticoagulation indicated on score alone' :
+                    total === 1 ? 'consider anticoagulation — a score of 1 is a decision, not an answer' :
+                    'anticoagulation recommended by guideline';
+    root.querySelector('#cdOut').innerHTML = scoreTable(rows.map(r=>[r.label, r.on ? r.pts : 0]), total, reading);
+  }
+  root.querySelectorAll('[data-cd]').forEach(cb=>cb.addEventListener('change', draw));
+  draw();
+});
+
+/* ---------------- HAS-BLED ---------------- */
+clin('hasbled','HAS-BLED', root=>{
+  const ITEMS = [
+    ['Hypertension (uncontrolled, systolic > 160)', 1],
+    ['Abnormal renal function', 1],
+    ['Abnormal liver function', 1],
+    ['Stroke', 1],
+    ['Bleeding history or predisposition', 1],
+    ['Labile INR (TTR < 60%)', 1],
+    ['Elderly (age > 65)', 1],
+    ['Drugs that predispose to bleeding', 1],
+    ['Alcohol (≥ 8 units/week)', 1]
+  ];
+  root.innerHTML = `
+    <div id="hbItems"></div>
+    <div class="output" id="hbOut">—</div>
+    <div class="hint">A bleeding-risk score is a prompt to fix modifiable factors — blood pressure, alcohol, interacting drugs — not a reason to withhold anticoagulation on its own.</div>
+    ${SCORE_NOTE}`;
+  root.querySelector('#hbItems').innerHTML = ITEMS.map(([label], i)=>
+    `<label style="display:flex;gap:8px;align-items:center;padding:5px 0"><input type="checkbox" data-hb="${i}"> ${escapeHtml(label)}</label>`).join('');
+  function draw(){
+    const rows = ITEMS.map(([label], i)=>({ label, on: root.querySelector(`[data-hb="${i}"]`).checked }));
+    const total = rows.filter(r=>r.on).length;
+    root.querySelector('#hbOut').innerHTML = scoreTable(rows.map(r=>[r.label, r.on ? 1 : 0]), total,
+      total >= 3 ? 'high bleeding risk — address the modifiable factors' : 'lower bleeding risk');
+  }
+  root.querySelectorAll('[data-hb]').forEach(cb=>cb.addEventListener('change', draw));
+  draw();
+});
+
+/* ---------------- Child-Pugh ---------------- */
+clin('childpugh','Child-Pugh', root=>{
+  const OPTS = {
+    bili: [['< 2 mg/dL', 1], ['2–3 mg/dL', 2], ['> 3 mg/dL', 3]],
+    alb: [['> 3.5 g/dL', 1], ['2.8–3.5 g/dL', 2], ['< 2.8 g/dL', 3]],
+    inr: [['< 1.7', 1], ['1.7–2.3', 2], ['> 2.3', 3]],
+    asc: [['None', 1], ['Mild (controlled with diuretics)', 2], ['Moderate–severe (refractory)', 3]],
+    enc: [['None', 1], ['Mild', 2], ['Moderate–severe', 3]]
+  };
+  const opts = list => list.map(([label, v])=>`<option value="${v}">${v} — ${label}</option>`).join('');
+  root.innerHTML = `
+    <div class="field"><label>Bilirubin</label><select id="cpBili">${opts(OPTS.bili)}</select></div>
+    <div class="field"><label>Albumin</label><select id="cpAlb">${opts(OPTS.alb)}</select></div>
+    <div class="field"><label>INR (or PT prolongation)</label><select id="cpInr">${opts(OPTS.inr)}</select></div>
+    <div class="field"><label>Ascites</label><select id="cpAsc">${opts(OPTS.asc)}</select></div>
+    <div class="field"><label>Encephalopathy</label><select id="cpEnc">${opts(OPTS.enc)}</select></div>
+    <div class="output" id="cpOut">—</div>
+    <div class="hint">Each of the five items scores 1–3, so the total runs 5–15. Class B and C change what can be offered; the number on its own does not.</div>
+    ${SCORE_NOTE}`;
+  function draw(){
+    const ids = ['cpBili','cpAlb','cpInr','cpAsc','cpEnc'];
+    const labels = ['Bilirubin','Albumin','INR','Ascites','Encephalopathy'];
+    const vals = ids.map(id=>Number(root.querySelector('#' + id).value));
+    const total = vals.reduce((a, b)=>a + b, 0);
+    const cls = total <= 6 ? 'Class A (5–6)' : total <= 9 ? 'Class B (7–9)' : 'Class C (10–15)';
+    root.querySelector('#cpOut').innerHTML = scoreTable(labels.map((l, i)=>[l, vals[i]]), total, cls);
+  }
+  root.querySelectorAll('select').forEach(el=>el.addEventListener('change', draw));
+  draw();
+});
+/* ================================================================
    GAMES
    ================================================================ */
 TOOLS.games = [];
@@ -6791,6 +7042,553 @@ nat('nightsky','Night Sky Brightness', root=>{
   update();
 });
 
+/* ================================================================
+   B16 — the medium ones: word-level diff, text extractors, ZIP extract, tuner.
+   ================================================================ */
+
+/* ---------------- Text (2) ---------------- */
+
+txt('Analysis Tools','worddiff','Word-Level Diff', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Before</label><textarea id="wdA" style="min-height:100px">The report was written by the clinician and reviewed twice.</textarea></div>
+      <div class="field"><label>After</label><textarea id="wdB" style="min-height:100px">The report was written by the physician and reviewed three times.</textarea></div>
+    </div>
+    <div class="output" id="wdOut" style="white-space:pre-wrap;line-height:1.8">—</div>
+    <div class="hint">Line diff is the wrong grain for prose: one changed word marks the whole line. This compares words, so the two words that changed are the two words shown.</div>`;
+  function tokens(s){ return s.match(/\s+|[\w'’-]+|[^\s\w]/g) || []; }
+  function draw(){
+    const A = tokens(root.querySelector('#wdA').value);
+    const B = tokens(root.querySelector('#wdB').value);
+    const n = A.length, m = B.length;
+    // LCS table — 2000 × 2000 is 4 million cells, which is fine for a paragraph
+    if(n * m > 4000000){ root.querySelector('#wdOut').textContent = 'Too long to compare word by word — try a shorter passage.'; return; }
+    const dp = Array.from({length: n+1}, ()=>new Uint16Array(m+1));
+    for(let i=n-1;i>=0;i--) for(let j=m-1;j>=0;j--){
+      dp[i][j] = A[i] === B[j] ? dp[i+1][j+1] + 1 : Math.max(dp[i+1][j], dp[i][j+1]);
+    }
+    let i = 0, j = 0, html = '';
+    const esc = escapeHtml;
+    while(i < n && j < m){
+      if(A[i] === B[j]){ html += esc(A[i]); i++; j++; }
+      else if(dp[i+1][j] >= dp[i][j+1]){ html += '<span style="background:#fde2e1;text-decoration:line-through">' + esc(A[i]) + '</span>'; i++; }
+      else { html += '<span style="background:#e2f5e6">' + esc(B[j]) + '</span>'; j++; }
+    }
+    while(i < n){ html += '<span style="background:#fde2e1;text-decoration:line-through">' + esc(A[i++]) + '</span>'; }
+    while(j < m){ html += '<span style="background:#e2f5e6">' + esc(B[j++]) + '</span>'; }
+    root.querySelector('#wdOut').innerHTML = html;
+  }
+  root.querySelectorAll('textarea').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+txt('Analysis Tools','extract','Extract From Text', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Text</label><textarea id="exIn" style="min-height:130px" placeholder="Paste a log, an email, a config file…"></textarea></div>
+    <div class="segrow" id="exKinds">
+      <label><input type="checkbox" data-kind="url" checked> URLs</label>
+      <label><input type="checkbox" data-kind="email" checked> Emails</label>
+      <label><input type="checkbox" data-kind="ip" checked> IPv4</label>
+      <label><input type="checkbox" data-kind="mac"> MAC</label>
+      <label><input type="checkbox" data-kind="domain"> Domains</label>
+      <label><input type="checkbox" data-kind="hash"> Hashes</label>
+    </div>
+    <div class="output" id="exOut">—</div>
+    <div class="hint">Five regexes over the same text, deduplicated and in the order they appear. Double-click the result to copy it. Nothing is fetched, so a URL here is just a string.</div>`;
+  const PATTERNS = {
+    url: /\bhttps?:\/\/[^\s<>"')\]]+/gi,
+    email: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi,
+    ip: /\b(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)\b/g,
+    mac: /\b(?:[0-9A-F]{2}[:-]){5}[0-9A-F]{2}\b/gi,
+    domain: /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|net|org|io|dev|in|co|uk|de|ai|app|gov|edu)\b/gi,
+    hash: /\b[0-9a-f]{32}\b|\b[0-9a-f]{40}\b|\b[0-9a-f]{64}\b/gi
+  };
+  function draw(){
+    const text = root.querySelector('#exIn').value;
+    const on = [...root.querySelectorAll('[data-kind]')].filter(cb=>cb.checked).map(cb=>cb.dataset.kind);
+    const found = [];
+    on.forEach(kind=>{
+      const hits = text.match(PATTERNS[kind]) || [];
+      hits.forEach(h=>{
+        const value = kind === 'url' ? h.replace(/[.,;:]+$/, '') : h;
+        if(!found.some(f=>f.value === value)) found.push({ kind, value });
+      });
+    });
+    const out = root.querySelector('#exOut');
+    out.innerHTML = found.length
+      ? `<table class="mono">${found.map(f=>`<tr><td>${f.kind}</td><td style="word-break:break-all">${escapeHtml(f.value)}</td></tr>`).join('')}</table>
+         <div class="hint">${found.length} distinct value(s)</div>`
+      : '<div class="hint">Nothing matched yet — paste some text above.</div>';
+  }
+  root.querySelector('#exIn').addEventListener('input', draw);
+  root.querySelectorAll('[data-kind]').forEach(cb=>cb.addEventListener('change', draw));
+  draw();
+});
+
+/* ---------------- Files (1) ---------------- */
+
+fil('zipextract','ZIP Extract', root=>{
+  root.innerHTML = `
+    ${FILES_HINT}
+    <div class="field"><label>Archive</label><input type="file" id="zxFile" accept=".zip,application/zip"></div>
+    <div class="output" id="zxOut">Choose a .zip to list what is inside.</div>
+    <div class="hint">Reads the central directory and inflates each entry with the browser's own <span class="mono">DecompressionStream('deflate-raw')</span> — no library, which is why this only became possible recently. Store and deflate methods are supported; encrypted archives are refused rather than half-read.</div>`;
+  const u16 = (b, o) => b[o] | (b[o+1] << 8);
+  const u32 = (b, o) => (b[o] | (b[o+1] << 8) | (b[o+2] << 16) | (b[o+3] << 24)) >>> 0;
+  function findEOCD(b){
+    for(let i = b.length - 22; i >= 0 && i > b.length - 65558; i--){
+      if(b[i] === 0x50 && b[i+1] === 0x4b && b[i+2] === 5 && b[i+3] === 6) return i;
+    }
+    return -1;
+  }
+  function entries(b){
+    const eocd = findEOCD(b);
+    if(eocd < 0) throw new Error('No end-of-central-directory record — is this a ZIP?');
+    const count = u16(b, eocd + 10);
+    let p = u32(b, eocd + 16);
+    const list = [];
+    for(let i=0;i<count;i++){
+      if(u32(b, p) !== 0x02014b50) throw new Error('Central directory entry ' + i + ' is malformed');
+      const method = u16(b, p + 10);
+      const flags = u16(b, p + 8);
+      const csize = u32(b, p + 20);
+      const usize = u32(b, p + 24);
+      const nameLen = u16(b, p + 28), extraLen = u16(b, p + 30), commentLen = u16(b, p + 32);
+      const localOff = u32(b, p + 42);
+      const name = textFromBytes(b.slice(p + 46, p + 46 + nameLen));
+      list.push({ name, method, flags, csize, usize, localOff });
+      p += 46 + nameLen + extraLen + commentLen;
+    }
+    return list;
+  }
+  async function readEntry(b, entry){
+    const lh = entry.localOff;
+    if(u32(b, lh) !== 0x04034b50) throw new Error('Bad local header for ' + entry.name);
+    const nameLen = u16(b, lh + 26), extraLen = u16(b, lh + 28);
+    const start = lh + 30 + nameLen + extraLen;
+    const raw = b.slice(start, start + entry.csize);
+    if(entry.method === 0) return raw;
+    if(entry.method !== 8) throw new Error('method ' + entry.method + ' is not supported (store and deflate only)');
+    const ds = new DecompressionStream('deflate-raw');
+    const stream = new Blob([raw]).stream().pipeThrough(ds);
+    return new Uint8Array(await new Response(stream).arrayBuffer());
+  }
+  let archive = null, list = [];
+  root.querySelector('#zxFile').addEventListener('change', async e=>{
+    const f = e.target.files[0];
+    const out = root.querySelector('#zxOut');
+    if(!f) return;
+    if(!f.size){ out.textContent = 'That file is empty.'; return; }
+    try{
+      archive = new Uint8Array(await f.arrayBuffer());
+      list = entries(archive);
+      const enc = list.filter(x=>x.flags & 1);
+      out.innerHTML = `<table class="mono">${list.map((x, i)=>
+        `<tr><td>${i}</td><td style="word-break:break-all">${escapeHtml(x.name)}</td><td>${x.usize.toLocaleString(numLocale())} B</td>
+         <td><button class="btn ghost" data-zx="${i}" style="padding:2px 8px;font-size:12px">Save</button></td></tr>`).join('')}</table>
+        <div class="hint">${list.length} entries${enc.length ? ' — ' + enc.length + ' encrypted, which this cannot open' : ''}</div>`;
+      out.querySelectorAll('[data-zx]').forEach(b=>b.addEventListener('click', async ()=>{
+        const i = Number(b.dataset.zx);
+        try{
+          const data = await readEntry(archive, list[i]);
+          saveBlob(new Blob([data]), list[i].name.split('/').pop() || 'file');
+        }catch(err){ toast('Could not extract: ' + err.message); }
+      }));
+    }catch(err){
+      out.textContent = 'That archive could not be read: ' + err.message;
+    }
+  });
+});
+
+/* ---------------- Audio (1) ---------------- */
+
+aud('tuner','Tuner', root=>{
+  root.innerHTML = `
+    <div class="output" style="text-align:center;padding:22px 10px">
+      <div id="tnNote" style="font-family:var(--mono);font-size:52px;font-weight:700;line-height:1">—</div>
+      <div id="tnCents" class="hint" style="margin-top:8px">Start the microphone and play a note.</div>
+      <div id="tnBar" style="position:relative;height:8px;background:var(--line);margin:16px auto;max-width:320px">
+        <div id="tnDot" style="position:absolute;top:-4px;width:16px;height:16px;background:var(--accent);left:50%;transform:translateX(-50%)"></div>
+      </div>
+    </div>
+    <div class="segrow"><button class="btn primary" id="tnGo">Start microphone</button></div>
+    <div class="hint">Autocorrelation on the microphone signal — no server, no upload, nothing recorded. Works best on a single sustained note; a chord gives you nonsense.</div>`;
+  let stream = null, ctx = null, raf = null;
+  const NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  function stop(){
+    if(raf) cancelAnimationFrame(raf);
+    raf = null;
+    if(stream) stream.getTracks().forEach(t=>t.stop());
+    stream = null;
+    if(ctx){ ctx.close(); ctx = null; }
+  }
+  setCleanup(stop);
+  root.querySelector('#tnGo').addEventListener('click', async ()=>{
+    const msg = root.querySelector('#tnCents');
+    if(stream){ stop(); root.querySelector('#tnGo').textContent = 'Start microphone'; msg.textContent = 'Stopped.'; return; }
+    try{
+      stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation:false, autoGainControl:false, noiseSuppression:false } });
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const src = ctx.createMediaStreamSource(stream);
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 4096;
+      src.connect(analyser);
+      const buf = new Float32Array(analyser.fftSize);
+      root.querySelector('#tnGo').textContent = 'Stop';
+      msg.textContent = 'Listening…';
+      const tick = ()=>{
+        analyser.getFloatTimeDomainData(buf);
+        const freq = autoCorrelate(buf, ctx.sampleRate);
+        if(freq > 0){
+          const midi = 69 + 12 * Math.log2(freq / 440);
+          const nearest = Math.round(midi);
+          const cents = Math.round((midi - nearest) * 100);
+          root.querySelector('#tnNote').textContent = NOTE_NAMES[((nearest % 12) + 12) % 12] + (Math.floor(nearest / 12) - 1);
+          msg.textContent = (cents === 0 ? 'in tune' : (cents > 0 ? '+' + cents : cents) + ' cents · ' + freq.toFixed(1) + ' Hz');
+          const dot = root.querySelector('#tnDot');
+          dot.style.left = Math.max(2, Math.min(98, 50 + cents)) + '%';
+        }
+        raf = requestAnimationFrame(tick);
+      };
+      tick();
+    }catch(e){
+      msg.textContent = 'The microphone was not available: ' + (e.message || e);
+    }
+  });
+});
+
+/* Autocorrelation, as used in every tuner that works: find the lag where the
+   signal best matches itself, and invert it to get the frequency. */
+function autoCorrelate(buf, sampleRate){
+  const SIZE = buf.length;
+  let rms = 0;
+  for(let i=0;i<SIZE;i++) rms += buf[i] * buf[i];
+  rms = Math.sqrt(rms / SIZE);
+  if(rms < 0.01) return -1;
+  let start = 0, end = SIZE - 1;
+  const threshold = 0.2;
+  for(let i=0;i<SIZE/2;i++) if(Math.abs(buf[i]) < threshold){ start = i; break; }
+  for(let i=1;i<SIZE/2;i++) if(Math.abs(buf[SIZE-i]) < threshold){ end = SIZE-i; break; }
+  const slice = buf.slice(start, end);
+  const c = new Float32Array(slice.length).fill(0);
+  for(let lag=0; lag<slice.length; lag++){
+    for(let i=0;i<slice.length - lag;i++) c[lag] += slice[i] * slice[i+lag];
+  }
+  let d = 0;
+  while(d < c.length - 1 && c[d] > c[d+1]) d++;
+  let maxval = -1, maxpos = -1;
+  for(let i=d;i<c.length;i++) if(c[i] > maxval){ maxval = c[i]; maxpos = i; }
+  let T0 = maxpos;
+  const x1 = c[T0-1] || 0, x2 = c[T0], x3 = c[T0+1] || 0;
+  const a = (x1 + x3 - 2*x2) / 2, b = (x3 - x1) / 2;
+  if(a) T0 = T0 - b / (2*a);
+  return sampleRate / T0;
+}
+/* ================================================================
+   B15 — the small ones from BACKLOG-TOOLS.md
+   IP format, hash identifier, UUID analyser, cron generator, JWT signer,
+   set operations, edit distance, word-level diff, text extractors, ZIP
+   extract, tuner.
+
+   One deliberate deviation from "one tool per job": the extractors are a
+   single tool with checkboxes. Five tools with the same textarea and five
+   different regexes would be five copies of one tool, which is the opposite
+   of the rule's intent.
+   ================================================================ */
+
+/* ---------------- Development (5) ---------------- */
+
+dev('ipformat','IP Format Converter', root=>{
+  root.innerHTML = `
+    <div class="field"><label>IPv4 address</label><input type="text" id="ifIn" value="192.168.1.10" style="font-family:var(--mono)"></div>
+    <div class="output" id="ifOut">—</div>
+    <div class="hint">The same address in the forms a log, a config file or a packed header might hold it. The integer form is what a firewall or a database column usually stores.</div>`;
+  function draw(){
+    const v = root.querySelector('#ifIn').value.trim();
+    const parts = v.split('.').map(Number);
+    const out = root.querySelector('#ifOut');
+    if(parts.length !== 4 || parts.some(x=>!Number.isInteger(x) || x < 0 || x > 255)){
+      out.textContent = 'Four numbers, 0–255, separated by dots.';
+      return;
+    }
+    const n = ((parts[0]<<24) | (parts[1]<<16) | (parts[2]<<8) | parts[3]) >>> 0;
+    const pad = (s, len) => s.padStart(len, '0');
+    out.innerHTML = `<table class="mono">
+      <tr><td>Dotted</td><td>${parts.join('.')}</td></tr>
+      <tr><td>Integer</td><td>${n}</td></tr>
+      <tr><td>Hex</td><td>0x${pad(n.toString(16), 8)}</td></tr>
+      <tr><td>Octal</td><td>0${n.toString(8)}</td></tr>
+      <tr><td>Binary</td><td>${pad(n.toString(2), 32).replace(/(.{8})(?=.)/g, '$1.')}</td></tr>
+      <tr><td>Class</td><td>${parts[0] < 128 ? 'A' : parts[0] < 192 ? 'B' : parts[0] < 224 ? 'C' : parts[0] < 240 ? 'D (multicast)' : 'E (reserved)'}</td></tr>
+      <tr><td>Private?</td><td>${(parts[0] === 10 || (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) || (parts[0] === 192 && parts[1] === 168)) ? 'yes — RFC 1918' : (parts[0] === 127 ? 'loopback' : 'no')}</td></tr>
+    </table>`;
+  }
+  root.querySelector('#ifIn').addEventListener('input', draw);
+  draw();
+});
+
+dev('hashid','Hash Identifier', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Hash</label><input type="text" id="hiIn" value="5d41402abc4b2a76b9719d911017c592" style="font-family:var(--mono)"></div>
+    <div class="output" id="hiOut">—</div>
+    <div class="hint">Guesses from length and alphabet, which is all anyone can do without trying. A 32-character hex string is MD5 or NTLM or MD4; only the source tells you which.</div>`;
+  function draw(){
+    const h = root.querySelector('#hiIn').value.trim();
+    const out = root.querySelector('#hiOut');
+    if(!h){ out.textContent = '—'; return; }
+    const hex = /^[0-9a-fA-F]+$/.test(h);
+    const b64 = /^[A-Za-z0-9+/]+={0,2}$/.test(h);
+    const guesses = [];
+    if(hex){
+      const byLen = { 8: ['CRC-32', 'Adler-32'], 16: ['MySQL323', 'DES(8)'], 32: ['MD5', 'MD4', 'NTLM', 'LM'],
+        40: ['SHA-1', 'RIPEMD-160', 'MySQL5'], 56: ['SHA-224', 'SHA3-224'], 64: ['SHA-256', 'SHA3-256', 'BLAKE2s'],
+        96: ['SHA-384', 'SHA3-384'], 128: ['SHA-512', 'SHA3-512', 'BLAKE2b', 'Whirlpool'] };
+      (byLen[h.length] || []).forEach(g=>guesses.push(g));
+    }
+    if(b64 && !hex) guesses.push('Base64 — not a hash until you decode it');
+    if(/^\$2[aby]\$/.test(h)) guesses.push('bcrypt');
+    if(/^\$argon2/.test(h)) guesses.push('Argon2');
+    if(/^\$6\$/.test(h)) guesses.push('SHA-512 crypt');
+    if(/^\$1\$/.test(h)) guesses.push('MD5 crypt');
+    if(/^[0-9a-f]{32}:[0-9a-f]{32}$/.test(h)) guesses.push('LM:NTLM pair');
+    out.innerHTML = `<table class="mono">
+      <tr><td>Length</td><td>${h.length}</td></tr>
+      <tr><td>Alphabet</td><td>${hex ? 'hex' : b64 ? 'base64-ish' : 'other'}</td></tr>
+      <tr><td>Could be</td><td>${guesses.length ? escapeHtml(guesses.join(', ')) : 'nothing I recognise'}</td></tr>
+    </table>`;
+  }
+  root.querySelector('#hiIn').addEventListener('input', draw);
+  draw();
+});
+
+dev('uuidanalyse','UUID Analyser', root=>{
+  root.innerHTML = `
+    <div class="field"><label>UUID</label><input type="text" id="uaIn" value="550e8400-e29b-41d4-a716-446655440000" style="font-family:var(--mono)"></div>
+    <div class="output" id="uaOut">—</div>
+    <div class="hint">Version 4 is random; version 7 is time-ordered and therefore leaks when it was made. That distinction matters when an identifier ends up in a URL.</div>`;
+  function draw(){
+    const v = root.querySelector('#uaIn').value.trim().toLowerCase();
+    const out = root.querySelector('#uaOut');
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(v)){
+      out.textContent = 'That is not a UUID in the 8-4-4-4-12 form.';
+      return;
+    }
+    const version = parseInt(v[14], 16);
+    const variant = parseInt(v[19], 16);
+    const variantName = (variant & 0x8) === 0 ? 'NCS (reserved)' : (variant & 0xc) === 0x8 ? 'RFC 4122' : (variant & 0xe) === 0xc ? 'Microsoft' : 'future';
+    let when = '';
+    if(version === 1){
+      const t = v.replace(/-/g, '');
+      const ticks = BigInt('0x' + t.slice(13, 16) + t.slice(8, 12) + t.slice(0, 8));
+      const unix = Number(ticks / 10000n) - 12219292800;
+      when = new Date(unix * 1000).toISOString();
+    }
+    if(version === 7){
+      const t = v.replace(/-/g, '');
+      when = new Date(Number(BigInt('0x' + t.slice(0, 12)))).toISOString();
+    }
+    out.innerHTML = `<table class="mono">
+      <tr><td>Version</td><td>${version} ${version === 4 ? '(random)' : version === 7 ? '(time-ordered)' : version === 1 ? '(time + MAC)' : ''}</td></tr>
+      <tr><td>Variant</td><td>${variantName}</td></tr>
+      <tr><td>Generated at</td><td>${when || 'not recoverable from this version'}</td></tr>
+      <tr><td>Leaks a timestamp?</td><td>${when ? 'yes — do not put it in a public URL if that matters' : 'no'}</td></tr>
+    </table>`;
+  }
+  root.querySelector('#uaIn').addEventListener('input', draw);
+  draw();
+});
+
+dev('crongen','Cron Generator', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Minute</label><input type="text" id="cgMin" value="0"></div>
+      <div class="field"><label>Hour</label><input type="text" id="cgHour" value="3"></div>
+      <div class="field"><label>Day of month</label><input type="text" id="cgDom" value="*"></div>
+      <div class="field"><label>Month</label><input type="text" id="cgMon" value="*"></div>
+      <div class="field"><label>Day of week</label><input type="text" id="cgDow" value="*"></div>
+    </div>
+    <div class="segrow" id="cgPresets">
+      <button class="btn" data-cron="0 * * * *">Every hour</button>
+      <button class="btn" data-cron="0 3 * * *">Daily 03:00</button>
+      <button class="btn" data-cron="*/15 * * * *">Every 15 min</button>
+      <button class="btn" data-cron="0 9 * * 1-5">Weekdays 09:00</button>
+      <button class="btn" data-cron="0 0 1 * *">First of month</button>
+    </div>
+    <div class="output" id="cgOut">—</div>
+    <div class="hint">Fields accept <span class="mono">*</span>, a number, a list <span class="mono">1,15</span>, a range <span class="mono">1-5</span> and a step <span class="mono">*/15</span>. The Cron Parser is the other direction: paste a line, get English.</div>`;
+  function draw(){
+    const f = ['cgMin','cgHour','cgDom','cgMon','cgDow'].map(id=>root.querySelector('#' + id).value.trim() || '*');
+    const line = f.join(' ');
+    const valid = f.every(x=>/^[0-9*,\/-]+$/.test(x));
+    const dow = f[4], dom = f[2];
+    let note = '';
+    if(dow !== '*' && dom !== '*') note = 'Both day-of-month and day-of-week are set: cron runs when <b>either</b> matches, which is rarely what people mean.';
+    root.querySelector('#cgOut').innerHTML = `<table class="mono">
+      <tr><td>Line</td><td>${escapeHtml(line)}</td></tr>
+      <tr><td>Shape</td><td>${valid ? 'valid characters' : 'unexpected characters in a field'}</td></tr>
+      ${note ? `<tr><td>Careful</td><td>${note}</td></tr>` : ''}
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  root.querySelectorAll('[data-cron]').forEach(b=>b.addEventListener('click', ()=>{
+    const parts = b.dataset.cron.split(' ');
+    ['cgMin','cgHour','cgDom','cgMon','cgDow'].forEach((id, i)=>{ root.querySelector('#' + id).value = parts[i]; });
+    draw();
+  }));
+  draw();
+});
+
+dev('jwtsign','JWT Signer', root=>{
+  root.innerHTML = `
+    <div class="field"><label>Payload (JSON)</label><textarea id="jsPayload" style="min-height:110px">{"sub":"1234567890","name":"Dr Sohil Momin","iat":1735689600}</textarea></div>
+    <div class="row">
+      <div class="field"><label>Algorithm</label><select id="jsAlg"><option>HS256</option><option>HS384</option><option>HS512</option></select></div>
+      <div class="field"><label>Secret</label><input type="text" id="jsSecret" value="a-shared-secret"></div>
+    </div>
+    <div class="segrow"><button class="btn primary" id="jsGo">Sign</button></div>
+    <div class="output" id="jsOut" style="word-break:break-all">—</div>
+    <div class="hint">HMAC only, with a shared secret — the same thing a server does with a symmetric key. Asymmetric signing needs a private key and belongs in the RSA tool. The Debugger beside this verifies nothing; this one produces a token you can actually test with.</div>`;
+  const b64url = bytes => btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  root.querySelector('#jsGo').addEventListener('click', async ()=>{
+    const out = root.querySelector('#jsOut');
+    if(!cryptoAvailable()){ out.textContent = CRYPTO_MSG; return; }
+    let payload;
+    try{ payload = JSON.parse(root.querySelector('#jsPayload').value); }
+    catch(e){ out.textContent = 'The payload is not valid JSON: ' + e.message; return; }
+    const alg = root.querySelector('#jsAlg').value;
+    const hash = { HS256:'SHA-256', HS384:'SHA-384', HS512:'SHA-512' }[alg];
+    const header = { alg, typ:'JWT' };
+    const enc = new TextEncoder();
+    const signingInput = b64url(enc.encode(JSON.stringify(header))) + '.' + b64url(enc.encode(JSON.stringify(payload)));
+    try{
+      const key = await crypto.subtle.importKey('raw', enc.encode(root.querySelector('#jsSecret').value), { name:'HMAC', hash }, false, ['sign']);
+      const sig = new Uint8Array(await crypto.subtle.sign('HMAC', key, enc.encode(signingInput)));
+      const token = signingInput + '.' + b64url(sig);
+      out.innerHTML = `<table class="mono">
+        <tr><td>Token</td><td>${escapeHtml(token)}</td></tr>
+        <tr><td>Header</td><td>${escapeHtml(JSON.stringify(header))}</td></tr>
+      </table>`;
+    }catch(e){ out.textContent = 'Could not sign: ' + (e.message || e); }
+  });
+});
+
+/* ---------------- Calculation (3) ---------------- */
+
+calc('Sets & Logic','setops','Set Operations', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Set A</label><textarea id="soA" style="min-height:70px">1, 2, 3, 4</textarea></div>
+      <div class="field"><label>Set B</label><textarea id="soB" style="min-height:70px">3, 4, 5</textarea></div>
+    </div>
+    <div class="segrow" id="soModes">
+      <button class="btn" data-set="union">Union</button>
+      <button class="btn" data-set="inter">Intersection</button>
+      <button class="btn" data-set="diff">A − B</button>
+      <button class="btn" data-set="sym">Symmetric difference</button>
+      <button class="btn" data-set="power">Power set of A</button>
+      <button class="btn" data-set="cart">Cartesian product</button>
+    </div>
+    <div class="output" id="soOut">—</div>
+    <div class="hint">Comma or newline separated; order is preserved and duplicates are removed. The power set doubles in size with every element, so it stops at 16 elements.</div>`;
+  const parse = v => [...new Set(v.split(/[\n,]/).map(s=>s.trim()).filter(Boolean))];
+  function run(mode){
+    const A = parse(root.querySelector('#soA').value);
+    const B = parse(root.querySelector('#soB').value);
+    const out = root.querySelector('#soOut');
+    let result = [], note = '';
+    if(mode === 'union') result = [...new Set([...A, ...B])];
+    else if(mode === 'inter') result = A.filter(x=>B.includes(x));
+    else if(mode === 'diff') result = A.filter(x=>!B.includes(x));
+    else if(mode === 'sym') result = [...A.filter(x=>!B.includes(x)), ...B.filter(x=>!A.includes(x))];
+    else if(mode === 'power'){
+      if(A.length > 16){ out.textContent = 'That is ' + Math.pow(2, A.length) + ' subsets. Trim A to 16 or fewer.'; return; }
+      const sets = [];
+      for(let mask=0; mask<(1<<A.length); mask++){
+        sets.push(A.filter((_, i)=>mask & (1<<i)));
+      }
+      out.innerHTML = `<table class="mono">${sets.map((s, i)=>`<tr><td>${i}</td><td>{ ${escapeHtml(s.join(', '))} }</td></tr>`).join('')}</table>
+        <div class="hint">${sets.length} subsets</div>`;
+      return;
+    } else {
+      A.forEach(a=>B.forEach(b=>result.push(a + b)));
+      note = A.length + ' × ' + B.length + ' = ' + result.length;
+    }
+    out.innerHTML = `<table class="mono">
+      <tr><td>Result</td><td>{ ${escapeHtml(result.join(', '))} }</td></tr>
+      <tr><td>Size</td><td>${result.length}${note ? ' — ' + note : ''}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('[data-set]').forEach(b=>b.addEventListener('click', ()=>run(b.dataset.set)));
+  root.querySelectorAll('textarea').forEach(el=>el.addEventListener('input', ()=>run('union')));
+  run('union');
+});
+
+calc('Sets & Logic','levenshtein','Edit Distance', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>First</label><input type="text" id="lvA" value="kitten"></div>
+      <div class="field"><label>Second</label><input type="text" id="lvB" value="sitting"></div>
+    </div>
+    <div class="output" id="lvOut">—</div>
+    <div class="hint">Levenshtein distance: the fewest single-character insertions, deletions and substitutions that turn one into the other. The alignment below shows which operations those are.</div>`;
+  function draw(){
+    const a = [...root.querySelector('#lvA').value], b = [...root.querySelector('#lvB').value];
+    const m = a.length, n = b.length;
+    const d = Array.from({length: m+1}, ()=>new Array(n+1).fill(0));
+    for(let i=0;i<=m;i++) d[i][0] = i;
+    for(let j=0;j<=n;j++) d[0][j] = j;
+    for(let i=1;i<=m;i++) for(let j=1;j<=n;j++){
+      d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+    }
+    let i = m, j = n, ops = [];
+    while(i > 0 || j > 0){
+      if(i > 0 && j > 0 && a[i-1] === b[j-1]){ i--; j--; }
+      else if(i > 0 && j > 0 && d[i][j] === d[i-1][j-1] + 1){ ops.unshift('substitute ' + a[i-1] + ' → ' + b[j-1]); i--; j--; }
+      else if(i > 0 && d[i][j] === d[i-1][j] + 1){ ops.unshift('delete ' + a[i-1]); i--; }
+      else { ops.unshift('insert ' + b[j-1]); j--; }
+    }
+    const pct = Math.max(m, n) ? (1 - d[m][n] / Math.max(m, n)) * 100 : 100;
+    root.querySelector('#lvOut').innerHTML = `<table class="mono">
+      <tr><td>Distance</td><td>${d[m][n]}</td></tr>
+      <tr><td>Similarity</td><td>${pct.toFixed(0)}%</td></tr>
+      <tr><td>Operations</td><td>${ops.length ? escapeHtml(ops.join('; ')) : 'identical'}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+calc('Sets & Logic','hamming','Hamming Distance', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>First (text or hex)</label><input type="text" id="hmA" value="karolin" style="font-family:var(--mono)"></div>
+      <div class="field"><label>Second</label><input type="text" id="hmB" value="kathrin" style="font-family:var(--mono)"></div>
+    </div>
+    <div class="output" id="hmOut">—</div>
+    <div class="hint">Counts the bits that differ. Equal-length strings are compared byte by byte; different lengths are compared up to the shorter one and the rest is reported as unaligned rather than silently ignored.</div>`;
+  function toBytes(v){
+    if(/^(0x)?[0-9a-fA-F]+$/.test(v) && v.replace(/^0x/, '').length % 2 === 0 && !/^\d+$/.test(v)){
+      return Uint8Array.from(v.replace(/^0x/, '').match(/.{2}/g).map(h=>parseInt(h, 16)));
+    }
+    return bytesFromText(v);
+  }
+  function draw(){
+    const a = toBytes(root.querySelector('#hmA').value), b = toBytes(root.querySelector('#hmB').value);
+    const len = Math.min(a.length, b.length);
+    let bits = 0;
+    for(let i=0;i<len;i++){
+      let x = a[i] ^ b[i];
+      while(x){ bits += x & 1; x >>= 1; }
+    }
+    root.querySelector('#hmOut').innerHTML = `<table class="mono">
+      <tr><td>Bits different</td><td>${bits}</td></tr>
+      <tr><td>Bytes compared</td><td>${len}</td></tr>
+      <tr><td>Unaligned</td><td>${a.length === b.length ? 'none' : Math.abs(a.length - b.length) + ' byte(s) longer on one side'}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
 /* ================================================================
    Borrowed ideas — five tools from it-tools, four from CyberChef,
    one improvement from compressorjs.
@@ -12074,7 +12872,7 @@ sys('storage','Local Storage Usage', root=>{
    ================================================================ */
 
 /* ---------------- Accessibility (5) ---------------- */
-TOOLS.accessibility = [];
+TOOLS.accessibility = TOOLS.accessibility || [];  // idempotent: a part that sorts earlier may have registered already
 function acc(id, name, render){ register({cat:'accessibility', id, name, render}); }
 
 acc('readingruler','Reading Ruler', root=>{
@@ -12201,7 +12999,7 @@ acc('focuspreview','Focus Ring Preview', root=>{
 });
 
 /* ---------------- Education (4) ---------------- */
-TOOLS.education = [];
+TOOLS.education = TOOLS.education || [];  // idempotent: a part that sorts earlier may have registered already
 function edu(id, name, render){ register({cat:'education', id, name, render}); }
 
 edu('timestable','Multiplication Table', root=>{
@@ -12313,7 +13111,7 @@ edu('formulasheet','Formula Sheet', root=>{
 });
 
 /* ---------------- Clinical (4) ---------------- */
-TOOLS.clinical = [];
+TOOLS.clinical = TOOLS.clinical || [];  // idempotent: a part that sorts earlier may have registered already
 function clin(id, name, render){ register({cat:'clinical', id, name, render}); }
 
 const CLINICAL_NOTE = '<div class="hint" style="border-left:2px solid #c0392b;padding-left:10px">A calculator, not a clinician. Every number here depends on assumptions a patient may not fit — check it against the protocol you work to, and against the patient in front of you.</div>';
@@ -12441,7 +13239,7 @@ clin('electrolytes','Corrected Calcium & Anion Gap', root=>{
 });
 
 /* ---------------- Money (India) (4) ---------------- */
-TOOLS.money = [];
+TOOLS.money = TOOLS.money || [];  // idempotent: a part that sorts earlier may have registered already
 function money(id, name, render){ register({cat:'money', id, name, render}); }
 
 money('hra','HRA Exemption', root=>{

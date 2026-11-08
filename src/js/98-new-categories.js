@@ -9,7 +9,7 @@
    ================================================================ */
 
 /* ---------------- Accessibility (5) ---------------- */
-TOOLS.accessibility = [];
+TOOLS.accessibility = TOOLS.accessibility || [];  // idempotent: a part that sorts earlier may have registered already
 function acc(id, name, render){ register({cat:'accessibility', id, name, render}); }
 
 acc('readingruler','Reading Ruler', root=>{
@@ -136,7 +136,7 @@ acc('focuspreview','Focus Ring Preview', root=>{
 });
 
 /* ---------------- Education (4) ---------------- */
-TOOLS.education = [];
+TOOLS.education = TOOLS.education || [];  // idempotent: a part that sorts earlier may have registered already
 function edu(id, name, render){ register({cat:'education', id, name, render}); }
 
 edu('timestable','Multiplication Table', root=>{
@@ -248,7 +248,7 @@ edu('formulasheet','Formula Sheet', root=>{
 });
 
 /* ---------------- Clinical (4) ---------------- */
-TOOLS.clinical = [];
+TOOLS.clinical = TOOLS.clinical || [];  // idempotent: a part that sorts earlier may have registered already
 function clin(id, name, render){ register({cat:'clinical', id, name, render}); }
 
 const CLINICAL_NOTE = '<div class="hint" style="border-left:2px solid #c0392b;padding-left:10px">A calculator, not a clinician. Every number here depends on assumptions a patient may not fit — check it against the protocol you work to, and against the patient in front of you.</div>';
@@ -376,7 +376,7 @@ clin('electrolytes','Corrected Calcium & Anion Gap', root=>{
 });
 
 /* ---------------- Money (India) (4) ---------------- */
-TOOLS.money = [];
+TOOLS.money = TOOLS.money || [];  // idempotent: a part that sorts earlier may have registered already
 function money(id, name, render){ register({cat:'money', id, name, render}); }
 
 money('hra','HRA Exemption', root=>{

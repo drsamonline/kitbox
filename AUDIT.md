@@ -552,3 +552,29 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - The XOR brute force ranks by printable-character density, which is a heuristic and fails on short inputs.
 - TOTP and RSA need Web Crypto, so both say so on a page served over plain http.
 - The SQL prettifier is regex-based: it will mangle a subquery you wanted inline, and it does not validate anything.
+
+## B15–B17 (2.4.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 389 / 27 (was 370 / 27) |
+| Full suite | 155 checks across six files, 0 failures |
+| Interaction sweep | 343 tools driven, 0 failures |
+| Fuzz | 215 fields across 389 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 758 KB → 790 KB |
+
+### Findings
+
+**1. A category initialiser wiped a whole category.** `TOOLS.clinical = []` in the B13 part ran *after* the eight clinical scores had registered from a part that sorts earlier, so the category came out empty and the app still built and tested green — because no test asserted that a specific clinical tool existed. The initialisers are now idempotent (`TOOLS.x = TOOLS.x || []`), which makes load order irrelevant, and nine assertions now name specific clinical tools.
+
+**2. My Hamming expectation was wrong twice.** `karolin` / `kathrin` differ in three characters, which is 9 bits — I wrote 3, then 8, before computing it properly. The tool was right each time. Worth recording because the temptation with a failing assertion is to change the tool.
+
+**3. Two of the eight clinical scores have a scoring shape that is easy to get wrong.** Wells DVT subtracts 2 for an alternative diagnosis, so the total can be negative; CHA₂DS₂-VASc counts age twice at different weights, so ticking both age rows double-counts. Both are now tested with the values that expose them.
+
+### Known limitations added
+
+- Clinical scores are implemented from the published instruments, without the validation studies behind them. They do not know the patient.
+- ZIP Extract handles store and deflate. Encrypted archives are listed and refused rather than half-read; other methods are named in the error.
+- The tuner needs a microphone and a quiet room; it reports nonsense on a chord and says so.

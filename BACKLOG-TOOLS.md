@@ -1,5 +1,7 @@
 # Tools still to add — the exhaustive list
 
+> **Shipped since this list was written (2.4.0):** IP Format Converter, Hash Identifier, UUID Analyser, Cron Generator, JWT Signer, Set Operations, Edit Distance, Hamming Distance, Word-Level Diff, Extract From Text, ZIP Extract, Tuner, and eight clinical scores (GCS, CURB-65, qSOFA, Wells DVT, Wells PE, CHA₂DS₂-VASc, HAS-BLED, Child-Pugh). The rows below are what remains.
+
 Every candidate tool I can see, after reading **CyberChef** (506 operations), **it-tools** (80 tools) and this app's own gaps. Nothing here is a commitment; it is a list with enough detail that picking from it is easy.
 
 **Effort:** **S** ≈ under an hour · **M** ≈ half a day · **L** ≈ a day or more.

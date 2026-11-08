@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**370 tools across 27 categories.**
+**389 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -8,19 +8,19 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | # | Category | Code | Tools |
 |--:|:--|:--|--:|
 | 1 | General Tools | `GEN` | 13 |
-| 2 | Text Tools | `TXT` | 45 |
+| 2 | Text Tools | `TXT` | 47 |
 | 3 | Generator Tools | `GNR` | 10 |
-| 4 | Calculation Tools | `CAL` | 51 |
+| 4 | Calculation Tools | `CAL` | 54 |
 | 5 | Image Tools | `IMG` | 18 |
 | 6 | Unit Converter | `UNI` | 33 |
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 44 |
+| 10 | Development Tools | `DEV` | 49 |
 | 11 | Colors Tools | `CLR` | 10 |
 | 12 | Science Tools | `SCI` | 12 |
 | 13 | Geo Tools | `GEO` | 10 |
-| 14 | Audio Tools | `AUD` | 9 |
+| 14 | Audio Tools | `AUD` | 10 |
 | 15 | Games | `GAM` | 10 |
 | 16 | Travel Tools | `TRV` | 5 |
 | 17 | Nature Tools | `NAT` | 6 |
@@ -32,7 +32,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 23 | System | `SYS` | 4 |
 | 24 | Accessibility | `ACC` | 5 |
 | 25 | Education | `EDU` | 4 |
-| 26 | Clinical | `CLN` | 4 |
+| 26 | Clinical | `CLN` | 12 |
 | 27 | Money (India) | `MNY` | 4 |
 
 ## General Tools — 13 tools
@@ -51,7 +51,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GEN-12` **Level Tool** — `general/level`
 - `GEN-13` **World Clock** — `general/worldclock`
 
-## Text Tools — 45 tools
+## Text Tools — 47 tools
 
 **Basic Tools**
 
@@ -108,6 +108,8 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 
 **Analysis Tools**
 
+- `TXT-46` **Word-Level Diff** — `text/worddiff`
+- `TXT-47` **Extract From Text** — `text/extract`
 - `TXT-43` **Shannon Entropy** — `text/entropy`
 - `TXT-34` **Keywords & Text Similarity** — `text/keywords`
 - `TXT-35` **Readability & Reading Time** — `text/readability`
@@ -132,7 +134,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GNR-08` **Passphrase Generator** — `generator/passphrase`
 - `GNR-09` **Username Generator** — `generator/usernames`
 
-## Calculation Tools — 51 tools
+## Calculation Tools — 54 tools
 
 **Common**
 
@@ -194,6 +196,12 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `CAL-39` **GCD & LCM** — `calc/gcdlcm`
 - `CAL-40` **Quadratic Solver** — `calc/quadratic`
 - `CAL-41` **Logarithm** — `calc/logarithm`
+
+**Sets & Logic**
+
+- `CAL-52` **Set Operations** — `calc/setops`
+- `CAL-53` **Edit Distance** — `calc/levenshtein`
+- `CAL-54` **Hamming Distance** — `calc/hamming`
 
 **Statistics**
 
@@ -327,7 +335,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 44 tools
+## Development Tools — 49 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -352,6 +360,11 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-45` **IP Format Converter** — `dev/ipformat`
+- `DEV-46` **Hash Identifier** — `dev/hashid`
+- `DEV-47` **UUID Analyser** — `dev/uuidanalyse`
+- `DEV-48` **Cron Generator** — `dev/crongen`
+- `DEV-49` **JWT Signer** — `dev/jwtsign`
 - `DEV-37` **chmod Calculator** — `dev/chmod`
 - `DEV-38` **Basic Auth Header** — `dev/basicauth`
 - `DEV-39` **MAC Address Generator** — `dev/macaddr`
@@ -415,7 +428,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GEO-09` **Bearing → Cardinal** — `geo/cardinal`
 - `GEO-10` **Coordinate Rounder** — `geo/coordround`
 
-## Audio Tools — 9 tools
+## Audio Tools — 10 tools
 
 - `AUD-01` **Tone Generator** — `audio/tonegen`
 - `AUD-02` **Metronome** — `audio/metronome`
@@ -424,6 +437,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `AUD-05` **Decibel Meter** — `audio/decibelmeter`
 - `AUD-06` **Audio Visualizer** — `audio/visualizer`
 - `AUD-07` **Sound Recorder** — `audio/soundrecorder`
+- `AUD-10` **Tuner** — `audio/tuner`
 - `AUD-08` **Tap Tempo** — `audio/taptempo`
 - `AUD-09` **Frequency → Note** — `audio/hznote`
 
@@ -529,8 +543,16 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `EDU-03` **Unit Circle** — `education/unitcircle`
 - `EDU-04` **Formula Sheet** — `education/formulasheet`
 
-## Clinical — 4 tools
+## Clinical — 12 tools
 
+- `CLN-05` **Glasgow Coma Scale** — `clinical/gcs`
+- `CLN-06` **CURB-65** — `clinical/curb65`
+- `CLN-07` **qSOFA** — `clinical/qsofa`
+- `CLN-08` **Wells Score — DVT** — `clinical/wellsdvt`
+- `CLN-09` **Wells Score — PE** — `clinical/wellspe`
+- `CLN-10` **CHA₂DS₂-VASc** — `clinical/chads`
+- `CLN-11` **HAS-BLED** — `clinical/hasbled`
+- `CLN-12` **Child-Pugh** — `clinical/childpugh`
 - `CLN-01` **Paediatric Dose** — `clinical/paeddose`
 - `CLN-02` **IV Drip Rate** — `clinical/drip`
 - `CLN-03` **eGFR (CKD-EPI 2021)** — `clinical/egfr`

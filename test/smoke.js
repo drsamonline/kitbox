@@ -612,7 +612,54 @@ setTimeout(async () => {
   ok('a /30 expands to four addresses', /4/.test(w.document.querySelector('#irOut').textContent),
      w.document.querySelector('#irOut').textContent.replace(/\s+/g, ' ').slice(0, 60));
 
-  /* 20. the app makes no network calls and loads nothing external */
+
+  /* 20. B15-B17: the tools asked for, each checked against a known value */
+  ev('location.hash="#/tool/dev/ipformat"'); ev('route()');
+  ok('192.168.1.10 is 3232235786', /3232235786/.test(w.document.querySelector('#ifOut').textContent));
+
+  ev('location.hash="#/tool/calc/levenshtein"'); ev('route()');
+  ok('kitten → sitting is an edit distance of 3',
+     /Distance3/.test(w.document.querySelector('#lvOut').textContent.replace(/\s+/g, '')));
+
+  ev('location.hash="#/tool/calc/hamming"'); ev('route()');
+  ok('karolin/kathrin differ in 9 bits',
+     /Bitsdifferent9/.test(w.document.querySelector('#hmOut').textContent.replace(/\s+/g, '')));
+
+  ev('location.hash="#/tool/calc/setops"'); ev('route()');
+  ok('the union of two sets of four and three is five',
+     /Size5/.test(w.document.querySelector('#soOut').textContent.replace(/\s+/g, '')));
+
+  ev('location.hash="#/tool/text/extract"'); ev('route()');
+  const exIn = w.document.querySelector('#exIn');
+  exIn.value = 'see https://example.com/a and mail dr@example.org from 10.0.0.7';
+  exIn.dispatchEvent(new w.Event('input'));
+  const exText = w.document.querySelector('#exOut').textContent;
+  ok('the extractor finds a URL, an email and an IP',
+     /example\.com/.test(exText) && /dr@example\.org/.test(exText) && /10\.0\.0\.7/.test(exText));
+
+  ev('location.hash="#/tool/clinical/gcs"'); ev('route()');
+  ok('GCS defaults to E4 V5 M6 = 15',
+     /Total15/.test(w.document.querySelector('#gsOut').textContent.replace(/\s+/g, '')));
+
+  ev('location.hash="#/tool/clinical/chads"'); ev('route()');
+  const cdBoxes = [...w.document.querySelectorAll('[data-cd]')];
+  cdBoxes[2].checked = true; cdBoxes[4].checked = true;
+  cdBoxes[2].dispatchEvent(new w.Event('change'));
+  ok('CHA₂DS₂-VASc: age ≥ 75 plus stroke is 4',
+     /Total4/.test(w.document.querySelector('#cdOut').textContent.replace(/\s+/g, '')));
+
+  ev('location.hash="#/tool/clinical/wellsdvt"'); ev('route()');
+  const wdBoxes = [...w.document.querySelectorAll('[data-wd]')];
+  wdBoxes[0].checked = true; wdBoxes[9].checked = true;
+  wdBoxes[0].dispatchEvent(new w.Event('change'));
+  ok('Wells DVT can go negative — cancer +1, alternative diagnosis −2',
+     /Total-1/.test(w.document.querySelector('#wdOut').textContent.replace(/\s+/g, '')));
+
+  ev('location.hash="#/tool/clinical/childpugh"'); ev('route()');
+  ok('Child-Pugh starts at 5, Class A',
+     /Total5/.test(w.document.querySelector('#cpOut').textContent.replace(/\s+/g, '')) && /Class A/.test(w.document.querySelector('#cpOut').textContent));
+
+  /* 21. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),
