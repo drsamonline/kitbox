@@ -28,6 +28,7 @@ FONT = "Verdana,DejaVu Sans,Helvetica,Arial,sans-serif"
 MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 
 BADGES = [
+    ('version',    '2.3.0',                                '#2f86eb'),
     ('tools',      '370',                                  '#2F86EB'),
     ('categories', '27',                                   '#E31C7D'),
     ('checks',     '155',                           '#3FCB6B'),
@@ -77,7 +78,7 @@ def banner():
   <text x="172" y="122" font-family="{FONT}" font-size="54" font-weight="700" fill="{WHITE}" letter-spacing="-1.2">Kitbox</text>
   <text x="174" y="158" font-family="{MONO}" font-size="14" fill="{MUTED}" letter-spacing="1.6">EVERY TOOL, ONE OFFLINE APP</text>
 
-  <text x="76" y="208" font-family="{FONT}" font-size="18" fill="{MUTED}">{BADGES[0][1]} tools across {BADGES[1][1]} categories in a single HTML file —</text>
+  <text x="76" y="208" font-family="{FONT}" font-size="18" fill="{MUTED}">{badge_value('tools')} tools across {badge_value('categories')} categories in a single HTML file —</text>
   <text x="76" y="236" font-family="{FONT}" font-size="18" fill="{MUTED}">no install, no account, no network.</text>
 
   <!-- the category palette, as a quiet strip on the right -->
@@ -99,6 +100,13 @@ def banner():
 '''
 
 
+def badge_value(name):
+    for key, val, _ in BADGES:
+        if key == name:
+            return val
+    raise SystemExit('no badge called ' + name)
+
+
 def main():
     os.makedirs(ASSETS, exist_ok=True)
     app_path = os.path.join(ROOT, 'kitbox.html')
@@ -115,7 +123,7 @@ def main():
     io.open(path, 'w', encoding='utf-8').write(banner())
     print('wrote', os.path.relpath(path, ROOT))
 
-    print('\nbadge says %s tools; run `node tools/check-badges.js` to prove it' % BADGES[0][1])
+    print('\nbadge says %s tools; run `node tools/check-badges.js` to prove it' % badge_value('tools'))
 
 
 if __name__ == '__main__':

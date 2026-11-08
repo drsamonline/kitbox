@@ -1,5 +1,7 @@
 # Roadmap — every enhancement worth doing
 
+**Tools specifically:** the exhaustive candidate list, with effort and the reason each one is possible, is in [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md) — 107 tools that can ship without a dependency, and the ones that cannot.
+
 An exhaustive backlog for Kitbox, written after building the 1.0–1.1.1 releases. Everything here is specific to this codebase: each item names the file, the mechanism, or the measurement that justifies it. Nothing is here because it would sound good in a pitch.
 
 **Scheduled in [PLAN.md](PLAN.md)** — every item below is assigned to exactly one of 15 batches, and `tools/check-plan.py` fails the build if that ever stops being true.

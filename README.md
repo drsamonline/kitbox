@@ -4,18 +4,19 @@
 
 <br>
 
-<a href="kitbox.html"><img src="docs/assets/badge-tools.svg" alt="338 tools"></a>
-<a href="#categories"><img src="docs/assets/badge-categories.svg" alt="23 categories"></a>
-<a href="#tests"><img src="docs/assets/badge-checks.svg" alt="118 checks"></a>
+<a href="https://github.com/drsamonline/kitbox/releases/latest"><img src="docs/assets/badge-version.svg" alt="version 2.3.0"></a>
+<a href="kitbox.html"><img src="docs/assets/badge-tools.svg" alt="370 tools"></a>
+<a href="#categories"><img src="docs/assets/badge-categories.svg" alt="27 categories"></a>
+<a href="#tests"><img src="docs/assets/badge-checks.svg" alt="155 checks"></a>
 <a href="#what-it-refuses-to-do"><img src="docs/assets/badge-network.svg" alt="no network"></a>
-<a href="#what-it-is"><img src="docs/assets/badge-runtime.svg" alt="0 runtime dependencies"></a>
-<a href="kitbox.html"><img src="docs/assets/badge-file.svg" alt="one HTML file"></a>
-<a href="kitbox.html"><img src="docs/assets/badge-size.svg" alt="623 KB"></a>
+<a href="#what-it-is"><img src="docs/assets/badge-runtime.svg" alt="0 dependencies"></a>
+<a href="#what-it-is"><img src="docs/assets/badge-file.svg" alt="1 HTML file"></a>
+<a href="#what-it-is"><img src="docs/assets/badge-size.svg" alt="758 KB"></a>
 <a href="LICENSE"><img src="docs/assets/badge-licence.svg" alt="PolyForm Noncommercial 1.0.0"></a>
 
 <br><br>
 
-<strong>338 tools across 23 categories in one HTML file.</strong><br>
+<strong>370 tools across 27 categories in one HTML file.</strong><br>
 No install, no build step, no dependencies, no account — and no network call, ever.
 
 <br>
@@ -24,6 +25,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 <a href="https://drsamonline.github.io/kitbox/">Landing page</a> &nbsp;·&nbsp;
 <a href="#categories">What's inside</a> &nbsp;·&nbsp;
 <a href="ROADMAP.md">Roadmap</a> &nbsp;·&nbsp;
+<a href="BACKLOG-TOOLS.md">Tools to add</a> &nbsp;·&nbsp;
 <a href="PLAN.md">Plan</a> &nbsp;·&nbsp;
 <a href="#support">Support</a>
 
@@ -31,9 +33,9 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 <br>
 
-<img src="docs/shot-home.png" alt="Kitbox home screen: a search box over 338 tools and a grid of 23 colour-coded categories" width="100%">
+<img src="docs/shot-home.png" alt="Kitbox home screen: a search box over 370 tools and a grid of 27 colour-coded categories" width="100%">
 
-<p align="center"><sub>One search box over 338 tools. Pinned and recent tools appear above the categories once you have used it for a day.</sub></p>
+<p align="center"><sub>One search box over 370 tools. Pinned and recent tools appear above the categories once you have used it for a day.</sub></p>
 
 ---
 
@@ -43,7 +45,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 |  |  |  |
 |:--|:--|:--|
-| 🧰 **339 tools** | 🗂️ **23 categories** | 📄 **1 HTML file** |
+| 🧰 **370 tools** | 🗂️ **27 categories** | 📄 **1 HTML file** |
 | 📦 **0 dependencies** | 🔌 **0 network calls** | 👤 **0 accounts** |
 
 Save the file. Open it from a USB stick on a machine with the router switched off. It works — that is the entire design brief, and everything below follows from it.
@@ -55,15 +57,15 @@ Save the file. Open it from a USB stick on a machine with the router switched of
 | | Category | Tools | What it covers |
 |:--:|:--|--:|:--|
 | 🧰 | General | 13 | Ruler, counters, countdown, stopwatch, Morse, Roman numerals, compass, level, world clock, text-to-speech, big clock |
-| ✍️ | Text | 40 | Case, find and replace, sorting, ciphers, slugify, braille, ASCII banners, readability, keywords, accents, smart quotes, invisible characters |
-| ✨ | Generator | 9 | QR codes, Lorem Ipsum, number generators, barcode scanning, passphrases, usernames |
+| ✍️ | Text | 45 | Case, find and replace, sorting, ciphers, slugify, braille, ASCII banners, readability, keywords, accents, smart quotes, invisible characters |
+| ✨ | Generator | 10 | QR codes, Lorem Ipsum, number generators, barcode scanning, passphrases, usernames |
 | 🧮 | Calculation | 51 | Everyday maths, algebra, geometry and solids, statistics, regression, dates, sleep cycles, rounding, fuel and electricity cost, pricing |
 | 🖼️ | Image | 18 | Resize, crop, compress, convert, filters, collage, ASCII art — all local |
 | 📐 | Unit converter | 33 | Length, mass, volume, energy, pressure, data, typography, paper sizes, shoe sizes |
 | 💰 | Finance | 19 | EMI, investment, tax, amortisation, savings goal, debt payoff, simple interest, SIP, GST split |
 | 🎲 | Randomizer | 11 | Wheel, dice, coin, rock-paper-scissors, random from a list, PINs, teams, 8-ball |
 | ❤️ | Health | 8 | BMI, BMR, water, ideal weight, clinical calculations, TDEE and macros, heart-rate zones, due date |
-| ⌨️ | Development | 36 | JSON, YAML, base64, hashes, HMAC, MD5, JWT, cron, ULID, CIDR, MIME, Markdown, configs, TypeScript, query strings, SQL lists |
+| ⌨️ | Development | 44 | JSON, YAML, base64, hashes, HMAC, MD5, JWT, cron, ULID, CIDR, MIME, Markdown, configs, TypeScript, query strings, SQL lists |
 | 🎨 | Colours | 10 | Picker, blend, WCAG contrast, colour-blindness simulation, palette from an image, harmony, tints and shades |
 | ⚗️ | Science | 12 | Ohm's law, molar mass, pH, half-life, density, wavelength, periodic table, ideal gas, projectiles, molarity |
 | 🧭 | Geo | 10 | Distance, bearing, midpoint, DMS, sunrise, GPS speed, polygon area, antipodes, cardinal points, coordinate rounding |
@@ -76,7 +78,11 @@ Save the file. Open it from a USB stick on a machine with the router switched of
 | ☀️ | Almanac | 5 | Panchang, rahu kaal, sun and moon times, planetary hours, tithi calendar |
 | ✉️ | Communication | 5 | vCard, calendar invites, message links, SMS counting, phone formatting |
 | 📚 | Reference | 5 | ASCII table, Big-O cheatsheet, regex cheatsheet, country dial codes, keyboard shortcuts |
-| 🖥️ | System | 3 | Device and screen info, browser feature check, local storage usage |
+| 🖥️ | System | 4 | Device and screen info, error log, browser feature check, local storage usage |
+| ♿ | Accessibility | 5 | Reading ruler, dyslexia-friendly preview, text spacing checker, alt text checker, focus ring preview |
+| 🎓 | Education | 4 | Multiplication table, times table quiz, unit circle, formula sheet |
+| 🩺 | Clinical | 4 | Paediatric dose, IV drip rate, eGFR, corrected calcium and anion gap |
+| ₹ | Money (India) | 4 | HRA exemption, EPF corpus, gratuity, PPF and FD maturity |
 
 ## A look inside
 
@@ -95,7 +101,7 @@ Save the file. Open it from a USB stick on a machine with the router switched of
 
 | Key | Does |
 |:--|:--|
-| <kbd>Ctrl</kbd> <kbd>K</kbd> / <kbd>⌘</kbd> <kbd>K</kbd> | Search all 338 tools from anywhere |
+| <kbd>Ctrl</kbd> <kbd>K</kbd> / <kbd>⌘</kbd> <kbd>K</kbd> | Search all 370 tools from anywhere |
 | <kbd>/</kbd> | The same search, when you are not already typing |
 | <kbd>↑</kbd> <kbd>↓</kbd> <kbd>↵</kbd> | Move through results, open one |
 | <kbd>Esc</kbd> | Close the search, then step back a page |
@@ -151,9 +157,9 @@ npm ci
 npm test
 ```
 
-118 checks, run against the real file in jsdom:
+155 checks, run against the real file in jsdom:
 
-- every tool renders — 338 of them
+- every tool renders — 370 of them
 - tool ids and names are unique
 - all 50 routes resolve
 - the ported astronomy matches Meeus 25.b and 47.a; Delhi's midsummer sunrise and sunset land where they should
