@@ -2,78 +2,186 @@
   "schema": 1,
   "locked": false,
   "files": {
-    "README.md": {
-      "sha": "fd50d551f986c4269d123d61be1c18a976216f45",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "generated",
-      "at": "2026-11-08T11:55:29Z"
-    },
-    "AUDIT.md": {
-      "sha": "727e14f54fda840a1d33343055e03db0cb62cac9",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "generated",
-      "at": "2026-11-08T11:55:29Z"
-    },
-    "CHANGELOG.md": {
-      "sha": "6b437ee447583e7fa6bba0a8acb33f96b2b876db",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "generated",
-      "at": "2026-11-08T11:55:29Z"
-    },
-    "kitbox.html": {
-      "sha": "f0c083983564e1c8db1532eefc34f3032debe5f1",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "canonical",
-      "at": "2026-11-08T11:55:29Z"
-    },
-    "index.html": {
-      "sha": "7db6d73a25129b9cd06c899261de929585fec3b4",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "canonical",
-      "at": "2026-11-08T11:55:29Z"
-    },
-    "LICENSE": {
-      "sha": "0ffca78c0a4e099025090d5e495a9f55e2bf164e",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "generated",
-      "at": "2026-11-08T11:55:29Z"
-    },
-    "package.json": {
-      "sha": "71922bfb9b557639c9fce3eadd11f3f486fdd75d",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "generated",
-      "at": "2026-11-08T11:55:29Z"
-    },
-    "package-lock.json": {
-      "sha": "4b75e56b17f0f26da3c05b20eff2a00f7f2bc731",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "generated",
-      "at": "2026-11-08T11:55:29Z"
-    },
-    "test/smoke.js": {
-      "sha": "c306944c03dc810d78544e520a1c759e9bcbd15c",
-      "producer": "breadth-pass@2026-11-08",
-      "class": "canonical",
-      "at": "2026-11-08T11:55:29Z"
-    },
     ".github/workflows/test.yml": {
-      "sha": "ef2ce249be1927de970958cc3d63de3b6b108024",
-      "producer": "breadth-pass@2026-11-08",
+      "sha": "e9b3d047c8e080f241a8e76e89f416f2e1401ae7",
+      "producer": "docs-pass@2026-11-08",
       "class": "canonical",
-      "at": "2026-11-08T11:55:29Z"
+      "at": "2026-11-08T12:03:33Z"
     },
     ".gitignore": {
       "sha": "b0169fddd9079ba720664cfbb39f2b23b2512bbe",
-      "producer": "breadth-pass@2026-11-08",
+      "producer": "docs-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:55:29Z"
+      "at": "2026-11-08T12:03:33Z"
     },
     ".nojekyll": {
       "sha": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-      "producer": "breadth-pass@2026-11-08",
+      "producer": "docs-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:55:29Z"
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "AUDIT.md": {
+      "sha": "b7148b1ed47d10ce43225a8b39cd0f723a746fc6",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "CHANGELOG.md": {
+      "sha": "bfc2f25c5ac2b4dc039d8aacd324fccb931f903d",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "LICENSE": {
+      "sha": "0ffca78c0a4e099025090d5e495a9f55e2bf164e",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "README.md": {
+      "sha": "1c6e15caf92dca5225080f3cf12a089e3b1ac61c",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/badge-categories.svg": {
+      "sha": "8af2214a81f3e35e8f6893253cc3d8761aeb5eda",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/badge-file.svg": {
+      "sha": "3603c082a33dac2448fa6b440bcf472986fab20b",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/badge-licence.svg": {
+      "sha": "3cb4268ae96523401640c285d5413ab2acf78505",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/badge-network.svg": {
+      "sha": "a9574ea92867c3fd1e684c86418ff0a5455808aa",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/badge-runtime.svg": {
+      "sha": "701b8432d62c3c61581c75134bb743503ff3246e",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/badge-size.svg": {
+      "sha": "8f6ca795d37373b72e91af9035f35e6ae4ca72ec",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/badge-tests.svg": {
+      "sha": "fad42355b8d5b283354bb199f65ba86117ffa2f1",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/badge-tools.svg": {
+      "sha": "a38c479d014efda62919b167f4e65007ff5d44a3",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/banner.svg": {
+      "sha": "4080f6030006561f6020488270f46e8997d41bfe",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/assets/upi-qr.svg": {
+      "sha": "85be3f50c3bb40dde86dc1d1aa19439aa245ebd9",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/shot-files.png": {
+      "sha": "cfc69360c00746a09c1ce9cf5c44ec4067a2c6fd",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/shot-home.png": {
+      "sha": "06198ab3ef97810679127ae4f7bd361d4d8bb109",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/shot-landing.png": {
+      "sha": "9ba3df76f14f32b11d92a9e1772f80e6ae65d89f",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/shot-mobile.png": {
+      "sha": "90eb507b7f999bc42003e0ad47c5d747258886dd",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "docs/shot-tool.png": {
+      "sha": "ba6c368e014532cba57da1ea15915232830c27d3",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "index.html": {
+      "sha": "7db6d73a25129b9cd06c899261de929585fec3b4",
+      "producer": "docs-pass@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "kitbox.html": {
+      "sha": "f0c083983564e1c8db1532eefc34f3032debe5f1",
+      "producer": "docs-pass@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "package-lock.json": {
+      "sha": "32fcedbcf107d1088fa5cd4f873ba0f952a334f6",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "package.json": {
+      "sha": "dbafda88cecf52909237f5e316d6daa89666351b",
+      "producer": "docs-pass@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "test/smoke.js": {
+      "sha": "c306944c03dc810d78544e520a1c759e9bcbd15c",
+      "producer": "docs-pass@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "tools/badges.py": {
+      "sha": "ea8754c0e3b3cecd7652839983b8dce1f1ec057f",
+      "producer": "docs-pass@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "tools/check-badges.js": {
+      "sha": "0f1ae43265161d1db0a1d5ace3f4e41cb769d2b1",
+      "producer": "docs-pass@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T12:03:33Z"
+    },
+    "tools/shots.py": {
+      "sha": "a4112daf6d088b1edb20e7a1eae0493dff5f361b",
+      "producer": "docs-pass@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T12:03:33Z"
     }
   },
-  "updated": "2026-11-08T11:55:29Z"
+  "updated": "2026-11-08T12:03:33Z"
 }

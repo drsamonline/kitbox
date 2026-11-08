@@ -106,3 +106,23 @@ The same checks were re-run against the merged build (338 tools, 23 categories),
 - **SMS counting** treats any character outside GSM-7 as forcing UCS-2 for the whole message, which is what carriers do, but does not model the GSM-7 extension table's double-width characters beyond the encoding switch.
 - **Planetary hours and tithi calendar** inherit the panchang's accuracy: about a minute at boundaries, and local tradition may differ.
 - **Speak Text** depends on voices installed in the operating system; on a bare Linux install there may be none, and the tool says so.
+
+## Documentation pass — 1.1.1
+
+The app did not change in this pass; only what surrounds it did. What was checked:
+
+| Check | Method | Result |
+|---|---|---|
+| Every image and link in the README resolves | scan every `src`/`href` and test the path on disk | 17 references, 0 missing |
+| Badge numbers match reality | `node tools/check-badges.js` — counts tools and categories out of `kitbox.html`, tests out of `test/smoke.js`, size from the file | pass |
+| Badges render offline | local SVG, no badge service, no network at render time | pass |
+| Screenshots are current | regenerated from the committed files by `tools/shots.py` | pass |
+| Screenshots show real values | the Panchang shot is taken with `TZ=Asia/Kolkata`, so sunrise reads 06:46, not 01:16 | pass |
+
+### Findings
+
+**1. A hand-typed number was wrong.** The size badge said 638 KB, which is the file size in *thousands* of bytes; in KiB it is 623 KB. Caught by the badge checker the moment it existed. *Fixed* by computing the value in `badges.py` from the file itself, so it cannot be typed wrong again.
+
+**2. Screenshots taken in UTC showed nonsense.** The first Panchang screenshot reported sunrise at 01:16 and sunset at 12:27, because the container runs in UTC while the tool reports local time. Nothing was wrong with the app — but a README image that looks wrong is worse than no image. *Fixed* by pinning `TZ=Asia/Kolkata` in `tools/shots.py` and documenting why.
+
+**3. The badge could rot silently.** Local SVG badges have no service to keep them current. *Fixed* by making `check-badges.js` part of CI: if the tool count or test count changes without the badge changing, the build fails with the numbers printed.

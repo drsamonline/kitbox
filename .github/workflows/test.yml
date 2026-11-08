@@ -24,6 +24,8 @@ jobs:
       - run: npm ci
       - name: Test
         run: npm test
+      - name: Badge numbers match the app
+        run: node tools/check-badges.js
 
       # A loaded resource is fetched by the page by itself; a link is something
       # a person chooses to click. Only the first kind breaks the offline

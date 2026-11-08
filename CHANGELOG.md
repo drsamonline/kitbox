@@ -2,6 +2,22 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.1.1 — 2026-11-08
+
+Documentation only. The app and the landing page are byte-identical to 1.1.0.
+
+### Added
+
+- **A README that shows the thing.** A generated banner, eight local SVG badges, five screenshots (home, a tool page, a category, mobile, the landing page), and a category table with an icon per row.
+- **`tools/badges.py`** draws the badges and banner as local SVG — no badge service, because an offline-first app that needs the network to say "no network" has broken its own rule.
+- **`tools/shots.py`** takes the screenshots with headless Chromium, pinned to `Asia/Kolkata` so time-bearing shots show Indian times.
+- **`tools/check-badges.js`** fails the build if a badge number drifts from the app. Wired into CI as its own step.
+- `npm run badges` and `npm run shots` as shortcuts.
+
+### Fixed
+
+- The size badge first claimed **638 KB** — that was the file in thousands, not KiB. It now reads the real size at build time (623 KB) instead of a number typed by hand.
+
 ## 1.1.0 — 2026-11-08
 
 The breadth pass: 59 more small, fast tools, two new categories, a landing page, and a Support page in both. Every addition is a separate tool — nothing was merged into an existing one.

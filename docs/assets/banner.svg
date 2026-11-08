@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-label="Kitbox — every tool, one offline app">
+  <title>Kitbox — every tool, one offline app</title>
+  <rect width="1280" height="300" fill="#0b0e14"/>
+  <rect x="0" y="0" width="1280" height="1" fill="rgba(255,255,255,0.14)"/>
+  <rect x="0" y="299" width="1280" height="1" fill="rgba(255,255,255,0.14)"/>
+
+  <!-- the app's tile mark: a square with a cut band -->
+  <rect x="76" y="74" width="72" height="72" fill="#2F86EB"/>
+  <rect x="76" y="98" width="72" height="11" fill="#0b0e14"/>
+
+  <text x="172" y="122" font-family="Verdana,DejaVu Sans,Helvetica,Arial,sans-serif" font-size="54" font-weight="700" fill="#ffffff" letter-spacing="-1.2">Kitbox</text>
+  <text x="174" y="158" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="14" fill="#a7adb9" letter-spacing="1.6">EVERY TOOL, ONE OFFLINE APP</text>
+
+  <text x="76" y="208" font-family="Verdana,DejaVu Sans,Helvetica,Arial,sans-serif" font-size="18" fill="#a7adb9">338 tools across 23 categories in a single HTML file —</text>
+  <text x="76" y="236" font-family="Verdana,DejaVu Sans,Helvetica,Arial,sans-serif" font-size="18" fill="#a7adb9">no install, no account, no network.</text>
+
+  <!-- the category palette, as a quiet strip on the right -->
+  <g opacity="0.9">
+    <rect x="930" y="196" width="14" height="14" fill="#E31C7D"/>
+    <rect x="950" y="196" width="14" height="14" fill="#E6A400"/>
+    <rect x="970" y="196" width="14" height="14" fill="#9FCB1B"/>
+    <rect x="990" y="196" width="14" height="14" fill="#F4483D"/>
+    <rect x="1010" y="196" width="14" height="14" fill="#2F86EB"/>
+    <rect x="1030" y="196" width="14" height="14" fill="#A93CF5"/>
+    <rect x="1050" y="196" width="14" height="14" fill="#3FCB6B"/>
+    <rect x="1070" y="196" width="14" height="14" fill="#22D9D9"/>
+    <rect x="1090" y="196" width="14" height="14" fill="#1FCE9C"/>
+    <rect x="1110" y="196" width="14" height="14" fill="#12A99A"/>
+    <rect x="1130" y="196" width="14" height="14" fill="#F2871A"/>
+  </g>
+  <text x="1204" y="234" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" fill="#6f7787">dr s. momin · vadodara</text>
+</svg>
