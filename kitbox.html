@@ -234,6 +234,10 @@
   .crumblink{color:var(--shell-muted); text-decoration:none;}
   .crumblink:hover{color:#fff; text-decoration:underline;}
   .firstrun{margin:-14px 0 26px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  .pastechip{position:absolute; z-index:60; background:#fff; border:1px solid var(--line-strong);
+    color:var(--ink-soft); font-family:var(--sans); font-size:11.5px; font-weight:600;
+    padding:4px 9px; cursor:pointer;}
+  .pastechip:hover{background:#f4f4f3;}
   .chip{font-family:var(--mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase;
     border:1px solid #c0392b; color:#c0392b; padding:2px 6px; margin-left:6px; vertical-align:2px;}
   .newchip{font-family:var(--mono); font-size:9px; letter-spacing:.07em; text-transform:uppercase;
@@ -418,11 +422,58 @@ function toast(msg){
   toastTimer = setTimeout(()=>el.classList.remove('on'), 1500);
 }
 
+/* A paste button appears over an empty text field, because the clipboard is
+   the most common way text arrives and on a phone the long-press menu is a
+   lottery. Delegated, so it works in every tool and survives re-renders. */
+let pasteChip = null;
+function hidePasteChip(){
+  if(pasteChip && pasteChip.parentNode) pasteChip.parentNode.removeChild(pasteChip);
+  pasteChip = null;
+}
+document.addEventListener('focusin', e=>{
+  hidePasteChip();
+  const el = e.target;
+  if(!el || (el.tagName !== 'TEXTAREA' && !(el.tagName === 'INPUT' && el.type === 'text'))) return;
+  if(el.value || !(navigator.clipboard && navigator.clipboard.readText)) return;
+  if(el.closest('[hidden]')) return;
+  const rect = el.getBoundingClientRect();
+  pasteChip = document.createElement('button');
+  pasteChip.type = 'button';
+  pasteChip.className = 'pastechip';
+  pasteChip.textContent = 'Paste';
+  pasteChip.style.top = (window.scrollY + rect.top + 4) + 'px';
+  pasteChip.style.left = (window.scrollX + rect.right - 62) + 'px';
+  pasteChip.addEventListener('mousedown', ev=>ev.preventDefault());
+  pasteChip.addEventListener('click', async ()=>{
+    try{
+      const text = await navigator.clipboard.readText();
+      el.value = text;
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      toast('Pasted');
+    }catch(err){ toast('The browser would not let Kitbox read the clipboard'); }
+    hidePasteChip();
+    el.focus();
+  });
+  document.body.appendChild(pasteChip);
+});
+document.addEventListener('focusout', ()=>setTimeout(hidePasteChip, 150));
+
 /* Double-click any result block to copy it. Delegated on the document, so it
    survives the re-render most tools do on every keystroke — attaching a button
    to each .output would vanish the moment the tool redrew itself. */
 document.addEventListener('dblclick', e=>{
-  const box = e.target && e.target.closest ? e.target.closest('.output') : null;
+  const target = e.target && e.target.closest ? e.target : null;
+  // A table is copied as CSV, not as the text it happens to display.
+  const table = target ? target.closest('table') : null;
+  if(table && table.rows.length > 1 && !table.closest('.palette-overlay')){
+    const csv = Array.from(table.rows).map(r=>Array.from(r.cells)
+      .map(c=>'"' + c.textContent.trim().replace(/"/g, '""') + '"').join(',')).join('\n');
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(csv).then(()=>toast('Table copied as CSV'), ()=>toast('Could not copy'));
+    }
+    return;
+  }
+  const box = target ? target.closest('.output') : null;
   if(!box) return;
   if(box.querySelector('input,textarea,select,button')) return;
   const text = (box.innerText || box.textContent || '').trim();
@@ -11412,6 +11463,141 @@ function capabilityIssue(toolId){
   return label;
 }
 
+/* ---------- Tool chrome ----------
+   Everything here runs after a tool renders, so it applies to all 339 of them
+   without editing any of them: remembered inputs, an example to try, a reset,
+   a reason on every disabled button, drag-and-drop on every file input, a
+   paste chip on every empty text field, CSV on every table, and a hint where a
+   result would go. */
+
+const TOOL_STATE = new Map();          // "cat/id" -> { inputId: value }
+
+/* What a tool can offer as a worked example, keyed by the input ids it uses.
+   Opt-in on purpose: a good example is specific, and a generic one teaches
+   nothing. */
+const EXAMPLES = {
+  'calc/percentage': { pX: '25', pY: '200' },
+  'calc/percentchange': { pcA: '100', pcB: '125' },
+  'calc/simplecalc': { scIn: '12*(3+4)/2' },
+  'calc/fueleconomy': { feDist: '420', feFuel: '31', fePrice: '105' },
+  'calc/electricity': { elW: '1500', elH: '2', elR: '8' },
+  'calc/pricing': { prCost: '100', prPrice: '150', prFixed: '50000' },
+  'calc/statistics': { stIn: '12, 15, 15, 18, 21, 22, 40' },
+  'calc/sigfig': { sfIn: '0.004560', sfN: '3' },
+  'finance/loanemi': { emiP: '2500000', emiR: '8.5', emiY: '20' },
+  'finance/gstsplit': { gsAmt: '10000' },
+  'finance/sip': { spAmt: '10000', spRate: '12', spYears: '15' },
+  'health/bmi': { bmiW: '70', bmiH: '170' },
+  'health/tdeemacros': { tdAge: '35', tdHt: '170', tdWt: '70' },
+  'dev/subnet': { snCidr: '192.168.1.0/24' },
+  'dev/md5': { md5In: 'The quick brown fox jumps over the lazy dog' },
+  'dev/base32': { b58In: 'hello' },
+  'dev/sqlin': { sqIn: "1\n2\nO'Brien" },
+  'text/accents': { acIn: 'Crème brûlée, jalapeño, façade' },
+  'text/smartquotes': { sqIn: '\u201cPaste from Word here\u201d \u2014 it normalises.\u2026' },
+  'text/readability': { rdIn: 'A good tool does one thing completely, tells you when it cannot, and never asks for your email address first.' },
+  'text/keywords': { kwIn: 'The repertory records graded symptoms; the materia medica records the remedy. Symptoms are graded, remedies are recorded.' },
+  'files/csvjson': { cjIn: 'name,city\nAsha,Vadodara\nRavi,Surat' },
+  'colors/contrast': { ctFg: '#17171d', ctBg: '#ffffff' },
+  'science/idealgas': { igP: '101.325', igV: '22.4', igT: '0' },
+  'geo/distance': { dsLat1: '22.3072', dsLng1: '73.1812', dsLat2: '19.0760', dsLng2: '72.8777' },
+  'random/teamshuffler': { tmIn: 'Asha\nRavi\nMeera\nKabir\nNita\nImran' }
+};
+
+function captureToolState(key, rootEl){
+  if(!rootEl) return;
+  const state = {};
+  rootEl.querySelectorAll('input[id], textarea[id], select[id]').forEach(el=>{
+    if(el.type === 'file') return;
+    state[el.id] = el.type === 'checkbox' ? el.checked : el.value;
+  });
+  TOOL_STATE.set(key, state);
+}
+
+function restoreToolState(key, rootEl){
+  const state = TOOL_STATE.get(key);
+  if(!state) return;
+  rootEl.querySelectorAll('input[id], textarea[id], select[id]').forEach(el=>{
+    if(el.type === 'file' || !(el.id in state)) return;
+    if(el.type === 'checkbox') el.checked = !!state[el.id];
+    else el.value = state[el.id];
+    // Tell the tool its own value changed, so it recomputes rather than
+    // showing a result that no longer matches the field.
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+}
+
+function fillExample(key, rootEl){
+  const example = EXAMPLES[key];
+  if(!example) return;
+  Object.keys(example).forEach(id=>{
+    const el = rootEl.querySelector('[id="' + id + '"]');
+    if(!el) return;
+    el.value = example[id];
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+}
+
+/* A greyed-out button with no explanation is a dead end. */
+function explainDisabled(rootEl){
+  rootEl.querySelectorAll('button[disabled]').forEach(b=>{
+    if(!b.title) b.title = 'Nothing to act on yet — fill in the fields first.';
+    if(!b.getAttribute('aria-disabled')) b.setAttribute('aria-disabled', 'true');
+  });
+}
+
+/* Drop a file on the field instead of hunting for it in the picker. */
+function wireDropZones(rootEl){
+  rootEl.querySelectorAll('input[type=file]').forEach(inp=>{
+    const zone = inp.closest('.field') || inp.parentElement;
+    if(!zone || zone.dataset.dropWired) return;
+    zone.dataset.dropWired = '1';
+    zone.addEventListener('dragover', e=>{ e.preventDefault(); zone.style.outline = '2px dashed var(--accent)'; });
+    zone.addEventListener('dragleave', ()=>{ zone.style.outline = ''; });
+    zone.addEventListener('drop', e=>{
+      e.preventDefault();
+      zone.style.outline = '';
+      if(!e.dataTransfer || !e.dataTransfer.files || !e.dataTransfer.files.length) return;
+      try{
+        inp.files = e.dataTransfer.files;
+        inp.dispatchEvent(new Event('change', { bubbles: true }));
+        toast('File added');
+      }catch(err){ toast('That drop could not be read — use the picker'); }
+    });
+  });
+}
+
+/* A hint where the result will appear, instead of a bare dash. */
+function hintEmptyOutputs(rootEl){
+  if(!rootEl.querySelector('input, textarea, select')) return;
+  rootEl.querySelectorAll('.output').forEach(o=>{
+    if(o.textContent.trim() !== '—' || o.children.length) return;
+    const h = document.createElement('div');
+    h.className = 'hint';
+    h.style.margin = '0';
+    h.textContent = 'Fill in the fields above to see a result.';
+    o.appendChild(h);
+  });
+}
+
+/* Opt-in unit hints: <input type="number" data-unit="cm"> shows "cm" as the
+   placeholder until the field has a value. */
+function applyUnits(rootEl){
+  rootEl.querySelectorAll('input[type=number][data-unit]').forEach(el=>{
+    if(!el.placeholder) el.placeholder = el.dataset.unit;
+  });
+}
+
+function applyToolChrome(key, rootEl){
+  restoreToolState(key, rootEl);
+  explainDisabled(rootEl);
+  wireDropZones(rootEl);
+  applyUnits(rootEl);
+  hintEmptyOutputs(rootEl);
+}
+
 /* ---------- Errors ----------
    A tool that throws should cost you that tool, not the page. The error is
    logged locally (never sent anywhere) and shown with enough detail to report. */
@@ -11458,6 +11644,7 @@ function renderTool(catId, toolId){
   backBtn.classList.remove('hidden');
   crumb.innerHTML = `<a class="crumblink" href="#/category/${catId}">${escapeHtml(cat.name)}</a> / ${escapeHtml(tool.name)}`;
   noteRecent(catId, toolId);
+  currentToolKey = catId + '/' + toolId;
   const siblings = TOOLS[catId] || [];
   const at = siblings.findIndex(t=>t.id === toolId);
   const prevTool = at > 0 ? siblings[at-1] : null;
@@ -11470,8 +11657,10 @@ function renderTool(catId, toolId){
           <h2 style="margin-bottom:0">${escapeHtml(tool.name)}</h2>
         </div>
         <div style="display:flex;gap:6px;flex:none;align-items:flex-start">
-          <button class="btn ghost" id="prevBtn" style="font-size:12.5px" aria-label="Previous tool in this category" ${prevTool?'':'disabled'}>←</button>
-          <button class="btn ghost" id="nextBtn" style="font-size:12.5px" aria-label="Next tool in this category" ${nextTool?'':'disabled'}>→</button>
+          <button class="btn ghost" id="prevBtn" style="font-size:12.5px" aria-label="Previous tool in this category" ${prevTool?'':'disabled title="This is the first tool in the category" aria-disabled="true"'}>←</button>
+          <button class="btn ghost" id="nextBtn" style="font-size:12.5px" aria-label="Next tool in this category" ${nextTool?'':'disabled title="This is the last tool in the category" aria-disabled="true"'}>→</button>
+          ${EXAMPLES[catId + '/' + toolId] ? `<button class="btn ghost" id="exBtn" style="font-size:12.5px">Try an example</button>` : ''}
+          <button class="btn ghost" id="rsBtn" style="font-size:12.5px" title="Clear what you typed and start again">Reset</button>
           <button class="btn ghost" id="pinBtn" style="font-size:12.5px" aria-pressed="${isPinned(catId,toolId)}">${isPinned(catId,toolId)?'★ Pinned':'☆ Pin'}</button>
         </div>
       </div>
@@ -11479,6 +11668,13 @@ function renderTool(catId, toolId){
       <div id="toolRoot" aria-live="polite"></div>
     </div>
   `;
+  const exBtn = app.querySelector('#exBtn');
+  if(exBtn) exBtn.addEventListener('click', ()=>fillExample(catId + '/' + toolId, toolRoot));
+  app.querySelector('#rsBtn').addEventListener('click', ()=>{
+    TOOL_STATE.delete(catId + '/' + toolId);
+    renderTool(catId, toolId);
+    toast('Reset');
+  });
   if(prevTool) app.querySelector('#prevBtn').addEventListener('click', ()=>{ location.hash = '#/tool/'+catId+'/'+prevTool.id; });
   if(nextTool) app.querySelector('#nextBtn').addEventListener('click', ()=>{ location.hash = '#/tool/'+catId+'/'+nextTool.id; });
   app.querySelector('#pinBtn').addEventListener('click', e=>{
@@ -11487,9 +11683,11 @@ function renderTool(catId, toolId){
     e.target.setAttribute('aria-pressed', String(now));
   });
   const toolRoot = document.getElementById('toolRoot');
+  const stateKey = catId + '/' + toolId;
   try{
     tool.render(toolRoot);
     associateLabels(toolRoot);
+    applyToolChrome(stateKey, toolRoot);
   }catch(err){
     renderToolError(catId, tool, err, toolRoot);
   }
@@ -11771,10 +11969,16 @@ function renderNotFound(hash){
   });
 }
 
+let currentToolKey = null;
+
 function route(){
   runCleanup();
   const hash = location.hash || '#/';
   if(lastHash) scrollMemo.set(lastHash, window.scrollY);
+  if(currentToolKey){
+    captureToolState(currentToolKey, document.getElementById('toolRoot'));
+    currentToolKey = null;
+  }
   const parts = hash.replace('#/','').split('/').filter(Boolean);
   if(parts[0]==='about') renderAbout();
   else if(parts[0]==='all') renderAll();

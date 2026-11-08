@@ -373,7 +373,70 @@ setTimeout(async () => {
   w.setInterval = realSet; w.clearInterval = realClear;
   ok('no tool leaves a timer running after cleanup', leaked.length === 0, leaked.slice(0, 5).join(', '));
 
-  /* 13. the app makes no network calls and loads nothing external */
+
+  /* 13. the consistency sweep (B5) */
+  ev('location.hash="#/tool/calc/percentchange"'); ev('route()');
+  const pcA = w.document.querySelector('#pcA'), pcB = w.document.querySelector('#pcB');
+  pcA.value = '200'; pcA.dispatchEvent(new w.Event('input'));
+  pcB.value = '250'; pcB.dispatchEvent(new w.Event('input'));
+  ev('location.hash="#/"'); ev('route()');
+  ev('location.hash="#/tool/calc/percentchange"'); ev('route()');
+  ok('a tool remembers what you typed when you come back',
+     w.document.querySelector('#pcA').value === '200' && w.document.querySelector('#pcB').value === '250',
+     w.document.querySelector('#pcA').value + '/' + w.document.querySelector('#pcB').value);
+  ok('and recomputes rather than showing a stale answer', /\+25\.00%/.test(w.document.querySelector('#pcOut').textContent));
+
+  w.document.querySelector('#rsBtn').click();
+  ok('reset forgets it again', w.document.querySelector('#pcA').value === '100', w.document.querySelector('#pcA').value);
+
+  const exBtn = w.document.querySelector('#exBtn');
+  ok('a tool with a worked example offers it', !!exBtn);
+  if (exBtn) {
+    exBtn.click();
+    ok('the example fills the fields', w.document.querySelector('#pcB').value === '125', w.document.querySelector('#pcB').value);
+  }
+
+  // every example must point at an input that exists, or it is a silent no-op
+  const examples = ev('EXAMPLES');
+  const deadExamples = [];
+  for (const key of Object.keys(examples)) {
+    ev('location.hash="#/tool/' + key + '"'); ev('route()');
+    const ids = new Set([...w.document.querySelectorAll('#toolRoot input, #toolRoot textarea, #toolRoot select')].map(e => e.id));
+    for (const id of Object.keys(examples[key])) if (!ids.has(id)) deadExamples.push(key + ' -> ' + id);
+  }
+  ok('every worked example points at a real field', deadExamples.length === 0, deadExamples.slice(0, 3).join(', '));
+
+  ev('location.hash="#/tool/files/zipcreate"'); ev('route()');
+  const buildBtn = w.document.querySelector('#zpGo');
+  ok('a disabled button says why it is disabled', !!buildBtn.title && buildBtn.getAttribute('aria-disabled') === 'true', buildBtn.title);
+  ok('file fields accept a dropped file', !!w.document.querySelector('[data-drop-wired]'));
+
+  ev('location.hash="#/tool/calc/percentage"'); ev('route()');
+  ok('an empty result says what to do', /Fill in the fields/.test(w.document.querySelector('#toolRoot').textContent));
+
+  Object.defineProperty(w.navigator, 'clipboard', {
+    value: { writeText: () => Promise.resolve(), readText: () => Promise.resolve('pasted text') }, configurable: true });
+  ev('location.hash="#/tool/text/accents"'); ev('route()');
+  const accentBox = w.document.querySelector('#acIn');
+  accentBox.focus();
+  const pasteChipEl = w.document.querySelector('.pastechip');
+  ok('a paste chip appears over an empty text field', !!pasteChipEl);
+  if (pasteChipEl) {
+    pasteChipEl.click();
+    await new Promise(r => setTimeout(r, 20));
+    ok('the chip pastes into the field', accentBox.value === 'pasted text', accentBox.value);
+  }
+
+  let tableCopy = null;
+  Object.defineProperty(w.navigator, 'clipboard', {
+    value: { writeText: t => { tableCopy = t; return Promise.resolve(); }, readText: () => Promise.resolve('') }, configurable: true });
+  ev('location.hash="#/tool/almanac/panchang"'); ev('route()');
+  const panTable = w.document.querySelector('#toolRoot table');
+  panTable.dispatchEvent(new w.MouseEvent('dblclick', { bubbles: true }));
+  await new Promise(r => setTimeout(r, 20));
+  ok('double-clicking a table copies it as CSV', !!tableCopy && /^"Tithi"/.test(tableCopy), (tableCopy || '').split('\n')[0].slice(0, 30));
+
+  /* 14. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

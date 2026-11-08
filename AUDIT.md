@@ -233,3 +233,28 @@ Nothing — every tool that starts an interval already called `setCleanup`. That
 - The alias map is hand-written and currently empty, because nothing has been renamed yet. Its value is prospective: the next rename gets an entry rather than a broken link.
 - Capability chips are declarative. A tool that needs the camera but is not in `TOOL_REQUIRES` gets no chip; the list is short and deliberate, and the test suite only asserts the mechanism, not the completeness of the mapping.
 - The error boundary catches throws during render. An error thrown later, inside an event handler, is caught by the global handler and logged, but cannot restore the tool — it was already rendered.
+
+## B5 — the consistency sweep (1.5.0)
+
+| Check | Result |
+|---|---|
+| Full suite | 82 passed, 0 failed |
+| axe across 50 pages | 0 violations |
+| Examples point at real fields | 26/26 |
+| Size | 656 KB → 668 KB |
+
+### Findings
+
+**1. Half the worked examples pointed at fields that did not exist.** `fillExample` looks up inputs by id and silently skips a miss — correct defensive behaviour, and exactly the kind of silence that makes a feature look implemented when it is not. Four of the first twenty-six examples used ids I had guessed from the tool's *purpose* rather than read from its markup. *Fixed* by dumping the real ids from every tool and correcting the map, and *guarded* by a test that walks `EXAMPLES` and fails on any id the tool does not render.
+
+**2. `CSS.escape` does not exist in jsdom.** The example filler used it to build a selector from an id. *Fixed* by using an attribute selector instead, which needs no escaping and works everywhere.
+
+**3. The paste chip needed layout to decide where to sit.** The first version refused to appear when `getBoundingClientRect().width` was zero, which is always true in jsdom and never true for a focused, visible field in a browser. *Fixed* by treating focus as the proof that the field is on screen, and checking only that it is not inside a `[hidden]` container.
+
+**4. The shell's own buttons were not covered by the sweep.** `applyToolChrome` walks the tool root, so the previous/next arrows — which the shell renders — kept their unexplained `disabled`. *Fixed* in the shell markup.
+
+### Known limitations added
+
+- The state cache is per session, in memory. Reloading the page forgets it; that is deliberate, because persisting every field of every tool would fill `localStorage` with noise nobody asked for.
+- Examples are hand-written and cover 26 of 339 tools. A generic example would teach nothing, so the rest simply do not offer one until someone writes a good case for them.
+- The CSV copy quotes every field, including numbers. That is the safe default for spreadsheets; a consumer that wants typed columns will need to parse them.

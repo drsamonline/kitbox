@@ -2,6 +2,30 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.5.0 — 2026-11-08
+
+Batch **B5** of [PLAN.md](PLAN.md): the consistency sweep. Ten decisions made the same way 339 times — implemented once in the shell, not edited into 339 tools.
+
+### Added
+
+- **A tool remembers what you typed.** Leave a calculator to check something, come back, and your numbers are still there — and it recomputes rather than showing a stale answer, because the restore dispatches `input` and `change` the way a keystroke would.
+- **Reset** on every tool page, which forgets the memory and starts again.
+- **"Try an example"** on 26 tools that have a good worked example — the fields fill with a plausible case, so a tool teaches itself. The example is opt-in per tool and the test suite checks that every example points at a field that actually exists.
+- **Every disabled button now says why**, in a `title` and `aria-disabled`, including the prev/next arrows at the ends of a category.
+- **Drag and drop** works on every file input.
+- **A paste chip** appears over any empty text field, because the clipboard is how text usually arrives and a phone's long-press menu is a lottery.
+- **Double-click a table to copy it as CSV** — quoted, one row per line — rather than copying the text it happens to display.
+- **An empty result says what to do** ("Fill in the fields above to see a result") instead of showing a bare dash.
+- **`data-unit` support** on number inputs, so a field can carry its unit as a placeholder.
+
+### Changed
+
+- 82 tests (was 70). New: state memory and recompute, reset, the example button, example integrity, disabled explanations, drop zones, the empty-result hint, the paste chip, and CSV from a table.
+
+### Notes
+
+- Two of the ten items were already true and are now documented as convention rather than rebuilt: standard error wording (B4's `readFileSafely` and `CRYPTO_MSG` cover the real cases) and unit suffixes in labels (most tools already carry them; `data-unit` exists for the rest).
+
 ## 1.4.0 — 2026-11-08
 
 Batch **B4** of [PLAN.md](PLAN.md): the stability spine. The hinge batch — everything after it assumes these are true.

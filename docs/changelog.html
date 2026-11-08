@@ -47,6 +47,28 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.5.0 — 2026-11-08</h2>
+<p>Batch <strong>B5</strong> of <a href="plan.html">PLAN.md</a>: the consistency sweep. Ten decisions made the same way 339 times — implemented once in the shell, not edited into 339 tools.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>A tool remembers what you typed.</strong> Leave a calculator to check something, come back, and your numbers are still there — and it recomputes rather than showing a stale answer, because the restore dispatches <code>input</code> and <code>change</code> the way a keystroke would.</li>
+<li><strong>Reset</strong> on every tool page, which forgets the memory and starts again.</li>
+<li><strong>"Try an example"</strong> on 26 tools that have a good worked example — the fields fill with a plausible case, so a tool teaches itself. The example is opt-in per tool and the test suite checks that every example points at a field that actually exists.</li>
+<li><strong>Every disabled button now says why</strong>, in a <code>title</code> and <code>aria-disabled</code>, including the prev/next arrows at the ends of a category.</li>
+<li><strong>Drag and drop</strong> works on every file input.</li>
+<li><strong>A paste chip</strong> appears over any empty text field, because the clipboard is how text usually arrives and a phone's long-press menu is a lottery.</li>
+<li><strong>Double-click a table to copy it as CSV</strong> — quoted, one row per line — rather than copying the text it happens to display.</li>
+<li><strong>An empty result says what to do</strong> ("Fill in the fields above to see a result") instead of showing a bare dash.</li>
+<li><strong><code>data-unit</code> support</strong> on number inputs, so a field can carry its unit as a placeholder.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>82 tests (was 70). New: state memory and recompute, reset, the example button, example integrity, disabled explanations, drop zones, the empty-result hint, the paste chip, and CSV from a table.</li>
+</ul>
+<h3>Notes</h3>
+<ul>
+<li>Two of the ten items were already true and are now documented as convention rather than rebuilt: standard error wording (B4's <code>readFileSafely</code> and <code>CRYPTO_MSG</code> cover the real cases) and unit suffixes in labels (most tools already carry them; <code>data-unit</code> exists for the rest).</li>
+</ul>
 <h2>1.4.0 — 2026-11-08</h2>
 <p>Batch <strong>B4</strong> of <a href="plan.html">PLAN.md</a>: the stability spine. The hinge batch — everything after it assumes these are true.</p>
 <h3>Added</h3>
