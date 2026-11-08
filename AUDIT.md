@@ -415,6 +415,12 @@ Nothing broke — 301 tools took input and none threw. That is worth stating pla
 
 **3. A tag can ship the wrong build if nothing checks.** The release workflow compares the tag to `APP_VERSION` in the file and fails the build on a mismatch. Without that, `v1.8.0` could attach a 1.7 build and nobody would notice until a user compared checksums.
 
+### Verified after publishing
+
+- **Release `v1.7.1` exists with seven assets**: `kitbox.html` (711,431 B), `kitbox.html.gz` (194,602 B), `kitbox.min.html` (688,949 B), `kitbox.min.html.gz` (186,369 B), `index.html` (38,164 B), `index.html.gz` (9,143 B) and `SHA256SUMS` (493 B). The release job checked the tag against `APP_VERSION` before publishing, so the assets and the version agree by construction.
+- **`/latest/`** is served from the repository root and redirects to `../kitbox.html`.
+- **The personal index is automatic and was not forced.** `drsamonline.github.io` regenerates `repos.json` from the GitHub API on a daily cron (03:37 UTC) and on push to that repository. The current file was generated at 10:43, before this repository existed, so Kitbox is not in it yet; it will be after the next run. Dispatching that workflow needs Actions permission on that repository, which this session does not have — recorded rather than worked around.
+
 ### Known limitations added
 
 - The release attaches files to a GitHub Release; it does not publish to any package registry, and there is no auto-update. That is deliberate — an offline-first app that phones home to check for updates has broken its own rule.
