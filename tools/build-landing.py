@@ -36,8 +36,28 @@ qr = re.sub(r'^<\?xml[^>]*\?>\s*', '', qr).strip().replace('width="222" height="
 
 total = sum(c['count'] for c in cats)
 
+def rel_lum(hexc):
+    h = hexc.replace('#', '')
+    if len(h) == 3: h = ''.join(c*2 for c in h)
+    ch = []
+    for i in (0, 2, 4):
+        v = int(h[i:i+2], 16) / 255
+        ch.append(v/12.92 if v <= 0.03928 else ((v+0.055)/1.055) ** 2.4)
+    return 0.2126*ch[0] + 0.7152*ch[1] + 0.0722*ch[2]
+
+
+def contrast(a, b):
+    la, lb = rel_lum(a), rel_lum(b)
+    return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+
+
+def ink_for(colour):
+    """Same rule as the app: whichever of white or ink has more contrast."""
+    return '#ffffff' if contrast(colour, '#ffffff') >= contrast(colour, '#17171d') else '#17171d'
+
+
 def tile(c):
-    return f'''      <a class="tag" href="kitbox.html#/category/{c['id']}" style="--c:{c['color']};text-decoration:none">
+    return f'''      <a class="tag" href="kitbox.html#/category/{c['id']}" style="--c:{c['color']};--ci:{ink_for(c['color'])};text-decoration:none">
         <div class="hole"></div>
         <div class="icon">{ICON(c['id'])}</div>
         <div class="name">{c['name']}</div>
@@ -98,6 +118,7 @@ LANDING_CSS = '''
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);margin-bottom:54px}
   .card{background:var(--paper);padding:22px 20px}
   .card h3{margin:0 0 8px;font-size:15px;color:#fff;font-weight:600}
+  .grid .tag .name, .grid .tag .code{color:var(--ci,#fff);}
   .card p{margin:0;font-size:13.5px;line-height:1.65;color:var(--shell-muted)}
   .card .n{font-family:var(--mono);font-size:11px;color:#6f7787;margin-bottom:10px;display:block}
   .light{background:#fff;color:var(--ink);padding:34px 30px;margin-bottom:54px}

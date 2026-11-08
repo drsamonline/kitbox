@@ -236,7 +236,48 @@ setTimeout(async () => {
      d.querySelectorAll('.pal-item').length + ' results');
   deep.window.close();
 
-  /* 9. the app makes no network calls and loads nothing external */
+
+  /* 9. contrast and accessibility (B2) */
+  const tiles = ev("CATS.map(c=>({name:c.name, color:c.color, ink:inkFor(c.color), ratio:contrastWith(c.color, inkFor(c.color))}))");
+  const badTiles = tiles.filter(t => t.ratio < 4.5);
+  ok('every category tile clears 4.5:1 with the ink the app picked',
+     badTiles.length === 0,
+     badTiles.length ? badTiles.map(t => t.name + ' ' + t.color + ' ' + t.ratio.toFixed(2)).join(', ')
+                     : 'worst ' + Math.min(...tiles.map(t => t.ratio)).toFixed(2) + ':1');
+
+  ok('the page has a main landmark', !!w.document.querySelector('main#app'));
+  ok('the top bar is a header', !!w.document.querySelector('header.topbar'));
+  ok('the page buttons sit in a labelled nav', !!w.document.querySelector('nav[aria-label]'));
+
+  ev('location.hash="#/tool/almanac/panchang"'); ev('route()');
+  const labelled = Array.from(w.document.querySelectorAll('#toolRoot .field label'))
+    .filter(l => l.htmlFor || l.querySelector('input,select,textarea'));
+  const fields = w.document.querySelectorAll('#toolRoot .field').length;
+  ok('every field label is associated with its control', labelled.length === fields, labelled.length + '/' + fields);
+
+  ev('location.hash="#/tool/productivity/sketchpad"'); ev('route()');
+  const spCanvas = w.document.querySelector('#spCanvas');
+  ok('the sketch canvas is reachable by keyboard', !!spCanvas && spCanvas.getAttribute('tabindex') === '0' && !!spCanvas.getAttribute('aria-label'));
+
+  ev('location.hash="#/about"'); ev('route()');
+  const big = w.document.querySelector('[data-ts="1.25"]');
+  ok('the about page offers a text-size control', !!big);
+  if (big) {
+    big.click();
+    ok('text size is remembered', ev("store.get('text-size', 1)") === 1.25, String(ev("store.get('text-size', 1)")));
+    w.document.querySelector('[data-ts="1"]').click();
+  }
+
+
+  /* 10. no duplicate top-level declarations — a later function silently wins
+     over an earlier one of the same name, which is how a helper was quietly
+     replaced by a tool's own relLuminance(r,g,b) during B2 */
+  const script = html.slice(html.indexOf('<script>'), html.lastIndexOf('</script>'));
+  const fnames = [...script.matchAll(/^function ([A-Za-z_$][\w$]*)\(/gm)].map(m => m[1]);
+  const dupFns = [...new Set(fnames.filter((n, i) => fnames.indexOf(n) !== i))];
+  ok('no duplicate top-level function names', dupFns.length === 0, dupFns.join(', '));
+
+  /* 11. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

@@ -111,8 +111,8 @@
     color:#fff; display:flex; align-items:center; justify-content:center;
   }
   .tag .icon svg{width:22px;height:22px;}
-  .tag .name{font-size:13.5px; font-weight:600; line-height:1.25; color:#fff;}
-  .tag .code{
+  .tag .name{font-size:13.5px; font-weight:600; line-height:1.25; color:var(--ci,#fff);}
+  .tag .code{color:var(--ci,#fff);
     font-family:var(--mono); font-size:9.5px; letter-spacing:0.05em; color:rgba(255,255,255,0.8); margin-top:auto;
   }
   .tag.disabled{opacity:0.35; cursor:default; filter:grayscale(0.7);}
@@ -234,6 +234,14 @@
   .crumblink{color:var(--shell-muted); text-decoration:none;}
   .crumblink:hover{color:#fff; text-decoration:underline;}
   .firstrun{margin:-14px 0 26px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  /* There are no translucent surfaces in this app, so there is nothing for
+     prefers-reduced-transparency to reduce. Recorded rather than ignored. */
+  @media (prefers-contrast: more){
+    :root{--shell-muted:#e3e7ee; --muted:#5b5b63;}
+    .hint{color:#2f2f35;}
+    .tag .code{opacity:1;}
+    .output{background:#fff; border-color:#b9b9b5;}
+  }
   @media print{
     .topbar,.searchbar,.firstrun,.footer-note,.palette-overlay,.kbdhint,#pinBtn,.skip,.toast{display:none !important;}
     body{background:#fff; color:#000;}
@@ -253,20 +261,22 @@
     <p style="color:#a7adb9; line-height:1.7; margin:0">Every tool in this file runs in your browser — there is no server to fall back on, which is exactly why nothing you open here can be uploaded anywhere. Turn JavaScript on for this page and reload.</p>
   </div>
 </noscript>
-<div class="topbar">
+<header class="topbar">
   <button class="backbtn hidden" id="backBtn" aria-label="Back">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
   </button>
   <div class="brand"><span class="dot" id="brandDot"></span>Kitbox</div>
   <div class="crumb" id="crumb"></div>
-  <button class="backbtn" id="supportBtn" aria-label="Support Kitbox" style="margin-left:auto;color:#E31C7D">
+  <nav aria-label="App pages" style="display:flex;gap:0;margin-left:auto">
+  <button class="backbtn" id="supportBtn" aria-label="Support Kitbox" style="color:#C2185B">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.6 2.9 5 6.5 5c2 0 3.3 1 5.5 3 2.2-2 3.5-3 5.5-3 3.6 0 5.8 3.6 4 7.5C19 16.65 12 21 12 21z"/></svg>
   </button>
   <button class="backbtn" id="aboutBtn" aria-label="About Kitbox">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
   </button>
-</div>
-<div class="wrap" id="app"></div>
+  </nav>
+</header>
+<main class="wrap" id="app"></main>
 
 <script>
 /* ============================================================
@@ -275,7 +285,7 @@
 
 /* ---------- Category registry ---------- */
 const CATS = [
-  {id:'general',   code:'GEN', name:'General Tools',      color:'#E31C7D', desc:'A number of different tools that can be used for a variety of purposes.', icon:'toolbox'},
+  {id:'general',   code:'GEN', name:'General Tools',      color:'#C2185B', desc:'A number of different tools that can be used for a variety of purposes.', icon:'toolbox'},
   {id:'text',      code:'TXT', name:'Text Tools',          color:'#E6A400', desc:'More than thirty beneficial features that help you edit your text content.', icon:'text'},
   {id:'generator', code:'GNR', name:'Generator Tools',     color:'#9FCB1B', desc:'Generative tools for creating many types of things.', icon:'gen'},
   {id:'calc',      code:'CAL', name:'Calculation Tools',   color:'#F4483D', desc:'Helps you find the solutions of your mathematical operations.', icon:'calc'},
@@ -293,7 +303,7 @@ const CATS = [
   {id:'travel',    code:'TRV', name:'Travel Tools',        color:'#1971C2', desc:'Packing lists, flight duration, and travel reference tools.', icon:'travel'},
   {id:'nature',    code:'NAT', name:'Nature Tools',        color:'#2F9E44', desc:'Moon phase, solstices, and sky-related estimators.', icon:'nature'},
   {id:'productivity', code:'PRD', name:'Productivity',     color:'#495057', desc:'Focus timer and a simple offline notepad.', icon:'productivity'},
-  {id:'files',     code:'FIL', name:'Files & Data',        color:'#4C6EF5', desc:'ZIP, gzip, hashing, encryption and metadata — your files stay on your device.', icon:'files'},
+  {id:'files',     code:'FIL', name:'Files & Data',        color:'#3B5BDB', desc:'ZIP, gzip, hashing, encryption and metadata — your files stay on your device.', icon:'files'},
   {id:'almanac',   code:'ALM', name:'Almanac',              color:'#C2410C', desc:'Panchang, rahu kaal, sunrise and moon timings, computed from the Meeus series.', icon:'almanac'},
   {id:'comms',     code:'COM', name:'Communication',        color:'#0B7285', desc:'Contact cards, calendar invites and message links you can hand to any app.', icon:'comms'},
   {id:'reference', code:'REF', name:'Reference',            color:'#5F3DC4', desc:'Cheat sheets and tables you keep open beside the tool you are using.', icon:'reference'},
@@ -325,6 +335,25 @@ const ICONS = {
   reference:'<path d="M4 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-4a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h5z"/>',
   system:'<rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/>',
 };
+/* Pick the text colour that actually passes on a tile, from the colour itself
+   rather than by eye: 14 of the original 23 tiles failed WCAG AA with white
+   text (white on #22D9D9 is 1.75:1 against a 4.5:1 threshold). */
+function tileLuminance(hex){
+  const h = String(hex||'#ffffff').replace('#','');
+  const full = h.length === 3 ? h.split('').map(c=>c+c).join('') : h;
+  const ch = [0,2,4].map(i=>parseInt(full.slice(i,i+2),16)/255)
+    .map(c=> c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4));
+  return 0.2126*ch[0] + 0.7152*ch[1] + 0.0722*ch[2];
+}
+function contrastWith(a, b){
+  const la = tileLuminance(a), lb = tileLuminance(b);
+  return (Math.max(la,lb) + 0.05) / (Math.min(la,lb) + 0.05);
+}
+const TILE_INK_DARK = '#17171d', TILE_INK_LIGHT = '#ffffff';
+function inkFor(hex){
+  return contrastWith(hex, TILE_INK_LIGHT) >= contrastWith(hex, TILE_INK_DARK) ? TILE_INK_LIGHT : TILE_INK_DARK;
+}
+
 function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]||ICONS.toolbox}</svg>`;}
 
 /* ---------- Tool registry ---------- */
@@ -4242,7 +4271,7 @@ function relLuminance(r,g,b){
 clr('colorpicker','Color Picker', root=>{
   root.innerHTML = `
     <div style="text-align:center">
-      <input type="color" id="cpPick" value="#3fcb6b" style="width:100px;height:100px;border:none;border-radius:16px;cursor:pointer">
+      <input type="color" id="cpPick" value="#3fcb6b" aria-label="Colour to inspect" style="width:100px;height:100px;border:none;border-radius:16px;cursor:pointer">
     </div>
     <table class="mono" id="cpOut" style="margin-top:16px"></table>`;
   function update(){
@@ -5677,7 +5706,7 @@ game('tictactoe','Tic-Tac-Toe', root=>{
   const boardEl = root.querySelector('#tttBoard');
   const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
   function draw(){
-    boardEl.innerHTML = board.map((v,i)=>`<button class="btn" data-i="${i}" style="height:70px;font-size:28px;font-weight:700">${v||''}</button>`).join('');
+    boardEl.innerHTML = board.map((v,i)=>`<button class="btn" data-i="${i}" aria-label="Row ${Math.floor(i/3)+1}, column ${i%3+1}${v ? ' — ' + (v === 'X' ? 'X' : 'O') : ' — empty'}" style="height:70px;font-size:28px;font-weight:700">${v||''}</button>`).join('');
     boardEl.querySelectorAll('[data-i]').forEach(b=>b.addEventListener('click', ()=>{
       const i=+b.dataset.i;
       if(over || board[i]) return;
@@ -6481,7 +6510,13 @@ prod('sketchpad','Sketch Pad', root=>{
       <button class="btn" id="spRedo">↪ Redo</button>
       <button class="btn ghost" id="spClear">Clear</button>
     </div>
-    <canvas id="spCanvas" width="600" height="420" style="width:100%;max-width:600px;border:1px solid var(--line);border-radius:10px;background:#fff;touch-action:none;display:block;margin:0 auto"></canvas>
+    <div style="position:relative;max-width:600px;margin:0 auto">
+      <canvas id="spCanvas" width="600" height="420" tabindex="0" role="application"
+        aria-label="Drawing canvas. Arrow keys move the cursor, Shift moves it faster, Space stamps the current tool."
+        style="width:100%;border:1px solid var(--line);border-radius:10px;background:#fff;touch-action:none;display:block"></canvas>
+      <div id="spCursor" aria-hidden="true" style="display:none;position:absolute;width:12px;height:12px;border:2px solid #2f86eb;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none"></div>
+    </div>
+    <div class="hint" style="text-align:center;margin-top:8px">Keyboard: focus the canvas, move with the arrow keys (Shift for bigger steps), Space or Enter to stamp.</div>
     <div class="segrow" style="margin-top:12px"><button class="btn primary" id="spDownload">Download PNG</button></div>
   `;
   const canvas = root.querySelector('#spCanvas'), ctx = canvas.getContext('2d');
@@ -6510,6 +6545,41 @@ prod('sketchpad','Sketch Pad', root=>{
   }));
   root.querySelector('#spColor').addEventListener('input', e=>color=e.target.value);
   root.querySelector('#spSize').addEventListener('input', e=>{ size=+e.target.value; root.querySelector('#spSizeOut').textContent=size+'px'; });
+  /* Keyboard path: the canvas is the only tool in the app with no way in
+     except a pointer. A cursor you can walk with the arrow keys and stamp with
+     Space is not the same as drawing, but it is not nothing. */
+  let kx = canvas.width/2, ky = canvas.height/2;
+  function drawCursor(){
+    const c = root.querySelector('#spCursor');
+    const rect = canvas.getBoundingClientRect();
+    const scale = (rect.width || canvas.width) / canvas.width;
+    c.style.left = (kx*scale) + 'px';
+    c.style.top = (ky*scale) + 'px';
+    c.style.display = document.activeElement === canvas ? 'block' : 'none';
+  }
+  canvas.addEventListener('focus', drawCursor);
+  canvas.addEventListener('blur', drawCursor);
+  canvas.addEventListener('keydown', e=>{
+    const step = e.shiftKey ? 10 : 2;
+    const moves = {ArrowLeft:[-step,0], ArrowRight:[step,0], ArrowUp:[0,-step], ArrowDown:[0,step]};
+    if(moves[e.key]){
+      e.preventDefault();
+      kx = Math.max(0, Math.min(canvas.width, kx + moves[e.key][0]));
+      ky = Math.max(0, Math.min(canvas.height, ky + moves[e.key][1]));
+      drawCursor();
+    } else if(e.key === ' ' || e.key === 'Enter'){
+      e.preventDefault();
+      saveState();
+      ctx.fillStyle = tool === 'eraser' ? '#ffffff' : color;
+      ctx.beginPath();
+      ctx.arc(kx, ky, Math.max(1, size/2), 0, Math.PI*2);
+      ctx.fill();
+      drawCursor();
+    }
+  });
+  window.addEventListener('resize', drawCursor);
+  setCleanup(()=>window.removeEventListener('resize', drawCursor));
+
   root.querySelector('#spSavePalette').addEventListener('click', ()=>{
     if(!palette.includes(color)){ palette.push(color); store.set('sketchpad-palette', palette); drawPalette(); }
   });
@@ -10905,7 +10975,7 @@ function lookup(catId, toolId){
 /* ---------- Cards ---------- */
 function catCard(cat){
   const has = TOOLS[cat.id] && TOOLS[cat.id].length>0;
-  return `<button class="tag ${has?'':'disabled'}" style="--c:${cat.color}" data-cat="${cat.id}" ${has?'':'disabled'} aria-label="${escapeHtml(cat.name)} — ${has?TOOLS[cat.id].length+' tools':'coming soon'}" title="${escapeHtml(cat.name)}${has?' — '+TOOLS[cat.id].length+' tools':''}">
+  return `<button class="tag ${has?'':'disabled'}" style="--c:${cat.color};--ci:${inkFor(cat.color)}" data-cat="${cat.id}" ${has?'':'disabled'} aria-label="${escapeHtml(cat.name)} — ${has?TOOLS[cat.id].length+' tools':'coming soon'}" title="${escapeHtml(cat.name)}${has?' — '+TOOLS[cat.id].length+' tools':''}">
     <div class="hole"></div>
     <div class="icon">${iconSvg(cat.icon)}</div>
     <div class="name">${escapeHtml(cat.name)}</div>
@@ -10915,7 +10985,7 @@ function catCard(cat){
 
 function toolCard(cat, tool){
   const pinned = isPinned(cat.id, tool.id);
-  return `<button class="tag" style="--c:${cat.color}" data-tool="${tool.id}" aria-label="${escapeHtml(tool.name)}" title="${escapeHtml(tool.name)} · ${tool.code}">
+  return `<button class="tag" style="--c:${cat.color};--ci:${inkFor(cat.color)}" data-tool="${tool.id}" aria-label="${escapeHtml(tool.name)}" title="${escapeHtml(tool.name)} · ${tool.code}">
     <div class="hole"></div>
     <div class="icon">${iconSvg(cat.icon)}</div>
     <div class="name">${escapeHtml(tool.name)}${pinned?' <span style="color:var(--c)">•</span>':''}</div>
@@ -10968,7 +11038,7 @@ function renderHome(){
       <a href="#/all" style="color:var(--shell-muted);text-decoration:none;font-size:12px">All tools A–Z →</a>
     </div>
     <div class="grid" id="catGrid">${CATS.map(catCard).join('')}</div>
-    <div class="footer-note">Kitbox — crafted by Dr. Sohil Momin, BHMS · Vadodara, India · single-file offline web app, no dependencies · <a href="#/support" style="color:#E31C7D;text-decoration:none">Support this</a> · <a href="#/about" style="color:var(--shell-muted);text-decoration:none">About</a></div>
+    <div class="footer-note">Kitbox — crafted by Dr. Sohil Momin, BHMS · Vadodara, India · single-file offline web app, no dependencies · <a href="#/support" style="color:#C2185B;text-decoration:none">Support this</a> · <a href="#/about" style="color:var(--shell-muted);text-decoration:none">About</a></div>
   `;
   app.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click', ()=>{
     if(b.disabled) return;
@@ -11093,6 +11163,23 @@ function renderAll(){
 }
 
 /* ---------- Tool page ---------- */
+/* Associate every .field label with the control beside it. The markup predates
+   the association and there are several hundred inputs; doing it once here
+   fixes them all, and keeps new tools correct without anyone remembering to
+   write for/id by hand. axe-core found this — it is the only violation the
+   whole app had. */
+function associateLabels(scope){
+  scope.querySelectorAll('.field').forEach(field=>{
+    const label = Array.from(field.children).find(el=>el.tagName === 'LABEL');
+    if(!label) return;
+    const control = field.querySelector('input, select, textarea');
+    if(!control || label.htmlFor) return;
+    if(label.contains(control)) return;          // already associated by wrapping
+    if(!control.id) control.id = 'kb-' + Math.random().toString(36).slice(2, 9);
+    label.htmlFor = control.id;
+  });
+}
+
 function renderTool(catId, toolId){
   const cat = CATS.find(c=>c.id===catId);
   const tool = (TOOLS[catId]||[]).find(t=>t.id===toolId);
@@ -11119,9 +11206,21 @@ function renderTool(catId, toolId){
     e.target.textContent = now ? '★ Pinned' : '☆ Pin';
     e.target.setAttribute('aria-pressed', String(now));
   });
-  tool.render(document.getElementById('toolRoot'));
+  const toolRoot = document.getElementById('toolRoot');
+  tool.render(toolRoot);
+  associateLabels(toolRoot);
 }
 
+function applyTextSize(v){
+  const scale = Number(v) || 1;
+  document.body.style.zoom = scale === 1 ? '' : String(scale);
+  store.set('text-size', scale);
+  document.querySelectorAll('[data-ts]').forEach(b=>{
+    b.classList.toggle('primary', Number(b.dataset.ts) === scale);
+  });
+  const note = document.getElementById('tsNote');
+  if(note) note.textContent = scale === 1 ? 'Default size.' : 'Scaled to ' + Math.round(scale*100) + '%.';
+}
 function renderAbout(){
   setAccent('#14141c');
   backBtn.classList.remove('hidden');
@@ -11150,6 +11249,15 @@ function renderAbout(){
       <h2>Notes on accuracy</h2>
       <p style="color:var(--ink-soft);line-height:1.7">Calculators here (health, finance, science, geometry) are built from standard public formulas and spot-checked against known reference values, but they're general-purpose tools, not professional instruments — nothing in Kitbox is a substitute for medical, financial, or legal advice. Tools that use your device's sensors, camera, or microphone (compass, level, decibel meter, GPS speed, barcode scanner) need permission and hardware support, and will say so plainly if unavailable.</p>
 
+      <h2>Display</h2>
+      <p style="color:var(--ink-soft);line-height:1.7">The whole app can be scaled up if 14.5px is small on your screen. This is remembered on this device.</p>
+      <div class="segrow" id="tsRow">
+        <button class="btn" data-ts="1">100%</button>
+        <button class="btn" data-ts="1.12">112%</button>
+        <button class="btn" data-ts="1.25">125%</button>
+      </div>
+      <div class="hint" id="tsNote"></div>
+
       <h2>Where the tools came from</h2>
       <p style="color:var(--ink-soft);line-height:1.7">Kitbox began as a single-file toolbox. The Files &amp; Data, Almanac and Communication categories, and several of the newer calculation, development and colour tools, were folded in from the rest of the drsamonline projects — the ZIP writer from <b>export-kit</b>, compression from <b>compress-kit</b>, the AES-256-GCM envelope from <b>crypto-kit</b>, the panchang from <b>astro-kit</b> and <b>app-panchang</b>, EXIF stripping from <b>app-image-toolkit</b>, tf-idf from <b>ml-kit</b>, and a long list of everyday utilities from <b>TTB</b> and <b>All4ONE</b>. Everything was rewritten to run inside this one page, with no library and no network call.</p>
 
@@ -11157,6 +11265,8 @@ function renderAbout(){
       <p style="color:var(--ink-soft);line-height:1.7">Crafted by <b>Dr. Sohil Momin, BHMS</b> — Vadodara, Gujarat, India.</p>
     </div>
   `;
+  app.querySelectorAll('[data-ts]').forEach(b=>b.addEventListener('click', ()=>applyTextSize(b.dataset.ts)));
+  applyTextSize(store.get('text-size', 1));
 }
 
 /* ---------- Command palette (Ctrl/⌘ K, or /) ---------- */
@@ -11250,7 +11360,7 @@ function renderAbout(){
 
 /* ---------- Support ---------- */
 function renderSupport(){
-  setAccent('#E31C7D');
+  setAccent('#C2185B');
   backBtn.classList.remove('hidden');
   crumb.innerHTML = '<b>Support Kitbox</b>';
   app.innerHTML = `

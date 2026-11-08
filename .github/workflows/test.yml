@@ -29,6 +29,9 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Accessibility audit (axe-core)
+        run: npm run a11y
+
       - name: Badge numbers match the app
         run: node tools/check-badges.js
 

@@ -2,6 +2,33 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.2.1 — 2026-11-08
+
+Batch **B2** of [PLAN.md](PLAN.md): contrast and accessibility. Nine items, and the app is measurably better for each.
+
+### Fixed — contrast
+
+- **Fourteen of 23 category tiles failed WCAG AA with white text.** White on `#22D9D9` was 1.75:1 against a 4.5:1 threshold. The tile text colour is now chosen at render time from the measured ratio — `inkFor()` picks white or ink per colour — so no tile can regress, including ones added later. Worst tile after the change: **4.51:1**.
+- **Two colours failed with dark ink as well**, so they were adjusted rather than re-texted: General `#E31C7D` → `#C2185B` (5.87:1 with white), Files & Data `#4C6EF5` → `#3B5BDB` (5.67:1). The support accent, the heart icon and the landing page's "Support this" button used the same pink and moved with it.
+
+### Fixed — accessibility
+
+- **Every form label is now associated with its control.** `axe-core` found exactly one violation across 50 pages: the `.field` labels were siblings of their inputs rather than linked to them. Rather than edit several hundred inputs, `associateLabels()` runs after each tool renders and sets `for`/`id`. New tools are correct without anyone remembering.
+- **Two more, found on the second sweep**: the colour picker's swatch had no accessible name, and Tic-Tac-Toe's nine cells were unnamed buttons. Both fixed at the source.
+- **Sketch Pad has a keyboard path** — the only tool in the app that had none. The canvas is focusable, arrow keys move a cursor (Shift for bigger steps), Space or Enter stamps the current tool.
+- **Landmarks**: `<header>`, `<main id="app">`, and a `<nav aria-label="App pages">` around the page buttons.
+- **`prefers-contrast: more`** raises the muted greys and strengthens output borders.
+- **Text size** — 100 / 112 / 125% in About → Display, remembered per device. There are no translucent surfaces in the app, so `prefers-reduced-transparency` has nothing to do; recorded rather than ignored.
+
+### Added
+
+- **`test/axe.js`** and `npm run a11y` — 50 pages (home, all, about, support, 23 categories, 23 tool pages) with zero violations allowed. Wired into CI.
+- **A duplicate-declaration check** in the suite, after a real bug: our `relLuminance(hex)` was silently replaced by the Color Picker's own `relLuminance(r,g,b)` — a later top-level function wins. The check now fails on any duplicate.
+
+### Changed
+
+- 51 tests (was 42).
+
 ## 1.2.0 — 2026-11-08
 
 Batch **B1** of [PLAN.md](PLAN.md): eighteen quick wins, all in the shell. No tool changed what it does; the app around them got out of the way.

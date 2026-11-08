@@ -47,6 +47,31 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.2.1 — 2026-11-08</h2>
+<p>Batch <strong>B2</strong> of <a href="plan.html">PLAN.md</a>: contrast and accessibility. Nine items, and the app is measurably better for each.</p>
+<h3>Fixed — contrast</h3>
+<ul>
+<li><strong>Fourteen of 23 category tiles failed WCAG AA with white text.</strong> White on <code>#22D9D9</code> was 1.75:1 against a 4.5:1 threshold. The tile text colour is now chosen at render time from the measured ratio — <code>inkFor()</code> picks white or ink per colour — so no tile can regress, including ones added later. Worst tile after the change: <strong>4.51:1</strong>.</li>
+<li><strong>Two colours failed with dark ink as well</strong>, so they were adjusted rather than re-texted: General <code>#E31C7D</code> → <code>#C2185B</code> (5.87:1 with white), Files &amp; Data <code>#4C6EF5</code> → <code>#3B5BDB</code> (5.67:1). The support accent, the heart icon and the landing page's "Support this" button used the same pink and moved with it.</li>
+</ul>
+<h3>Fixed — accessibility</h3>
+<ul>
+<li><strong>Every form label is now associated with its control.</strong> <code>axe-core</code> found exactly one violation across 50 pages: the <code>.field</code> labels were siblings of their inputs rather than linked to them. Rather than edit several hundred inputs, <code>associateLabels()</code> runs after each tool renders and sets <code>for</code>/<code>id</code>. New tools are correct without anyone remembering.</li>
+<li><strong>Two more, found on the second sweep</strong>: the colour picker's swatch had no accessible name, and Tic-Tac-Toe's nine cells were unnamed buttons. Both fixed at the source.</li>
+<li><strong>Sketch Pad has a keyboard path</strong> — the only tool in the app that had none. The canvas is focusable, arrow keys move a cursor (Shift for bigger steps), Space or Enter stamps the current tool.</li>
+<li><strong>Landmarks</strong>: <code>&lt;header&gt;</code>, <code>&lt;main id="app"&gt;</code>, and a <code>&lt;nav aria-label="App pages"&gt;</code> around the page buttons.</li>
+<li><strong><code>prefers-contrast: more</code></strong> raises the muted greys and strengthens output borders.</li>
+<li><strong>Text size</strong> — 100 / 112 / 125% in About → Display, remembered per device. There are no translucent surfaces in the app, so <code>prefers-reduced-transparency</code> has nothing to do; recorded rather than ignored.</li>
+</ul>
+<h3>Added</h3>
+<ul>
+<li><strong><code>test/axe.js</code></strong> and <code>npm run a11y</code> — 50 pages (home, all, about, support, 23 categories, 23 tool pages) with zero violations allowed. Wired into CI.</li>
+<li><strong>A duplicate-declaration check</strong> in the suite, after a real bug: our <code>relLuminance(hex)</code> was silently replaced by the Color Picker's own <code>relLuminance(r,g,b)</code> — a later top-level function wins. The check now fails on any duplicate.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>51 tests (was 42).</li>
+</ul>
 <h2>1.2.0 — 2026-11-08</h2>
 <p>Batch <strong>B1</strong> of <a href="plan.html">PLAN.md</a>: eighteen quick wins, all in the shell. No tool changed what it does; the app around them got out of the way.</p>
 <h3>Added</h3>

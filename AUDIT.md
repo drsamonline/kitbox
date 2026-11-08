@@ -149,3 +149,34 @@ Eighteen items, all in the shell. What was checked, and what the checks caught.
 **3. A manifest written before `git add` silently omits new files.** This was caught by CI on the B0 commit, not by the local check, because the local check compared the manifest against the same incomplete file list. *Fixed* in `tools/check-manifest.py`, which now reads `git ls-files --cached --others --exclude-standard` — so an untracked file still belongs in the manifest, and the check fails on the next push rather than the next release.
 
 **4. `aria-live` on a container that is rebuilt wholesale is a compromise, not a solution.** Putting it on `#toolRoot` means a screen reader may announce more than the changed value. It is better than silence, and the honest fix — per-output live regions — needs the tools to declare their outputs, which is B5 work. Recorded here so it is not mistaken for done.
+
+## B2 — contrast and accessibility (1.2.1)
+
+| Check | Result |
+|---|---|
+| Every tile clears 4.5:1 with the ink the app picked | pass — worst 4.51:1 |
+| `axe-core` across 50 pages | 0 violations |
+| Labels associated with controls (Panchang sample) | 5/5 |
+| Full suite | 51 passed, 0 failed |
+| Size | 633 KB → 636 KB |
+
+### What axe found, and why it took three passes
+
+The first sweep reported **one** violation across five pages, on the Panchang: `label — Form elements must have labels`. The markup had labels, but as siblings rather than associated controls, which is the same thing to a screen reader as no label at all. Fixing that by hand would have meant editing several hundred inputs across 338 tools, so `associateLabels()` does it once per render instead.
+
+Widening the sweep to all 50 pages then found **two more**: an unnamed colour swatch in the Color Picker, and nine unnamed buttons in Tic-Tac-Toe. Both were real, both were fixed at the source rather than by relaxing the rule.
+
+### Findings
+
+**1. A later top-level function silently replaced an earlier one.** The new contrast helper `relLuminance(hex)` was shadowed by the Color Picker's existing `relLuminance(r,g,b)`, so `inkFor()` returned ink for every tile and every ratio computed as `NaN`. The smoke test caught it only because the assertion printed the worst ratio — `NaN` is not `< 4.5`, so the check *passed* while the feature was broken. *Fixed* by renaming to `tileLuminance`, and *guarded* by a new test that fails on any duplicate top-level function name. This is the class of bug the `register()` API in B12 exists to prevent.
+
+**2. A passing test hid the bug.** Worth stating plainly: `badTiles.filter(t => t.ratio < 4.5)` returns an empty array when the ratio is `NaN`. The assertion now reports the worst ratio as evidence, so a broken computation shows up as `NaN:1` in the output rather than as a green tick.
+
+**3. Wiring landed in the wrong function.** The text-size control's event listeners were attached at the end of `renderSupport` instead of `renderAbout`, because both pages end with an identical footer line and the patch anchored on it. The button did nothing. *Fixed* by anchoring on the Credits block, which only the About page has.
+
+**4. Tab order, recorded** (document order, home page): skip link → Back → Support → About → search → first-run dismiss → All tools A–Z → the 23 category tiles → footer links. On a tool page: skip link → Back → breadcrumb → Support → About → Pin → the tool's inputs. Two elements appear in that list which a browser will skip: `#backBtn` when it is `visibility:hidden`, and `#palInput` inside the closed palette. jsdom does not compute visibility, so the audit lists them; the browser does not.
+
+### Known limitations added
+
+- `body{zoom}` is the least-invasive way to scale an app whose type is set in pixels. It is supported in Chrome, Safari and Firefox 126+, and it is not a standard property. If it ever stops working the app is unchanged at 100%, which is the default.
+- axe's colour-contrast rule needs layout and skips in jsdom, so contrast is asserted by computing the ratios directly instead — which is stricter, since it covers every tile rather than the ones axe happens to render.

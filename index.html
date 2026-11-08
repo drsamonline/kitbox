@@ -122,8 +122,8 @@
     color:#fff; display:flex; align-items:center; justify-content:center;
   }
   .tag .icon svg{width:22px;height:22px;}
-  .tag .name{font-size:13.5px; font-weight:600; line-height:1.25; color:#fff;}
-  .tag .code{
+  .tag .name{font-size:13.5px; font-weight:600; line-height:1.25; color:var(--ci,#fff);}
+  .tag .code{color:var(--ci,#fff);
     font-family:var(--mono); font-size:9.5px; letter-spacing:0.05em; color:rgba(255,255,255,0.8); margin-top:auto;
   }
   .tag.disabled{opacity:0.35; cursor:default; filter:grayscale(0.7);}
@@ -245,6 +245,14 @@
   .crumblink{color:var(--shell-muted); text-decoration:none;}
   .crumblink:hover{color:#fff; text-decoration:underline;}
   .firstrun{margin:-14px 0 26px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  /* There are no translucent surfaces in this app, so there is nothing for
+     prefers-reduced-transparency to reduce. Recorded rather than ignored. */
+  @media (prefers-contrast: more){
+    :root{--shell-muted:#e3e7ee; --muted:#5b5b63;}
+    .hint{color:#2f2f35;}
+    .tag .code{opacity:1;}
+    .output{background:#fff; border-color:#b9b9b5;}
+  }
   @media print{
     .topbar,.searchbar,.firstrun,.footer-note,.palette-overlay,.kbdhint,#pinBtn,.skip,.toast{display:none !important;}
     body{background:#fff; color:#000;}
@@ -278,6 +286,7 @@
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);margin-bottom:54px}
   .card{background:var(--paper);padding:22px 20px}
   .card h3{margin:0 0 8px;font-size:15px;color:#fff;font-weight:600}
+  .grid .tag .name, .grid .tag .code{color:var(--ci,#fff);}
   .card p{margin:0;font-size:13.5px;line-height:1.65;color:var(--shell-muted)}
   .card .n{font-family:var(--mono);font-size:11px;color:#6f7787;margin-bottom:10px;display:block}
   .light{background:#fff;color:var(--ink);padding:34px 30px;margin-bottom:54px}
@@ -335,139 +344,139 @@
 
   <h2 class="band" id="inside">What is inside</h2>
   <div class="grid" style="margin-bottom:54px">
-      <a class="tag" href="kitbox.html#/category/general" style="--c:#E31C7D;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/general" style="--c:#C2185B;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11H3z"/><path d="M3 12h18"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
         <div class="name">General Tools</div>
         <div class="code">GEN · 13 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/text" style="--c:#E6A400;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/text" style="--c:#E6A400;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h7"/></svg></div>
         <div class="name">Text Tools</div>
         <div class="code">TXT · 40 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/generator" style="--c:#9FCB1B;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/generator" style="--c:#9FCB1B;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="4"/><path d="M4 12h16M4 16h10M4 20h6"/></svg></div>
         <div class="name">Generator Tools</div>
         <div class="code">GNR · 9 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/calc" style="--c:#F4483D;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/calc" style="--c:#F4483D;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg></div>
         <div class="name">Calculation Tools</div>
         <div class="code">CAL · 51 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/image" style="--c:#2F86EB;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/image" style="--c:#2F86EB;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-4 4-3-3-6 6"/></svg></div>
         <div class="name">Image Tools</div>
         <div class="code">IMG · 18 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/unit" style="--c:#A93CF5;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/unit" style="--c:#A93CF5;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></div>
         <div class="name">Unit Converter</div>
         <div class="code">UNI · 33 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/finance" style="--c:#3FCB6B;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/finance" style="--c:#3FCB6B;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <div class="name">Finance Tools</div>
         <div class="code">FIN · 19 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/random" style="--c:#22D9D9;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/random" style="--c:#22D9D9;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3"/><circle cx="16" cy="8" r="1.3"/><circle cx="8" cy="16" r="1.3"/><circle cx="16" cy="16" r="1.3"/><circle cx="12" cy="12" r="1.3"/></svg></div>
         <div class="name">Randomizer Tools</div>
         <div class="code">RND · 11 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/health" style="--c:#1FCE9C;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/health" style="--c:#1FCE9C;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.6 2.9 5 6.5 5c2 0 3.3 1 5.5 3 2.2-2 3.5-3 5.5-3 3.6 0 5.8 3.6 4 7.5C19 16.65 12 21 12 21z"/></svg></div>
         <div class="name">Health Tools</div>
         <div class="code">HLT · 8 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/dev" style="--c:#12A99A;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/dev" style="--c:#12A99A;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg></div>
         <div class="name">Development Tools</div>
         <div class="code">DEV · 36 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/colors" style="--c:#F2871A;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/colors" style="--c:#F2871A;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10.5" r="1.2"/><circle cx="12" cy="8" r="1.2"/><circle cx="15.5" cy="10.5" r="1.2"/><circle cx="9.5" cy="14.5" r="1.2"/></svg></div>
         <div class="name">Colors Tools</div>
         <div class="code">CLR · 10 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/science" style="--c:#7B4FE0;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/science" style="--c:#7B4FE0;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6L4 18a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-5-10V2"/><path d="M9 2h6"/><path d="M8 14h8"/></svg></div>
         <div class="name">Science Tools</div>
         <div class="code">SCI · 12 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/geo" style="--c:#0E9F6E;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/geo" style="--c:#0E9F6E;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
         <div class="name">Geo Tools</div>
         <div class="code">GEO · 10 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/audio" style="--c:#D6336C;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/audio" style="--c:#D6336C;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg></div>
         <div class="name">Audio Tools</div>
         <div class="code">AUD · 9 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/games" style="--c:#F59F00;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/games" style="--c:#F59F00;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="4"/><path d="M7 10v4M5 12h4"/><circle cx="16" cy="10.5" r="1"/><circle cx="18" cy="13.5" r="1"/></svg></div>
         <div class="name">Games</div>
         <div class="code">GAM · 10 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/travel" style="--c:#1971C2;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/travel" style="--c:#1971C2;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l18-8-8 18-2-8-8-2z"/></svg></div>
         <div class="name">Travel Tools</div>
         <div class="code">TRV · 5 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/nature" style="--c:#2F9E44;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/nature" style="--c:#2F9E44;--ci:#17171d;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9c0-.5-.04-1-.1-1.5A6 6 0 0 1 12 3z"/></svg></div>
         <div class="name">Nature Tools</div>
         <div class="code">NAT · 6 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/productivity" style="--c:#495057;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/productivity" style="--c:#495057;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
         <div class="name">Productivity</div>
         <div class="code">PRD · 8 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/files" style="--c:#4C6EF5;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/files" style="--c:#3B5BDB;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 11h16"/></svg></div>
         <div class="name">Files & Data</div>
         <div class="code">FIL · 12 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/almanac" style="--c:#C2410C;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/almanac" style="--c:#C2410C;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/><path d="M12 7l3 5-3 5-3-5z"/></svg></div>
         <div class="name">Almanac</div>
         <div class="code">ALM · 5 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/comms" style="--c:#0B7285;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/comms" style="--c:#0B7285;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></div>
         <div class="name">Communication</div>
         <div class="code">COM · 5 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/reference" style="--c:#5F3DC4;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/reference" style="--c:#5F3DC4;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4z"/><path d="M20 4h-4a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h5z"/></svg></div>
         <div class="name">Reference</div>
         <div class="code">REF · 5 tools</div>
       </a>
-      <a class="tag" href="kitbox.html#/category/system" style="--c:#343A40;text-decoration:none">
+      <a class="tag" href="kitbox.html#/category/system" style="--c:#343A40;--ci:#ffffff;text-decoration:none">
         <div class="hole"></div>
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg></div>
         <div class="name">System</div>
