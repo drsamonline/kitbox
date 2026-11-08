@@ -5,18 +5,18 @@
 <br>
 
 <a href="https://github.com/drsamonline/kitbox/releases/latest"><img src="docs/assets/badge-version.svg" alt="version 2.3.0"></a>
-<a href="kitbox.html"><img src="docs/assets/badge-tools.svg" alt="444 tools"></a>
+<a href="kitbox.html"><img src="docs/assets/badge-tools.svg" alt="465 tools"></a>
 <a href="#categories"><img src="docs/assets/badge-categories.svg" alt="27 categories"></a>
-<a href="#tests"><img src="docs/assets/badge-checks.svg" alt="207 checks"></a>
+<a href="#tests"><img src="docs/assets/badge-checks.svg" alt="223 checks"></a>
 <a href="#what-it-refuses-to-do"><img src="docs/assets/badge-network.svg" alt="no network"></a>
 <a href="#what-it-is"><img src="docs/assets/badge-runtime.svg" alt="0 dependencies"></a>
 <a href="#what-it-is"><img src="docs/assets/badge-file.svg" alt="1 HTML file"></a>
-<a href="#what-it-is"><img src="docs/assets/badge-size.svg" alt="990 KB"></a>
+<a href="#what-it-is"><img src="docs/assets/badge-size.svg" alt="1029 KB"></a>
 <a href="LICENSE"><img src="docs/assets/badge-licence.svg" alt="PolyForm Noncommercial 1.0.0"></a>
 
 <br><br>
 
-<strong>444 tools across 27 categories in one HTML file.</strong><br>
+<strong>465 tools across 27 categories in one HTML file.</strong><br>
 No install, no build step, no dependencies, no account — and no network call, ever.
 
 <br>
@@ -33,9 +33,9 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 <br>
 
-<img src="docs/shot-home.png" alt="Kitbox home screen: a search box over 444 tools and a grid of 27 colour-coded categories" width="100%">
+<img src="docs/shot-home.png" alt="Kitbox home screen: a search box over 465 tools and a grid of 27 colour-coded categories" width="100%">
 
-<p align="center"><sub>One search box over 444 tools. Pinned and recent tools appear above the categories once you have used it for a day.</sub></p>
+<p align="center"><sub>One search box over 465 tools. Pinned and recent tools appear above the categories once you have used it for a day.</sub></p>
 
 ---
 
@@ -45,7 +45,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 |  |  |  |
 |:--|:--|:--|
-| 🧰 **444 tools** | 🗂️ **27 categories** | 📄 **1 HTML file** |
+| 🧰 **465 tools** | 🗂️ **27 categories** | 📄 **1 HTML file** |
 | 📦 **0 dependencies** | 🔌 **0 network calls** | 👤 **0 accounts** |
 
 Save the file. Open it from a USB stick on a machine with the router switched off. It works — that is the entire design brief, and everything below follows from it.
@@ -57,7 +57,7 @@ Save the file. Open it from a USB stick on a machine with the router switched of
 | | Category | Tools | What it covers |
 |:--:|:--|--:|:--|
 | 🧰 | General | 13 | Ruler, counters, countdown, stopwatch, Morse, Roman numerals, compass, level, world clock, text-to-speech, big clock |
-| ✍️ | Text | 50 | Case, find and replace, sorting, ciphers, slugify, braille, ASCII banners, readability, keywords, accents, smart quotes, invisible characters |
+| ✍️ | Text | 63 | Case, find and replace, sorting, ciphers, slugify, braille, ASCII banners, readability, keywords, accents, smart quotes, invisible characters |
 | ✨ | Generator | 11 | QR codes, Lorem Ipsum, number generators, barcode scanning, passphrases, usernames |
 | 🧮 | Calculation | 55 | Everyday maths, algebra, geometry and solids, statistics, regression, dates, sleep cycles, rounding, fuel and electricity cost, pricing |
 | 🖼️ | Image | 21 | Resize, crop, compress, convert, filters, collage, ASCII art — all local |
@@ -65,7 +65,7 @@ Save the file. Open it from a USB stick on a machine with the router switched of
 | 💰 | Finance | 19 | EMI, investment, tax, amortisation, savings goal, debt payoff, simple interest, SIP, GST split |
 | 🎲 | Randomizer | 11 | Wheel, dice, coin, rock-paper-scissors, random from a list, PINs, teams, 8-ball |
 | ❤️ | Health | 8 | BMI, BMR, water, ideal weight, clinical calculations, TDEE and macros, heart-rate zones, due date |
-| ⌨️ | Development | 65 | JSON and schema, YAML, base64, hashes, HMAC, JWT, certificates, ASN.1, cron, ULID, CIDR, MIME, Markdown, configs, regex, SQL, CSS clamp |
+| ⌨️ | Development | 73 | JSON and schema, YAML, base64, hashes, HMAC, JWT, certificates, ASN.1, cron, ULID, CIDR, MIME, Markdown, configs, regex, SQL, CSS clamp |
 | 🎨 | Colours | 10 | Picker, blend, WCAG contrast, colour-blindness simulation, palette from an image, harmony, tints and shades |
 | ⚗️ | Science | 19 | Ohm's law, molar mass, pH, half-life, density, wavelength, periodic table, ideal gas, projectiles, molarity |
 | 🧭 | Geo | 11 | Distance, bearing, midpoint, DMS, sunrise, GPS speed, polygon area, antipodes, cardinal points, coordinate rounding |
@@ -101,7 +101,7 @@ Save the file. Open it from a USB stick on a machine with the router switched of
 
 | Key | Does |
 |:--|:--|
-| <kbd>Ctrl</kbd> <kbd>K</kbd> / <kbd>⌘</kbd> <kbd>K</kbd> | Search all 444 tools from anywhere |
+| <kbd>Ctrl</kbd> <kbd>K</kbd> / <kbd>⌘</kbd> <kbd>K</kbd> | Search all 465 tools from anywhere |
 | <kbd>/</kbd> | The same search, when you are not already typing |
 | <kbd>↑</kbd> <kbd>↓</kbd> <kbd>↵</kbd> | Move through results, open one |
 | <kbd>Esc</kbd> | Close the search, then step back a page |
@@ -157,9 +157,9 @@ npm ci
 npm test
 ```
 
-207 checks, run against the real file in jsdom:
+223 checks, run against the real file in jsdom:
 
-- every tool renders — 444 of them
+- every tool renders — 465 of them
 - tool ids and names are unique
 - all 50 routes resolve
 - the ported astronomy matches Meeus 25.b and 47.a; Delhi's midsummer sunrise and sunset land where they should

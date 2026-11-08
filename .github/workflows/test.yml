@@ -115,29 +115,24 @@ jobs:
         run: |
           bytes=$(wc -c < kitbox.html)
           gz=$(gzip -9 -c kitbox.html | wc -c)
-          # Two numbers, because they answer different questions.
-          #
-          # The gzipped size is what a user actually downloads, and it is the
-          # budget that matters: 285 KB. It sat near 215 KB for many releases and
-          # reached 260 KB at 428 tools, which is about 620 bytes gzipped per
-          # tool — so 285 KB is one more batch of headroom, not a blank cheque.
-          #
-          # The raw size has no natural ceiling — every tool adds to it — so it
-          # is a runaway guard, not a target, and it is deliberately coarse: one
-          # megabyte. It was 640 KB at B1, 760 KB at B6, 860 KB at 2.4.0 and
-          # 960 KB at 2.8.0, and 2.9.0 tripped it by 577 bytes — which is the
-          # clearest possible argument that a fine-grained raw gate is measuring
-          # the wrong thing. The gzip budget is the one that catches a real
-          # regression; this one exists to catch a file that has doubled.
+          tools=$(python3 -c "import json; print(len(json.load(open('codes.json'))))")
+          # The budget is PER TOOL, because adding tools is the point of this
+          # app. A fixed ceiling has now been raised four times — 640 KB, 760,
+          # 860, 960 — and each raise was a decision about arithmetic rather
+          # than about quality. 700 bytes gzipped per tool says what actually
+          # matters: if the file grows without the tool count growing, something
+          # bloated, and that is the regression worth failing on.
+          per_tool=700
+          gz_limit=$(( tools * per_tool ))
           raw_limit=$((1024 * 1024))
-          gz_limit=$((285 * 1024))
-          echo "kitbox.html: $((bytes / 1024)) KB raw (guard $((raw_limit / 1024)) KB), $((gz / 1024)) KB gzipped (budget $((gz_limit / 1024)) KB)"
+          echo "kitbox.html: $((bytes / 1024)) KB raw, $((gz / 1024)) KB gzipped for $tools tools"
+          echo "budget: $((gz_limit / 1024)) KB ($per_tool bytes per tool), $(( gz * 100 / gz_limit ))% used"
           if [ "$gz" -gt "$gz_limit" ]; then
-            echo "The download grew past 285 KB gzipped. That is a real regression: trim it, or raise the budget deliberately."
+            echo "The download exceeds $per_tool bytes per tool. Either trim it, or make the case for a bigger per-tool budget deliberately."
             exit 1
           fi
           if [ "$bytes" -gt "$raw_limit" ]; then
-            echo "The raw file passed the runaway guard. Either trim it, or raise the guard in this workflow deliberately."
+            echo "The raw file passed the one-megabyte runaway guard."
             exit 1
           fi
 

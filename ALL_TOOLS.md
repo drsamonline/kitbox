@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**444 tools across 27 categories.**
+**465 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -8,7 +8,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | # | Category | Code | Tools |
 |--:|:--|:--|--:|
 | 1 | General Tools | `GEN` | 13 |
-| 2 | Text Tools | `TXT` | 50 |
+| 2 | Text Tools | `TXT` | 63 |
 | 3 | Generator Tools | `GNR` | 11 |
 | 4 | Calculation Tools | `CAL` | 55 |
 | 5 | Image Tools | `IMG` | 21 |
@@ -16,7 +16,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 65 |
+| 10 | Development Tools | `DEV` | 73 |
 | 11 | Colors Tools | `CLR` | 10 |
 | 12 | Science Tools | `SCI` | 19 |
 | 13 | Geo Tools | `GEO` | 11 |
@@ -51,7 +51,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GEN-12` **Level Tool** — `general/level`
 - `GEN-13` **World Clock** — `general/worldclock`
 
-## Text Tools — 50 tools
+## Text Tools — 63 tools
 
 **Basic Tools**
 
@@ -101,6 +101,13 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `TXT-31` **Text Splitter** — `text/textsplitter`
 - `TXT-32` **ASCII Art Banner** — `text/asciibanner`
 - `TXT-33` **Braille Translator** — `text/braille`
+- `TXT-51` **A1Z26 Cipher** — `text/a1z26`
+- `TXT-52` **Affine Cipher** — `text/affine`
+- `TXT-53` **Atbash Cipher** — `text/atbash`
+- `TXT-54` **Bacon Cipher** — `text/bacon`
+- `TXT-55` **Rail Fence Cipher** — `text/railfence`
+- `TXT-56` **Bifid Cipher** — `text/bifid`
+- `TXT-57` **ROT47** — `text/rot47`
 - `TXT-41` **XOR Cipher** — `text/xor`
 - `TXT-42` **Vigenère Cipher** — `text/vigenere`
 - `TXT-44` **Ascii85** — `text/ascii85`
@@ -108,18 +115,27 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 
 **Encoding**
 
+- `TXT-58` **Quoted-Printable** — `text/quotedprintable`
+- `TXT-59` **Char Codes** — `text/charcodes`
+- `TXT-63` **Escape / Unescape** — `text/escape`
 - `TXT-48` **Punycode / IDN** — `text/punycode`
 - `TXT-49` **Code Point Inspector** — `text/codepoints`
 - `TXT-50` **Huffman Coding** — `text/huffman`
 
 **Analysis Tools**
 
+- `TXT-60` **Hexdump** — `text/hexdump`
 - `TXT-46` **Word-Level Diff** — `text/worddiff`
 - `TXT-47` **Extract From Text** — `text/extract`
 - `TXT-43` **Shannon Entropy** — `text/entropy`
 - `TXT-34` **Keywords & Text Similarity** — `text/keywords`
 - `TXT-35` **Readability & Reading Time** — `text/readability`
 - `TXT-38` **Word Frequency** — `text/wordfreq`
+
+**Text Cleanup**
+
+- `TXT-61` **Strip ANSI Escapes** — `text/ansistrip`
+- `TXT-62` **Remove Null Bytes** — `text/nullbytes`
 
 **Cleanup Tools**
 
@@ -346,7 +362,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 65 tools
+## Development Tools — 73 tools
 
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
@@ -371,6 +387,14 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `DEV-21` **JSON ↔ YAML** — `dev/jsonyaml`
 - `DEV-22` **Unix Timestamp Converter** — `dev/unixtime`
 - `DEV-23` **JSON Diff** — `dev/jsondiff`
+- `DEV-66` **.editorconfig Generator** — `dev/editorconfig`
+- `DEV-67` **Makefile Generator** — `dev/makefile`
+- `DEV-68` **systemd Unit Generator** — `dev/systemd`
+- `DEV-69` **SemVer Comparer** — `dev/semver`
+- `DEV-70` **Conventional Commit** — `dev/conventional`
+- `DEV-71` **Random Port** — `dev/randomport`
+- `DEV-72` **IPv6 ULA Generator** — `dev/ipv6ula`
+- `DEV-73` **Email Normaliser** — `dev/emailnormalise`
 - `DEV-63` **RSA Sign / Verify** — `dev/rsasign`
 - `DEV-64` **IPv6 Header & ICMPv6** — `dev/ipv6`
 - `DEV-65` **JSONPath Query** — `dev/jsonpath`

@@ -8,6 +8,29 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.11.0 — 2026-11-09
+
+B31 and B32: the classical ciphers, six text utilities, and eight generators that write a config file you were about to write by hand.
+
+### B31 — ciphers and text utilities (13)
+
+- **A1Z26**, **Affine**, **Atbash**, **Bacon** (24- and 26-letter), **Rail Fence**, **Bifid**, **ROT47** — each checked against a published vector, not against its own output. Affine with a=5, b=8 turns `AFFINE CIPHER` into `IHHWVC SWFRCP`; rail fence with three rails turns the textbook `WEAREDISCOVEREDFLEEATONCE` into `WECRLTEERDSOEEFEAOCAIVDEN`.
+- **Quoted-Printable**, **Char Codes** (code points, not bytes), **Hexdump** (and reading one back), **Strip ANSI Escapes**, **Remove Null Bytes**, **Escape / Unescape** in three styles.
+
+### B32 — generators and two network tools (8)
+
+- **.editorconfig**, **Makefile** (with real tabs, which is the usual way one is born broken), **systemd unit** (with the hardening lines), **SemVer comparer**, **Conventional Commit**, **Random Port**, **IPv6 ULA**, **Email Normaliser**.
+
+### Fixed — found by testing against published vectors
+
+- **Bifid did not decrypt.** The inverse needs the restored sequence read as rows-then-columns, not as consecutive pairs — so the tool was quietly returning its input. A round-trip test would have caught it in one line; a "does it produce letters" test never would.
+- **The Bifid square was one cell short**, so every coordinate at index 24 was undefined.
+- My own first pass at the verification got eight of eleven expectations wrong — spaces preserved, the 24-letter Bacon alphabet, the type default — which is its own lesson about writing the test from the specification rather than from the output.
+
+### Changed — the size budget is now per tool
+
+A fixed ceiling had been raised four times (640 KB → 760 → 860 → 960), and each raise was a decision about arithmetic rather than about quality. The gate is now **700 bytes gzipped per tool** — 465 tools, 292 KB, 89% used — because adding tools is the point of the app and bloat without capability is the regression worth failing on.
+
 ## 2.10.0 — 2026-11-09
 
 B29 and B30 from [BACKLOG-TOOLS.md](BACKLOG-TOOLS.md).

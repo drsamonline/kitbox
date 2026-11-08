@@ -880,7 +880,93 @@ setTimeout(async () => {
   ev('location.hash="#/tool/science/rcfilter"'); ev('route()');
   ok('1 kΩ and 100 nF give a 1.59 kHz cut-off', /1\.59 kHz/.test(w.document.querySelector('#rfOut').textContent));
 
-  /* 26. the app makes no network calls and loads nothing external */
+
+  /* 26. B31-B32: the classical ciphers, checked against published vectors */
+  ev('location.hash="#/tool/text/affine"'); ev('route()');
+  const afIn = w.document.querySelector('#afIn');
+  afIn.value = 'AFFINE CIPHER';
+  w.document.querySelector('#afA').value = '5';
+  w.document.querySelector('#afB').value = '8';
+  w.document.querySelector('#afEnc').click();
+  ok('Affine with a=5, b=8 turns AFFINE CIPHER into IHHWVC SWFRCP',
+     w.document.querySelector('#afOut').textContent === 'IHHWVC SWFRCP',
+     w.document.querySelector('#afOut').textContent);
+  w.document.querySelector('#afIn').value = 'IHHWVC SWFRCP';
+  w.document.querySelector('#afDec').click();
+  ok('Affine decrypts back to AFFINE CIPHER',
+     w.document.querySelector('#afOut').textContent === 'AFFINE CIPHER');
+
+  ev('location.hash="#/tool/text/railfence"'); ev('route()');
+  w.document.querySelector('#rfIn2').value = 'WEAREDISCOVEREDFLEEATONCE';
+  w.document.querySelector('#rfRails').value = '3';
+  w.document.querySelector('#rfEnc').click();
+  ok('Rail fence with three rails gives WECRLTEERDSOEEFEAOCAIVDEN',
+     w.document.querySelector('#rfOut').textContent === 'WECRLTEERDSOEEFEAOCAIVDEN',
+     w.document.querySelector('#rfOut').textContent);
+  w.document.querySelector('#rfIn2').value = 'WECRLTEERDSOEEFEAOCAIVDEN';
+  w.document.querySelector('#rfDec').click();
+  ok('Rail fence decrypts back', w.document.querySelector('#rfOut').textContent === 'WEAREDISCOVEREDFLEEATONCE');
+
+  ev('location.hash="#/tool/text/bifid"'); ev('route()');
+  w.document.querySelector('#bfIn').value = 'FLEEATONCE';
+  w.document.querySelector('#bfEnc').click();
+  const bifidCipher = w.document.querySelector('#bfOut').textContent;
+  ok('Bifid turns FLEEATONCE into HAAEVSLDSP', bifidCipher === 'HAAEVSLDSP', bifidCipher);
+  w.document.querySelector('#bfIn').value = bifidCipher;
+  w.document.querySelector('#bfDec').click();
+  ok('Bifid decrypts back to FLEEATONCE',
+     w.document.querySelector('#bfOut').textContent === 'FLEEATONCE',
+     w.document.querySelector('#bfOut').textContent);
+
+  ev('location.hash="#/tool/text/a1z26"'); ev('route()');
+  w.document.querySelector('#azIn').value = 'Attack at dawn';
+  w.document.querySelector('#azEnc').click();
+  const a1z26 = w.document.querySelector('#azOut').textContent;
+  ok('A1Z26 encodes Attack at dawn', a1z26 === '1-20-20-1-3-11 / 1-20 / 4-1-23-14', a1z26);
+  w.document.querySelector('#azIn').value = a1z26;
+  w.document.querySelector('#azDec').click();
+  ok('A1Z26 decodes its own output', w.document.querySelector('#azOut').textContent === 'ATTACK AT DAWN');
+
+  ev('location.hash="#/tool/text/atbash"'); ev('route()');
+  w.document.querySelector('#atIn').value = 'Attack at dawn';
+  w.document.querySelector('#atIn').dispatchEvent(new w.Event('input'));
+  ok('Atbash turns Attack into Zggzxp',
+     /^Zggzxp zg wzdm$/.test(w.document.querySelector('#atOut').textContent),
+     w.document.querySelector('#atOut').textContent);
+
+  ev('location.hash="#/tool/text/rot47"'); ev('route()');
+  w.document.querySelector('#r47In').value = 'Hello';
+  w.document.querySelector('#r47In').dispatchEvent(new w.Event('input'));
+  ok('ROT47 turns Hello into w6==@', w.document.querySelector('#r47Out').textContent === 'w6==@',
+     w.document.querySelector('#r47Out').textContent);
+
+  ev('location.hash="#/tool/text/hexdump"'); ev('route()');
+  w.document.querySelector('#hdIn').value = 'Kitbox';
+  w.document.querySelector('#hdEnc').click();
+  const dump = w.document.querySelector('#hdOut').textContent;
+  ok('the hexdump shows offset, hex and ASCII',
+     /^00000000\s+4b 69 74 62 6f 78/.test(dump) && /\|Kitbox\|/.test(dump), dump.split('\n')[0]);
+  w.document.querySelector('#hdIn').value = dump;
+  w.document.querySelector('#hdDec').click();
+  ok('a hexdump reads back to its text', w.document.querySelector('#hdOut').textContent === 'Kitbox');
+
+  ev('location.hash="#/tool/dev/semver"'); ev('route()');
+  ok('1.2.3-beta.2 sorts below 1.2.3', /A < B/.test(w.document.querySelector('#svOut').textContent));
+  w.document.querySelector('#svA').value = '1.2.3-beta.10';
+  w.document.querySelector('#svB').value = '1.2.3-beta.2';
+  w.document.querySelector('#svA').dispatchEvent(new w.Event('input'));
+  ok('beta.10 sorts above beta.2 — numeric, not lexical',
+     /A > B/.test(w.document.querySelector('#svOut').textContent));
+
+  ev('location.hash="#/tool/dev/makefile"'); ev('route()');
+  ok('the generated Makefile uses a tab for its recipe lines',
+     /\n\t/.test(w.document.querySelector('#mkOut').textContent), 'tab present');
+
+  ev('location.hash="#/tool/dev/systemd"'); ev('route()');
+  ok('the generated systemd unit carries hardening lines',
+     /NoNewPrivileges=yes/.test(w.document.querySelector('#sdOut').textContent));
+
+  /* 27. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

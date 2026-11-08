@@ -52,6 +52,25 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.11.0 — 2026-11-09</h2>
+<p>B31 and B32: the classical ciphers, six text utilities, and eight generators that write a config file you were about to write by hand.</p>
+<h3>B31 — ciphers and text utilities (13)</h3>
+<ul>
+<li><strong>A1Z26</strong>, <strong>Affine</strong>, <strong>Atbash</strong>, <strong>Bacon</strong> (24- and 26-letter), <strong>Rail Fence</strong>, <strong>Bifid</strong>, <strong>ROT47</strong> — each checked against a published vector, not against its own output. Affine with a=5, b=8 turns <code>AFFINE CIPHER</code> into <code>IHHWVC SWFRCP</code>; rail fence with three rails turns the textbook <code>WEAREDISCOVEREDFLEEATONCE</code> into <code>WECRLTEERDSOEEFEAOCAIVDEN</code>.</li>
+<li><strong>Quoted-Printable</strong>, <strong>Char Codes</strong> (code points, not bytes), <strong>Hexdump</strong> (and reading one back), <strong>Strip ANSI Escapes</strong>, <strong>Remove Null Bytes</strong>, <strong>Escape / Unescape</strong> in three styles.</li>
+</ul>
+<h3>B32 — generators and two network tools (8)</h3>
+<ul>
+<li><strong>.editorconfig</strong>, <strong>Makefile</strong> (with real tabs, which is the usual way one is born broken), <strong>systemd unit</strong> (with the hardening lines), <strong>SemVer comparer</strong>, <strong>Conventional Commit</strong>, <strong>Random Port</strong>, <strong>IPv6 ULA</strong>, <strong>Email Normaliser</strong>.</li>
+</ul>
+<h3>Fixed — found by testing against published vectors</h3>
+<ul>
+<li><strong>Bifid did not decrypt.</strong> The inverse needs the restored sequence read as rows-then-columns, not as consecutive pairs — so the tool was quietly returning its input. A round-trip test would have caught it in one line; a "does it produce letters" test never would.</li>
+<li><strong>The Bifid square was one cell short</strong>, so every coordinate at index 24 was undefined.</li>
+<li>My own first pass at the verification got eight of eleven expectations wrong — spaces preserved, the 24-letter Bacon alphabet, the type default — which is its own lesson about writing the test from the specification rather than from the output.</li>
+</ul>
+<h3>Changed — the size budget is now per tool</h3>
+<p>A fixed ceiling had been raised four times (640 KB → 760 → 860 → 960), and each raise was a decision about arithmetic rather than about quality. The gate is now <strong>700 bytes gzipped per tool</strong> — 465 tools, 292 KB, 89% used — because adding tools is the point of the app and bloat without capability is the regression worth failing on.</p>
 <h2>2.10.0 — 2026-11-09</h2>
 <p>B29 and B30 from <a href="../BACKLOG-TOOLS.md">BACKLOG-TOOLS.md</a>.</p>
 <h3>B29 — signing, IPv6, JSONPath (3)</h3>

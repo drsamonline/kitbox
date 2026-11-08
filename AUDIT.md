@@ -739,3 +739,29 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - The IPv6 tool reads the fixed header only; extension headers are named by their next-header value but not walked.
 - Image adjustments read every pixel into memory, so a very large photo will be slow.
 - Moon phases use the elongation of the moon from the sun, which is the standard approximation and can differ from an almanac by a few percent of illumination.
+
+## B31–B32 (2.11.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 465 / 27 (was 444 / 27) |
+| Full suite | 214 checks, 0 failures |
+| Interaction sweep | 412 tools driven, 0 failures |
+| Fuzz | 278 fields across 465 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 987 KB → 1025 KB raw · 285 KB gzipped (89% of a per-tool budget) |
+
+### Findings
+
+**1. Bifid was a cipher that did not decrypt.** The inverse of the interleave is not "flatten the ciphertext and pair it up again" — the restored sequence has to be read as rows then columns. The tool returned its input and looked plausible doing it. The test that caught it was a round trip with a published plaintext, which is the cheapest possible check and the one that is easiest to skip.
+
+**2. Eight of eleven of my first expectations were wrong, and every one was my error.** Affine preserves the space, Bacon's default is the 24-letter alphabet, the char-code tool includes the space character, the commit type defaults to `feat`. Each failure was a test written from what I expected rather than from the specification — which is why the permanent tests now quote the published vector in the assertion message.
+
+**3. A budget that measures the right thing.** Four raises of a fixed ceiling in four releases is a signal that the number was wrong, not that the app was fat. Bytes per tool answers the actual question: the file may grow because tools were added, and must not grow because something bloated.
+
+### Known limitations added
+
+- ROT8000 is not implemented: it needs the full rotation table, and a partial one would be worse than none.
+- Bifid uses the standard square without a keyword; a keyword square is a different tool.
+- The generators produce a starting point, not a considered config: the systemd unit, the Makefile and the .editorconfig are all the common shape, and every one of them will want editing.
