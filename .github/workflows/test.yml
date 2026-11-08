@@ -1,5 +1,5 @@
 # Kitbox has no build step — the app IS the artifact. The only thing worth
-# running on a push is the test suite, which loads index.html in jsdom and
+# running on a push is the test suite, which loads kitbox.html in jsdom and
 # exercises every tool, every route and the ported algorithms.
 name: test
 
@@ -24,19 +24,28 @@ jobs:
       - run: npm ci
       - name: Test
         run: npm test
-      - name: Fail if the app loads anything external or calls the network
+
+      # A loaded resource is fetched by the page by itself; a link is something
+      # a person chooses to click. Only the first kind breaks the offline
+      # promise, so only the first kind fails the build. The support page's
+      # Ko-fi and PayPal links are deliberately outbound.
+      - name: Fail if the app loads anything external
         run: |
-          if grep -Eq '(src|href)="https?://' kitbox.html; then
+          if grep -Eq '<script[^>]+src="https?://|<link[^>]+href="https?://|<img[^>]+src="https?://' kitbox.html; then
             echo "kitbox.html loads an external resource"; exit 1
           fi
+          echo "app: no external resources loaded"
+
+      - name: Fail if the app contains a network call
+        run: |
           if grep -Eq 'fetch\(|XMLHttpRequest|new WebSocket|EventSource' kitbox.html; then
             echo "kitbox.html contains a network call"; exit 1
           fi
-          echo "app: no external resources, no network calls"
+          echo "app: no network calls"
+
       - name: Fail if the landing page loads anything external
         run: |
-          # Outbound links are fine on a landing page; loaded resources are not.
-          if grep -Eq 'src="https?://' index.html; then
+          if grep -Eq '<script[^>]+src="https?://|<link[^>]+href="https?://|<img[^>]+src="https?://' index.html; then
             echo "index.html loads an external resource"; exit 1
           fi
-          echo "landing: no external resources"
+          echo "landing: no external resources loaded"

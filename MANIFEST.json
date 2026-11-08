@@ -6,74 +6,74 @@
       "sha": "fd50d551f986c4269d123d61be1c18a976216f45",
       "producer": "breadth-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     "AUDIT.md": {
       "sha": "727e14f54fda840a1d33343055e03db0cb62cac9",
       "producer": "breadth-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     "CHANGELOG.md": {
       "sha": "6b437ee447583e7fa6bba0a8acb33f96b2b876db",
       "producer": "breadth-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     "kitbox.html": {
       "sha": "f0c083983564e1c8db1532eefc34f3032debe5f1",
       "producer": "breadth-pass@2026-11-08",
       "class": "canonical",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     "index.html": {
       "sha": "c52e1c636b5d014298f93437bf4b38cd63ac7856",
       "producer": "breadth-pass@2026-11-08",
       "class": "canonical",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     "LICENSE": {
       "sha": "0ffca78c0a4e099025090d5e495a9f55e2bf164e",
       "producer": "breadth-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     "package.json": {
       "sha": "71922bfb9b557639c9fce3eadd11f3f486fdd75d",
       "producer": "breadth-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     "package-lock.json": {
       "sha": "4b75e56b17f0f26da3c05b20eff2a00f7f2bc731",
       "producer": "breadth-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     "test/smoke.js": {
       "sha": "c306944c03dc810d78544e520a1c759e9bcbd15c",
       "producer": "breadth-pass@2026-11-08",
       "class": "canonical",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     ".github/workflows/test.yml": {
-      "sha": "345c8395866f10e7b5af44f85856618732bf3589",
+      "sha": "ef2ce249be1927de970958cc3d63de3b6b108024",
       "producer": "breadth-pass@2026-11-08",
       "class": "canonical",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     ".gitignore": {
       "sha": "b0169fddd9079ba720664cfbb39f2b23b2512bbe",
       "producer": "breadth-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     },
     ".nojekyll": {
       "sha": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "producer": "breadth-pass@2026-11-08",
       "class": "generated",
-      "at": "2026-11-08T11:53:32Z"
+      "at": "2026-11-08T11:54:22Z"
     }
   },
-  "updated": "2026-11-08T11:53:32Z"
+  "updated": "2026-11-08T11:54:22Z"
 }
