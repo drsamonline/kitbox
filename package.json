@@ -1,0 +1,14 @@
+{
+  "name": "kitbox",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kitbox — a single-file offline toolbox. 280 tools, no dependencies, no network.",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "author": "Dr Sohil Momin",
+  "scripts": {
+    "test": "node test/smoke.js"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

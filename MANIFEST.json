@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "locked": false,
+  "files": {
+    "README.md": {
+      "sha": "e7a295938e898ea58f6e08d7709687c8f3061ae2",
+      "producer": "merge@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    "AUDIT.md": {
+      "sha": "899e650959daa2ef9fe9d13d39554202e23de58e",
+      "producer": "merge@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    "CHANGELOG.md": {
+      "sha": "0137e02793cefefc48e656c8eec6094548c5a023",
+      "producer": "merge@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    "index.html": {
+      "sha": "4dc6f52b84dd69e5689340632537cfb3f1ecd118",
+      "producer": "merge@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    "LICENSE": {
+      "sha": "0ffca78c0a4e099025090d5e495a9f55e2bf164e",
+      "producer": "merge@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    "package.json": {
+      "sha": "ef5310e810afa877ea8d0809486e5b6214826028",
+      "producer": "merge@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    "package-lock.json": {
+      "sha": "4b75e56b17f0f26da3c05b20eff2a00f7f2bc731",
+      "producer": "merge@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    "test/smoke.js": {
+      "sha": "932be0a0d0057c231a34f29df610451f114c26e3",
+      "producer": "merge@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    ".github/workflows/test.yml": {
+      "sha": "00a8a40d8c388f076779e415d2092370d5db5136",
+      "producer": "merge@2026-11-08",
+      "class": "canonical",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    ".gitignore": {
+      "sha": "b0169fddd9079ba720664cfbb39f2b23b2512bbe",
+      "producer": "merge@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T11:38:15Z"
+    },
+    ".nojekyll": {
+      "sha": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "producer": "merge@2026-11-08",
+      "class": "generated",
+      "at": "2026-11-08T11:38:15Z"
+    }
+  },
+  "updated": "2026-11-08T11:38:15Z"
+}

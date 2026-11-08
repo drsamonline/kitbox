@@ -1,0 +1,35 @@
+# Kitbox has no build step — the app IS the artifact. The only thing worth
+# running on a push is the test suite, which loads index.html in jsdom and
+# exercises every tool, every route and the ported algorithms.
+name: test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Test
+        run: npm test
+      - name: Fail if the app references anything external
+        run: |
+          if grep -Eq '(src|href)="https?://' index.html; then
+            echo "index.html loads an external resource"; exit 1
+          fi
+          if grep -Eq 'fetch\(|XMLHttpRequest|new WebSocket|EventSource' index.html; then
+            echo "index.html contains a network call"; exit 1
+          fi
+          echo "no external references, no network calls"
