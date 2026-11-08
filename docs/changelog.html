@@ -47,6 +47,21 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.6.0 — 2026-11-08</h2>
+<p>Batch <strong>B7</strong> of <a href="plan.html">PLAN.md</a>: storage you can trust.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>A declared key registry.</strong> Every key the app writes is now declared in <code>STORE_KEYS</code> with a label and the tool that owns it. The backup tool builds its list from that instead of a hand-typed allow-list — which is exactly what silently dropped the pinned and recent keys in 1.0.0. A test now walks every <code>store.set('…')</code> in the source and fails on any key that is not declared.</li>
+<li><strong>Schema versioning with migrations.</strong> <code>STORE_SCHEMA</code> is 2, and <code>migrateStore()</code> runs at startup, one step at a time, writing the version only after each step succeeds — a half-migrated store is worse than an old one. Migration 2 repairs habits with no <code>log</code> array and decks with no id.</li>
+<li><strong>A backup that says what it is</strong>: <code>{app, version, schema, exportedAt, data}</code>, and the restore reports which version the file came from and how many keys it had to skip.</li>
+<li><strong>Encrypted backups</strong> — AES-256-GCM with a PBKDF2 key, the same envelope as the file encryption tool, saved as <code>.kbx</code> and reopened from the same picker.</li>
+<li><strong>Per-key erase</strong> and <strong>per-key size</strong> in the backup table, plus a total.</li>
+<li><strong>Quota handling.</strong> <code>store.set</code> used to swallow a failed write silently, so a full disk looked like a successful save. It now reports once, names the likely cause, and logs it.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>97 tests (was 87).</li>
+</ul>
 <h2>1.5.1 — 2026-11-08</h2>
 <p>Batch <strong>B6</strong> of <a href="plan.html">PLAN.md</a>: preferences and permalinks.</p>
 <h3>Added</h3>

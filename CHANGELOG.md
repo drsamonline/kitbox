@@ -2,6 +2,23 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.6.0 — 2026-11-08
+
+Batch **B7** of [PLAN.md](PLAN.md): storage you can trust.
+
+### Added
+
+- **A declared key registry.** Every key the app writes is now declared in `STORE_KEYS` with a label and the tool that owns it. The backup tool builds its list from that instead of a hand-typed allow-list — which is exactly what silently dropped the pinned and recent keys in 1.0.0. A test now walks every `store.set('…')` in the source and fails on any key that is not declared.
+- **Schema versioning with migrations.** `STORE_SCHEMA` is 2, and `migrateStore()` runs at startup, one step at a time, writing the version only after each step succeeds — a half-migrated store is worse than an old one. Migration 2 repairs habits with no `log` array and decks with no id.
+- **A backup that says what it is**: `{app, version, schema, exportedAt, data}`, and the restore reports which version the file came from and how many keys it had to skip.
+- **Encrypted backups** — AES-256-GCM with a PBKDF2 key, the same envelope as the file encryption tool, saved as `.kbx` and reopened from the same picker.
+- **Per-key erase** and **per-key size** in the backup table, plus a total.
+- **Quota handling.** `store.set` used to swallow a failed write silently, so a full disk looked like a successful save. It now reports once, names the likely cause, and logs it.
+
+### Changed
+
+- 97 tests (was 87).
+
 ## 1.5.1 — 2026-11-08
 
 Batch **B6** of [PLAN.md](PLAN.md): preferences and permalinks.

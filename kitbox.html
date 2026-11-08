@@ -369,11 +369,97 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
+const APP_VERSION = '1.6.0';
+const STORE_SCHEMA = 2;
+
+/* Every key this app writes, what it is called, and which tool owns it. The
+   backup tool builds its list from here instead of a hand-typed allow-list —
+   which is what dropped the pinned/recents keys on the floor once. A key that
+   is written but not declared here is a bug the test suite catches. */
+const STORE_KEYS = {
+  'simple-counter':        { label: 'Simple Counter', tool: 'general/counter' },
+  'scoreboard':            { label: 'Scoreboard', tool: 'general/scoreboard' },
+  'ruler-scale':           { label: 'Ruler calibration', tool: 'general/ruler' },
+  'currency-rates':        { label: 'Currency rates', tool: 'finance/currency' },
+  'notepad-notes':         { label: 'Notepad', tool: 'productivity/notepad' },
+  'sketchpad-palette':     { label: 'Sketch Pad palette', tool: 'productivity/sketchpad' },
+  'flashcard-decks':       { label: 'Flashcard decks', tool: 'productivity/flashcards' },
+  'trivia-decks':          { label: 'Trivia quizzes', tool: 'games/triviacreator' },
+  'habits-list':           { label: 'Habit Tracker', tool: 'productivity/habittracker' },
+  'checklists':            { label: 'Checklists', tool: 'productivity/checklist' },
+  'worldclock-cities':     { label: 'World Clock cities', tool: 'general/worldclock' },
+  'clinical-health-entries': { label: 'Clinical health entries', tool: 'health/clinicalhealth' },
+  'panchang-place':        { label: 'Panchang location', tool: 'almanac/panchang' },
+  'pinned':                { label: 'Pinned tools', tool: 'shell' },
+  'recent':                { label: 'Recently used', tool: 'shell' },
+  'palette-history':       { label: 'Recent searches', tool: 'shell' },
+  'seen-palette-hint':     { label: 'First-run hint dismissed', tool: 'shell' },
+  'text-size':             { label: 'Text size', tool: 'shell' },
+  'num-format':            { label: 'Number format', tool: 'shell' },
+  'units':                 { label: 'Units preference', tool: 'shell' },
+  'error-log':             { label: 'Error log', tool: 'system/errorlog' },
+  'schema':                { label: 'Storage schema', tool: 'shell' },
+  'unit-last-*':           { label: 'Last unit pair', tool: 'unit', prefix: true }
+};
+
+/* One write path, so a full disk is reported instead of swallowed. */
+let quotaWarned = false;
 const store = {
   get(k, d){ try{ const v = localStorage.getItem('tooly:'+k); return v===null? d : JSON.parse(v);}catch(e){return d;} },
-  set(k, v){ try{ localStorage.setItem('tooly:'+k, JSON.stringify(v)); }catch(e){} },
-  allKeys(){ try{ return Object.keys(localStorage).filter(k=>k.startsWith('tooly:')).map(k=>k.slice(6)); }catch(e){ return []; } }
+  set(k, v){
+    try{
+      localStorage.setItem('tooly:'+k, JSON.stringify(v));
+      return true;
+    }catch(e){
+      const full = e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014);
+      if(!quotaWarned){
+        quotaWarned = true;
+        try{
+          toast(full
+            ? 'This device\u2019s storage is full — that last change was not saved. Productivity \u2192 Backup & Restore shows what is using the space.'
+            : 'That change could not be saved (storage blocked by the browser).');
+        }catch(err){}
+        try{ logError('storage', e); }catch(err){}
+      }
+      return false;
+    }
+  },
+  remove(k){ try{ localStorage.removeItem('tooly:'+k); return true; }catch(e){ return false; } },
+  allKeys(){ try{ return Object.keys(localStorage).filter(k=>k.startsWith('tooly:')).map(k=>k.slice(6)); }catch(e){ return []; } },
+  bytes(k){ try{ return (localStorage.getItem('tooly:'+k)||'').length; }catch(e){ return 0; } }
 };
+
+/* Schema migrations. Each step runs once, in order, and the version is only
+   written after it succeeds — a half-migrated store is worse than an old one. */
+const MIGRATIONS = {
+  1: ()=>{ /* versioning arrived after the data; existing keys are already v1 */ },
+  2: ()=>{
+    const habits = store.get('habits-list', null);
+    if(Array.isArray(habits)) store.set('habits-list', habits.map(h=>({name:h && h.name || 'Habit', log:Array.isArray(h && h.log) ? h.log : []})));
+    const decks = store.get('flashcard-decks', null);
+    if(Array.isArray(decks)) store.set('flashcard-decks', decks.map((d,i)=>({
+      id: d && d.id || 'deck-' + i,
+      name: d && d.name || 'Deck ' + (i+1),
+      cards: Array.isArray(d && d.cards) ? d.cards.filter(c=>c && (c.front || c.back)) : []
+    })));
+  }
+};
+
+function migrateStore(){
+  let at = Number(store.get('schema', 0)) || 0;
+  if(at >= STORE_SCHEMA) return at;
+  for(let v = at + 1; v <= STORE_SCHEMA; v++){
+    try{
+      if(MIGRATIONS[v]) MIGRATIONS[v]();
+      store.set('schema', v);
+      at = v;
+    }catch(e){
+      logError('migration ' + v, e);
+      break;
+    }
+  }
+  return at;
+}
 
 /* -- Export / Import helpers, reused by any tool that persists data -- */
 function downloadJSON(data, filename){
@@ -6524,56 +6610,147 @@ prod('notepad','Notepad', root=>{
 });
 
 prod('backup','Backup & Restore', root=>{
-  const LABELS = {
-    'simple-counter':'Simple Counter', 'scoreboard':'Scoreboard', 'ruler-scale':'Ruler calibration',
-    'currency-rates':'Currency rates', 'notepad-notes':'Notepad', 'sketchpad-palette':'Sketch Pad palette',
-    'flashcard-decks':'Flashcard decks', 'trivia-decks':'Trivia quizzes',
-    'habits-list':'Habit Tracker', 'worldclock-cities':'World Clock cities',
-    'clinical-health-entries':'Clinical health entries', 'pinned':'Pinned tools',
-    'recent':'Recently used', 'panchang-place':'Panchang location'
-  };
   root.innerHTML = `
-    <div class="hint">Everything Kitbox saves on this device (notes, flashcard decks, quizzes, scoreboard, currency rates, calibration) lives only in this browser's local storage — nothing is synced anywhere. Use this to back it all up to one file, move it to another device, or restore it later.</div>
+    <div class="hint">Everything Kitbox saves on this device lives only in this browser's local storage — nothing is synced anywhere. This page lists all of it, with the space each item uses, and can export, encrypt, restore or erase any of it.</div>
     <table class="mono" id="bkList" style="margin:16px 0"></table>
     <div class="segrow">
       <button class="btn primary" id="bkExportAll">⬇ Export everything</button>
-      <label class="btn" style="cursor:pointer">⬆ Restore from file<input type="file" accept="application/json" id="bkImportAll" style="display:none"></label>
+      <button class="btn" id="bkExportEnc">🔒 Export encrypted</button>
+      <label class="btn" style="cursor:pointer">⬆ Restore from file<input type="file" accept="application/json,application/octet-stream,.json,.kbx" id="bkImportAll" style="display:none"></label>
+    </div>
+    <div class="field" id="bkPassWrap" style="display:none">
+      <label>Passphrase for the encrypted backup</label>
+      <input type="text" id="bkPass" placeholder="at least 8 characters — there is no reset">
+      <div class="hint" id="bkPassHint" style="margin-top:6px"></div>
     </div>
     <div class="hint" id="bkMsg" style="display:none"></div>
     <div class="segrow" style="margin-top:16px"><button class="btn ghost" id="bkClearAll">Erase all Kitbox data on this device</button></div>`;
-  const KNOWN_KEYS = new Set(['simple-counter','scoreboard','ruler-scale','currency-rates','notepad-notes',
-    'sketchpad-palette','flashcard-decks','trivia-decks','habits-list','worldclock-cities','clinical-health-entries',
-    'pinned','recent','panchang-place']);
-  function drawList(){
-    const keys = store.allKeys();
-    root.querySelector('#bkList').innerHTML = keys.length
-      ? keys.map(k=>`<tr><td>${escapeHtml(LABELS[k]||k)}</td><td>${JSON.stringify(store.get(k)).length} bytes</td></tr>`).join('')
-      : '<tr><td>No saved data yet on this device.</td></tr>';
+
+  const declared = Object.keys(STORE_KEYS);
+  function labelFor(k){
+    if(STORE_KEYS[k]) return STORE_KEYS[k].label;
+    const pref = declared.find(d=>d.endsWith('*') && k.startsWith(d.slice(0, -1)));
+    return pref ? STORE_KEYS[pref].label : k;
   }
+  function isKnown(k){
+    if(STORE_KEYS[k]) return true;
+    return declared.some(d=>d.endsWith('*') && k.startsWith(d.slice(0, -1)));
+  }
+
+  function drawList(){
+    const keys = store.allKeys().sort();
+    const total = keys.reduce((a,k)=>a + store.bytes(k), 0);
+    root.querySelector('#bkList').innerHTML = keys.length
+      ? `<tr><td>Storage schema</td><td>v${store.get('schema', 0)} of ${STORE_SCHEMA}</td><td></td></tr>`
+        + keys.map(k=>`<tr><td>${escapeHtml(labelFor(k))}</td><td>${fmtBytes(store.bytes(k))}</td>
+            <td style="text-align:right"><button class="btn ghost" data-erase="${escapeHtml(k)}" style="padding:2px 8px;font-size:12px">Erase</button></td></tr>`).join('')
+        + `<tr><td><b>Total</b></td><td><b>${fmtBytes(total)}</b></td><td></td></tr>`
+      : '<tr><td>No saved data yet on this device.</td><td></td><td></td></tr>';
+    root.querySelectorAll('[data-erase]').forEach(b=>b.addEventListener('click', ()=>{
+      const k = b.dataset.erase;
+      if(!confirm('Erase "' + labelFor(k) + '"? This cannot be undone.')) return;
+      store.remove(k);
+      toast('Erased ' + labelFor(k));
+      drawList();
+    }));
+  }
+
+  function exportAll(){
+    const data = {};
+    store.allKeys().forEach(k=>{ data[k] = store.get(k); });
+    return { app: 'Kitbox', version: APP_VERSION, schema: STORE_SCHEMA, exportedAt: new Date().toISOString(), data };
+  }
+
   root.querySelector('#bkExportAll').addEventListener('click', ()=>{
-    const all = {};
-    store.allKeys().forEach(k=> all[k] = store.get(k));
-    downloadJSON({app:'Kitbox', exportedAt:new Date().toISOString(), data:all}, 'kitbox-backup.json');
+    downloadJSON(exportAll(), 'kitbox-backup.json');
+    const msg = root.querySelector('#bkMsg');
+    msg.style.display = 'block';
+    msg.textContent = 'Exported ' + store.allKeys().length + ' item(s).';
   });
+
+  root.querySelector('#bkExportEnc').addEventListener('click', async ()=>{
+    const wrap = root.querySelector('#bkPassWrap');
+    const msg = root.querySelector('#bkMsg');
+    msg.style.display = 'block';
+    if(wrap.style.display === 'none'){
+      wrap.style.display = 'block';
+      root.querySelector('#bkPass').focus();
+      msg.textContent = 'Choose a passphrase, then press Export encrypted again.';
+      return;
+    }
+    const pass = root.querySelector('#bkPass').value;
+    if(pass.length < 8){ msg.textContent = 'Use a passphrase of at least 8 characters.'; return; }
+    if(!cryptoAvailable()){ msg.textContent = CRYPTO_MSG; return; }
+    try{
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const base = await crypto.subtle.importKey('raw', bytesFromText(pass), 'PBKDF2', false, ['deriveKey']);
+      const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:250000, hash:'SHA-256'},
+        base, {name:'AES-GCM', length:256}, false, ['encrypt']);
+      const ct = new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, bytesFromText(JSON.stringify(exportAll()))));
+      const head = new Uint8Array(4 + 16 + 12);
+      head.set([0x4b,0x42,0x42,0x31], 0);   // "KBB1"
+      head.set(salt, 4); head.set(iv, 20);
+      saveBlob(new Blob([head, ct], {type:'application/octet-stream'}), 'kitbox-backup.kbx');
+      msg.textContent = 'Encrypted backup saved. Keep the passphrase somewhere else — there is no reset.';
+    }catch(e){
+      msg.textContent = 'Could not encrypt the backup: ' + (e.message || e);
+    }
+  });
+
+  root.querySelector('#bkPass').addEventListener('input', e=>{
+    const s = passStrength(e.target.value);
+    root.querySelector('#bkPassHint').textContent = e.target.value ? s.label + (s.bits ? ' · about ' + s.bits + ' bits' : '') : '';
+  });
+
   root.querySelector('#bkImportAll').addEventListener('change', async e=>{
     const file = e.target.files[0]; if(!file) return;
-    const msg = root.querySelector('#bkMsg'); msg.style.display='block';
+    const msg = root.querySelector('#bkMsg'); msg.style.display = 'block';
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const isSealed = bytes.length > 40 && bytes[0] === 0x4b && bytes[1] === 0x42 && bytes[2] === 0x42 && bytes[3] === 0x31;
+
+    let parsed = null;
+    if(isSealed){
+      const pass = root.querySelector('#bkPass').value || prompt('Passphrase for this encrypted backup:') || '';
+      if(!cryptoAvailable()){ msg.textContent = CRYPTO_MSG; return; }
+      try{
+        const salt = bytes.slice(4, 20), iv = bytes.slice(20, 32), ct = bytes.slice(32);
+        const base = await crypto.subtle.importKey('raw', bytesFromText(pass), 'PBKDF2', false, ['deriveKey']);
+        const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:250000, hash:'SHA-256'},
+          base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+        const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, ct);
+        parsed = JSON.parse(textFromBytes(pt));
+      }catch(err){
+        msg.textContent = 'Could not open that backup — wrong passphrase, or the file was changed after it was sealed.';
+        return;
+      }
+    } else {
+      try{ parsed = JSON.parse(textFromBytes(bytes)); }
+      catch(err){ msg.textContent = 'That file is not a Kitbox backup.'; return; }
+    }
+
     try{
-      const parsed = await readJSONFile(file);
       const data = parsed && parsed.data ? parsed.data : parsed;
-      if(!data || typeof data!=='object') throw new Error('bad shape');
-      const entries = Object.entries(data).filter(([k])=>KNOWN_KEYS.has(k));
+      if(!data || typeof data !== 'object') throw new Error('bad shape');
+      const entries = Object.entries(data).filter(([k])=>isKnown(k));
       if(!entries.length) throw new Error('no known keys');
       entries.forEach(([k,v])=> store.set(k,v));
-      msg.textContent = `Restored ${entries.length} item(s). Reopen a tool to see its data.`;
+      const fromVersion = parsed && parsed.version ? ' from v' + parsed.version : '';
+      const skipped = Object.keys(data).length - entries.length;
+      msg.textContent = 'Restored ' + entries.length + ' item(s)' + fromVersion
+        + (skipped ? ', skipped ' + skipped + ' key(s) this version does not know' : '') + '. Reopen a tool to see its data.';
       drawList();
-    }catch(err){ msg.textContent = 'That file was not a valid Kitbox backup — nothing was changed.'; }
+    }catch(err){
+      msg.textContent = 'That backup could not be restored — nothing was changed.';
+    }
   });
+
   root.querySelector('#bkClearAll').addEventListener('click', ()=>{
-    if(!confirm('This permanently erases every saved note, deck, score, and setting stored by Kitbox on this device. This cannot be undone. Continue?')) return;
-    store.allKeys().forEach(k=>{ try{ localStorage.removeItem('tooly:'+k); }catch(e){} });
+    if(!confirm('This permanently erases every saved note, deck, score and setting stored by Kitbox on this device. This cannot be undone. Continue?')) return;
+    store.allKeys().forEach(k=> store.remove(k));
     drawList();
   });
+
   drawList();
 });
 
@@ -12090,6 +12267,8 @@ function route(){
   seenFirstRoute = true;
   window.scrollTo(0, scrollMemo.get(hash) || 0);
 }
+migrateStore();
+
 window.addEventListener('error', e=>{ logError('window', e.error || e.message); });
 window.addEventListener('unhandledrejection', e=>{ logError('promise', e.reason); });
 

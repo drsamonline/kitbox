@@ -474,7 +474,49 @@ setTimeout(async () => {
      w.document.querySelector('#pcA').value === '300' && /\+25\.00%/.test(w.document.querySelector('#pcOut').textContent),
      w.document.querySelector('#pcA').value + ' → ' + w.document.querySelector('#pcOut').textContent.slice(0, 30));
 
-  /* 15. the app makes no network calls and loads nothing external */
+
+  /* 15. storage you can trust (B7) */
+  ok('the store is migrated to the current schema', ev("store.get('schema', 0)") === ev('STORE_SCHEMA'),
+     'v' + ev("store.get('schema', 0)") + ' of ' + ev('STORE_SCHEMA'));
+  ok('the app version matches package.json',
+     ev('APP_VERSION') === require(path.join(__dirname, '..', 'package.json')).version,
+     ev('APP_VERSION') + ' vs ' + require(path.join(__dirname, '..', 'package.json')).version);
+
+  ev("store.set('habits-list', [{name:'Water'}])");
+  ev("store.set('flashcard-decks', [{name:'Anatomy', cards:[{front:'a',back:'b'}]}])");
+  ev("store.set('schema', 1)"); ev('migrateStore()');
+  ok('migration 2 gives an old habit its missing log', /"log":\[\]/.test(ev("JSON.stringify(store.get('habits-list'))")));
+  ok('migration 2 gives an old deck an id', /"id":"deck-0"/.test(ev("JSON.stringify(store.get('flashcard-decks'))")));
+
+  // every key the app writes must be declared, or a backup cannot restore it
+  const writtenKeys = [...html.matchAll(/store\.set\('([^']+)'/g)].map(m => m[1]);
+  const declaredKeys = ev('Object.keys(STORE_KEYS)');
+  const undeclared = [...new Set(writtenKeys)].filter(k => {
+    if (declaredKeys.includes(k)) return false;
+    return !declaredKeys.some(d => d.endsWith('*') && k.startsWith(d.slice(0, -1)));
+  });
+  ok('every key the app writes is declared in STORE_KEYS', undeclared.length === 0, undeclared.join(', '));
+
+  ev('location.hash="#/tool/productivity/backup"'); ev('route()');
+  const bkRows = [...w.document.querySelectorAll('#bkList tr')].map(r => r.textContent.replace(/\s+/g, ' ').trim());
+  ok('the backup table names each key and its size', bkRows.some(r => /Habit Tracker/.test(r)), bkRows.slice(0, 3).join(' | ').slice(0, 80));
+  ok('the table shows the schema version', /schema/i.test(bkRows[0] || ''), bkRows[0]);
+  ok('each key can be erased on its own', w.document.querySelectorAll('[data-erase]').length >= 2);
+
+  ev("downloadJSON = (d)=>{ window.__exported = d; }");
+  w.document.querySelector('#bkExportAll').click();
+  ok('the backup carries the app version and the schema',
+     !!w.__exported && w.__exported.version === ev('APP_VERSION') && w.__exported.schema === ev('STORE_SCHEMA'),
+     JSON.stringify({ version: w.__exported && w.__exported.version, schema: w.__exported && w.__exported.schema }));
+
+  const realConfirm = w.confirm;
+  w.confirm = () => true;
+  w.document.querySelector('[data-erase="habits-list"]').click();
+  ok('erasing one key leaves the others alone',
+     ev("store.get('habits-list', null)") === null && !!ev("store.get('flashcard-decks', null)"));
+  w.confirm = realConfirm;
+
+  /* 16. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

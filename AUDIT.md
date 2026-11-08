@@ -281,3 +281,28 @@ Nothing — every tool that starts an interval already called `setCleanup`. That
 - The units preference affects converter defaults only. Tools that print a unit they chose for themselves — a BMI in kg, a flight in km — keep their own unit, because silently converting an output is a worse surprise than showing the unit in the label.
 - Permalinks carry scalar fields up to 200 characters. A link with a long note in it is deliberately not offered.
 - A permalink exposes its inputs in the URL. For a calculator that is the point; for anything personal, do not copy the link.
+
+## B7 — storage you can trust (1.6.0)
+
+| Check | Result |
+|---|---|
+| Full suite | 97 passed, 0 failed |
+| Schema migration | v1 → v2, both steps verified on old-shaped data |
+| Every written key declared | pass (23 keys, one prefix) |
+| Backup carries version + schema | pass |
+| Per-key erase leaves the rest intact | pass |
+| Size | 677 KB → 683 KB |
+
+### Findings
+
+**1. A failed write looked exactly like a successful one.** `store.set` wrapped `localStorage.setItem` in `try{}catch(e){}` and returned nothing. On a full disk, or in a private window where storage is blocked, every save in the app quietly did nothing — no message, no log, no way to notice until a reload lost the work. It now returns a boolean, reports once per session with the likely cause, and writes to the error log. That is the single most valuable fix in this batch and it took four lines.
+
+**2. The allow-list was still hand-typed, one release after it caused a bug.** In 1.0.0 the restore filter dropped the pinned and recent keys. The fix then was to add three strings to a `Set`; the structural fix is this batch, where the set is derived from `STORE_KEYS` and a test compares it against every `store.set` in the source. The dynamic key (`'unit-last-' + id`) is declared as a prefix, and the test understands prefixes — otherwise it would either miss it or cry wolf.
+
+**3. Migrations must not be able to half-apply.** The version is written inside the loop, after each step, not once at the end. If step 2 throws, step 1 stays applied and the log records it; the app keeps working on data it understands.
+
+### Known limitations added
+
+- Migration 2 normalises shape, not meaning. A deck whose cards were stored under different field names is left alone rather than guessed at.
+- The encrypted backup uses the same PBKDF2 parameters as the file encryption tool (250,000 iterations, SHA-256). That is deliberately the same number in two places; if it is ever raised, old backups still open because the salt and parameters travel with the file.
+- Erasing a key is immediate and has no undo. It asks once, and that is the whole safety net.
