@@ -2,6 +2,24 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.1.2 — 2026-11-08
+
+Batch **B0** of [PLAN.md](PLAN.md). Documentation and CI only — the app and the landing page are unchanged.
+
+### Added
+
+- **`ALL_TOOLS.md`** — every tool with its code and `category/id`, generated from the registry by `tools/gen-all-tools.js`. CI fails if it drifts.
+- **`CONTRIBUTING.md`, `SECURITY.md`, `PRIVACY.md`, `USAGE.md`** — the five rules a contribution must keep, an honest threat model (including what a single file cannot protect against), what is stored and where, and how to actually use the thing.
+- **`docs/` is now a small site**: `docs/index.html`, `changelog.html`, `roadmap.html` and `plan.html`, rendered from the markdown by `tools/build-docs.py` so the two audiences — GitHub and Pages — read one source.
+- **`tools/build-landing.py`** — the landing page generator, now in the repository instead of a scratch folder. It lifts the stylesheet out of `kitbox.html` and reads the category grid out of the registry, so the landing page cannot advertise a tool count the app does not have.
+- **`tools/check-manifest.py`** — verifies every tracked file against `MANIFEST.json`, and rewrites it with `--write`.
+- **Issue template** that asks for System → Device info, and a contact link to `AUDIT.md` for "a tool gave a wrong number".
+
+### Changed
+
+- CI went from three steps to seventeen: the test suite, badges, `ALL_TOOLS.md`, the landing page, `docs/`, the manifest, the plan coverage, no external resources, no network calls, no `eval`/`new Function`/`document.write`/`javascript:` URLs, and a 680 KB size budget.
+- `npm run check` runs the whole local set in one command.
+
 ## Unreleased
 
 ### Added

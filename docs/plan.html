@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitbox — plan</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0e14">
+<style>
+:root{--paper:#0b0e14;--panel:#0d1117;--ink:#e6edf3;--soft:#a7adb9;--line:#30363d;--accent:#2f86eb}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.65;font-size:16px}
+.bar{position:sticky;top:0;background:#0e121a;border-bottom:1px solid rgba(255,255,255,.08);padding:14px 22px;display:flex;gap:16px;align-items:center;z-index:10}
+.bar a{color:var(--soft);text-decoration:none;font-size:13px}
+.bar a:hover{color:#fff}
+.bar .brand{color:#fff;font-weight:600;font-size:15px;display:flex;align-items:center;gap:9px}
+.bar .dot{width:12px;height:12px;background:var(--accent);display:inline-block}
+.bar .cta{margin-left:auto;background:var(--accent);color:#fff;padding:8px 14px;font-weight:600}
+main{max-width:900px;margin:0 auto;padding:36px 22px 90px}
+h1,h2,h3{line-height:1.25}
+h1{font-size:30px}
+h2{font-size:21px;border-bottom:1px solid var(--line);padding-bottom:.3em;margin-top:38px}
+h3{font-size:17px;margin-top:26px}
+a{color:#7ab7ff}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;width:100%;margin:18px 0;display:block;overflow:auto}
+th,td{border:1px solid var(--line);padding:7px 12px;text-align:left;vertical-align:top}
+th{background:#161b22}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:85%}
+pre{background:#161b22;padding:14px 16px;overflow:auto;border:1px solid var(--line)}
+pre code{background:none;padding:0}
+kbd{border:1px solid var(--line);border-radius:4px;padding:1px 5px;background:#161b22;font-size:12px;font-family:ui-monospace,monospace}
+blockquote{border-left:3px solid var(--line);margin:16px 0;padding:2px 16px;color:var(--soft)}
+sub{color:var(--soft)}
+hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f7787;font-size:12.5px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="brand" href="index.html"><span class="dot"></span>Kitbox</a>
+  <a href="index.html">Home</a><a href="changelog.html">Changelog</a><a href="roadmap.html">Roadmap</a><a href="plan.html" style="color:#fff">Plan</a>
+  <a class="cta" href="../kitbox.html">Open the app →</a>
+</div>
+<main>
+<h1>Plan — batches, in the order they should ship</h1>
+<p>The 119 items in <a href="roadmap.html">ROADMAP.md</a>, grouped into 15 batches. Quick wins first, structural work later, small items merged where they touch the same file and the same test.</p>
+<p><strong>Totals:</strong> 15 batches, ~56 focused days. The useful line is at <strong>B10 (~25 days)</strong>: everything above it is polish and stability, everything below it is reach and re-architecture.</p>
+<hr />
+<h2>How a batch works</h2>
+<ol>
+<li><strong>One batch = one pull request = one version bump = one changelog entry.</strong> No half-migrations.</li>
+<li><strong>Every batch ends green on CI with new tests for what it changed.</strong> A batch that adds behaviour without a test is not finished.</li>
+<li><strong>Combine small items that share a file or a test.</strong> Copy buttons and paste buttons both touch every tool's markup, so they ship together. A CSS contrast fix and a storage migration do not, so they never do.</li>
+<li><strong>Never combine a structural change with a cosmetic one.</strong> If the batch has to be reverted, the revert must not take a nice-to-have with it.</li>
+<li><strong>Cap: ten items per batch</strong>, unless they are one mechanical sweep across all 338 tools.</li>
+<li><strong>Order is dependency order, not preference order.</strong> B4 exists because B5, B7 and B10 all assume references are stable and failures are visible.</li>
+</ol>
+<hr />
+<h2>The batches</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Theme</th>
+<th style="text-align: right;">Items</th>
+<th style="text-align: right;">Effort</th>
+<th style="text-align: left;">Depends on</th>
+<th style="text-align: left;">Done when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>B0</strong></td>
+<td style="text-align: left;">1.1.2</td>
+<td style="text-align: left;">Housekeeping — no app change</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">½ d</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">CI checks MANIFEST and the size budget; docs exist; <code>ALL_TOOLS.md</code> generated</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B1</strong></td>
+<td style="text-align: left;">1.2.0</td>
+<td style="text-align: left;">Quick wins in the app</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">2 d</td>
+<td style="text-align: left;">B0</td>
+<td style="text-align: left;">The twenty smallest frictions are gone; nothing new to learn</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B2</strong></td>
+<td style="text-align: left;">1.2.1</td>
+<td style="text-align: left;">Contrast and accessibility</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1½ d</td>
+<td style="text-align: left;">B1</td>
+<td style="text-align: left;">Every tile passes AA; <code>axe</code> runs in CI</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B3</strong></td>
+<td style="text-align: left;">1.3.0</td>
+<td style="text-align: left;">Findability</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2 d</td>
+<td style="text-align: left;">B1</td>
+<td style="text-align: left;">You can find a tool by typing what you call it</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B4</strong></td>
+<td style="text-align: left;">1.4.0</td>
+<td style="text-align: left;">The stability spine</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3½ d</td>
+<td style="text-align: left;">B1</td>
+<td style="text-align: left;">Codes and ids are stable; a broken tool cannot blank the app</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B5</strong></td>
+<td style="text-align: left;">1.5.0</td>
+<td style="text-align: left;">Tool consistency sweep</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4 d</td>
+<td style="text-align: left;">B4</td>
+<td style="text-align: left;">Every tool copies, resets, and remembers alike</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B6</strong></td>
+<td style="text-align: left;">1.5.1</td>
+<td style="text-align: left;">Preferences and permalinks</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1½ d</td>
+<td style="text-align: left;">B5</td>
+<td style="text-align: left;">Numbers read Indian; a result can be linked</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B7</strong></td>
+<td style="text-align: left;">1.6.0</td>
+<td style="text-align: left;">Storage you can trust</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3 d</td>
+<td style="text-align: left;">B4</td>
+<td style="text-align: left;">Versioned, migratable, exportable, erasable</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B8</strong></td>
+<td style="text-align: left;">1.6.1</td>
+<td style="text-align: left;">Security hardening</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2 d</td>
+<td style="text-align: left;">B4</td>
+<td style="text-align: left;">CSP set, inputs fuzzed, EXIF orientation kept</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B9</strong></td>
+<td style="text-align: left;">1.6.2</td>
+<td style="text-align: left;">Performance</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1½ d</td>
+<td style="text-align: left;">B1</td>
+<td style="text-align: left;">Boot measured, timezone list cached, <code>.gz</code> published</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B10</strong></td>
+<td style="text-align: left;">1.7.0</td>
+<td style="text-align: left;">Testing depth</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3½ d</td>
+<td style="text-align: left;">B4, B7</td>
+<td style="text-align: left;">Every tool has an interaction test; calculators have fixtures</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B11</strong></td>
+<td style="text-align: left;">1.7.1</td>
+<td style="text-align: left;">Distribution</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1 d</td>
+<td style="text-align: left;">B0</td>
+<td style="text-align: left;">Pages live, a tagged release with checksums</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B12</strong></td>
+<td style="text-align: left;">2.0.0</td>
+<td style="text-align: left;">Architecture</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">8 d</td>
+<td style="text-align: left;">B10</td>
+<td style="text-align: left;"><code>src/</code> + build; one <code>register()</code>; lint and typecheck</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B13</strong></td>
+<td style="text-align: left;">2.1.0</td>
+<td style="text-align: left;">Reach — i18n and new categories</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">12 d</td>
+<td style="text-align: left;">B12</td>
+<td style="text-align: left;">Hindi and Gujarati; Accessibility and Clinical categories</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B14</strong></td>
+<td style="text-align: left;">2.2.0</td>
+<td style="text-align: left;">Packaging</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">10 d</td>
+<td style="text-align: left;">B12</td>
+<td style="text-align: left;">EXE and APK from the same source</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Batch details</h2>
+<h3>B0 — Housekeeping (½ day, no app change)</h3>
+<p><strong>Items:</strong> E-17 <code>ALL_TOOLS.md</code> generated · E-18 CONTRIBUTING, SECURITY, PRIVACY, USAGE · E-72 size budget in CI · E-77 CI check for <code>eval</code>, <code>new Function</code>, unsafe <code>innerHTML</code> · E-91 MANIFEST freshness · E-115 <code>docs/index.html</code> mirror · E-117 issue template asking for Device info · E-119 public changelog page.</p>
+<p><em>Why first:</em> it costs half a day, touches no app code, and every later batch inherits the guards. E-77 in particular may find something — better to know before rewriting a category.</p>
+<p><em>Risk:</em> none to the app. The only risk is a CI check that fails on existing code, which is the point.</p>
+<hr />
+<h3>B1 — Quick wins in the app (2 days, 18 items)</h3>
+<p><strong>Items:</strong> E-01 <code>&lt;noscript&gt;</code> · E-02 stale empty-category copy · E-03 404 route · E-04 print stylesheet · E-05 copy on every output · E-06 file-size guards · E-07 passphrase strength hint · E-08 <code>title</code> on clipped names · E-09 Open Graph tags · E-10 skip link · E-11 focus <code>&lt;h1&gt;</code> on route change · E-12 <code>aria-live</code> on results · E-13 first-run <code>Ctrl K</code> hint · E-16 <code>?q=</code> deep link · E-25 palette focus ring · E-26 palette count announcement · E-38 breadcrumb links to category · E-40 scroll restore.</p>
+<p><em>Why grouped:</em> every one is a few lines in the shell (<code>route</code>, <code>renderTool</code>, <code>renderHome</code>, the palette), not in a tool. One pass through the router fixes sixteen of them. E-06 is the only one that touches tool code, and only four tools.</p>
+<p><em>Tests:</em> route test for a bad hash; copy-button test on three representative tools; <code>?q=</code> opens the palette with the query filled.</p>
+<hr />
+<h3>B2 — Contrast and accessibility (1½ days)</h3>
+<p><strong>Items:</strong> E-21 per-tile text colour from the measured ratio · E-22 darken <code>#E31C7D</code> and <code>#4C6EF5</code> · E-23 <code>axe-core</code> in CI · E-24 keyboard path for Sketch Pad · E-27 landmarks · E-28 <code>prefers-contrast</code> · E-29 reduced-transparency note · E-30 text-size preference · E-31 recorded tab order.</p>
+<p><em>Why after B1:</em> B1 adds a focus ring and a skip link; measuring contrast before the shell is settled means measuring twice.</p>
+<p><em>Tests:</em> a contrast assertion for all 23 tiles in the smoke suite (compute, do not eyeball); <code>axe</code> with zero violations on five pages.</p>
+<p><em>The one number that must not regress:</em> 0 tiles below 4.5:1.</p>
+<hr />
+<h3>B3 — Findability (2 days)</h3>
+<p><strong>Items:</strong> E-14 "new" chip · E-15 prev/next tool · E-32 per-category filter · E-33 keyword aliases · E-34 search across group labels · E-35 rank pinned and recent · E-36 palette history · E-37 <code>⌘1</code>–<code>⌘9</code> · E-39 <code>g</code>-chords.</p>
+<p><em>Why here:</em> all nine are search-index work in one file (<code>TOOL_INDEX</code>, <code>scoreTool</code>, the palette). E-14 and E-33 need two metadata fields — <code>since</code> and <code>keywords</code> — added by hand to ~40 registrations, not the full E-86 rewrite. That rewrite is B12.</p>
+<p><em>Tests:</em> alias queries return the intended tool (<code>emi</code> → Loan EMI); ranking puts a pinned tool above an unpinned one at equal score; history round-trips.</p>
+<hr />
+<h3>B4 — The stability spine (3½ days, the hinge of the plan)</h3>
+<p><strong>Items:</strong> E-63 error boundary around <code>tool.render()</code> · E-64 local error log · E-65 capability chips · E-66 disable rather than fail · E-67 one guarded <code>crypto.subtle</code> helper · E-68 timer-leak test · E-69 explained retry on file reads · E-83 stable tool codes · E-84 stable ids with aliases · E-92 stable-id test.</p>
+<p><em>Why this is one batch:</em> these are the items every later batch leans on. B5 caches state per tool (needs stable ids), B7 migrates storage (needs a schema, which needs stable keys), B10 tests interactions (needs failures to be visible rather than fatal). Shipping them apart means shipping four half-done migrations.</p>
+<p><em>Why not earlier:</em> it is the first batch that can break a user's pins or links if done wrong. It goes after the cheap wins so there is something to release while it is being done.</p>
+<p><em>Tests:</em> mount every tool, unmount, assert no timer survives; rename an id and assert the old one still resolves; force a throw in a tool and assert the app stays usable.</p>
+<hr />
+<h3>B5 — Tool consistency sweep (4 days, the mechanical one)</h3>
+<p><strong>Items:</strong> E-42 example button · E-43 standard reset · E-44 per-tool state cache · E-46 standard error wording · E-47 explain disabled buttons · E-48 drag-and-drop files · E-49 paste-from-clipboard · E-52 copy as CSV/Markdown · E-53 empty-state suggestions · E-54 unit suffixes.</p>
+<p><em>Why one batch:</em> each is a decision that has to be made the same way 338 times. Splitting them means revisiting every tool four times. E-42 in particular should be opt-in per tool (<code>example: {a: 100, b: 125}</code> in the registration), so the sweep is: add the hook, wire 30 good examples, leave the rest for later commits without blocking the batch.</p>
+<p><em>Tests:</em> state cache round-trip on five tools; copy-as-CSV output matches a fixture; every tool with an <code>example</code> hook produces a non-empty result.</p>
+<hr />
+<h3>B6 — Preferences and permalinks (1½ days)</h3>
+<p><strong>Items:</strong> E-45 permalinks for scalar inputs · E-50 metric/imperial preference · E-51 Indian vs international number grouping.</p>
+<p><em>Why separate:</em> E-51 changes the output of about forty tools, and it is the change most likely to be <em>wrong</em> in a way a user notices. It deserves its own version number and its own revert path.</p>
+<p><em>Tests:</em> fixture per number format; a permalink round-trip on three tools.</p>
+<hr />
+<h3>B7 — Storage you can trust (3 days)</h3>
+<p><strong>Items:</strong> E-55 storage schema version and migrations · E-56 backup allow-list derived from the registry · E-57 quota handling · E-58 erase per tool · E-59 encrypted backups · E-61 version stamp in the backup file · E-62 per-tool usage inside Backup.</p>
+<p><em>Why after B4:</em> a migration without stable keys is a guess. This batch is where the 1.0.0 regression — backup silently dropping the new keys — becomes structurally impossible.</p>
+<p><em>Tests:</em> write a v0 backup, restore it, assert every key arrives; fill the quota artificially and assert a readable message instead of a silent failure.</p>
+<hr />
+<h3>B8 — Security hardening (2 days)</h3>
+<p><strong>Items:</strong> E-76 CSP meta · E-78 fuzz the text inputs · E-79 keep EXIF <code>Orientation</code> when stripping · E-80 best-effort buffer wipe, stated honestly · E-81 warn above ~100 MB before encrypting · E-82 written threat model.</p>
+<p><em>Why after B4:</em> the error boundary makes a fuzz failure a test result rather than a blank page.</p>
+<p><em>Tests:</em> a committed payload list driven through every text-taking tool; a JPEG with Orientation=6 survives a strip with the tag intact.</p>
+<hr />
+<h3>B9 — Performance (1½ days)</h3>
+<p><strong>Items:</strong> E-70 cache the timezone list · E-71 in-browser <code>?bench</code> mode · E-73 defer heavy data tables · E-74 virtualise tables past ~500 rows (only if the bench says it is needed) · E-75 publish the <code>.gz</code>.</p>
+<p><em>Why late:</em> the measurements so far are jsdom measurements, and jsdom is not a browser. Build the bench first, then fix what it reports — which may not be the list above.</p>
+<hr />
+<h3>B10 — Testing depth (3½ days)</h3>
+<p><strong>Items:</strong> E-93 one interaction test per tool · E-94 round-trip property tests · E-95 calculator fixtures · E-96 file-input tests with synthetic <code>File</code> objects · E-97 coverage on extracted functions · E-98 landing-page link test.</p>
+<p><em>Why after B4 and B7:</em> interaction tests need the error boundary (or one failing tool kills the suite) and fixtures need the storage schema (or they write to a shape that is about to change).</p>
+<p><em>The bar:</em> every one of the 338 tools has at least one assertion beyond "it rendered".</p>
+<hr />
+<h3>B11 — Distribution (1 day)</h3>
+<p><strong>Items:</strong> E-109 enable GitHub Pages · E-111 a tagged release with <code>.gz</code> and <code>SHA256SUMS</code> · E-112 <code>/latest</code> redirect · E-114 list Kitbox on <code>drsamonline.github.io</code> · E-19 release tags per version · E-20 <code>kitbox.min.html</code> build artifact.</p>
+<p><em>Why here:</em> it is the first point where the app is stable enough that a download should be frozen and checksummed.</p>
+<p><em>Note:</em> E-109 needs a permission this account's token does not have — it is a two-minute click in Settings → Pages, and everything else in the batch waits on it.</p>
+<hr />
+<h3>B12 — Architecture (8 days, the big one)</h3>
+<p><strong>Items:</strong> E-90 extract pure algorithms · E-41 one <code>register()</code> API · E-86 full metadata on every registration · E-88 ESLint · E-89 <code>tsc --checkJs</code> · E-85 <code>src/</code> + build with CI asserting the built file matches · E-87 generated docs from metadata · E-116 a page per category · E-118 the "how a tool is written" guide.</p>
+<p><em>Order inside the batch:</em> extract functions → lint → typecheck → <code>register()</code> → split source → generate docs. Doing the split first would mean doing it twice.</p>
+<p><em>Why last of the structural work:</em> it touches all 338 tools at once and buys nothing a user can see. It is the tax paid for every future batch being cheaper.</p>
+<p><em>The rule that keeps it honest:</em> the committed <code>kitbox.html</code> must be byte-identical to what <code>build.py</code> produces, asserted in CI. If that check is ever removed, the split has failed.</p>
+<hr />
+<h3>B13 — Reach (12 days)</h3>
+<p><strong>Items:</strong> E-100 string dictionary · E-101 English/Hindi/Gujarati · E-102 locale-aware numbers and dates · E-103 translatable names and descriptions · E-104 Devanagari rendering check · E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category.</p>
+<p><em>Split into two releases in practice:</em> i18n (E-100–E-104) is one version; the four categories and the tools behind them are another. The clinical category cannot ship without a clinician's sign-off recorded in <code>AUDIT.md</code>, and that is a calendar dependency, not a coding one.</p>
+<hr />
+<h3>B14 — Packaging (10 days)</h3>
+<p><strong>Items:</strong> E-110 Windows EXE and Android APK via <code>app-builder</code> · E-113 inlined web-app manifest · E-60 IndexedDB for notes and decks.</p>
+<p><em>Why last:</em> the EXE and APK wrap a file that should stop changing first, and IndexedDB only matters once notes and decks are big enough to hit the 5 MB <code>localStorage</code> ceiling — which is a user-data question, not an engineering one.</p>
+<hr />
+<h2>Dependency graph</h2>
+<pre><code>B0 ──► B1 ──► B2
+        │
+        ├──► B3 ──► (B12 for full metadata)
+        │
+        └──► B4 ──┬──► B5 ──► B6
+                  ├──► B7 ──┐
+                  ├──► B8   │
+                  └──► B9   │
+                            ▼
+                           B10 ──► B12 ──┬──► B13
+                                          └──► B14
+B0 ─────────────────────────────────────► B11
+</code></pre>
+<p>The only hard edges are B4 → (B5, B7, B10) and B10 → B12. Everything else can be reordered without pain.</p>
+<hr />
+<h2>The cut line</h2>
+<p>If time is short, ship B0 through B10 and stop. That is ~25 days and it delivers: nothing broken, nothing silently lost, everything findable, every number verified, and a tagged release. B11–B14 are worth doing but none of them fix a problem a user has today.</p>
+<p><strong>The three batches not to skip even under pressure:</strong> B0 (the guards are cheap and permanent), B4 (stable references — every later shortcut depends on it), and B10 (the tests are what make the next two years safe).</p>
+<hr />
+<h2>Item index — every roadmap item, and where it ships</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Batch</th>
+<th style="text-align: left;">Items</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">B0</td>
+<td style="text-align: left;">E-17, E-18, E-72, E-77, E-91, E-115, E-117, E-119</td>
+</tr>
+<tr>
+<td style="text-align: left;">B1</td>
+<td style="text-align: left;">E-01, E-02, E-03, E-04, E-05, E-06, E-07, E-08, E-09, E-10, E-11, E-12, E-13, E-16, E-25, E-26, E-38, E-40</td>
+</tr>
+<tr>
+<td style="text-align: left;">B2</td>
+<td style="text-align: left;">E-21, E-22, E-23, E-24, E-27, E-28, E-29, E-30, E-31</td>
+</tr>
+<tr>
+<td style="text-align: left;">B3</td>
+<td style="text-align: left;">E-14, E-15, E-32, E-33, E-34, E-35, E-36, E-37, E-39</td>
+</tr>
+<tr>
+<td style="text-align: left;">B4</td>
+<td style="text-align: left;">E-63, E-64, E-65, E-66, E-67, E-68, E-69, E-83, E-84, E-92</td>
+</tr>
+<tr>
+<td style="text-align: left;">B5</td>
+<td style="text-align: left;">E-42, E-43, E-44, E-46, E-47, E-48, E-49, E-52, E-53, E-54</td>
+</tr>
+<tr>
+<td style="text-align: left;">B6</td>
+<td style="text-align: left;">E-45, E-50, E-51</td>
+</tr>
+<tr>
+<td style="text-align: left;">B7</td>
+<td style="text-align: left;">E-55, E-56, E-57, E-58, E-59, E-61, E-62</td>
+</tr>
+<tr>
+<td style="text-align: left;">B8</td>
+<td style="text-align: left;">E-76, E-78, E-79, E-80, E-81, E-82</td>
+</tr>
+<tr>
+<td style="text-align: left;">B9</td>
+<td style="text-align: left;">E-70, E-71, E-73, E-74, E-75</td>
+</tr>
+<tr>
+<td style="text-align: left;">B10</td>
+<td style="text-align: left;">E-93, E-94, E-95, E-96, E-97, E-98</td>
+</tr>
+<tr>
+<td style="text-align: left;">B11</td>
+<td style="text-align: left;">E-19, E-20, E-109, E-111, E-112, E-114</td>
+</tr>
+<tr>
+<td style="text-align: left;">B12</td>
+<td style="text-align: left;">E-41, E-85, E-86, E-87, E-88, E-89, E-90, E-116, E-118</td>
+</tr>
+<tr>
+<td style="text-align: left;">B13</td>
+<td style="text-align: left;">E-99, E-100, E-101, E-102, E-103, E-104, E-105, E-106, E-107, E-108</td>
+</tr>
+<tr>
+<td style="text-align: left;">B14</td>
+<td style="text-align: left;">E-60, E-110, E-113</td>
+</tr>
+</tbody>
+</table>
+<p>119 items, 15 batches, each item in exactly one place.</p>
+<hr />
+<p><em>If an item is dropped, remove it here and from the roadmap in the same commit — a plan with dead entries stops being read.</em></p>
+</main>
+<footer>Kitbox — crafted by Dr. Sohil Momin, BHMS · Vadodara, Gujarat, India</footer>
+</body>
+</html>

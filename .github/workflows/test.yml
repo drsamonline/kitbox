@@ -1,6 +1,5 @@
-# Kitbox has no build step — the app IS the artifact. The only thing worth
-# running on a push is the test suite, which loads kitbox.html in jsdom and
-# exercises every tool, every route and the ported algorithms.
+# Kitbox has no build step — the app IS the artifact. What runs on a push is
+# everything that keeps the four documents and the app from drifting apart.
 name: test
 
 on:
@@ -21,18 +20,37 @@ jobs:
         with:
           node-version: '20'
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: npm ci
+      - run: pip install --quiet markdown
+
       - name: Test
         run: npm test
+
       - name: Badge numbers match the app
         run: node tools/check-badges.js
+
+      - name: ALL_TOOLS.md matches the registry
+        run: node tools/gen-all-tools.js --check
+
+      - name: Landing page matches the app
+        run: python3 tools/build-landing.py --check
+
+      - name: docs/ matches the markdown
+        run: python3 tools/build-docs.py --check
+
+      - name: MANIFEST.json matches the tracked files
+        run: python3 tools/check-manifest.py
+
       - name: Every roadmap item is scheduled in one batch
         run: python3 tools/check-plan.py
 
       # A loaded resource is fetched by the page by itself; a link is something
       # a person chooses to click. Only the first kind breaks the offline
-      # promise, so only the first kind fails the build. The support page's
-      # Ko-fi and PayPal links are deliberately outbound.
+      # promise. The support page's Ko-fi and PayPal links are deliberately
+      # outbound.
       - name: Fail if the app loads anything external
         run: |
           if grep -Eq '<script[^>]+src="https?://|<link[^>]+href="https?://|<img[^>]+src="https?://' kitbox.html; then
@@ -46,6 +64,31 @@ jobs:
             echo "kitbox.html contains a network call"; exit 1
           fi
           echo "app: no network calls"
+
+      # Static checks can prove the dangerous primitives are absent. They
+      # cannot prove that innerHTML is safe — that needs the fuzz pass
+      # scheduled in PLAN.md B8.
+      - name: Fail on eval, new Function, document.write or javascript URLs
+        run: |
+          fail=0
+          grep -nE '[^a-zA-Z_.$]eval\(' kitbox.html && { echo "eval() in the app"; fail=1; }
+          grep -n 'new Function' kitbox.html && { echo "new Function in the app"; fail=1; }
+          grep -n 'document\.write' kitbox.html && { echo "document.write in the app"; fail=1; }
+          grep -nE 'javascript:[^"]*"' kitbox.html && { echo "javascript: URL in the app"; fail=1; }
+          [ "$fail" -eq 0 ] && echo "no eval, no Function constructor, no document.write, no javascript: URLs"
+          exit $fail
+
+      - name: Size budget
+        run: |
+          bytes=$(wc -c < kitbox.html)
+          # Raised from 640 KB when B1 shipped. Re-measure at B12 (source split);
+          # the point is that growth is a decision, not a drift.
+          limit=$((680 * 1024))
+          echo "kitbox.html: $((bytes / 1024)) KB (budget $((limit / 1024)) KB)"
+          if [ "$bytes" -gt "$limit" ]; then
+            echo "The app grew past the size budget. Either trim it, or raise the budget in this workflow deliberately."
+            exit 1
+          fi
 
       - name: Fail if the landing page loads anything external
         run: |

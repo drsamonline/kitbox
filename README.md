@@ -167,6 +167,8 @@ python3 tools/badges.py      # redraw them if a number changes
 python3 tools/shots.py       # retake the screenshots (needs chromium)
 ```
 
+CI runs all of that plus: the badge numbers against the app, `ALL_TOOLS.md` and the landing page against the registry, `docs/` against the markdown, `MANIFEST.json` against the tracked files, the roadmap against the plan, a scan for `eval`/`new Function`/`document.write`/`javascript:` URLs, and a size budget. Run the same set locally with `npm run check`.
+
 The badges are local SVG files, not a badge service — an offline-first app that needs the network to say "no network" has broken its own rule. `check-badges.js` fails the build if the numbers in them drift from the app.
 
 ## Your data
@@ -174,6 +176,18 @@ The badges are local SVG files, not a badge service — an offline-first app tha
 Tools that remember things between visits — Notepad, Flashcards, Trivia Creator, Sketch Pad's palette, Scoreboard, Habit Tracker, Packing List, Checklists, currency rates, ruler calibration, the unit converter's last pair, pinned tools, recents, the Panchang's last location — store it in this browser's `localStorage` under the `tooly:` prefix. It never leaves the device, and clearing browser data erases it.
 
 **Productivity → Backup & Restore** exports everything to one JSON file. **System → Local Storage Usage** shows exactly what is being held.
+
+## Documents
+
+| | |
+|:--|:--|
+| [USAGE.md](USAGE.md) | Getting it, finding a tool, working with files, when something does not work |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | The five rules, how a tool is written, what gets rejected |
+| [SECURITY.md](SECURITY.md) | The threat model: what a single file protects against, and what it does not |
+| [PRIVACY.md](PRIVACY.md) | What is stored, where, and the one page with outbound links |
+| [ALL_TOOLS.md](ALL_TOOLS.md) | Every tool with its code and id, generated from the app |
+| [AUDIT.md](AUDIT.md) | What was checked, what was found, what remains imperfect |
+| [ROADMAP.md](ROADMAP.md) · [PLAN.md](PLAN.md) | The 119-item backlog, and the 15 batches it ships in |
 
 ## Support
 

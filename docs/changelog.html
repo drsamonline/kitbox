@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitbox — changelog</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0e14">
+<style>
+:root{--paper:#0b0e14;--panel:#0d1117;--ink:#e6edf3;--soft:#a7adb9;--line:#30363d;--accent:#2f86eb}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.65;font-size:16px}
+.bar{position:sticky;top:0;background:#0e121a;border-bottom:1px solid rgba(255,255,255,.08);padding:14px 22px;display:flex;gap:16px;align-items:center;z-index:10}
+.bar a{color:var(--soft);text-decoration:none;font-size:13px}
+.bar a:hover{color:#fff}
+.bar .brand{color:#fff;font-weight:600;font-size:15px;display:flex;align-items:center;gap:9px}
+.bar .dot{width:12px;height:12px;background:var(--accent);display:inline-block}
+.bar .cta{margin-left:auto;background:var(--accent);color:#fff;padding:8px 14px;font-weight:600}
+main{max-width:900px;margin:0 auto;padding:36px 22px 90px}
+h1,h2,h3{line-height:1.25}
+h1{font-size:30px}
+h2{font-size:21px;border-bottom:1px solid var(--line);padding-bottom:.3em;margin-top:38px}
+h3{font-size:17px;margin-top:26px}
+a{color:#7ab7ff}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;width:100%;margin:18px 0;display:block;overflow:auto}
+th,td{border:1px solid var(--line);padding:7px 12px;text-align:left;vertical-align:top}
+th{background:#161b22}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:85%}
+pre{background:#161b22;padding:14px 16px;overflow:auto;border:1px solid var(--line)}
+pre code{background:none;padding:0}
+kbd{border:1px solid var(--line);border-radius:4px;padding:1px 5px;background:#161b22;font-size:12px;font-family:ui-monospace,monospace}
+blockquote{border-left:3px solid var(--line);margin:16px 0;padding:2px 16px;color:var(--soft)}
+sub{color:var(--soft)}
+hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f7787;font-size:12.5px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="brand" href="index.html"><span class="dot"></span>Kitbox</a>
+  <a href="index.html">Home</a><a href="changelog.html" style="color:#fff">Changelog</a><a href="roadmap.html">Roadmap</a><a href="plan.html">Plan</a>
+  <a class="cta" href="../kitbox.html">Open the app →</a>
+</div>
+<main>
+<h1>Changelog</h1>
+<p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.1.2 — 2026-11-08</h2>
+<p>Batch <strong>B0</strong> of <a href="plan.html">PLAN.md</a>. Documentation and CI only — the app and the landing page are unchanged.</p>
+<h3>Added</h3>
+<ul>
+<li><strong><code>ALL_TOOLS.md</code></strong> — every tool with its code and <code>category/id</code>, generated from the registry by <code>tools/gen-all-tools.js</code>. CI fails if it drifts.</li>
+<li><strong><code>CONTRIBUTING.md</code>, <code>SECURITY.md</code>, <code>PRIVACY.md</code>, <code>USAGE.md</code></strong> — the five rules a contribution must keep, an honest threat model (including what a single file cannot protect against), what is stored and where, and how to actually use the thing.</li>
+<li><strong><code>docs/</code> is now a small site</strong>: <code>docs/index.html</code>, <code>changelog.html</code>, <code>roadmap.html</code> and <code>plan.html</code>, rendered from the markdown by <code>tools/build-docs.py</code> so the two audiences — GitHub and Pages — read one source.</li>
+<li><strong><code>tools/build-landing.py</code></strong> — the landing page generator, now in the repository instead of a scratch folder. It lifts the stylesheet out of <code>kitbox.html</code> and reads the category grid out of the registry, so the landing page cannot advertise a tool count the app does not have.</li>
+<li><strong><code>tools/check-manifest.py</code></strong> — verifies every tracked file against <code>MANIFEST.json</code>, and rewrites it with <code>--write</code>.</li>
+<li><strong>Issue template</strong> that asks for System → Device info, and a contact link to <code>AUDIT.md</code> for "a tool gave a wrong number".</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>CI went from three steps to seventeen: the test suite, badges, <code>ALL_TOOLS.md</code>, the landing page, <code>docs/</code>, the manifest, the plan coverage, no external resources, no network calls, no <code>eval</code>/<code>new Function</code>/<code>document.write</code>/<code>javascript:</code> URLs, and a 680 KB size budget.</li>
+<li><code>npm run check</code> runs the whole local set in one command.</li>
+</ul>
+<h2>Unreleased</h2>
+<h3>Added</h3>
+<ul>
+<li>
+<p><strong><code>PLAN.md</code></strong> — the 119 roadmap items grouped into 15 shippable batches, quick wins first and structural work last, with dependencies, effort, a "done when" per batch, and the cut line at batch ten. <code>tools/check-plan.py</code> asserts every item is scheduled exactly once and runs in CI.</p>
+</li>
+<li>
+<p><strong><code>ROADMAP.md</code></strong> — an exhaustive, numbered backlog (E-01 … E-119): quick wins, accessibility, search, tool consistency, storage, reliability, performance, security, architecture, testing, i18n, new tools and categories, distribution, documentation, and a "deliberately not doing" table with the reason for each refusal. Three findings are measured rather than asserted: 14 of 23 category tiles fail WCAG AA with white text, tool codes are positional and renumber when a tool is inserted, and pinned tools break silently if an id is renamed.</p>
+</li>
+</ul>
+<h2>1.1.1 — 2026-11-08</h2>
+<p>Documentation only. The app and the landing page are byte-identical to 1.1.0.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>A README that shows the thing.</strong> A generated banner, eight local SVG badges, five screenshots (home, a tool page, a category, mobile, the landing page), and a category table with an icon per row.</li>
+<li><strong><code>tools/badges.py</code></strong> draws the badges and banner as local SVG — no badge service, because an offline-first app that needs the network to say "no network" has broken its own rule.</li>
+<li><strong><code>tools/shots.py</code></strong> takes the screenshots with headless Chromium, pinned to <code>Asia/Kolkata</code> so time-bearing shots show Indian times.</li>
+<li><strong><code>tools/check-badges.js</code></strong> fails the build if a badge number drifts from the app. Wired into CI as its own step.</li>
+<li><code>npm run badges</code> and <code>npm run shots</code> as shortcuts.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>The size badge first claimed <strong>638 KB</strong> — that was the file in thousands, not KiB. It now reads the real size at build time (623 KB) instead of a number typed by hand.</li>
+</ul>
+<h2>1.1.0 — 2026-11-08</h2>
+<p>The breadth pass: 59 more small, fast tools, two new categories, a landing page, and a Support page in both. Every addition is a separate tool — nothing was merged into an existing one.</p>
+<h3>Added — Reference (new category, 5 tools)</h3>
+<p>ASCII Table, Big-O Cheatsheet, Regex Cheatsheet, Country Dial Codes, Keyboard Shortcuts. Static tables and cheat sheets: open, read, copy a pattern, close.</p>
+<h3>Added — System (new category, 3 tools)</h3>
+<p>Device &amp; Screen Info, Browser Feature Check, Local Storage Usage. What this browser can actually do, and what Kitbox has written to it.</p>
+<h3>Added — across the existing categories (51 tools)</h3>
+<ul>
+<li><strong>General:</strong> Speak Text (system voices, no network), Big Clock.</li>
+<li><strong>Text:</strong> Remove Accents, Smart Quotes Fixer, Word Frequency, Hard Wrap at Width, Invisible Character Detector.</li>
+<li><strong>Generator:</strong> Passphrase Generator, Username Generator.</li>
+<li><strong>Calculation:</strong> Date Difference, Percentage Change, Sleep Cycle Calculator, Rounding.</li>
+<li><strong>Unit:</strong> Paper Sizes, Shoe Size.</li>
+<li><strong>Finance:</strong> Simple Interest, SIP Calculator, GST Split.</li>
+<li><strong>Randomizer:</strong> Team Shuffler, Magic 8-Ball.</li>
+<li><strong>Health:</strong> Heart Rate Zones, Pregnancy Due Date.</li>
+<li><strong>Development:</strong> JSON → TypeScript, Query String Parser, Cron Next Runs, SQL IN List Builder.</li>
+<li><strong>Colours:</strong> Colour Harmony, Tints &amp; Shades, Random Colour.</li>
+<li><strong>Science:</strong> Ideal Gas Law, Projectile Range, Molarity &amp; Dilution.</li>
+<li><strong>Geo:</strong> Antipode Finder, Bearing → Cardinal, Coordinate Rounder.</li>
+<li><strong>Audio:</strong> Tap Tempo, Frequency → Note.</li>
+<li><strong>Games:</strong> Reaction Time Test, Typing Speed.</li>
+<li><strong>Travel:</strong> Flight Carbon.</li>
+<li><strong>Nature:</strong> Golden &amp; Blue Hour, Day Length Calendar.</li>
+<li><strong>Productivity:</strong> Checklist, Meeting Cost.</li>
+<li><strong>Files &amp; Data:</strong> File Type Detector, Base64 → File.</li>
+<li><strong>Almanac:</strong> Planetary Hours, Tithi Calendar.</li>
+<li><strong>Communication:</strong> SMS Character Counter, Phone Number Formatter.</li>
+</ul>
+<h3>Added — Support</h3>
+<ul>
+<li>A <strong>Support page</strong> inside the app (<code>#/support</code>, heart in the top bar, link in the footer) with the UPI id, an inline scannable UPI QR, Ko-fi, PayPal, the book store, the app index and email.</li>
+<li>A <strong>landing page</strong> (<code>index.html</code>) in the app's own theme, reusing the app's stylesheet so the two cannot drift, with the category grid generated from the live registry and the same support block.</li>
+</ul>
+<h3>Improved — existing tools</h3>
+<ul>
+<li><strong>Notepad</strong> gained a search field, so a hundred notes are usable.</li>
+<li><strong>Unit Converter</strong> remembers the last from/to pair per converter instead of resetting to the first two units.</li>
+<li><strong>World Clock</strong> marks a city as tomorrow or yesterday when its date differs from yours.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>The app moved to <code>kitbox.html</code>; <code>index.html</code> is now the landing page.</li>
+<li>The external-resource test now distinguishes a loaded resource from an outbound link: the app loads nothing, and the only outbound links are the support ones a person chooses to click.</li>
+</ul>
+<h2>1.0.0 — 2026-11-08</h2>
+<p>The merged build: the original 239-tool file, plus 41 tools folded in from the rest of the drsamonline projects, plus the shell work that makes 280 tools navigable.</p>
+<h3>Added — Files &amp; Data (new category, 10 tools)</h3>
+<ul>
+<li><strong>ZIP Creator</strong> — store-only archives written byte by byte; local headers, central directory, CRC32, EOCD. Validated against Python's <code>zipfile</code>.</li>
+<li><strong>GZIP Compress / Decompress</strong> — over the platform's Compression Streams, no library.</li>
+<li><strong>File Hash &amp; Checksum</strong> — SHA-1/256/384/512 and CRC32, with an optional compare field.</li>
+<li><strong>Encrypt / Decrypt a File</strong> — AES-256-GCM with a PBKDF2-SHA256 key (250,000 iterations) in a self-describing <code>.kbx</code> container.</li>
+<li><strong>Sealed Note</strong> — encrypt a note into a block of text, open it once.</li>
+<li><strong>CSV ↔ JSON</strong> — quoted fields, embedded commas, doubled quotes, optional type casting.</li>
+<li><strong>CSV Viewer</strong> — sortable table with row and column counts.</li>
+<li><strong>Photo Metadata &amp; GPS</strong> — read EXIF tags and GPS coordinates, then download a copy with the metadata removed.</li>
+<li><strong>Image → Base64</strong> — data URI, with a copy-as-CSS option.</li>
+<li><strong>Line Ending Converter</strong> — detect and convert LF, CRLF and CR.</li>
+</ul>
+<h3>Added — Almanac (new category, 3 tools)</h3>
+<ul>
+<li><strong>Panchang</strong> — tithi, nakshatra, yoga, karana, paksha, moon phase, sunrise, sunset, ayanamsa.</li>
+<li><strong>Rahu Kaal &amp; Muhurat</strong> — the eighth daylight segment and the Abhijit muhurat for your coordinates.</li>
+<li><strong>Sun &amp; Moon Times</strong> — sunrise, solar noon, sunset, day length, moon phase and sidereal position.</li>
+</ul>
+<h3>Added — Communication (new category, 3 tools)</h3>
+<ul>
+<li><strong>vCard Generator</strong>, <strong>Calendar Invite</strong> (.ics), <strong>Message Link Builder</strong> (WhatsApp, SMS, Telegram, mailto).</li>
+</ul>
+<h3>Added — existing categories (25 tools)</h3>
+<ul>
+<li><strong>Development:</strong> ULID &amp; NanoID, Base32/Base58, HMAC, MD5, CIDR/Subnet, MIME lookup, Markdown preview, INI/.env/TOML parser, .gitignore generator.</li>
+<li><strong>Calculation:</strong> Statistics, Correlation &amp; Regression, Scientific notation &amp; significant figures, Fuel economy &amp; trip cost, Electricity cost, Markup/margin/break-even.</li>
+<li><strong>Finance:</strong> Savings Goal, Debt Payoff Planner (snowball vs avalanche, side by side).</li>
+<li><strong>Health:</strong> TDEE, Macros &amp; Body Fat.</li>
+<li><strong>Text:</strong> Keywords &amp; Text Similarity (tf-idf), Readability &amp; Reading Time.</li>
+<li><strong>Colours:</strong> WCAG Contrast Checker, Colour Blindness Simulator, Palette from Image.</li>
+<li><strong>Randomizer:</strong> Random from List, PIN Generator.</li>
+</ul>
+<h3>Added — shell</h3>
+<ul>
+<li><strong>Command palette</strong> — <code>Ctrl K</code> / <code>⌘ K</code>, or <code>/</code>, searches all 280 tools with ranked matching and an ordered-letters fallback.</li>
+<li><strong>Home search field</strong> with the same ranking, replacing the category grid while you type.</li>
+<li><strong>Pinned tools</strong> — star any tool; pinned and recent tools appear on the home screen.</li>
+<li><strong>All tools A–Z</strong> page with a live filter.</li>
+<li><strong>Escape</strong> closes the palette, then steps back a page.</li>
+<li>Document metadata: description, theme colour, colour scheme, inline SVG favicon.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>Duplicate tool name "Multiple Numbers Generator" — the randomizer version is now <strong>Lottery Number Picker</strong>.</li>
+<li><strong>Text Decoration</strong> interpolated user text into <code>innerHTML</code> unescaped, so pasted markup executed. Now escaped.</li>
+<li>Astronomy port tested <code>instanceof Date</code>, which returns <code>NaN</code> for dates from another realm. Now duck-typed.</li>
+<li>Stale tool counts removed from the section comments.</li>
+<li>Category and tool cards had no accessible name; the pin button had no pressed state. Both added.</li>
+<li><code>prefers-reduced-motion</code> is now honoured.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>About page documents where the new tools came from and what is stored locally.</li>
+<li>Category descriptions and counts regenerated from the live registry.</li>
+</ul>
+<h2>0.x — before this build</h2>
+<p>The original single-file toolbox: 239 tools across 18 categories, all local, no dependencies. Its history predates this repository.</p>
+</main>
+<footer>Kitbox — crafted by Dr. Sohil Momin, BHMS · Vadodara, Gujarat, India</footer>
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitbox — every tool, one offline app</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0e14">
+<style>
+:root{--paper:#0b0e14;--panel:#0d1117;--ink:#e6edf3;--soft:#a7adb9;--line:#30363d;--accent:#2f86eb}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.65;font-size:16px}
+.bar{position:sticky;top:0;background:#0e121a;border-bottom:1px solid rgba(255,255,255,.08);padding:14px 22px;display:flex;gap:16px;align-items:center;z-index:10}
+.bar a{color:var(--soft);text-decoration:none;font-size:13px}
+.bar a:hover{color:#fff}
+.bar .brand{color:#fff;font-weight:600;font-size:15px;display:flex;align-items:center;gap:9px}
+.bar .dot{width:12px;height:12px;background:var(--accent);display:inline-block}
+.bar .cta{margin-left:auto;background:var(--accent);color:#fff;padding:8px 14px;font-weight:600}
+main{max-width:900px;margin:0 auto;padding:36px 22px 90px}
+h1,h2,h3{line-height:1.25}
+h1{font-size:30px}
+h2{font-size:21px;border-bottom:1px solid var(--line);padding-bottom:.3em;margin-top:38px}
+h3{font-size:17px;margin-top:26px}
+a{color:#7ab7ff}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;width:100%;margin:18px 0;display:block;overflow:auto}
+th,td{border:1px solid var(--line);padding:7px 12px;text-align:left;vertical-align:top}
+th{background:#161b22}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:85%}
+pre{background:#161b22;padding:14px 16px;overflow:auto;border:1px solid var(--line)}
+pre code{background:none;padding:0}
+kbd{border:1px solid var(--line);border-radius:4px;padding:1px 5px;background:#161b22;font-size:12px;font-family:ui-monospace,monospace}
+blockquote{border-left:3px solid var(--line);margin:16px 0;padding:2px 16px;color:var(--soft)}
+sub{color:var(--soft)}
+hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f7787;font-size:12.5px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="brand" href="index.html"><span class="dot"></span>Kitbox</a>
+  <a href="index.html" style="color:#fff">Home</a><a href="changelog.html">Changelog</a><a href="roadmap.html">Roadmap</a><a href="plan.html">Plan</a>
+  <a class="cta" href="../kitbox.html">Open the app →</a>
+</div>
+<main>
+<div align="center">
+
+<img src="assets/banner.svg" alt="Kitbox — every tool, one offline app" width="100%">
+
+<br>
+
+<a href="../kitbox.html"><img src="assets/badge-tools.svg" alt="338 tools"></a>
+<a href="#categories"><img src="assets/badge-categories.svg" alt="23 categories"></a>
+<a href="#tests"><img src="assets/badge-tests.svg" alt="27 tests passing"></a>
+<a href="#what-it-refuses-to-do"><img src="assets/badge-network.svg" alt="no network"></a>
+<a href="#what-it-is"><img src="assets/badge-runtime.svg" alt="0 runtime dependencies"></a>
+<a href="../kitbox.html"><img src="assets/badge-file.svg" alt="one HTML file"></a>
+<a href="../kitbox.html"><img src="assets/badge-size.svg" alt="623 KB"></a>
+<a href="../LICENSE"><img src="assets/badge-licence.svg" alt="PolyForm Noncommercial 1.0.0"></a>
+
+<br><br>
+
+<strong>338 tools across 23 categories in one HTML file.</strong><br>
+No install, no build step, no dependencies, no account — and no network call, ever.
+
+<br>
+
+<a href="../kitbox.html"><strong>Open the app →</strong></a> &nbsp;·&nbsp;
+<a href="../index.html">Landing page</a> &nbsp;·&nbsp;
+<a href="#categories">What's inside</a> &nbsp;·&nbsp;
+<a href="roadmap.html">Roadmap</a> &nbsp;·&nbsp;
+<a href="plan.html">Plan</a> &nbsp;·&nbsp;
+<a href="#support">Support</a>
+
+</div>
+
+<p><br></p>
+<p><img src="shot-home.png" alt="Kitbox home screen: a search box over 338 tools and a grid of 23 colour-coded categories" width="100%"></p>
+<p align="center"><sub>One search box over 338 tools. Pinned and recent tools appear above the categories once you have used it for a day.</sub></p>
+
+<hr />
+<h2>What it is</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">🧰 <strong>338 tools</strong></td>
+<td style="text-align: left;">🗂️ <strong>23 categories</strong></td>
+<td style="text-align: left;">📄 <strong>1 HTML file</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">📦 <strong>0 dependencies</strong></td>
+<td style="text-align: left;">🔌 <strong>0 network calls</strong></td>
+<td style="text-align: left;">👤 <strong>0 accounts</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Save the file. Open it from a USB stick on a machine with the router switched off. It works — that is the entire design brief, and everything below follows from it.</p>
+<p><strong>Who it is for:</strong> the consulting room with no reliable internet, the classroom with filtered Wi-Fi, the old laptop kept offline on purpose, and anyone who would rather not upload a patient's lab report to a website to convert it to PDF.</p>
+<h2>Categories</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: left;">Category</th>
+<th style="text-align: right;">Tools</th>
+<th style="text-align: left;">What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">🧰</td>
+<td style="text-align: left;">General</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">Ruler, counters, countdown, stopwatch, Morse, Roman numerals, compass, level, world clock, text-to-speech, big clock</td>
+</tr>
+<tr>
+<td style="text-align: center;">✍️</td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: left;">Case, find and replace, sorting, ciphers, slugify, braille, ASCII banners, readability, keywords, accents, smart quotes, invisible characters</td>
+</tr>
+<tr>
+<td style="text-align: center;">✨</td>
+<td style="text-align: left;">Generator</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">QR codes, Lorem Ipsum, number generators, barcode scanning, passphrases, usernames</td>
+</tr>
+<tr>
+<td style="text-align: center;">🧮</td>
+<td style="text-align: left;">Calculation</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: left;">Everyday maths, algebra, geometry and solids, statistics, regression, dates, sleep cycles, rounding, fuel and electricity cost, pricing</td>
+</tr>
+<tr>
+<td style="text-align: center;">🖼️</td>
+<td style="text-align: left;">Image</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">Resize, crop, compress, convert, filters, collage, ASCII art — all local</td>
+</tr>
+<tr>
+<td style="text-align: center;">📐</td>
+<td style="text-align: left;">Unit converter</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: left;">Length, mass, volume, energy, pressure, data, typography, paper sizes, shoe sizes</td>
+</tr>
+<tr>
+<td style="text-align: center;">💰</td>
+<td style="text-align: left;">Finance</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">EMI, investment, tax, amortisation, savings goal, debt payoff, simple interest, SIP, GST split</td>
+</tr>
+<tr>
+<td style="text-align: center;">🎲</td>
+<td style="text-align: left;">Randomizer</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Wheel, dice, coin, rock-paper-scissors, random from a list, PINs, teams, 8-ball</td>
+</tr>
+<tr>
+<td style="text-align: center;">❤️</td>
+<td style="text-align: left;">Health</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">BMI, BMR, water, ideal weight, clinical calculations, TDEE and macros, heart-rate zones, due date</td>
+</tr>
+<tr>
+<td style="text-align: center;">⌨️</td>
+<td style="text-align: left;">Development</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: left;">JSON, YAML, base64, hashes, HMAC, MD5, JWT, cron, ULID, CIDR, MIME, Markdown, configs, TypeScript, query strings, SQL lists</td>
+</tr>
+<tr>
+<td style="text-align: center;">🎨</td>
+<td style="text-align: left;">Colours</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Picker, blend, WCAG contrast, colour-blindness simulation, palette from an image, harmony, tints and shades</td>
+</tr>
+<tr>
+<td style="text-align: center;">⚗️</td>
+<td style="text-align: left;">Science</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">Ohm's law, molar mass, pH, half-life, density, wavelength, periodic table, ideal gas, projectiles, molarity</td>
+</tr>
+<tr>
+<td style="text-align: center;">🧭</td>
+<td style="text-align: left;">Geo</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Distance, bearing, midpoint, DMS, sunrise, GPS speed, polygon area, antipodes, cardinal points, coordinate rounding</td>
+</tr>
+<tr>
+<td style="text-align: center;">🎵</td>
+<td style="text-align: left;">Audio</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Tone generator, metronome, noise, binaural beats, decibel meter, recorder, tap tempo, Hz to note</td>
+</tr>
+<tr>
+<td style="text-align: center;">🕹️</td>
+<td style="text-align: left;">Games</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Tic-tac-toe, memory, hangman, Wordle, Simon, trivia, reaction time, typing speed</td>
+</tr>
+<tr>
+<td style="text-align: center;">✈️</td>
+<td style="text-align: left;">Travel</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Packing lists, flight duration, bag sizes, plug types, flight carbon</td>
+</tr>
+<tr>
+<td style="text-align: center;">🌙</td>
+<td style="text-align: left;">Nature</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Moon phase, solstices, sun exposure, night-sky brightness, golden hour, day length</td>
+</tr>
+<tr>
+<td style="text-align: center;">⏱️</td>
+<td style="text-align: left;">Productivity</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Pomodoro, habits, notepad, sketch pad, flashcards, backup and restore, checklists, meeting cost</td>
+</tr>
+<tr>
+<td style="text-align: center;">📁</td>
+<td style="text-align: left;">Files &amp; Data</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">ZIP, gzip, file hashing, file encryption, sealed notes, CSV, EXIF and GPS, base64 both ways, file type detection</td>
+</tr>
+<tr>
+<td style="text-align: center;">☀️</td>
+<td style="text-align: left;">Almanac</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Panchang, rahu kaal, sun and moon times, planetary hours, tithi calendar</td>
+</tr>
+<tr>
+<td style="text-align: center;">✉️</td>
+<td style="text-align: left;">Communication</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">vCard, calendar invites, message links, SMS counting, phone formatting</td>
+</tr>
+<tr>
+<td style="text-align: center;">📚</td>
+<td style="text-align: left;">Reference</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">ASCII table, Big-O cheatsheet, regex cheatsheet, country dial codes, keyboard shortcuts</td>
+</tr>
+<tr>
+<td style="text-align: center;">🖥️</td>
+<td style="text-align: left;">System</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Device and screen info, browser feature check, local storage usage</td>
+</tr>
+</tbody>
+</table>
+<h2>A look inside</h2>
+<table>
+<tr>
+<td width="50%"><img src="shot-tool.png" alt="The Panchang tool: tithi, nakshatra, yoga, karana, sunrise and sunset for Vadodara"><br><sub><b>Almanac → Panchang.</b> Meeus solar and lunar series, Lahiri ayanamsa, computed for your coordinates.</sub></td>
+<td width="50%"><img src="shot-files.png" alt="The Files &amp; Data category: ZIP, gzip, hashing, encryption, sealed notes, CSV, EXIF"><br><sub><b>Files &amp; Data.</b> Twelve tools that read your file in the page and hand it back — nothing uploaded.</sub></td>
+</tr>
+<tr>
+<td><img src="shot-mobile.png" alt="Kitbox on a narrow phone screen: two-column tile grid"><br><sub><b>On a phone.</b> The same file, two columns, no separate mobile build.</sub></td>
+<td><img src="shot-landing.png" alt="The landing page, in the same theme as the app"><br><sub><b>The landing page.</b> Built from the app's own stylesheet, so the two cannot drift.</sub></td>
+</tr>
+</table>
+
+<h2>Finding a tool</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><kbd>Ctrl</kbd> <kbd>K</kbd> / <kbd>⌘</kbd> <kbd>K</kbd></td>
+<td style="text-align: left;">Search all 338 tools from anywhere</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>/</kbd></td>
+<td style="text-align: left;">The same search, when you are not already typing</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>↑</kbd> <kbd>↓</kbd> <kbd>↵</kbd></td>
+<td style="text-align: left;">Move through results, open one</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>Esc</kbd></td>
+<td style="text-align: left;">Close the search, then step back a page</td>
+</tr>
+</tbody>
+</table>
+<p>Ranking is exact name, then prefix, then word start, then substring, then an ordered-letters fallback — so <code>panchng</code> still finds Panchang. <strong>Pin</strong> a tool with the star on its page and it moves to the top of the home screen, beside your recents.</p>
+<h2>Getting it</h2>
+<pre><code class="language-bash">git clone https://github.com/drsamonline/kitbox.git
+cd kitbox
+open kitbox.html        # macOS   (xdg-open on Linux, start on Windows)
+</code></pre>
+<p>Or serve it: <code>python3 -m http.server</code>, then visit <code>http://localhost:8000</code>. Both work — the app has no dependency on being served.</p>
+<h2>What it refuses to do</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">🚫 <strong>No network calls</strong></td>
+<td style="text-align: left;">Not for updates, not for fonts, not for analytics. The test suite fails if a <code>fetch</code>, <code>XMLHttpRequest</code>, <code>WebSocket</code> or <code>EventSource</code> appears in the file, or if an external script, stylesheet, font or image is added.</td>
+</tr>
+<tr>
+<td style="text-align: left;">📤 <strong>No silent uploads</strong></td>
+<td style="text-align: left;">Files are read with <code>FileReader</code> and written with <code>Blob</code> and <code>a[download]</code>. There is no server to send them to.</td>
+</tr>
+<tr>
+<td style="text-align: left;">📊 <strong>No telemetry</strong></td>
+<td style="text-align: left;">Nothing is counted, profiled or reported.</td>
+</tr>
+<tr>
+<td style="text-align: left;">👤 <strong>No account</strong></td>
+<td style="text-align: left;">There is nothing to sign into.</td>
+</tr>
+<tr>
+<td style="text-align: left;">🔗 <strong>Almost no outbound links</strong></td>
+<td style="text-align: left;">Exactly one page has them: Support, where Ko-fi, PayPal, the book store and the email address are links you may choose to click. The page loads none of them.</td>
+</tr>
+</tbody>
+</table>
+<h2>Where the tools came from</h2>
+<p>Kitbox began as one file with 239 tools. It has grown in two passes, all rewritten to run inside this page:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">From</th>
+<th style="text-align: left;">Brought over</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>export-kit</code></td>
+<td style="text-align: left;">Store-only ZIP writer (local headers, central directory, CRC32)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>compress-kit</code></td>
+<td style="text-align: left;">GZIP compress and decompress over Compression Streams</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>crypto-kit</code></td>
+<td style="text-align: left;">AES-256-GCM with PBKDF2-SHA256 keys; file encryption and sealed notes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>astro-kit</code>, <code>app-panchang</code></td>
+<td style="text-align: left;">Julian day, Meeus solar and lunar longitude, Lahiri ayanamsa, tithi, nakshatra, yoga, karana, rahu kaal, planetary hours</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>app-image-toolkit</code></td>
+<td style="text-align: left;">EXIF and GPS reading, and metadata stripping that leaves pixels untouched</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ml-kit</code></td>
+<td style="text-align: left;">tf-idf keyword ranking and cosine similarity</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TTB</code>, <code>All4ONE</code></td>
+<td style="text-align: left;">Statistics, regression, sig figs, fuel and electricity cost, pricing, savings, debt payoff, ULID, base32/base58, HMAC, MD5, CIDR, MIME, Markdown, config parsing, .gitignore, vCard, ICS, message links, tap tempo, meeting cost</td>
+</tr>
+</tbody>
+</table>
+<h2>Accuracy, honestly</h2>
+<ul>
+<li>🌗 <strong>The panchang</strong> uses the Meeus solar and lunar series with an approximate Lahiri ayanamsa. Tithi and nakshatra boundaries land within roughly a minute of a published almanac; <strong>they are approximations, and local tradition may differ.</strong> The test suite pins the solar and lunar longitudes to the published Meeus worked examples.</li>
+<li>🩺 <strong>Health, finance and science calculators</strong> use standard public formulas. They are general-purpose tools, not professional instruments — nothing here is a substitute for medical, financial or legal advice.</li>
+<li>🔐 <strong>MD5</strong> is included for legacy checksums only. It is not collision-resistant and must never be used for passwords.</li>
+<li>🔑 <strong>File encryption</strong> needs a secure context (https or localhost) for Web Crypto, and a lost passphrase cannot be recovered.</li>
+<li>👟 <strong>Shoe sizes and flight carbon</strong> are rules of thumb. They compare choices; they do not fit a shoe or audit an airline.</li>
+</ul>
+<h2>Tests</h2>
+<pre><code class="language-bash">npm ci
+npm test
+</code></pre>
+<p>27 checks, run against the real file in jsdom:</p>
+<ul>
+<li>every tool renders — 338 of them</li>
+<li>tool ids and names are unique</li>
+<li>all 50 routes resolve</li>
+<li>the ported astronomy matches Meeus 25.b and 47.a; Delhi's midsummer sunrise and sunset land where they should</li>
+<li>MD5, CRC32, base32 and base58 match their published check values</li>
+<li>the new arithmetic is pinned: A4 at 300 DPI, 18% GST, molar volume at STP, projectile range, C1V1, GSM vs UCS-2</li>
+<li>the support page carries the real UPI id and an inline QR</li>
+<li>user text is escaped, never parsed as markup</li>
+<li>the file loads nothing external and calls nothing over the network</li>
+</ul>
+<pre><code class="language-bash">node tools/check-badges.js   # the badges above are checked against the app
+python3 tools/badges.py      # redraw them if a number changes
+python3 tools/shots.py       # retake the screenshots (needs chromium)
+</code></pre>
+<p>CI runs all of that plus: the badge numbers against the app, <code>ALL_TOOLS.md</code> and the landing page against the registry, <code>docs/</code> against the markdown, <code>MANIFEST.json</code> against the tracked files, the roadmap against the plan, a scan for <code>eval</code>/<code>new Function</code>/<code>document.write</code>/<code>javascript:</code> URLs, and a size budget. Run the same set locally with <code>npm run check</code>.</p>
+<p>The badges are local SVG files, not a badge service — an offline-first app that needs the network to say "no network" has broken its own rule. <code>check-badges.js</code> fails the build if the numbers in them drift from the app.</p>
+<h2>Your data</h2>
+<p>Tools that remember things between visits — Notepad, Flashcards, Trivia Creator, Sketch Pad's palette, Scoreboard, Habit Tracker, Packing List, Checklists, currency rates, ruler calibration, the unit converter's last pair, pinned tools, recents, the Panchang's last location — store it in this browser's <code>localStorage</code> under the <code>tooly:</code> prefix. It never leaves the device, and clearing browser data erases it.</p>
+<p><strong>Productivity → Backup &amp; Restore</strong> exports everything to one JSON file. <strong>System → Local Storage Usage</strong> shows exactly what is being held.</p>
+<h2>Documents</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="../USAGE.md">USAGE.md</a></td>
+<td style="text-align: left;">Getting it, finding a tool, working with files, when something does not work</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="../CONTRIBUTING.md">CONTRIBUTING.md</a></td>
+<td style="text-align: left;">The five rules, how a tool is written, what gets rejected</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="../SECURITY.md">SECURITY.md</a></td>
+<td style="text-align: left;">The threat model: what a single file protects against, and what it does not</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="../PRIVACY.md">PRIVACY.md</a></td>
+<td style="text-align: left;">What is stored, where, and the one page with outbound links</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="../ALL_TOOLS.md">ALL_TOOLS.md</a></td>
+<td style="text-align: left;">Every tool with its code and id, generated from the app</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="../AUDIT.md">AUDIT.md</a></td>
+<td style="text-align: left;">What was checked, what was found, what remains imperfect</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="roadmap.html">ROADMAP.md</a> · <a href="plan.html">PLAN.md</a></td>
+<td style="text-align: left;">The 119-item backlog, and the 15 batches it ships in</td>
+</tr>
+</tbody>
+</table>
+<h2>Support</h2>
+<div align="center">
+<img src="assets/upi-qr.svg" alt="UPI QR code for drsohilboi@ybl" width="150">
+</div>
+
+<p>Free, offline, accountless — and staying that way. If it earned its keep:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">🇮🇳 <strong>UPI (India)</strong></td>
+<td style="text-align: left;"><code>drsohilboi@ybl</code> — payee Dr. Sohil Momin, open amount, or scan the QR above</td>
+</tr>
+<tr>
+<td style="text-align: left;">☕ <strong>Ko-fi</strong></td>
+<td style="text-align: left;"><a href="https://ko-fi.com/matneo">ko-fi.com/matneo</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">💳 <strong>PayPal</strong></td>
+<td style="text-align: left;"><a href="https://paypal.me/drsohilmomin?locale.x=en_GB&amp;country.x=IN">paypal.me/drsohilmomin</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">📚 <strong>My books</strong></td>
+<td style="text-align: left;"><a href="https://www.amazon.com/stores/author/B08ZT331LY/allbooks?ccs_id=aed72b9f-71d9-41dc-adee-e9368a317acc">Amazon author store</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">🧰 <strong>More apps</strong></td>
+<td style="text-align: left;"><a href="https://drsamonline.github.io/">drsamonline.github.io</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">✉️ <strong>Email</strong></td>
+<td style="text-align: left;"><a href="mailto:sohilmomin2000@gmail.com">sohilmomin2000@gmail.com</a></td>
+</tr>
+</tbody>
+</table>
+<p>Nothing is gated behind it: no paid tier, no account, no tracking. Supporting it buys the next version, not a feature.</p>
+<h2>Roadmap</h2>
+<p>Every enhancement worth doing — 119 numbered items, measured where measurement was possible, each with an effort and impact rating, plus what is deliberately <em>not</em> being built and why: <strong><a href="roadmap.html">ROADMAP.md</a></strong>.</p>
+<p>Those 119 items are grouped into <strong>15 shippable batches</strong> — quick wins first, structural work later, small items merged where they share a file — in <strong><a href="plan.html">PLAN.md</a></strong>. Fifteen batches, ~56 days, with the useful cut line at batch ten (~25 days).</p>
+<h2>Licence</h2>
+<p><strong>PolyForm Noncommercial 1.0.0</strong> — free for any noncommercial purpose. Commercial use needs a licence from the author; see <a href="../LICENSE">LICENSE</a>. The full terms are short and worth reading once.</p>
+<hr />
+<div align="center">
+<sub>Crafted by <b>Dr. Sohil Momin, BHMS</b> — Vadodara, Gujarat, India</sub><br>
+<sub>One of a fleet of single-file tools. No accounts, no cloud, no lock-in.</sub>
+</div>
+</main>
+<footer>Kitbox — crafted by Dr. Sohil Momin, BHMS · Vadodara, Gujarat, India</footer>
+</body>
+</html>

@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitbox — roadmap</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0e14">
+<style>
+:root{--paper:#0b0e14;--panel:#0d1117;--ink:#e6edf3;--soft:#a7adb9;--line:#30363d;--accent:#2f86eb}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.65;font-size:16px}
+.bar{position:sticky;top:0;background:#0e121a;border-bottom:1px solid rgba(255,255,255,.08);padding:14px 22px;display:flex;gap:16px;align-items:center;z-index:10}
+.bar a{color:var(--soft);text-decoration:none;font-size:13px}
+.bar a:hover{color:#fff}
+.bar .brand{color:#fff;font-weight:600;font-size:15px;display:flex;align-items:center;gap:9px}
+.bar .dot{width:12px;height:12px;background:var(--accent);display:inline-block}
+.bar .cta{margin-left:auto;background:var(--accent);color:#fff;padding:8px 14px;font-weight:600}
+main{max-width:900px;margin:0 auto;padding:36px 22px 90px}
+h1,h2,h3{line-height:1.25}
+h1{font-size:30px}
+h2{font-size:21px;border-bottom:1px solid var(--line);padding-bottom:.3em;margin-top:38px}
+h3{font-size:17px;margin-top:26px}
+a{color:#7ab7ff}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;width:100%;margin:18px 0;display:block;overflow:auto}
+th,td{border:1px solid var(--line);padding:7px 12px;text-align:left;vertical-align:top}
+th{background:#161b22}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+code{background:#161b22;padding:.15em .4em;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:85%}
+pre{background:#161b22;padding:14px 16px;overflow:auto;border:1px solid var(--line)}
+pre code{background:none;padding:0}
+kbd{border:1px solid var(--line);border-radius:4px;padding:1px 5px;background:#161b22;font-size:12px;font-family:ui-monospace,monospace}
+blockquote{border-left:3px solid var(--line);margin:16px 0;padding:2px 16px;color:var(--soft)}
+sub{color:var(--soft)}
+hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f7787;font-size:12.5px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="brand" href="index.html"><span class="dot"></span>Kitbox</a>
+  <a href="index.html">Home</a><a href="changelog.html">Changelog</a><a href="roadmap.html" style="color:#fff">Roadmap</a><a href="plan.html">Plan</a>
+  <a class="cta" href="../kitbox.html">Open the app →</a>
+</div>
+<main>
+<h1>Roadmap — every enhancement worth doing</h1>
+<p>An exhaustive backlog for Kitbox, written after building the 1.0–1.1.1 releases. Everything here is specific to this codebase: each item names the file, the mechanism, or the measurement that justifies it. Nothing is here because it would sound good in a pitch.</p>
+<p><strong>Scheduled in <a href="plan.html">PLAN.md</a></strong> — every item below is assigned to exactly one of 15 batches, and <code>tools/check-plan.py</code> fails the build if that ever stops being true.</p>
+<p><strong>Legend.</strong> Effort: <strong>S</strong> ≈ under half a day, <strong>M</strong> ≈ one to three days, <strong>L</strong> ≈ a week or more. Impact: <strong>★★★</strong> users feel it immediately, <strong>★★</strong> it removes a class of bug or friction, <strong>★</strong> hygiene that pays off later.</p>
+<p><strong>The rule that governs all of it:</strong> the app stays one file, with no dependency, no network call, and no account. Any item that breaks that rule is listed at the end under <a href="#deliberately-not-doing">Deliberately not doing</a> with the reason.</p>
+<hr />
+<h2>0. The three findings that should set the order</h2>
+<p>These are measured, not guessed.</p>
+<p><strong>0.1 — 14 of 23 category tiles fail WCAG AA with white text.</strong> White on <code>#22D9D9</code> is 1.75:1; the AA threshold is 4.5:1. Two tiles fail with <em>both</em> white and dark ink (<code>#E31C7D</code> 4.44/4.02, <code>#4C6EF5</code> 4.32/4.13), so those two colours need adjusting rather than just a text colour swap. Full table in <a href="#2-accessibility">§2</a>.</p>
+<p><strong>0.2 — tool codes are positional, so inserting a tool renumbers everything after it.</strong> <code>GEN-01</code>, <code>UNI-31</code> and the rest come from a counter incremented at registration. Add a tool in the middle of a category and every later code shifts — and codes are what a user quotes in a bug report. Needs a committed, stable map (<a href="#9-architecture--build">E-41</a>).</p>
+<p><strong>0.3 — pinned tools are stored as <code>{cat, tool}</code> ids.</strong> Rename an id and a user's pin silently points at nothing. There is no alias map and no test that ids are stable (<a href="#10-testing--qa">E-44</a>).</p>
+<p>Everything in §1 is a quick win; §2–§11 are ordered by the leverage they carry.</p>
+<hr />
+<h2>1. Quick wins (each S, most ★★ or ★★★)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-01</td>
+<td style="text-align: left;"><strong>Add <code>&lt;noscript&gt;</code></strong> with a one-line "Kitbox needs JavaScript — it is all local, nothing is sent"</td>
+<td style="text-align: left;">A blank white page with no explanation is the current behaviour when JS is off</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-02</td>
+<td style="text-align: left;"><strong>Replace the stale empty-category copy</strong> ("coming in the next build stage")</td>
+<td style="text-align: left;">No category is empty any more; the string is a leftover</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-03</td>
+<td style="text-align: left;"><strong>404 route</strong> — an unknown hash renders a "no such tool" panel with a search box</td>
+<td style="text-align: left;">Today it silently falls through to home, which reads as a broken link</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-04</td>
+<td style="text-align: left;"><strong>Print stylesheet</strong> (<code>@media print</code>) — hide chrome, print the panel white on white</td>
+<td style="text-align: left;">People already print calculator results; they get the dark shell and the heart icon</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-05</td>
+<td style="text-align: left;"><strong>Copy button on every textual output</strong>, via one delegated handler</td>
+<td style="text-align: left;">24 places already use <code>navigator.clipboard</code> by hand; the other ~60 have nothing</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-06</td>
+<td style="text-align: left;"><strong>File-size guard</strong> in ZIP, gzip, hash and encrypt tools (warn above ~200 MB)</td>
+<td style="text-align: left;">They read the whole file into memory; a 2 GB video currently locks the tab</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-07</td>
+<td style="text-align: left;"><strong>Passphrase strength hint</strong> on Encrypt/Decrypt and Sealed Note</td>
+<td style="text-align: left;">The only password field in the app with no feedback at all</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-08</td>
+<td style="text-align: left;"><strong><code>title</code> attributes on truncated tile names</strong></td>
+<td style="text-align: left;">Long names clip at small widths with no way to read them</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-09</td>
+<td style="text-align: left;"><strong>Open Graph tags + <code>og:image</code> on the landing page</strong> (reuse the banner SVG as PNG)</td>
+<td style="text-align: left;">Sharing the link currently produces no preview card</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-10</td>
+<td style="text-align: left;"><strong>Skip link</strong> (<code>Skip to tools</code>) before the topbar</td>
+<td style="text-align: left;">Keyboard users tab through the bar on every page</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-11</td>
+<td style="text-align: left;"><strong>Focus the <code>&lt;h1&gt;</code> on route change</strong></td>
+<td style="text-align: left;">Screen readers currently stay where the previous page was</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-12</td>
+<td style="text-align: left;"><strong><code>aria-live="polite"</code> on <code>.output</code> blocks</strong></td>
+<td style="text-align: left;">Results update silently for assistive tech</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-13</td>
+<td style="text-align: left;"><strong>First-run hint</strong>: one line under the search box, "Press Ctrl K anywhere", dismissed on first use, stored</td>
+<td style="text-align: left;">The palette is the best thing in the app and it is invisible</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-14</td>
+<td style="text-align: left;"><strong>"New" chip</strong> on tools added in the current minor release</td>
+<td style="text-align: left;">59 arrived in 1.1.0 and are indistinguishable from the rest</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-15</td>
+<td style="text-align: left;"><strong>Prev / next tool</strong> arrows on a tool page, within its category</td>
+<td style="text-align: left;">Exploring a category means going back to the grid every time</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-16</td>
+<td style="text-align: left;"><strong><code>?q=</code> deep link</strong> — <code>kitbox.html?q=hash</code> opens the palette pre-filled</td>
+<td style="text-align: left;">Makes a search shareable in a message</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-17</td>
+<td style="text-align: left;"><strong><code>ALL_TOOLS.md</code></strong> generated from the registry, as <code>TTB</code> does</td>
+<td style="text-align: left;">A citable list outside the app, and a diff-able record of what exists</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-18</td>
+<td style="text-align: left;"><strong><code>CONTRIBUTING.md</code>, <code>SECURITY.md</code>, <code>PRIVACY.md</code>, <code>USAGE.md</code></strong></td>
+<td style="text-align: left;">Every sibling repo has them; this one has none</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-19</td>
+<td style="text-align: left;"><strong>Release tags with the single file, a <code>.gz</code>, and a <code>SHA256SUMS</code> file</strong></td>
+<td style="text-align: left;">Downloading from <code>main</code> gives no fixed version and no way to verify it</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-20</td>
+<td style="text-align: left;"><strong><code>kitbox.min.html</code> build artifact</strong> (whitespace/comment strip, keep the readable file as canonical)</td>
+<td style="text-align: left;">621 KB of commented, readable source is a feature; a 300 KB copy is a convenience</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Accessibility</h2>
+<p><strong>The measured problem.</strong> Text on the category tiles is 13.5 px semibold, so it needs 4.5:1, not the 3:1 large-text allowance.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tile</th>
+<th style="text-align: left;">Colour</th>
+<th style="text-align: right;">White</th>
+<th style="text-align: right;">Ink</th>
+<th style="text-align: left;">Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Randomizer</td>
+<td style="text-align: left;"><code>#22D9D9</code></td>
+<td style="text-align: right;">1.75</td>
+<td style="text-align: right;">10.19</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Generator</td>
+<td style="text-align: left;"><code>#9FCB1B</code></td>
+<td style="text-align: right;">1.90</td>
+<td style="text-align: right;">9.38</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Health</td>
+<td style="text-align: left;"><code>#1FCE9C</code></td>
+<td style="text-align: right;">2.03</td>
+<td style="text-align: right;">8.81</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Finance</td>
+<td style="text-align: left;"><code>#3FCB6B</code></td>
+<td style="text-align: right;">2.11</td>
+<td style="text-align: right;">8.47</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Games</td>
+<td style="text-align: left;"><code>#F59F00</code></td>
+<td style="text-align: right;">2.13</td>
+<td style="text-align: right;">8.36</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;"><code>#E6A400</code></td>
+<td style="text-align: right;">2.17</td>
+<td style="text-align: right;">8.22</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Colours</td>
+<td style="text-align: left;"><code>#F2871A</code></td>
+<td style="text-align: right;">2.54</td>
+<td style="text-align: right;">7.02</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Development</td>
+<td style="text-align: left;"><code>#12A99A</code></td>
+<td style="text-align: right;">2.93</td>
+<td style="text-align: right;">6.09</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Geo</td>
+<td style="text-align: left;"><code>#0E9F6E</code></td>
+<td style="text-align: right;">3.39</td>
+<td style="text-align: right;">5.27</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Nature</td>
+<td style="text-align: left;"><code>#2F9E44</code></td>
+<td style="text-align: right;">3.45</td>
+<td style="text-align: right;">5.18</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Calculation</td>
+<td style="text-align: left;"><code>#F4483D</code></td>
+<td style="text-align: right;">3.60</td>
+<td style="text-align: right;">4.96</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Image</td>
+<td style="text-align: left;"><code>#2F86EB</code></td>
+<td style="text-align: right;">3.66</td>
+<td style="text-align: right;">4.87</td>
+<td style="text-align: left;">dark ink</td>
+</tr>
+<tr>
+<td style="text-align: left;">Files &amp; Data</td>
+<td style="text-align: left;"><code>#4C6EF5</code></td>
+<td style="text-align: right;">4.32</td>
+<td style="text-align: right;">4.13</td>
+<td style="text-align: left;"><strong>neither — adjust colour</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;"><code>#E31C7D</code></td>
+<td style="text-align: right;">4.44</td>
+<td style="text-align: right;">4.02</td>
+<td style="text-align: left;"><strong>neither — adjust colour</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Unit, Science, Audio, Travel, Productivity, Almanac, Communication, Reference, System</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: right;">≥4.5</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: left;">fine as-is</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-21</td>
+<td style="text-align: left;"><strong>Pick text colour per tile from the measured ratio</strong> — compute once at registration, not by eye</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-22</td>
+<td style="text-align: left;"><strong>Nudge <code>#E31C7D</code> and <code>#4C6EF5</code> darker</strong> so one of the two text colours clears 4.5:1</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-23</td>
+<td style="text-align: left;"><strong>Run <code>axe-core</code> in CI</strong> against home, a category, a tool page, the support page and the landing page</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-24</td>
+<td style="text-align: left;"><strong>Keyboard operability for canvas tools</strong> — Sketch Pad has no keyboard path at all; add a focusable canvas with arrow-key cursor</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-25</td>
+<td style="text-align: left;"><strong>Visible focus in the palette</strong> — the highlighted row uses background only; add a focus ring</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-26</td>
+<td style="text-align: left;"><strong>Announce palette result counts</strong> (<code>3 results</code>) via a live region</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-27</td>
+<td style="text-align: left;"><strong>Landmark structure</strong> — <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code> for the topbar, and a labelled <code>&lt;header&gt;</code></td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-28</td>
+<td style="text-align: left;"><strong><code>prefers-contrast: more</code></strong> — raise the muted grey (<code>#a7adb9</code> on <code>#0b0e14</code> is 8.0:1, fine) and darken the panel hints</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-29</td>
+<td style="text-align: left;"><strong>Respect <code>prefers-reduced-transparency</code></strong> if a translucent surface is ever added; note it now so it is not forgotten</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-30</td>
+<td style="text-align: left;"><strong>Text-size preference</strong> (100 / 112 / 125 %) stored per device</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-31</td>
+<td style="text-align: left;"><strong>Test the tab order end to end</strong> and record it in <code>AUDIT.md</code>, as the sibling repos do</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Search and navigation</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-32</td>
+<td style="text-align: left;"><strong>Per-category filter box</strong> — 51 calculation tools is a long scroll</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-33</td>
+<td style="text-align: left;"><strong>Keyword aliases per tool</strong> (<code>emi</code> → Loan EMI, <code>qr</code> → QR Code, <code>utc</code> → Unix Timestamp) so the thing people type finds the thing they mean</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-34</td>
+<td style="text-align: left;"><strong>Search across group labels</strong> — <code>Remove Tools</code> inside Text is currently unreachable by name</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-35</td>
+<td style="text-align: left;"><strong>Rank pinned and recent tools higher</strong> for equal scores</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-36</td>
+<td style="text-align: left;"><strong>Search history</strong> in the palette (last 5, stored locally, clearable)</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-37</td>
+<td style="text-align: left;"><strong>Keyboard digits</strong> — <code>⌘1</code>…<code>⌘9</code> opens the nth result</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-38</td>
+<td style="text-align: left;"><strong>Breadcrumb on a tool page links back to its category</strong> — currently plain text</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-39</td>
+<td style="text-align: left;"><strong><code>g</code> then <code>h</code> / <code>a</code> / <code>s</code></strong> — home, all tools, support, in the app's own style</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-40</td>
+<td style="text-align: left;"><strong>Scroll position restored</strong> when returning to a category from a tool</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Tool-level consistency</h2>
+<p>The app has 338 tools written over three passes. These are the seams where they do not yet behave alike.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-41</td>
+<td style="text-align: left;"><strong>One <code>register()</code> API</strong> replacing <code>txt/gen/calc/fin/rnd/health/dev/clr/sci/geo/aud/game/trv/nat/prod/imgtool/fil/alm/com/ref/sys/unitTool</code></td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-42</td>
+<td style="text-align: left;"><strong>Standard "example" button</strong> — every input-heavy tool gets one click that fills a worked example</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-43</td>
+<td style="text-align: left;"><strong>Standard reset</strong> — one placement, one wording, everywhere</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-44</td>
+<td style="text-align: left;"><strong>Per-tool state cache</strong> — leaving a tool and coming back keeps your inputs (in memory, not storage)</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-45</td>
+<td style="text-align: left;"><strong>Permalink for simple tools</strong> — encode a handful of scalar inputs in the hash (<code>#/tool/calc/percentage?a=100&amp;b=125</code>)</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-46</td>
+<td style="text-align: left;"><strong>Standard error wording</strong> — "what went wrong" plus "what to do", in one component</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-47</td>
+<td style="text-align: left;"><strong>Explain disabled buttons</strong> — say why, not just grey out</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-48</td>
+<td style="text-align: left;"><strong>Drag-and-drop file inputs</strong> everywhere a file is read</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-49</td>
+<td style="text-align: left;"><strong>Paste-from-clipboard button</strong> next to the big textareas</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-50</td>
+<td style="text-align: left;"><strong>Metric/imperial preference</strong> applied to every tool that takes a length, weight or temperature</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-51</td>
+<td style="text-align: left;"><strong>Number-format preference</strong> — Indian grouping (<code>₹1,00,000</code>) vs international (<code>₹100,000</code>), currently mixed</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-52</td>
+<td style="text-align: left;"><strong>"Copy as CSV / Markdown"</strong> on every result table</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-53</td>
+<td style="text-align: left;"><strong>Empty-state suggestions</strong> — "nothing here yet, try X" instead of a bare dash</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-54</td>
+<td style="text-align: left;"><strong>Consistent unit suffixes in inputs</strong> (<code>km</code>, not <code>Distance</code>)</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. Data and storage</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-55</td>
+<td style="text-align: left;"><strong>Storage schema version</strong> (<code>tooly:schema</code>) with forward migrations</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-56</td>
+<td style="text-align: left;"><strong>Backup allow-list derived from a registry</strong>, not a hand-typed <code>KNOWN_KEYS</code></td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-57</td>
+<td style="text-align: left;"><strong>Quota handling</strong> — catch <code>QuotaExceededError</code>, tell the user which tool is full, offer export</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-58</td>
+<td style="text-align: left;"><strong>Per-tool "erase this tool's data"</strong> button</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-59</td>
+<td style="text-align: left;"><strong>Encrypted backup</strong> — reuse the AES envelope already in the app</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-60</td>
+<td style="text-align: left;"><strong>IndexedDB for notes and decks</strong> — <code>localStorage</code> caps around 5 MB, which a few hundred flashcards will reach</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-61</td>
+<td style="text-align: left;"><strong>Backup file includes the app version</strong> so a restore can warn on a mismatch</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-62</td>
+<td style="text-align: left;"><strong>Show storage usage per tool</strong> inside Backup, not only in System</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Reliability and error handling</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-63</td>
+<td style="text-align: left;"><strong>Error boundary around <code>tool.render()</code></strong> — catch, show a panel with "Copy error details", keep the rest of the app alive</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-64</td>
+<td style="text-align: left;"><strong>Local-only error log</strong> (<code>window.onerror</code> → ring buffer, viewable in System)</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-65</td>
+<td style="text-align: left;"><strong>Capability chips on tools that need hardware</strong> — "needs camera", "needs https", shown before you tap</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-66</td>
+<td style="text-align: left;"><strong>Disable, don't fail, when a capability is missing</strong> — the tool stays visible but says why it cannot run</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-67</td>
+<td style="text-align: left;"><strong>Guard every <code>crypto.subtle</code> call</strong> on secure context, in one helper</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-68</td>
+<td style="text-align: left;"><strong>Timer leak test</strong> — patch <code>setInterval</code> in the harness, mount and unmount every tool, assert nothing is left running</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-69</td>
+<td style="text-align: left;"><strong>Retry-with-explanation for file reads</strong> that fail (permissions, detached blob)</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. Performance and size</h2>
+<p>Measured in jsdom (indicative only — a browser is faster): boot and parse ≈ 2.4 s in jsdom, total render of all 338 tools ≈ 5.2 s, slowest single renders <code>general/tzconv</code> 474 ms, <code>colors/harmony</code> 357 ms, <code>calc/graphplotter</code> 255 ms.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-70</td>
+<td style="text-align: left;"><strong>Cache the timezone list</strong> — <code>tzconv</code> and <code>worldclock</code> both build it per render</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-71</td>
+<td style="text-align: left;"><strong>Measure in-browser, not jsdom</strong> — add a tiny <code>?bench</code> mode that times every <code>render()</code> and prints a table</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-72</td>
+<td style="text-align: left;"><strong>Size budget in CI</strong> — fail if <code>kitbox.html</code> grows past a stated ceiling without the number being changed deliberately</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-73</td>
+<td style="text-align: left;"><strong>Defer heavy data tables</strong> (periodic table, dial codes, ASCII) into functions called on open, not top-level constants</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-74</td>
+<td style="text-align: left;"><strong>Virtualise any table over ~500 rows</strong> (the ASCII table is 128, fine; the tithi calendar and day-length tables are per-month, fine)</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-75</td>
+<td style="text-align: left;"><strong>Publish the <code>.gz</code></strong> — 621 KB of HTML is roughly 90 KB gzipped</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>8. Security and privacy hardening</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-76</td>
+<td style="text-align: left;"><strong>CSP meta tag</strong> — <code>default-src 'none'; img-src data: blob:; style-src 'unsafe-inline'; script-src 'unsafe-inline'</code></td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-77</td>
+<td style="text-align: left;"><strong>CI check: no <code>eval</code>, no <code>new Function</code>, no <code>innerHTML =</code> with a bare variable</strong></td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-78</td>
+<td style="text-align: left;"><strong>Fuzz the text inputs</strong> — a committed list of XSS payloads driven through every tool that takes text</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-79</td>
+<td style="text-align: left;"><strong>Preserve the EXIF <code>Orientation</code> tag</strong> when stripping metadata (today a rotated phone photo comes back sideways)</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-80</td>
+<td style="text-align: left;"><strong>Wipe decrypted buffers</strong> best-effort after download, and say plainly that JS cannot guarantee it</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-81</td>
+<td style="text-align: left;"><strong>Warn on encrypting a file over ~100 MB</strong> — AES-GCM in one shot needs it all in memory</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-82</td>
+<td style="text-align: left;"><strong>Document the threat model</strong> in <code>SECURITY.md</code>: what a single-file app can and cannot protect against</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>9. Architecture and build</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-83</td>
+<td style="text-align: left;"><strong>Stable tool codes</strong> — a committed <code>codes.json</code> map so <code>UNI-31</code> never becomes <code>UNI-30</code> when a tool is inserted</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-84</td>
+<td style="text-align: left;"><strong>Stable ids with an alias map</strong> — renaming an id keeps old pins and links working</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-85</td>
+<td style="text-align: left;"><strong>Split source + build</strong> — <code>src/</code> modules and a <code>build.py</code> that assembles the single file, with CI asserting the built file matches the committed one</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-86</td>
+<td style="text-align: left;"><strong>Tool metadata fields</strong> — <code>since</code>, <code>tags</code>, <code>requires</code>, <code>keywords</code> on every registration</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-87</td>
+<td style="text-align: left;"><strong>Generated <code>ALL_TOOLS.md</code></strong> and a generated per-tool docs page from that metadata</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-88</td>
+<td style="text-align: left;"><strong>Lint</strong> — ESLint with <code>no-unused-vars</code>, <code>no-implicit-globals</code>, <code>no-eval</code> on the extracted script</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-89</td>
+<td style="text-align: left;"><strong>Type check via JSDoc</strong> — <code>tsc --checkJs</code> over the extracted script</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-90</td>
+<td style="text-align: left;"><strong>Extract pure algorithms</strong> (<code>ASTRO</code>, CRC32, MD5, base32/58, the finance maths) into named functions that tests can import directly</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-91</td>
+<td style="text-align: left;"><strong><code>MANIFEST.json</code> freshness check in CI</strong> — recompute the SHAs, fail on drift</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>10. Testing and QA</h2>
+<p>Today: 27 checks, all DOM-level.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-92</td>
+<td style="text-align: left;"><strong>Stable-id test</strong> — a committed list of every <code>cat/id</code>; the build fails if one disappears without an alias</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-93</td>
+<td style="text-align: left;"><strong>Per-tool interaction test</strong> — at minimum, fill each tool's first input with a valid value and assert no throw</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-94</td>
+<td style="text-align: left;"><strong>Round-trip property tests</strong> — encode/decode pairs (base32, base58, base64, JSON↔YAML, CSV↔JSON, ZIP→unzip) asserted for random inputs</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-95</td>
+<td style="text-align: left;"><strong>Fixture tests for the calculators</strong> — a JSON of known input/output pairs, checked on every push</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-96</td>
+<td style="text-align: left;"><strong>File-input tests with synthetic <code>File</code> objects</strong> — the file tools are currently only tested for a clean render</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-97</td>
+<td style="text-align: left;"><strong>Coverage report</strong> for the extracted pure functions</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-98</td>
+<td style="text-align: left;"><strong>Landing-page test</strong> — links resolve, every category tile points at a real route</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-99</td>
+<td style="text-align: left;"><strong>Visual regression</strong> — screenshot the home, one tool page and the landing, compare against committed baselines with a tolerance</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: left;">★★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>11. Internationalisation and localisation</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-100</td>
+<td style="text-align: left;"><strong>UI strings in one dictionary</strong> — the first step before any translation, and the reason to do it now</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-101</td>
+<td style="text-align: left;"><strong>English / Hindi / Gujarati</strong>, following <code>web-kit</code>'s approach</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-102</td>
+<td style="text-align: left;"><strong>Locale-aware number and date formatting</strong> everywhere, replacing hard-coded <code>en-IN</code> and <code>en-US</code></td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-103</td>
+<td style="text-align: left;"><strong>Translatable tool names and descriptions</strong> in the registry, with an English fallback</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-104</td>
+<td style="text-align: left;"><strong>Devanagari and Gujarati rendering check</strong> in the screenshot suite</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>12. New tools, by category</h2>
+<p>Every one of these is pure JS, no dependency, no network. This is the candidate list, not a promise.</p>
+<p><strong>Text.</strong> Word-level diff (the existing Text Diff is line-based); hyphenation points; syllable counter; case-preserving search and replace; Markdown table formatter; Unicode character inspector; lorem-from-a-word (deterministic filler); text expander (<code>{{name}}</code> placeholders); essay outline from headings; keyword-in-context (concordance).</p>
+<p><strong>Development.</strong> TOTP/HOTP generator (HMAC is already in the file); password entropy calculator; JSON Schema generator from a sample; regex explainer, token by token; CSS clamp/<code>min()</code>/<code>max()</code> builder; CSP header builder; Dockerfile generator; Makefile generator; <code>.env</code> file comparer; HTTP header builder; base64url codec; diff3 merge; <code>curl</code> → fetch converter; JWT signer (HS256), not only the decoder.</p>
+<p><strong>Files.</strong> <strong>ZIP Extract</strong> — <code>DecompressionStream('deflate-raw')</code> makes this possible with no library; file splitter and joiner; duplicate file finder by hash across a multi-select; batch renamer that writes a renamed ZIP; CSV → SQL inserts; file metadata timeline.</p>
+<p><strong>Calculation.</strong> Compound annual growth (CAGR); EMI prepayment saving; break-even with variable cost; percentage-of-total and share-of-whole; standard deviation of a running series; date add/subtract with working days; time-zone-aware meeting planner; GPA/CGPA converter; significant-figures arithmetic.</p>
+<p><strong>Money (India).</strong> HRA exemption; EPF/VPF projection; gratuity; old vs new income-tax regime comparison; PPF and FD maturity; post-office scheme comparison; SIP step-up; per-unit electricity slab builder.</p>
+<p><strong>Health (clinical, with the same disclaimers as the existing calculators).</strong> Paediatric weight-based dose; IV drip rate; eGFR (CKD-EPI 2021); corrected calcium; anion gap; fluid deficit; pregnancy weight-gain band. <em>These carry real liability — each would ship with the calculation shown step by step, the formula cited, and a "not a prescription" line, and each would need a clinician's sign-off in <code>AUDIT.md</code> before release.</em></p>
+<p><strong>Almanac.</strong> Moonrise and moonset; choghadiya; muhurat finder for a date range; ekadashi and sankranti dates for a year; sidereal time; sunrise direction on the horizon.</p>
+<p><strong>Audio.</strong> Chromatic tuner (microphone + autocorrelation); chord builder and player; interval ear trainer; note-name quiz.</p>
+<p><strong>Games.</strong> 2048; minesweeper; snake; sudoku solver (and generator); pong; a second typing passage set.</p>
+<p><strong>Reference.</strong> Unit circle; multiplication tables; Big-O of common operations per data structure; ASCII control codes with their escape sequences; Indian states and capitals; countries and capitals; keyboard layouts for Devanagari and Gujarati.</p>
+<p><strong>System.</strong> Clipboard inspector (paste and read, no read permission needed); font inspector (<code>document.fonts</code>); battery status; network information; print test page.</p>
+<hr />
+<h2>13. New categories</h2>
+<p>Only worth adding when they hold five or more tools; a category of two is a menu item with nothing behind it.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Tools it would hold</th>
+<th style="text-align: left;">Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-105</td>
+<td style="text-align: left;"><strong>Accessibility</strong></td>
+<td style="text-align: left;">Reading ruler, dyslexia-friendly preview, letter/word spacing preview, focus-ring preview, large-text preview, motion preview</td>
+<td style="text-align: left;">★★ — five tools already exist in spirit; they need a home</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-106</td>
+<td style="text-align: left;"><strong>Education</strong></td>
+<td style="text-align: left;">Unit circle, multiplication tables, formula sheet, typing tutor, spelling drill, times-table quiz</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-107</td>
+<td style="text-align: left;"><strong>Clinical</strong></td>
+<td style="text-align: left;">The six calculators in §12, kept apart from general Health on purpose</td>
+<td style="text-align: left;">★★★ for this author's own use, with sign-off required</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-108</td>
+<td style="text-align: left;"><strong>Money (India)</strong></td>
+<td style="text-align: left;">HRA, EPF, gratuity, tax regimes, PPF, FD</td>
+<td style="text-align: left;">★★ — the Finance category is already international in flavour and India-specific tools sit oddly in it</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>14. Distribution and packaging</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-109</td>
+<td style="text-align: left;"><strong>Enable GitHub Pages</strong> (Settings → Pages → <code>main</code> / root)</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★★ — the landing page is written and unreachable</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-110</td>
+<td style="text-align: left;"><strong>Ship a Windows EXE and an Android APK</strong> through <code>app-builder</code>, which exists for exactly this</td>
+<td style="text-align: left;">L</td>
+<td style="text-align: left;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-111</td>
+<td style="text-align: left;"><strong>A release per version</strong> with <code>kitbox.html</code>, <code>kitbox.min.html</code>, <code>.gz</code>, <code>SHA256SUMS</code></td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-112</td>
+<td style="text-align: left;"><strong>A <code>/latest</code> redirect page</strong> so a fixed URL always serves the newest release</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-113</td>
+<td style="text-align: left;"><strong>Inlined web-app manifest</strong> (data URI) so the file is installable without a second file</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-114</td>
+<td style="text-align: left;"><strong>Register in the <code>drsamonline.github.io</code> index</strong> so it appears with the rest of the fleet</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>15. Documentation and community</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Effort</th>
+<th style="text-align: left;">Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">E-115</td>
+<td style="text-align: left;"><strong><code>docs/index.html</code> mirroring the README</strong> for people who arrive through Pages rather than GitHub</td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-116</td>
+<td style="text-align: left;"><strong>A page per category</strong> with a screenshot and a sentence per tool</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-117</td>
+<td style="text-align: left;"><strong>An issue template that asks for the System → Device info output</strong></td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-118</td>
+<td style="text-align: left;"><strong>A "how a tool is written" guide</strong> — the ten-line shape every tool follows, with one worked example</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">★★</td>
+</tr>
+<tr>
+<td style="text-align: left;">E-119</td>
+<td style="text-align: left;"><strong>A public changelog page</strong> generated from <code>CHANGELOG.md</code></td>
+<td style="text-align: left;">S</td>
+<td style="text-align: left;">★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Deliberately not doing</h2>
+<p>Each of these has been considered and rejected for a stated reason. If a reason changes, the item moves up.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Not doing</th>
+<th style="text-align: left;">Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Cloud sync or accounts</strong></td>
+<td style="text-align: left;">The entire value is that there is nothing to sign into and nothing to breach. A sync service turns a file into a product.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Analytics of any kind</strong></td>
+<td style="text-align: left;">Including privacy-preserving ones. A tool for offline clinics should not phone home at all.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A service worker</strong></td>
+<td style="text-align: left;">It solves a problem the single file already solves, at the cost of a cache-invalidation bug class and a second file. Offered instead as an optional <code>kitbox-pwa</code> variant if ever wanted.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>PDF editing</strong> (merge, split, rotate)</td>
+<td style="text-align: left;">Needs a PDF library, which breaks the no-dependency rule. <code>offline-pdf-toolkit</code> exists and does it properly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Anything requiring a bundled dataset over ~1 MB</strong></td>
+<td style="text-align: left;">Country boundaries, ICD codes, drug databases. They belong in a separate app, as <code>repertory-reader</code> and <code>app-panchang</code> already do.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>AI features</strong></td>
+<td style="text-align: left;">A model means a network call or a 100 MB download, and the app's honesty depends on being able to say "nothing leaves this device".</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Moving existing tools between categories</strong></td>
+<td style="text-align: left;">Breaks pins, links and muscle memory for no functional gain. New categories get new tools.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A dark mode for the panel</strong></td>
+<td style="text-align: left;">The white panel on the dark shell is the app's identity, and the contrast it gives is better than most "dark modes". The text-size and contrast preferences in §2 cover the real need.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Suggested sequencing</h2>
+<p><strong>1.2 — "trust and find" (one week).</strong> E-21, E-22, E-23 (contrast and axe), E-32 (category filter), E-33 (aliases), E-63 (error boundary), E-83, E-84, E-92 (stable codes and ids), E-14 (new chip), E-77 (CI security check). <em>Theme: nothing new, everything more findable and less likely to break silently.</em></p>
+<p><strong>1.3 — "the file" (two weeks).</strong> E-05, E-42, E-44 (copy, example, state cache), E-55, E-56 (storage version and derived backup), E-06 (size guards), E-68 (timer leak test), E-93–E-95 (interaction, round-trip and fixture tests), E-109, E-111 (Pages and releases).</p>
+<p><strong>2.0 — "reach" (a month).</strong> E-85 (source split and build), E-100–E-102 (i18n and locale formatting), E-51 (number formats), E-110 (EXE and APK), E-105 and E-107 (Accessibility and Clinical categories), plus the strongest six from §12.</p>
+<hr />
+<p><em>Last updated with 1.1.1. If an item here is wrong or has been overtaken, delete it rather than leaving it to rot — a roadmap nobody prunes is worse than none.</em></p>
+</main>
+<footer>Kitbox — crafted by Dr. Sohil Momin, BHMS · Vadodara, Gujarat, India</footer>
+</body>
+</html>

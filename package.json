@@ -8,7 +8,12 @@
   "scripts": {
     "test": "node test/smoke.js",
     "badges": "node tools/check-badges.js",
-    "shots": "python3 tools/shots.py"
+    "shots": "python3 tools/shots.py",
+    "tools": "node tools/gen-all-tools.js",
+    "docs": "python3 tools/build-docs.py",
+    "landing": "python3 tools/build-landing.py",
+    "manifest": "python3 tools/check-manifest.py",
+    "check": "npm test && node tools/check-badges.js && node tools/gen-all-tools.js --check && python3 tools/check-plan.py && python3 tools/check-manifest.py"
   },
   "devDependencies": {
     "jsdom": "^29.1.1"
