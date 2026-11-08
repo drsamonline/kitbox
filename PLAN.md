@@ -17,7 +17,9 @@ The 119 items in [ROADMAP.md](ROADMAP.md), grouped into 15 batches. Quick wins f
 | B4 | 1.4.0 | **shipped** — pinned codes, id aliases, error boundary, capability chips, timer-leak sweep | 70 | 656 KB |
 | B5 | 1.5.0 | **shipped** — state memory, reset, examples, disabled reasons, drop, paste chip, CSV from tables | 82 | 668 KB |
 | B6 | 1.5.1 | **shipped** — number format, units preference, permalinks from every tool page | 87 | 677 KB |
-| B7 | 1.6.0 | next — storage you can trust | — | — |
+| B7 | 1.6.0 | **shipped** — declared key registry, schema migrations, encrypted backups, per-key erase, quota handling | 97 | 686 KB |
+| B8 | 1.6.1 | **shipped** — CSP, fuzz pass over 169 fields, EXIF orientation preserved | 99 | 689 KB |
+| B9 | 1.6.2 | next — performance | — | — |
 
 Every shipped batch is green on CI: the suite, the axe sweep, the badge and manifest and plan checks, the landing and docs freshness checks, the security greps and the size budget.
 
