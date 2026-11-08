@@ -6,6 +6,20 @@ The 119 items in [ROADMAP.md](ROADMAP.md), grouped into 15 batches. Quick wins f
 
 ---
 
+## Progress
+
+| Batch | Version | State | Tests after | Size after |
+|:--|:--|:--|--:|--:|
+| B0 | 1.1.2 | **shipped** — seventeen CI gates, four policy docs, generated `ALL_TOOLS.md`, `docs/` site | 27 | 623 KB |
+| B1 | 1.2.0 | **shipped** — 18 quick wins in the shell | 42 | 633 KB |
+| B2 | 1.2.1 | **shipped** — contrast measured per tile, axe across 50 pages, keyboard path for Sketch Pad | 51 | 638 KB |
+| B3 | 1.3.0 | **shipped** — aliases, category filter, prev/next, recent searches, `g`-chords | 63 | 647 KB |
+| B4 | 1.4.0 | next — the stability spine | — | — |
+
+Every shipped batch is green on CI: the suite, the axe sweep, the badge and manifest and plan checks, the landing and docs freshness checks, the security greps and the size budget.
+
+---
+
 ## How a batch works
 
 1. **One batch = one pull request = one version bump = one changelog entry.** No half-migrations.
