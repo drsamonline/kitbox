@@ -380,7 +380,7 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <p><em>The rule that keeps it honest:</em> the committed <code>kitbox.html</code> must be byte-identical to what <code>build.py</code> produces, asserted in CI. If that check is ever removed, the split has failed.</p>
 <hr />
 <h3>B13 — Reach (12 days)</h3>
-<p><strong>Items:</strong> E-100 string dictionary · E-101 English/Hindi/Gujarati · E-102 locale-aware numbers and dates · E-103 translatable names and descriptions · E-104 Devanagari rendering check · E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category.</p>
+<p><strong>Items:</strong> E-100 string dictionary · E-101 English/Hindi/Gujarati <strong>only — the language set is fixed at three, by decision, not by capacity</strong> · E-102 locale-aware numbers and dates · E-103 translatable names and descriptions · E-104 Devanagari rendering check · E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category.</p>
 <p><em>Split into two releases in practice:</em> i18n (E-100–E-104) is one version; the four categories and the tools behind them are another. The clinical category cannot ship without a clinician's sign-off recorded in <code>AUDIT.md</code>, and that is a calendar dependency, not a coding one.</p>
 <hr />
 <h3>B14 — Packaging (10 days)</h3>

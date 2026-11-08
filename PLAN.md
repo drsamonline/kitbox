@@ -198,7 +198,7 @@ Every shipped batch is green on CI: the suite, the axe sweep, the badge and mani
 
 ### B13 — Reach (12 days)
 
-**Items:** E-100 string dictionary · E-101 English/Hindi/Gujarati · E-102 locale-aware numbers and dates · E-103 translatable names and descriptions · E-104 Devanagari rendering check · E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category.
+**Items:** E-100 string dictionary · E-101 English/Hindi/Gujarati **only — the language set is fixed at three, by decision, not by capacity** · E-102 locale-aware numbers and dates · E-103 translatable names and descriptions · E-104 Devanagari rendering check · E-99 visual regression baselines · E-105 Accessibility category · E-106 Education category · E-107 Clinical category · E-108 Money (India) category.
 
 *Split into two releases in practice:* i18n (E-100–E-104) is one version; the four categories and the tools behind them are another. The clinical category cannot ship without a clinician's sign-off recorded in `AUDIT.md`, and that is a calendar dependency, not a coding one.
 

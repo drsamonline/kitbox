@@ -2,6 +2,12 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## Unreleased
+
+### Changed
+
+- **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
+
 ## 1.7.0 — 2026-11-08
 
 Batch **B10** of [PLAN.md](PLAN.md): testing depth — the last batch before the cut line.
