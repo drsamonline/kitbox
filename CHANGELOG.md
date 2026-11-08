@@ -2,6 +2,27 @@
 
 All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of `index.html`.
 
+## 1.4.0 — 2026-11-08
+
+Batch **B4** of [PLAN.md](PLAN.md): the stability spine. The hinge batch — everything after it assumes these are true.
+
+### Added
+
+- **Pinned tool codes.** Codes came from a counter at registration, so inserting a tool in the middle of a category renumbered everything after it — and the code is what a user quotes in a bug report. `codes.json` records the code each tool was first given, the app embeds that map, and `tools/gen-codes.js` assigns codes for new tools and refuses to let an existing one change. 339 codes pinned.
+- **Stable ids with an alias map.** A pin or a bookmark stores `cat/id`. `ID_ALIASES` maps a retired id to its replacement and `renderTool` resolves it before looking anything up, so a rename no longer breaks a link. `ids.json` keeps every id that has ever existed; the check fails if one disappears without an alias.
+- **An error boundary.** A tool that throws now costs you that tool, not the page: you get a panel with the message, a copy button and two ways out. Before this, a throw during `render()` left a blank panel with no explanation.
+- **A local error log** — the last twenty errors, on the device, newest first, in **System → Error Log**, with copy and clear. `window.onerror` and `unhandledrejection` feed it too. Nothing is reported anywhere.
+- **Capability chips.** Fourteen tools declare what they need — camera, microphone, location, motion, Web Audio, speech synthesis, a secure context — and the tool page shows a chip when this machine cannot provide it, before you tap it.
+- **`cryptoAvailable()` and `readFileSafely()`** — one place decides whether Web Crypto is usable, and a failed file read now says which file and what to do instead of surfacing a DOM exception.
+
+### Changed
+
+- 70 tests (was 63). New: pinned codes, capability chip, alias resolution, the error boundary, the log, and a **timer-leak sweep** that mounts every tool, runs cleanup, and fails if anything is still running.
+
+### Fixed
+
+- The four file tools and the two crypto tools disagreed about how to check for Web Crypto; they now all ask the same helper.
+
 ## 1.3.0 — 2026-11-08
 
 Batch **B3** of [PLAN.md](PLAN.md): findability. Nine items, all in the search index and the category page.

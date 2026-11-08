@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**338 tools across 23 categories.**
+**339 tools across 23 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -29,7 +29,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 20 | Almanac | `ALM` | 5 |
 | 21 | Communication | `COM` | 5 |
 | 22 | Reference | `REF` | 5 |
-| 23 | System | `SYS` | 3 |
+| 23 | System | `SYS` | 4 |
 
 ## General Tools — 13 tools
 
@@ -489,8 +489,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `REF-04` **Country Dial Codes** — `reference/dialcodes`
 - `REF-05` **Keyboard Shortcuts** — `reference/shortcuts`
 
-## System — 3 tools
+## System — 4 tools
 
 - `SYS-01` **Device & Screen Info** — `system/deviceinfo`
-- `SYS-02` **Browser Feature Check** — `system/features`
-- `SYS-03` **Local Storage Usage** — `system/storage`
+- `SYS-02` **Error Log** — `system/errorlog`
+- `SYS-03` **Browser Feature Check** — `system/features`
+- `SYS-04` **Local Storage Usage** — `system/storage`

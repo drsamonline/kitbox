@@ -47,6 +47,25 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <main>
 <h1>Changelog</h1>
 <p>All notable changes to Kitbox. The app is a single file, so the version number in this file is the version of <code>index.html</code>.</p>
+<h2>1.4.0 — 2026-11-08</h2>
+<p>Batch <strong>B4</strong> of <a href="plan.html">PLAN.md</a>: the stability spine. The hinge batch — everything after it assumes these are true.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>Pinned tool codes.</strong> Codes came from a counter at registration, so inserting a tool in the middle of a category renumbered everything after it — and the code is what a user quotes in a bug report. <code>codes.json</code> records the code each tool was first given, the app embeds that map, and <code>tools/gen-codes.js</code> assigns codes for new tools and refuses to let an existing one change. 339 codes pinned.</li>
+<li><strong>Stable ids with an alias map.</strong> A pin or a bookmark stores <code>cat/id</code>. <code>ID_ALIASES</code> maps a retired id to its replacement and <code>renderTool</code> resolves it before looking anything up, so a rename no longer breaks a link. <code>ids.json</code> keeps every id that has ever existed; the check fails if one disappears without an alias.</li>
+<li><strong>An error boundary.</strong> A tool that throws now costs you that tool, not the page: you get a panel with the message, a copy button and two ways out. Before this, a throw during <code>render()</code> left a blank panel with no explanation.</li>
+<li><strong>A local error log</strong> — the last twenty errors, on the device, newest first, in <strong>System → Error Log</strong>, with copy and clear. <code>window.onerror</code> and <code>unhandledrejection</code> feed it too. Nothing is reported anywhere.</li>
+<li><strong>Capability chips.</strong> Fourteen tools declare what they need — camera, microphone, location, motion, Web Audio, speech synthesis, a secure context — and the tool page shows a chip when this machine cannot provide it, before you tap it.</li>
+<li><strong><code>cryptoAvailable()</code> and <code>readFileSafely()</code></strong> — one place decides whether Web Crypto is usable, and a failed file read now says which file and what to do instead of surfacing a DOM exception.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>70 tests (was 63). New: pinned codes, capability chip, alias resolution, the error boundary, the log, and a <strong>timer-leak sweep</strong> that mounts every tool, runs cleanup, and fails if anything is still running.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>The four file tools and the two crypto tools disagreed about how to check for Web Crypto; they now all ask the same helper.</li>
+</ul>
 <h2>1.3.0 — 2026-11-08</h2>
 <p>Batch <strong>B3</strong> of <a href="plan.html">PLAN.md</a>: findability. Nine items, all in the search index and the category page.</p>
 <h3>Added</h3>

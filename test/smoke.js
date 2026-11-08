@@ -16,6 +16,7 @@ const { JSDOM } = require('jsdom');
 
 const APP = path.join(__dirname, '..', 'kitbox.html');
 const html = fs.readFileSync(APP, 'utf8');
+const PINNED = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'codes.json'), 'utf8'));
 
 let pass = 0, fail = 0;
 const ok = (name, cond, extra) => {
@@ -327,7 +328,52 @@ setTimeout(async () => {
   w.document.body.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'a', bubbles: true }));
   ok('g then a opens the A–Z list', ev('location.hash') === '#/all', ev('location.hash'));
 
-  /* 12. the app makes no network calls and loads nothing external */
+
+  /* 12. the stability spine (B4) */
+  const unpinned = [];
+  for (const c of CATS) for (const t of (TOOLS[c.id] || [])) {
+    if (PINNED[c.id + '/' + t.id] !== t.code) unpinned.push(c.id + '/' + t.id);
+  }
+  ok('every tool wears the code pinned for it', unpinned.length === 0, unpinned.slice(0, 3).join(', '));
+
+  ev('location.hash="#/tool/generator/scanner"'); ev('route()');
+  const chip = w.document.querySelector('.chip');
+  ok('a tool that needs hardware says so before you tap it', !!chip && /camera/.test(chip.textContent), chip && chip.textContent);
+
+  ev("ID_ALIASES['files/zip'] = 'files/zipcreate'");
+  ev('location.hash="#/tool/files/zip"'); ev('route()');
+  ok('a retired id resolves to the tool that replaced it', /ZIP Creator/.test(w.document.querySelector('#app').textContent));
+  delete ev('ID_ALIASES')['files/zip'];
+
+  const throwing = TOOLS.files.find(t => t.id === 'zipcreate');
+  const realRender = throwing.render;
+  throwing.render = () => { throw new Error('deliberate failure'); };
+  ev('location.hash="#/tool/files/zipcreate"'); ev('route()');
+  const errPanel = w.document.querySelector('#toolRoot').textContent;
+  ok('a tool that throws shows a panel instead of blanking the page',
+     /hit an error/.test(errPanel) && /deliberate failure/.test(errPanel));
+  ok('the failure is logged on the device', /deliberate failure/.test(JSON.stringify(ev("store.get('error-log', [])"))));
+  throwing.render = realRender;
+
+  ev('location.hash="#/tool/system/errorlog"'); ev('route()');
+  ok('System → Error Log shows the history', /deliberate failure/.test(w.document.querySelector('#toolRoot').textContent));
+
+  // timer leak: every tool must clean up after itself
+  const live = new Set();
+  const realSet = w.setInterval, realClear = w.clearInterval;
+  w.setInterval = (fn, ms) => { const id = realSet(fn, ms); live.add(id); return id; };
+  w.clearInterval = id => { live.delete(id); return realClear(id); };
+  const leaked = [];
+  for (const c of CATS) for (const t of (TOOLS[c.id] || [])) {
+    const box = w.document.createElement('div');
+    try { t.render(box); } catch (e) { /* a render failure is B4's other test */ }
+    ev('runCleanup()');
+    if (live.size) { leaked.push(c.id + '/' + t.id); live.forEach(id => realClear(id)); live.clear(); }
+  }
+  w.setInterval = realSet; w.clearInterval = realClear;
+  ok('no tool leaves a timer running after cleanup', leaked.length === 0, leaked.slice(0, 5).join(', '));
+
+  /* 13. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

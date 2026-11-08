@@ -32,6 +32,9 @@ jobs:
       - name: Accessibility audit (axe-core)
         run: npm run a11y
 
+      - name: Tool codes and ids are stable
+        run: node tools/gen-codes.js --check
+
       - name: Badge numbers match the app
         run: node tools/check-badges.js
 

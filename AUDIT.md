@@ -202,3 +202,34 @@ Widening the sweep to all 50 pages then found **two more**: an unnamed colour sw
 
 - The "new" chip is a hand-maintained list of ids, not derived from release metadata. When B12 adds `since` to every registration, the list should be replaced by a comparison against the current version. Until then, a tool added in 1.3.0 will not be chipped unless its id is added to `NEW_TOOLS`.
 - `g`-chords are single-key and time-boxed to 1.2 s. They are ignored while a text field has focus, which is the only sane default, but it does mean they do not work from the palette.
+
+## B4 — the stability spine (1.4.0)
+
+| Check | Result |
+|---|---|
+| Every tool wears its pinned code | 339/339 |
+| Codes unique | pass |
+| Every retired id has an alias | pass (none retired yet) |
+| Error boundary + log | pass |
+| Timer-leak sweep over all 339 tools | 0 leaks |
+| Full suite | 70 passed, 0 failed |
+| axe across 50 pages | 0 violations |
+| Size | 647 KB → 656 KB |
+
+### What the timer sweep found
+
+Nothing — every tool that starts an interval already called `setCleanup`. That is worth saying plainly rather than dressing up: the sweep exists to keep it true, and its first run was clean because the original author was careful. It now fails the build if a new tool forgets.
+
+### Findings
+
+**1. Codes were positional, and nothing noticed.** Inserting a tool between two others in the same category silently renumbered every later code in that category. Nothing in the app broke — codes are only labels — but a bug report quoting `FIL-03` would point at a different tool after the next release. Pinned in `codes.json`, embedded in the app, checked in CI.
+
+**2. `cryptoAvailable()` is false in the test harness.** jsdom does not expose `crypto.subtle`, so the four crypto tools take their "needs a secure context" path under test. That is correct behaviour and worth recording: the tests prove the guard works, not that the cryptography does. The crypto itself is still covered by the MD5, CRC32, base32 and ZIP assertions, which do not need Web Crypto.
+
+**3. The Error Log is a new tool, so the count moved.** 338 → 339. That is the first time a batch added a tool since 1.1.0, and it exercised the whole pipeline: `codes.json`, `ids.json`, `ALL_TOOLS.md`, the badges, the landing page count. All four were regenerated and checked, which is exactly what B0 built them for.
+
+### Known limitations added
+
+- The alias map is hand-written and currently empty, because nothing has been renamed yet. Its value is prospective: the next rename gets an entry rather than a broken link.
+- Capability chips are declarative. A tool that needs the camera but is not in `TOOL_REQUIRES` gets no chip; the list is short and deliberate, and the test suite only asserts the mechanism, not the completeness of the mapping.
+- The error boundary catches throws during render. An error thrown later, inside an event handler, is caught by the global handler and logged, but cannot restore the tool — it was already rendered.

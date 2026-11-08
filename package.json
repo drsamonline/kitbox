@@ -11,10 +11,11 @@
     "badges": "node tools/check-badges.js",
     "shots": "python3 tools/shots.py",
     "tools": "node tools/gen-all-tools.js",
+    "codes": "node tools/gen-codes.js --check",
     "docs": "python3 tools/build-docs.py",
     "landing": "python3 tools/build-landing.py",
     "manifest": "python3 tools/check-manifest.py",
-    "check": "npm test && npm run a11y && node tools/check-badges.js && node tools/gen-all-tools.js --check && python3 tools/check-plan.py && python3 tools/check-manifest.py"
+    "check": "npm test && npm run a11y && npm run codes && node tools/check-badges.js && node tools/gen-all-tools.js --check && python3 tools/check-plan.py && python3 tools/check-manifest.py"
   },
   "devDependencies": {
     "axe-core": "^4.14.0",

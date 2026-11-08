@@ -28,9 +28,9 @@ FONT = "Verdana,DejaVu Sans,Helvetica,Arial,sans-serif"
 MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 
 BADGES = [
-    ('tools',      '338',                                  '#2F86EB'),
+    ('tools',      '339',                                  '#2F86EB'),
     ('categories', '23',                                   '#E31C7D'),
-    ('tests',      '63 passing',                           '#3FCB6B'),
+    ('tests',      '70 passing',                           '#3FCB6B'),
     ('licence',    'PolyForm Noncommercial 1.0.0',         '#A93CF5'),
     ('runtime',    '0 dependencies',                       '#12A99A'),
     ('network',    'none',                                 '#495057'),
@@ -77,7 +77,7 @@ def banner():
   <text x="172" y="122" font-family="{FONT}" font-size="54" font-weight="700" fill="{WHITE}" letter-spacing="-1.2">Kitbox</text>
   <text x="174" y="158" font-family="{MONO}" font-size="14" fill="{MUTED}" letter-spacing="1.6">EVERY TOOL, ONE OFFLINE APP</text>
 
-  <text x="76" y="208" font-family="{FONT}" font-size="18" fill="{MUTED}">338 tools across 23 categories in a single HTML file —</text>
+  <text x="76" y="208" font-family="{FONT}" font-size="18" fill="{MUTED}">{BADGES[0][1]} tools across {BADGES[1][1]} categories in a single HTML file —</text>
   <text x="76" y="236" font-family="{FONT}" font-size="18" fill="{MUTED}">no install, no account, no network.</text>
 
   <!-- the category palette, as a quiet strip on the right -->
