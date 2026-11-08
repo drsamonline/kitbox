@@ -110,6 +110,12 @@ jobs:
             exit 1
           fi
 
+      - name: Build the minified copy
+        run: node tools/minify.js
+
+      - name: The minified copy behaves like the app
+        run: node test/minified.js
+
       - name: Build the distribution artefacts
         run: python3 tools/dist.py
 

@@ -13,7 +13,7 @@ import gzip, hashlib, io, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, 'dist')
-FILES = ['kitbox.html', 'index.html']
+FILES = ['kitbox.html', 'dist/kitbox.min.html', 'index.html']
 
 
 def main():
@@ -25,7 +25,7 @@ def main():
         # mtime=0 so the gzip is byte-identical for identical input — otherwise
         # every build produces a different checksum for the same file.
         gz = gzip.compress(raw, compresslevel=9, mtime=0)
-        out = os.path.join(DIST, name + '.gz')
+        out = os.path.join(DIST, os.path.basename(name) + '.gz')
         io.open(out, 'wb').write(gz)
         sums.append('%s  %s' % (hashlib.sha256(raw).hexdigest(), name))
         sums.append('%s  %s' % (hashlib.sha256(gz).hexdigest(), name + '.gz'))

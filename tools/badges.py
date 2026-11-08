@@ -30,7 +30,7 @@ MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 BADGES = [
     ('tools',      '339',                                  '#2F86EB'),
     ('categories', '23',                                   '#E31C7D'),
-    ('checks',     '118',                           '#3FCB6B'),
+    ('checks',     '123',                           '#3FCB6B'),
     ('licence',    'PolyForm Noncommercial 1.0.0',         '#A93CF5'),
     ('runtime',    '0 dependencies',                       '#12A99A'),
     ('network',    'none',                                 '#495057'),

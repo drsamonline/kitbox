@@ -396,3 +396,27 @@ Nothing broke — 301 tools took input and none threw. That is worth stating pla
 - The interaction sweep fills one field per tool. A tool with six fields is tested with one of them.
 - Fixtures cover 15 of the calculators. The rest are covered only by "it renders and survives input".
 - The fuzz, interaction and axe runs are single-pass, not property-based. They are good at catching a class of mistake, not at proving absence.
+
+## B11 — distribution (1.7.1)
+
+| Check | Result |
+|---|---|
+| Pages | enabled on `main` / root, https enforced, rebuilding on every push |
+| Release workflow | refuses a tag that disagrees with `APP_VERSION` |
+| Minified build | 339/339 tools render, search, routing and arithmetic verified |
+| Gzipped size | 711 KB → 195 KB (27%); minified → 186 KB |
+| `/latest/` | redirect page, fixed URL |
+
+### Findings
+
+**1. A hand-written minifier produced a file that did not parse.** The first version tracked strings, template literals, regexes and `${ }` nesting with a state machine. It looked correct, reported a plausible 4% saving, and the output died on `Unexpected token '{'` at the first `${…}` after a mis-tracked backtick. The app is 700 KB of JavaScript in which most markup lives inside template literals; a single wrong backtick turns every later template inside out. *Fixed* by deleting the state machine and using **acorn** to report exact comment ranges. acorn is a devDependency; the app still ships with zero.
+
+**2. The saving is smaller than the roadmap assumed.** The roadmap guessed the gzipped file would be about 90 KB; it is 195 KB. Removing comments saves 3% raw and 4% gzipped, because the file is dense with code rather than with prose. The `.gz` is the distribution path; the minified copy is a small bonus that is now verified rather than assumed.
+
+**3. A tag can ship the wrong build if nothing checks.** The release workflow compares the tag to `APP_VERSION` in the file and fails the build on a mismatch. Without that, `v1.8.0` could attach a 1.7 build and nobody would notice until a user compared checksums.
+
+### Known limitations added
+
+- The release attaches files to a GitHub Release; it does not publish to any package registry, and there is no auto-update. That is deliberate — an offline-first app that phones home to check for updates has broken its own rule.
+- `dist/` is generated in CI and not committed, so the checksums describe the artefact, not the repository. The tag plus `APP_VERSION` is what ties them together.
+- The minified copy keeps all indentation, including indentation inside template literals, because that is content. It is smaller by comments only.

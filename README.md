@@ -37,7 +37,7 @@ No install, no build step, no dependencies, no account — and no network call, 
 
 ---
 
-**Live demo:** [drsamonline.github.io/kitbox](https://drsamonline.github.io/kitbox/) — the same single file, served over https. Download it from a release and it works with the network off.
+**Live demo:** [drsamonline.github.io/kitbox](https://drsamonline.github.io/kitbox/) — the same single file, served over https. A fixed URL, [/latest/](https://drsamonline.github.io/kitbox/latest/), always serves the current build. Download it from a [release](../../releases) and it works with the network off.
 
 ## What it is
 

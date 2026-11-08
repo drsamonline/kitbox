@@ -8,6 +8,29 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 1.7.1 — 2026-11-08
+
+Batch **B11** of [PLAN.md](PLAN.md): distribution. Nothing in the app changed except the version string.
+
+### Added
+
+- **A release per tag.** Pushing `v1.7.1` builds the artefacts, refuses to publish if the tag and `APP_VERSION` disagree, and attaches `kitbox.html`, the gzipped copy, the minified copy and its gzipped copy, the landing page, and `SHA256SUMS`. Release notes are lifted from this file.
+- **`/latest/`** — a fixed URL that always serves the current build, so a bookmark or a printed QR code keeps working across releases.
+- **A minified copy** (`dist/kitbox.min.html`) built by removing comments with **acorn's** comment ranges, then verified by running the app's own checks against the artefact: all 339 tools render, search ranks, a calculation gives the same answer, the support page keeps its details.
+
+### Measured, so the claim is honest
+
+| | Raw | Gzipped |
+|:--|--:|--:|
+| `kitbox.html` | 711 KB | 195 KB |
+| `kitbox.min.html` | 689 KB | 186 KB |
+
+Removing 268 comments saves **3% raw, 4% gzipped**. Real minification — whitespace, identifier mangling — needs a parser that understands template literals well enough to rewrite them, which is what the B12 source split exists to enable. Recorded rather than pretended.
+
+### Changed
+
+- The support button's "Books" link and the release notes both come from one place now, so a release cannot describe a different build than it ships.
+
 ## 1.7.0 — 2026-11-08
 
 Batch **B10** of [PLAN.md](PLAN.md): testing depth — the last batch before the cut line.

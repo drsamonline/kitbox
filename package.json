@@ -1,6 +1,6 @@
 {
   "name": "kitbox",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "private": true,
   "description": "Kitbox — a single-file offline toolbox. 338 tools, no dependencies, no network.",
   "license": "PolyForm-Noncommercial-1.0.0",
@@ -12,7 +12,9 @@
     "interact": "node test/interact.js",
     "deep": "node test/deep.js",
     "links": "node test/links.js",
+    "min": "node tools/minify.js",
     "dist": "python3 tools/dist.py",
+    "minified": "node tools/minify.js && node test/minified.js",
     "badges": "node tools/check-badges.js",
     "shots": "python3 tools/shots.py",
     "tools": "node tools/gen-all-tools.js",
@@ -23,6 +25,7 @@
     "check": "npm test && npm run a11y && npm run fuzz && npm run interact && npm run deep && npm run links && npm run codes && node tools/check-badges.js && node tools/gen-all-tools.js --check && python3 tools/check-plan.py && python3 tools/check-manifest.py"
   },
   "devDependencies": {
+    "acorn": "^8.19.0",
     "axe-core": "^4.14.0",
     "jsdom": "^29.1.1"
   }

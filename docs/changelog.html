@@ -52,6 +52,41 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>1.7.1 — 2026-11-08</h2>
+<p>Batch <strong>B11</strong> of <a href="plan.html">PLAN.md</a>: distribution. Nothing in the app changed except the version string.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>A release per tag.</strong> Pushing <code>v1.7.1</code> builds the artefacts, refuses to publish if the tag and <code>APP_VERSION</code> disagree, and attaches <code>kitbox.html</code>, the gzipped copy, the minified copy and its gzipped copy, the landing page, and <code>SHA256SUMS</code>. Release notes are lifted from this file.</li>
+<li><strong><code>/latest/</code></strong> — a fixed URL that always serves the current build, so a bookmark or a printed QR code keeps working across releases.</li>
+<li><strong>A minified copy</strong> (<code>dist/kitbox.min.html</code>) built by removing comments with <strong>acorn's</strong> comment ranges, then verified by running the app's own checks against the artefact: all 339 tools render, search ranks, a calculation gives the same answer, the support page keeps its details.</li>
+</ul>
+<h3>Measured, so the claim is honest</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Raw</th>
+<th style="text-align: right;">Gzipped</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>kitbox.html</code></td>
+<td style="text-align: right;">711 KB</td>
+<td style="text-align: right;">195 KB</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>kitbox.min.html</code></td>
+<td style="text-align: right;">689 KB</td>
+<td style="text-align: right;">186 KB</td>
+</tr>
+</tbody>
+</table>
+<p>Removing 268 comments saves <strong>3% raw, 4% gzipped</strong>. Real minification — whitespace, identifier mangling — needs a parser that understands template literals well enough to rewrite them, which is what the B12 source split exists to enable. Recorded rather than pretended.</p>
+<h3>Changed</h3>
+<ul>
+<li>The support button's "Books" link and the release notes both come from one place now, so a release cannot describe a different build than it ships.</li>
+</ul>
 <h2>1.7.0 — 2026-11-08</h2>
 <p>Batch <strong>B10</strong> of <a href="plan.html">PLAN.md</a>: testing depth — the last batch before the cut line.</p>
 <h3>Added</h3>
