@@ -818,3 +818,26 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - Hyphenation is rule-based, not Liang's patterns: it breaks at plausible points, not at dictionary points, and it says so.
 - The compose converter translates the flags people actually use and lists what it skipped rather than guessing.
 - Auto levels is per-channel, which can shift colour balance; the tool says what it does rather than calling it a white-balance fix.
+
+## B37 (2.14.0) — the backlog closes
+
+| Check | Result |
+|---|---|
+| Tools / categories | 493 / 27 |
+| Full suite | 243 checks, 0 failures |
+| Interaction sweep | 438 tools driven, 0 failures |
+| Fuzz | 290 fields across 493 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| Size | 1090 KB → 1096 KB raw · 306 KB gzipped (91% of a per-tool budget) |
+
+### Findings
+
+**1. R·L is not a time constant.** An inductor's τ is L/R; multiplying gave 1,000,000 ms where 0.010 ms was right — a number so wrong it was almost believable as a unit problem. The fix was one line and the test now asserts the value rather than the formula.
+
+**2. A control added to the drawing code but not to the markup.** The mode selector existed in `draw()` and not in the HTML, so the tool silently ignored a setting nothing could reach — and the guard (`? ... : 'rc'`) made it not crash, which is how it survived a build.
+
+**3. The backlog closed itself by being pruned honestly.** Every shipped row was removed as it shipped, so the file never lied about how much was left: 106 → 61 → 54 → 15 → 0. A backlog that only grows is a wish list; one that shrinks to an empty table with reasons is a plan that finished.
+
+### Where this leaves the project
+
+493 tools, 27 categories, one file, no dependencies, no network, 243 checks. What is left in `BACKLOG-TOOLS.md` needs a library or is refused on purpose. Further work is a new list — and the honest candidates are depth rather than breadth: verifying the two clinical tools against a second source, a print stylesheet for the QR payloads, and the APK, which still fails inside `app-builder`.

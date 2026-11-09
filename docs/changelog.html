@@ -52,6 +52,24 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.14.0 — 2026-11-09</h2>
+<p><strong>The backlog is empty.</strong> B37 clears the last two rows and adds the RL mode; every remaining item in <code>BACKLOG-TOOLS.md</code> is now either impossible without a dependency or refused on purpose.</p>
+<h3>Added</h3>
+<ul>
+<li><strong>Chi-Square &amp; Index of Coincidence</strong> — the two numbers a cryptanalyst starts with, plus the best Caesar shift and the reading at that shift, so the numbers have something to act on.</li>
+<li><strong>Muhurat Windows</strong> — Brahma muhurta, Abhijit, Godhuli and Vijaya, computed from sunrise and sunset. The tool says which parts are arithmetic and which are tradition.</li>
+<li><strong>RL mode on the time-constant tool</strong> — an inductor's τ is L/R, not R·L.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li><strong>The RL time constant was computed as R·L</strong>, giving a million milliseconds where ten microseconds was right. The units only work out one way round, which is exactly the kind of mistake a plausible-looking result hides.</li>
+<li>The mode selector was added to the draw function before it was added to the markup, so for one build the tool had a hidden setting nothing could reach.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>493 tools across 27 categories.</li>
+<li>237 checks (was 237 → 200 in the suite, 243 across all files).</li>
+</ul>
 <h2>2.13.0 — 2026-11-09</h2>
 <p>B35 and B36: four more image adjustments, three development tools, three text tools, two file tools and the last two money tools. <strong>Fourteen tools.</strong></p>
 <h3>B35 — image and development (7)</h3>

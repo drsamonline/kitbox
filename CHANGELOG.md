@@ -8,6 +8,26 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.14.0 — 2026-11-09
+
+**The backlog is empty.** B37 clears the last two rows and adds the RL mode; every remaining item in `BACKLOG-TOOLS.md` is now either impossible without a dependency or refused on purpose.
+
+### Added
+
+- **Chi-Square & Index of Coincidence** — the two numbers a cryptanalyst starts with, plus the best Caesar shift and the reading at that shift, so the numbers have something to act on.
+- **Muhurat Windows** — Brahma muhurta, Abhijit, Godhuli and Vijaya, computed from sunrise and sunset. The tool says which parts are arithmetic and which are tradition.
+- **RL mode on the time-constant tool** — an inductor's τ is L/R, not R·L.
+
+### Fixed
+
+- **The RL time constant was computed as R·L**, giving a million milliseconds where ten microseconds was right. The units only work out one way round, which is exactly the kind of mistake a plausible-looking result hides.
+- The mode selector was added to the draw function before it was added to the markup, so for one build the tool had a hidden setting nothing could reach.
+
+### Changed
+
+- 493 tools across 27 categories.
+- 237 checks (was 237 → 200 in the suite, 243 across all files).
+
 ## 2.13.0 — 2026-11-09
 
 B35 and B36: four more image adjustments, three development tools, three text tools, two file tools and the last two money tools. **Fourteen tools.**

@@ -1045,7 +1045,39 @@ setTimeout(async () => {
   ok('the salary splitter names gratuity as an accrual, not a payment',
      /not paid monthly/.test(w.document.querySelector('#ssOut').textContent));
 
-  /* 29. the app makes no network calls and loads nothing external */
+
+  /* 29. B37: chi-square, muhurat windows, the RL mode */
+  ev('location.hash="#/tool/text/chisquare"'); ev('route()');
+  const chiIn = w.document.querySelector('#csIn');
+  chiIn.value = 'It was the best of times it was the worst of times it was the age of wisdom it was the age of foolishness';
+  chiIn.dispatchEvent(new w.Event('input'));
+  const chiText = w.document.querySelector('#csOut').textContent;
+  ok('English text scores an index of coincidence above 0.06',
+     Number((chiText.match(/coincidence(0\.\d+)/) || [])[1]) > 0.06,
+     (chiText.match(/coincidence(0\.\d+)/) || [])[1]);
+  chiIn.value = 'WKH TXLFN EURZQ IRA MXPSV RYHU WKH ODCB GRJ';
+  chiIn.dispatchEvent(new w.Event('input'));
+  ok('a Caesar-shifted line is decoded by the best-shift row',
+     /THE QUICK BROWN/.test(w.document.querySelector('#csOut').textContent));
+
+  ev('location.hash="#/tool/almanac/muhurat"'); ev('route()');
+  const muhurat = w.document.querySelector('#muOut').textContent;
+  ok('the muhurat windows name Brahma, Abhijit, Godhuli and Vijaya',
+     /Brahma muhurta/.test(muhurat) && /Abhijit/.test(muhurat) && /Godhuli/.test(muhurat) && /Vijaya/.test(muhurat));
+
+  ev('location.hash="#/tool/science/rc"'); ev('route()');
+  ok('the RC tool reports τ = RC by default',
+     /τ = RC/.test(w.document.querySelector('#rcOut').textContent));
+  const rcKind = w.document.querySelector('#rcKind');
+  rcKind.value = 'rl'; rcKind.dispatchEvent(new w.Event('input'));
+  ok('switching to RL uses L/R and relabels the field',
+     /τ = L\/R/.test(w.document.querySelector('#rcOut').textContent) &&
+     /Inductance/.test(w.document.querySelector('#rcCLabel').textContent));
+  ok('10 kΩ with 100 mH gives τ = 0.010 ms',
+     /0\.010 ms/.test(w.document.querySelector('#rcOut').textContent),
+     w.document.querySelector('#rcOut').textContent.replace(/\s+/g, ' ').slice(0, 40));
+
+  /* 30. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

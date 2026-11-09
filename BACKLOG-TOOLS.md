@@ -1,138 +1,15 @@
 # Tools still to add — the exhaustive list
 
-> **Updated after 2.10.0.** 52 tools from this list have shipped and their rows are gone; what is left is below — 54 tools that can still be added without a dependency. The "needs a dependency" and "deliberately not doing" tables are unchanged, because nothing about those reasons has changed.
+> **Empty as of 2.14.0.** Every row that could be built without a dependency has been built: 493 tools, up from 339 when this list was written. The tables below are what is left, and neither of them is a to-do list — one needs a library the app will not ship, the other is refused on purpose.
 
-Every candidate tool I can see, after reading **CyberChef** (506 operations), **it-tools** (80 tools) and this app's own gaps. Nothing here is a commitment; it is a list with enough detail that picking from it is easy.
+What remains, and why each one stays here:
 
-**Effort:** **S** ≈ under an hour · **M** ≈ half a day · **L** ≈ a day or more.
-
-**The two hard rules** every row obeys unless it says otherwise: no dependency, and no network. Anything that needs a library, a data file over ~100 KB, or a server is in the last table with the reason, not in the list.
-
-**Where the idea came from** is in brackets: `[CC]` CyberChef, `[IT]` it-tools, `[KB]` this app's own gaps.
-
----
-
-## Text (22)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Hyphenation | M | Break long words at syllable boundaries (Liang's algorithm, no dictionary) | [KB] |
-| Syllable counter | S | Count syllables per word and estimate reading level | [KB] |
-| Concordance | S | Every occurrence of a word with its line context | [KB] |
-| A1Z26 cipher | S | Letters ↔ 1–26, both directions | [CC] |
-| Affine cipher | S | Encode/decode with the a·x+b form, and say when the key is invalid | [CC] |
-| Atbash cipher | S | The reversed alphabet, in one line | [CC] |
-| Bacon cipher | S | A/B five-bit groups, with the 24- and 26-letter variants | [CC] |
-| Rail fence cipher | S | Zig-zag transposition, 2–10 rails | [CC] |
-| Bifid cipher | M | Polybius square transposition | [CC] |
-| ROT47 | S | The printable-ASCII rotation | [CC] |
-| ROT8000 | M | Unicode rotation, the modern ROT13 | [CC] |
-| Quoted-printable | S | Encode/decode `=E2=80=94`-style email encoding | [CC] |
-| Char codes | S | Text ↔ decimal/hex/octal code points, with a delimiter choice | [CC] |
-| Hexdump | S | Classic `xxd`-style dump and the reverse | [CC] |
-| Strip ANSI escapes | S | Remove colour codes from pasted terminal output | [CC] |
-| Remove null bytes | S | The invisible byte that breaks parsers | [CC] |
-| Escape/unescape string | S | `\n`, `\t`, `\"` — JS-style escapes, both ways | [CC] |
-| Normalise Unicode | S | NFC/NFD/NFKC/NFKD, and show where they differ | [CC] |
-| Extractors (5 tools) | S each | Pull URLs, email addresses, IPs, MACs and domains out of a block of text | [CC] |
-
-## Development (24)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Parse CSR | L | What a certificate signing request actually asks for | [CC] |
-| IPv6 ULA generator | S | A `fd00::/8` prefix for a private network | [IT] |
-| Random port generator | S | An unused-looking high port, with a note on what is registered | [IT] |
-| Email normaliser | S | Lowercase, strip dots and `+tags`, and say what that breaks | [IT] |
-| Docker run → compose | M | Turn a `docker run` line into a `compose.yaml` | [IT] |
-| `.editorconfig` generator | S | The settings most repos actually want | [KB] |
-| Dockerfile generator | M | Language, base image, port, and a multi-stage build | [KB] |
-| Makefile generator | S | The five targets every project needs | [KB] |
-| systemd unit generator | S | Service, restart policy, hardening flags | [KB] |
-| SemVer comparer | S | Is 1.2.3-beta.1 before 1.2.3? With the precedence rules shown | [KB] |
-| Conventional commit helper | S | Type, scope, breaking change, and the line it produces | [KB] |
-
-## Files & Data (9)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Batch renamer | M | Rename inside a ZIP, with a preview | [KB] |
-| File tree | S | A directory listing as a tree, from pasted paths | [CC] |
-
-## Calculation (7)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Chi-square / index of coincidence | M | The two numbers a cryptanalyst starts with | [CC] |
-| Date-time delta in working days | S | Business days between two dates with a holiday list | [KB] |
-
-## Image (7)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Sharpen | S | Unsharp mask with an amount slider | [CC] |
-| Dither | M | Floyd–Steinberg to 1-bit, for e-ink and pixel art | [CC] |
-| HSL adjust | S | Hue rotation, saturation and lightness without a filter preset | [CC] |
-| Normalise / auto-levels | S | Stretch the histogram to the full range | [CC] |
-| Contrast stretch | S | The other half of brightness — with a histogram | [CC] |
-
-## Science (8)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Blackbody peak | S | Wien's law: colour temperature to peak wavelength | [KB] |
-| Titration | S | Concentration from volume and molarity, with the equation shown | [KB] |
-
-## Audio (4)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Chord builder | S | Notes of a chord, and the frequencies to play them | [KB] |
-| Interval trainer | S | Play two notes, name the interval | [KB] |
-| Note player | S | A piano keyboard that plays through Web Audio | [KB] |
-
-## Games (5)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-
-## Money, India (5)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Step-up SIP | S | A SIP that rises with income each year | [KB] |
-| FD ladder | S | Split a lump sum across maturities and show the yield | [KB] |
-| NPS corpus | S | Contribution, return and annuity split at 60 | [KB] |
-| Leave encashment | S | Exemption rules for retirement vs resignation | [KB] |
-| Salary structure splitter | M | CTC into basic, HRA, allowances and the take-home | [KB] |
-
-## Almanac (4)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| Muhurat finder | M | Good windows for a given activity on a given day | [KB] |
-
-## Geo (3)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| What three words, offline | L | Needs the wordlist; would add ~1 MB, so probably never | [KB] |
-| Timezone from coordinates | M | Needs a coarse polygon set; borderline | [KB] |
-
-## Accessibility (4)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-
-## Reference (5)
-
-| Tool | Effort | What it does | From |
-|:--|:--|:--|:--|
-| HTML entities table | S | The 100 that matter, searchable | [KB] |
-| Git command reference | S | The twenty commands people look up | [IT] |
-| Keycode info | S | Press a key, see `event.key`, `code`, `keyCode` | [IT] |
-
----
+| Tool | Why it is not built |
+|:--|:--|
+| **ROT8000** | Needs the full rotation table — the exceptions list alone is tens of kilobytes, and a partial implementation produces plausible nonsense. |
+| **Timezone from coordinates** | Needs a coarse polygon set for every zone boundary; ~200 KB of data for a lookup the operating system already does. |
+| **What three words, offline** | Needs the 40,000-word list, about a megabyte. |
+| **Normalise Unicode** | Half-done already: the Code Point Inspector shows what normalisation changes, and a separate tool that only calls `String.normalize` would be a button. |
 
 ## Needs a dependency — will not ship
 

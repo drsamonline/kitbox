@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**491 tools across 27 categories.**
+**493 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -8,7 +8,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | # | Category | Code | Tools |
 |--:|:--|:--|--:|
 | 1 | General Tools | `GEN` | 13 |
-| 2 | Text Tools | `TXT` | 66 |
+| 2 | Text Tools | `TXT` | 67 |
 | 3 | Generator Tools | `GNR` | 11 |
 | 4 | Calculation Tools | `CAL` | 56 |
 | 5 | Image Tools | `IMG` | 25 |
@@ -26,7 +26,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 17 | Nature Tools | `NAT` | 6 |
 | 18 | Productivity | `PRD` | 8 |
 | 19 | Files & Data | `FIL` | 18 |
-| 20 | Almanac | `ALM` | 10 |
+| 20 | Almanac | `ALM` | 11 |
 | 21 | Communication | `COM` | 5 |
 | 22 | Reference | `REF` | 10 |
 | 23 | System | `SYS` | 4 |
@@ -51,7 +51,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GEN-12` **Level Tool** — `general/level`
 - `GEN-13` **World Clock** — `general/worldclock`
 
-## Text Tools — 66 tools
+## Text Tools — 67 tools
 
 **Basic Tools**
 
@@ -115,6 +115,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 
 **Analysis Tools**
 
+- `TXT-67` **Chi-Square & Index of Coincidence** — `text/chisquare`
 - `TXT-64` **Syllable Counter** — `text/syllables`
 - `TXT-65` **Concordance** — `text/concordance`
 - `TXT-60` **Hexdump** — `text/hexdump`
@@ -587,8 +588,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `FIL-11` **File Type Detector** — `files/filetype`
 - `FIL-12` **Base64 → File** — `files/b64file`
 
-## Almanac — 10 tools
+## Almanac — 11 tools
 
+- `ALM-11` **Muhurat Windows** — `almanac/muhurat`
 - `ALM-10` **Moon Table for a Month** — `almanac/moontable`
 - `ALM-09` **Sun Table for a Month** — `almanac/suntable`
 - `ALM-08` **Ekadashi List** — `almanac/ekadashi`

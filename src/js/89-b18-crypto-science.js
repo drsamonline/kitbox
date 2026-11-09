@@ -107,30 +107,37 @@ dev('asn1','ASN.1 Parser', root=>{
 sci('rc','RC Time Constant', root=>{
   root.innerHTML = `
     <div class="row">
+      <div class="field"><label>Circuit</label><select id="rcKind"><option value="rc">RC — resistor and capacitor</option><option value="rl">RL — resistor and inductor</option></select></div>
       <div class="field"><label>Resistance (Ω)</label><input type="number" id="rcR" value="10000"></div>
-      <div class="field"><label>Capacitance (µF)</label><input type="number" id="rcC" value="100" step="0.1"></div>
+      <div class="field"><label id="rcCLabel">Capacitance (µF)</label><input type="number" id="rcC" value="100" step="0.1"></div>
       <div class="field"><label>Supply (V)</label><input type="number" id="rcV" value="5"></div>
     </div>
     <div class="output" id="rcOut">—</div>
-    <div class="hint">τ = RC. One τ reaches 63.2% of the supply, five τ is 99.3% and is what "fully charged" means in practice. The table shows the voltage at each τ.</div>`;
+    <div class="hint">τ = RC, or L/R for an inductor — the same curve with a different constant. One τ reaches 63.2% of the supply, five τ is 99.3% and is what "fully charged" means in practice.</div>`;
   function draw(){
+    const kind = root.querySelector('#rcKind') ? root.querySelector('#rcKind').value : 'rc';
+    const isRL = kind === 'rl';
+    const cLabel = root.querySelector('#rcCLabel');
+    if(cLabel) cLabel.textContent = isRL ? 'Inductance (mH)' : 'Capacitance (µF)';
     const R = Number(root.querySelector('#rcR').value) || 0;
-    const C = (Number(root.querySelector('#rcC').value) || 0) * 1e-6;
+    const C = (Number(root.querySelector('#rcC').value) || 0) * (isRL ? 1e-3 : 1e-6);
     const V = Number(root.querySelector('#rcV').value) || 0;
-    if(!R || !C){ root.querySelector('#rcOut').textContent = 'Resistance and capacitance, both non-zero.'; return; }
-    const tau = R * C;
+    if(!R || !C){ root.querySelector('#rcOut').textContent = 'Both values need to be non-zero.'; return; }
+    // RC is R·C; an inductor's time constant is L/R, not R·L — the units only
+    // work out one way round, and R·L gives seconds-squared over ohms.
+    const tau = isRL ? C / R : R * C;
     const rows = [1,2,3,4,5].map(n=>{
       const t = n * tau;
       const v = V * (1 - Math.exp(-n));
       return `<tr><td>${n}τ · ${(t*1000).toFixed(2)} ms</td><td>${v.toFixed(3)} V</td><td>${(100 * (1 - Math.exp(-n))).toFixed(1)}%</td></tr>`;
     }).join('');
     root.querySelector('#rcOut').innerHTML = `<table class="mono">
-      <tr><td>τ</td><td>${(tau*1000).toFixed(3)} ms</td></tr>
+      <tr><td>τ = ${isRL ? 'L/R' : 'RC'}</td><td>${(tau*1000).toFixed(3)} ms</td></tr>
       <tr><td>Cut-off frequency</td><td>${(1/(2*Math.PI*tau)).toFixed(1)} Hz</td></tr>
       ${rows}
     </table>`;
   }
-  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  root.querySelectorAll('input,select').forEach(el=>el.addEventListener('input', draw));
   draw();
 });
 
