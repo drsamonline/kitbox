@@ -966,7 +966,38 @@ setTimeout(async () => {
   ok('the generated systemd unit carries hardening lines',
      /NoNewPrivileges=yes/.test(w.document.querySelector('#sdOut').textContent));
 
-  /* 27. the app makes no network calls and loads nothing external */
+
+  /* 27. B33-B34: reference, audio, money, working days, physics */
+  ev('location.hash="#/tool/reference/htmlentities"'); ev('route()');
+  const entityFilter = w.document.querySelector('#heIn');
+  entityFilter.value = 'emdash'; entityFilter.dispatchEvent(new w.Event('input'));
+  ok('the entity table finds "em dash" when you type "emdash"',
+     /mdash/.test(w.document.querySelector('#heOut').textContent), 'spaces ignored in the filter');
+
+  ev('location.hash="#/tool/audio/chords"'); ev('route()');
+  const chordText = w.document.querySelector('#chOut').textContent;
+  ok('a C major chord is C4, E4 and G4 at the right frequencies',
+     /261\.6\d Hz/.test(chordText) && /329\.6\d Hz/.test(chordText) && /392\.0\d Hz/.test(chordText),
+     'equal temperament');
+
+  ev('location.hash="#/tool/calc/workingdays"'); ev('route()');
+  w.document.querySelector('#wdFrom').value = '2026-11-02';
+  w.document.querySelector('#wdTo').value = '2026-11-08';
+  w.document.querySelector('#wdFrom').dispatchEvent(new w.Event('input'));
+  ok('a Monday-to-Sunday week has five working days',
+     /Workingdays5/.test(w.document.querySelector('#wdOut').textContent.replace(/\s+/g, '')),
+     w.document.querySelector('#wdOut').textContent.replace(/\s+/g, ' ').slice(0, 70));
+
+  ev('location.hash="#/tool/science/blackbody"'); ev('route()');
+  ok('5800 K peaks at 500 nm, which is green',
+     /500 nm/.test(w.document.querySelector('#bbOut').textContent) &&
+     /green/.test(w.document.querySelector('#bbOut').textContent));
+
+  ev('location.hash="#/tool/science/titration"'); ev('route()');
+  ok('25 mL of 0.1 M analyte needs 25 mL of 0.1 M titrant',
+     /25\.00 mL/.test(w.document.querySelector('#ttOut').textContent));
+
+  /* 28. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

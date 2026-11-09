@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**465 tools across 27 categories.**
+**477 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -10,7 +10,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 1 | General Tools | `GEN` | 13 |
 | 2 | Text Tools | `TXT` | 63 |
 | 3 | Generator Tools | `GNR` | 11 |
-| 4 | Calculation Tools | `CAL` | 55 |
+| 4 | Calculation Tools | `CAL` | 56 |
 | 5 | Image Tools | `IMG` | 21 |
 | 6 | Unit Converter | `UNI` | 33 |
 | 7 | Finance Tools | `FIN` | 19 |
@@ -18,9 +18,9 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 9 | Health Tools | `HLT` | 8 |
 | 10 | Development Tools | `DEV` | 73 |
 | 11 | Colors Tools | `CLR` | 10 |
-| 12 | Science Tools | `SCI` | 19 |
+| 12 | Science Tools | `SCI` | 21 |
 | 13 | Geo Tools | `GEO` | 11 |
-| 14 | Audio Tools | `AUD` | 10 |
+| 14 | Audio Tools | `AUD` | 13 |
 | 15 | Games | `GAM` | 16 |
 | 16 | Travel Tools | `TRV` | 5 |
 | 17 | Nature Tools | `NAT` | 6 |
@@ -28,12 +28,12 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 19 | Files & Data | `FIL` | 16 |
 | 20 | Almanac | `ALM` | 10 |
 | 21 | Communication | `COM` | 5 |
-| 22 | Reference | `REF` | 7 |
+| 22 | Reference | `REF` | 10 |
 | 23 | System | `SYS` | 4 |
 | 24 | Accessibility | `ACC` | 11 |
 | 25 | Education | `EDU` | 4 |
 | 26 | Clinical | `CLN` | 12 |
-| 27 | Money (India) | `MNY` | 4 |
+| 27 | Money (India) | `MNY` | 7 |
 
 ## General Tools — 13 tools
 
@@ -157,7 +157,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GNR-08` **Passphrase Generator** — `generator/passphrase`
 - `GNR-09` **Username Generator** — `generator/usernames`
 
-## Calculation Tools — 55 tools
+## Calculation Tools — 56 tools
 
 **Common**
 
@@ -219,6 +219,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `CAL-39` **GCD & LCM** — `calc/gcdlcm`
 - `CAL-40` **Quadratic Solver** — `calc/quadratic`
 - `CAL-41` **Logarithm** — `calc/logarithm`
+
+**Dates & Time**
+
+- `CAL-56` **Working Days** — `calc/workingdays`
 
 **Sets & Logic**
 
@@ -451,8 +455,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `CLR-09` **Tints & Shades** — `colors/tintshade`
 - `CLR-10` **Random Colour** — `colors/randomcolor`
 
-## Science Tools — 19 tools
+## Science Tools — 21 tools
 
+- `SCI-20` **Blackbody Peak** — `science/blackbody`
+- `SCI-21` **Titration** — `science/titration`
 - `SCI-18` **Decibels & Sound Level** — `science/decibel`
 - `SCI-19` **RC Filter Response** — `science/rcfilter`
 - `SCI-01` **Ohm's Law** — `science/ohmslaw`
@@ -487,8 +493,11 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GEO-09` **Bearing → Cardinal** — `geo/cardinal`
 - `GEO-10` **Coordinate Rounder** — `geo/coordround`
 
-## Audio Tools — 10 tools
+## Audio Tools — 13 tools
 
+- `AUD-11` **Chord Builder** — `audio/chords`
+- `AUD-12` **Interval Trainer** — `audio/intervals`
+- `AUD-13` **Note Player** — `audio/piano`
 - `AUD-01` **Tone Generator** — `audio/tonegen`
 - `AUD-02` **Metronome** — `audio/metronome`
 - `AUD-03` **White/Pink Noise** — `audio/noise`
@@ -587,8 +596,11 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `COM-04` **SMS Character Counter** — `comms/smscount`
 - `COM-05` **Phone Number Formatter** — `comms/phoneformat`
 
-## Reference — 7 tools
+## Reference — 10 tools
 
+- `REF-08` **HTML Entities** — `reference/htmlentities`
+- `REF-09` **Git Command Reference** — `reference/gitref`
+- `REF-10` **Key Inspector** — `reference/keycode`
 - `REF-06` **SI Prefixes** — `reference/siunits`
 - `REF-07` **Greek Alphabet** — `reference/greek`
 - `REF-01` **ASCII Table** — `reference/asciitable`
@@ -640,8 +652,11 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `CLN-03` **eGFR (CKD-EPI 2021)** — `clinical/egfr`
 - `CLN-04` **Corrected Calcium & Anion Gap** — `clinical/electrolytes`
 
-## Money (India) — 4 tools
+## Money (India) — 7 tools
 
+- `MNY-05` **Step-Up SIP** — `money/stepupsip`
+- `MNY-06` **FD Ladder** — `money/fdladder`
+- `MNY-07` **NPS Corpus** — `money/nps`
 - `MNY-01` **HRA Exemption** — `money/hra`
 - `MNY-02` **EPF Corpus** — `money/epf`
 - `MNY-03` **Gratuity** — `money/gratuity`

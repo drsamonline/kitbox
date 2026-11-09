@@ -765,3 +765,30 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - ROT8000 is not implemented: it needs the full rotation table, and a partial one would be worse than none.
 - Bifid uses the standard square without a keyword; a keyword square is a different tool.
 - The generators produce a starting point, not a considered config: the systemd unit, the Makefile and the .editorconfig are all the common shape, and every one of them will want editing.
+
+## B33–B34 (2.12.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 477 / 27 (was 465 / 27) |
+| Full suite | 226 checks, 0 failures |
+| Interaction sweep | 422 tools driven, 0 failures |
+| Fuzz | 281 fields across 477 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 1029 KB → 1056 KB raw · 294 KB gzipped (90% of a per-tool budget) |
+
+### Findings
+
+**1. A search box that only matched exact spacing.** The entity table has sixty rows and a filter; typing "emdash" returned nothing because the row says "em dash". A filter that fails on the most natural query is worse than no filter, because it teaches the user that the tool is empty.
+
+**2. The sandbox was reset mid-batch.** The working copy vanished; the two new source files survived and the repository was re-cloned from GitHub, restored and re-verified. Nothing was lost that mattered, and only because every previous batch had been pushed. Worth recording as a habit rather than an incident.
+
+**3. Three audio tools, one AudioContext.** Browsers cap the number of audio contexts per page; a tool that creates one per render works in testing and dies on the fifth visit. The helper is created once and closed on cleanup.
+
+### Known limitations added
+
+- The audio tools need a click before they can make sound — browsers require a user gesture, and the tools do not pretend otherwise.
+- The Git reference is opinionated about what belongs in it: twenty commands with their safe counterpart, not a complete manual.
+- Working days counts Monday to Friday only; a six-day week needs a different tool, not a setting.
+- The NPS annuity estimate uses a flat 6% and is an illustration, not a quote.

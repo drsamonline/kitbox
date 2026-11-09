@@ -8,6 +8,28 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.12.0 — 2026-11-09
+
+B33 and B34: three reference pages, three ear-training tools, three money tools, working days and two pieces of physics.
+
+### B33 — reference and audio (6)
+
+- **HTML Entities** (64 rows, filterable), **Git Command Reference** (grouped by the question, not the alphabet), **Key Inspector** — press a key and see `key`, `code`, `keyCode` and the modifier state, which is where keyboard bugs come from.
+- **Chord Builder**, **Interval Trainer**, **Note Player** — sharing one oscillator helper rather than each opening its own AudioContext, because a browser allows only a handful and a tool that leaks one stops making sound after five visits.
+
+### B34 — money, calendar, physics (6)
+
+- **Step-Up SIP** (with the flat-SIP comparison that makes the point), **FD Ladder**, **NPS Corpus** (with the annuity split named), **Working Days** (holidays as a list, because "business day" is a local decision), **Blackbody Peak** and **Titration**.
+
+### Fixed
+
+- **The entity filter could not find "em dash" from "emdash".** Sixty rows and a search box that only matched exact spacing is a search box that does not work; it now compares without spaces or punctuation.
+- A dead accumulator in the step-up SIP calculation, caught by the linter.
+
+### Note on the environment
+
+The sandbox was reset mid-batch: the working copy was lost and the two new source files were all that survived. The repository was re-cloned from GitHub, the files restored, and every gate re-run from scratch — which is the argument for pushing at the end of each batch rather than at the end of the week.
+
 ## 2.11.0 — 2026-11-09
 
 B31 and B32: the classical ciphers, six text utilities, and eight generators that write a config file you were about to write by hand.

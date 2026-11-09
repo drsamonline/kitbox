@@ -6,680 +6,692 @@
       "sha": "bcf7300b81f66add95fe2dc12d53b89824bfe292",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     ".github/ISSUE_TEMPLATE/config.yml": {
       "sha": "75c9c90e65292e2633c5b22886d03f0d29b8fac4",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     ".github/workflows/build-apps.yml": {
       "sha": "55b2933315d20857fb8955b2570f9533f8b6a224",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     ".github/workflows/release.yml": {
       "sha": "f3118e1b18ebca7d380b22aade12c81452f98c66",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     ".github/workflows/test.yml": {
       "sha": "6c6fd3cd2f6ae45f8601b774f279aa5a91a93085",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     ".gitignore": {
       "sha": "4e6e959162c1c9db18d288f2a6dabcf6f25035b0",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     ".nojekyll": {
       "sha": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "ALL_TOOLS.md": {
-      "sha": "cdced5c93449180d3e11ead2fdc6faf81c204df2",
+      "sha": "00af69bdbcce447b8175fc13ce3333577bf4b812",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "AUDIT.md": {
-      "sha": "efc9941d24d223357795f1c06d60100088d231ad",
+      "sha": "b7151f46459bb2ca9e0cf7fc9be69adea11642b4",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "BACKLOG-TOOLS.md": {
       "sha": "5f9d3f8bb908dd4c194bc4ad1248c8fe4c2797b8",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "CHANGELOG.md": {
-      "sha": "0fd30fbae60ba8965fb798ec76b8b63c5b1f41ef",
+      "sha": "508eab86d19ae51f7f84d98e2ef7720c94210d9d",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "CONTRIBUTING.md": {
       "sha": "ad285147ce98aa81f9bf871a41cccb3bfb9ef457",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "LICENSE": {
       "sha": "0ffca78c0a4e099025090d5e495a9f55e2bf164e",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "PLAN.md": {
       "sha": "41ac30c9290fd4fc3dac8d55ab4a9416ba6a6ad5",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "PRIVACY.md": {
       "sha": "ae294a143535dd72f16c8f5a1f5f58b0a86d4baf",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "README.md": {
-      "sha": "e4e66754ee5bb017ae065193d163759c848962d9",
+      "sha": "23bd0a53ecea9110f5abbf60b3775d13ede375f9",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "ROADMAP.md": {
       "sha": "3c0982a4dcae6befd635ada8da2098ba721de61e",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "SECURITY.md": {
       "sha": "5dc1f8d0c4de6737c6aca531f603faa1bed28b81",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "USAGE.md": {
       "sha": "fae729ca3abd64738b6dda0e68167db1e37c7187",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "app/icon.svg": {
       "sha": "fc4f0bb17265c77639df52241a8637f1990de657",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "app/index.html": {
-      "sha": "b9c1f7f55947f6e5803415029a5374cf0b6b79a8",
+      "sha": "d120b9ab8c359f2511f88b32b5aaeeac2edf4c38",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "app/manifest.webmanifest": {
       "sha": "b16fff1613f44eb10e3278b3f75d46b895b6a274",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "codes.json": {
-      "sha": "7b7d5e588a3e9f9dae39778f7dcebfd5d4e2e09b",
+      "sha": "14cfc56128036d8092e05553147f483ed224e7ba",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-categories.svg": {
       "sha": "8d9d20bb69c6ec582126f8f0a0b0115f47497e96",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-checks.svg": {
-      "sha": "b5a8a1ad5d74b70626e4459e9cd012840f0c29fe",
+      "sha": "89c5e599d9218e59c1e715873ccf2cd006b424e4",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-file.svg": {
       "sha": "3603c082a33dac2448fa6b440bcf472986fab20b",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-licence.svg": {
       "sha": "3cb4268ae96523401640c285d5413ab2acf78505",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-network.svg": {
       "sha": "a9574ea92867c3fd1e684c86418ff0a5455808aa",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-runtime.svg": {
       "sha": "701b8432d62c3c61581c75134bb743503ff3246e",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-size.svg": {
-      "sha": "faabb9cccd502b11a441ce17c898d23385cb3e6b",
+      "sha": "a3852ec11a425f1191c683c6f3cf07256e434d5c",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-tools.svg": {
-      "sha": "df8dcb1da182a30639b181ec2e3220d3497718f9",
+      "sha": "32acaf57d34e1368799ed45ef9cb531fc9fa96da",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/badge-version.svg": {
-      "sha": "eafcfd48e03fa75c4c2b717b2e056c3d40c24528",
+      "sha": "49886c3eee41afbb1901edc82a3c5c65ed9da2b9",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/banner.svg": {
-      "sha": "2b2758367c897edb293200b3c1b81ac6983d8921",
+      "sha": "287419d3c83832dad110878d38046ce185a944ca",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/assets/upi-qr.svg": {
       "sha": "85be3f50c3bb40dde86dc1d1aa19439aa245ebd9",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/changelog.html": {
-      "sha": "6250d19f647a27088b4934729695fe3f82946270",
+      "sha": "68cc3f72a1df1463d54d473e80d2b335b2791d5a",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/index.html": {
-      "sha": "71ab62067caad50100292733a3bb672a1a22a2dd",
+      "sha": "7c16c682edf0d10867655c2261ec0371fcfafd11",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/plan.html": {
       "sha": "6edd38c7a18fca550976cd7789690187ee8a5dc1",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/roadmap.html": {
       "sha": "6b4fc23b9c3b808429266d7234abda8fd5526a70",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/shot-files.png": {
       "sha": "cfc69360c00746a09c1ce9cf5c44ec4067a2c6fd",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/shot-home.png": {
       "sha": "06198ab3ef97810679127ae4f7bd361d4d8bb109",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/shot-landing.png": {
       "sha": "9ba3df76f14f32b11d92a9e1772f80e6ae65d89f",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/shot-mobile.png": {
       "sha": "90eb507b7f999bc42003e0ad47c5d747258886dd",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "docs/shot-tool.png": {
       "sha": "ba6c368e014532cba57da1ea15915232830c27d3",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "eslint.config.js": {
       "sha": "cd6d797b9b578920aecb9709b76df15ec6acb2fd",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "ids.json": {
-      "sha": "2a593e53ae7f358801847087f58bb09b1b4a4cc0",
+      "sha": "9995dd2e421724b0da4823aa609ae64d5ffb44d7",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "index.html": {
-      "sha": "27c8e8caaf06b3f754fa4dc01f04eab55c203020",
+      "sha": "2b9e0829252204c18721d2ee8fa96c6236086b12",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "kitbox.html": {
-      "sha": "b9c1f7f55947f6e5803415029a5374cf0b6b79a8",
+      "sha": "d120b9ab8c359f2511f88b32b5aaeeac2edf4c38",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "latest/index.html": {
       "sha": "09eef6c750bab9e92023a5c9a690a68eef923486",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "package-lock.json": {
       "sha": "728ffc181e5bfab5e75cf085ee7a7b1207cd5923",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "package.json": {
-      "sha": "edb0b07fd061c05491f158e4c6dc1bd01f6a37cb",
+      "sha": "6296ea2e32cf98891bf0b7df985e97e8de2a49d8",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/index.template.html": {
       "sha": "8407b716931a70183d182b6bc8b410aa848a84d5",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/00-core.js": {
-      "sha": "b7dba750a336cac62b879a08a9b1cab832d03432",
+      "sha": "5d3d53d6d04d4de81c356d6ffd6546a12cc945e0",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/05-lib.js": {
       "sha": "28c04e50fdf87828e879dcdbf8b55c1154a20313",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/10-general.js": {
       "sha": "87964eb2634d3c093ea41695512fe92a2144a983",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/20-text.js": {
       "sha": "b44230bf3eeca44fdd730da6491cb8f47455f339",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/30-generator.js": {
       "sha": "a3211cc83b3041f48e4dea8b7205279717ffca53",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/40-calc.js": {
       "sha": "444d0db47783f73abd9ecc81fad735179d443cca",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/50-unit.js": {
       "sha": "3940fcc649794939f0462db0c39f8efe2abf3dc9",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/60-finance.js": {
       "sha": "3a9a041d957554a1cc380f8ff6cdf64f95845fbb",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/70-random-health.js": {
       "sha": "4700fd0e8278ab2c4dde62a5b24eac2301a2faee",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/80-dev.js": {
       "sha": "ce4978c5026a6eadb66fcd6967c3e3ef30142c4b",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
+    },
+    "src/js/81-b33-reference-audio.js": {
+      "sha": "bdcba5bb874e4ccd0c42235865b991fc307f9fbb",
+      "producer": "check-manifest@1",
+      "class": "generated",
+      "at": "2026-11-09T00:59:25Z"
+    },
+    "src/js/81-b34-money-calc-science.js": {
+      "sha": "fbcd2956a517c439e68ae2407381fea00fb75297",
+      "producer": "check-manifest@1",
+      "class": "generated",
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/82-b31-ciphers.js": {
       "sha": "eadb1727ed8590ff21d1b60570b0bd53beece759",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/82-b32-generators.js": {
       "sha": "2b9257fcfac0ec1f3822b1a849d9e69fb39b2610",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/83-b29-sign-ipv6-json.js": {
       "sha": "3a55ec1f2588585409c0960f472baa3597a6ee95",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/83-b30-image-sound-moon.js": {
       "sha": "3ac86cef556f6e73920b13a2cf46a8b054c9f5c4",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/84-b27-text-encoding.js": {
       "sha": "ae4ead9c400922c885b98aeec7d0b6714c7a3250",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/84-b28-packet-crypto-games.js": {
       "sha": "e3d4f30cf325f1b498c64eaa6b70d0e9b10a228b",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/85-b25-qr-geo-sun.js": {
       "sha": "b7c6082794c68ad75fe80643c81bd7bf3ea4462d",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/85-b26-files-dev.js": {
       "sha": "0c7bc010003f6a3f4473e159acc39f060df67c48",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/85-image-science.js": {
       "sha": "fa92073700127e605f35d396ca5759276879a7e9",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/86-b23-keys-data.js": {
       "sha": "d885c7798872e0d8c6f796d058fe4356e7f23958",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/86-b24-reference-a11y.js": {
       "sha": "96ac1a41e5cf6ab8ff00028e025e6c088d0424bf",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/87-b22-games.js": {
       "sha": "c3607ca303cacff77024e924f042ae863a2414b3",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/88-b20-cert-data.js": {
       "sha": "422fd42fe87034d71ee9ab4f6f9111cd91460ce2",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/88-geo-audio.js": {
       "sha": "760d58b3dcb24a91772a9e6a7fc8b62b912cdce4",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/89-b18-crypto-science.js": {
       "sha": "813790e14f4c44cdc489b4e28a1f84cdd9b05e6a",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/89-b19-almanac-a11y.js": {
       "sha": "d672b702dcb4bcd463db83faf8c668c1c43a3e5d",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/90-b17-clinical.js": {
       "sha": "8ee4c2cc8070aed5286bc9d7fd9c27246632d4e5",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/90-games-travel-nature.js": {
       "sha": "ba222f80d9fb039ace7caf9f3ad8c850977f37b8",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/91-b16.js": {
       "sha": "5f9f2a1972bce813b306450e1df0d11e4f90a589",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/92-b15.js": {
       "sha": "43636dbaae3fcc1de015d9227cea8d51070373be",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/93-borrowed.js": {
       "sha": "372f22185aac41bf34562dd9e8e1dd1f799a3122",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/95-productivity-files.js": {
       "sha": "cad83275e8697816b3a3bfade1b49babb0326e84",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/96-almanac-comms.js": {
       "sha": "aa9bc1aa264af5d95364e962bcc259f4e74ccbee",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/97-second-pass.js": {
       "sha": "5dab735ede23dd16c04df28d52f29516c8b7333d",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/98-new-categories.js": {
       "sha": "5a04874115e11bf71f09b6f892b1d0457d143351",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "src/js/99-shell.js": {
       "sha": "d655ee2d48819d77e1e85a97105388b251b0da08",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/axe.js": {
       "sha": "ea457f17c45fcae181c9d5dd7edd39df8bb5e8f2",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/deep.js": {
       "sha": "48e3b9dec835e40128a1d99d56f3ef42ab6d7459",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/fixture-cert.pem": {
       "sha": "d499303c809a3df2027456e3c281bedcff36a453",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/fixtures.json": {
       "sha": "57a0febdb95708893d708d65a2688e03482267e1",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/fuzz.js": {
       "sha": "bb9f860dd87508c81bbbe9be1dc582150790700d",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/interact.js": {
       "sha": "92010c1bdc7cca4334e1bdbf8875d9f9cbcb50b2",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/lib.js": {
       "sha": "689018210b5a5cf1a1b3b3ac33431493066b20e7",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/links.js": {
       "sha": "5439403b0262e3d95d4b6c562c03267ba13d9743",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/minified.js": {
       "sha": "d81a4f059da1d980899a554c86c11ca7134bc993",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "test/smoke.js": {
-      "sha": "f4ba85e1cc63463ec4598b88345e4477a72ff225",
+      "sha": "17a4cb42b83916ac4495fd3d38a9cc70de275c03",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/__pycache__/minify.cpython-312.pyc": {
       "sha": "f0fa6d38c00187ecc6561fc163d0d4957fa8c86a",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/badges.py": {
-      "sha": "fe753a7d392762f459139bac6899e0b2e7203912",
+      "sha": "695533fb280c2a4e4717146f9d76498449f081c5",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/build-docs.py": {
       "sha": "596684326c28c6cbc5ba6430816fdc44782b70cd",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/build-landing.py": {
       "sha": "95d14bf4b1884cedef85bba6c5047987c9d6ccd6",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/build-lib.js": {
       "sha": "c4354433744637d1953b066327fd6a43f195387e",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/build.py": {
       "sha": "da344f81af03c0a797d636dd8ff10129f84a2248",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/check-badges.js": {
       "sha": "c134e35b8d80fe88b879a5d89180a4a1f4ed62bc",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/check-manifest.py": {
       "sha": "bff71cc5a6e41ca47d3504b86aa824696365a50a",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/check-plan.py": {
       "sha": "2d54137f23374f5ffd9c0c945f3dbbe1a359d48e",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/dist.py": {
       "sha": "aa9deec15f8244a3aa10cf1825b366cab4188772",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/gen-all-tools.js": {
       "sha": "e79922bce898f419fa759ca68252bb717b938995",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/gen-codes.js": {
       "sha": "6620e84939939a19a937d1cf5e01b1ba85dc8d61",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/minify.js": {
       "sha": "9408bb379f052926274264d96c4dd667d7a3361e",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/shots.py": {
       "sha": "a4112daf6d088b1edb20e7a1eae0493dff5f361b",
       "producer": "check-manifest@1",
       "class": "canonical",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tools/split-once.py": {
       "sha": "39ae042b01f95b0e47a13ce1f0e3189a72c3a67a",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     },
     "tsconfig.json": {
       "sha": "1209d6da3250adc4d5cca695419b11c4b75cd8cc",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-08T19:28:00Z"
+      "at": "2026-11-09T00:59:25Z"
     }
   },
-  "updated": "2026-11-08T19:28:00Z"
+  "updated": "2026-11-09T00:59:25Z"
 }

@@ -390,7 +390,7 @@ function iconSvg(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const TOOLS = {};
 
 /* ---------------- storage helper ---------------- */
-const APP_VERSION = '2.11.0';
+const APP_VERSION = '2.12.0';
 const STORE_SCHEMA = 2;
 
 /* Every key this app writes, what it is called, and which tool owns it. The
@@ -683,7 +683,7 @@ const TOOL_REQUIRES = {
 };
 
 /* CODES:START */
-const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/captions":"ACC-07", "accessibility/cbpalette":"ACC-08", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/linktext":"ACC-10", "accessibility/motionpreview":"ACC-09", "accessibility/readingruler":"ACC-01", "accessibility/srpreview":"ACC-06", "accessibility/textspacing":"ACC-03", "accessibility/zoomsim":"ACC-11", "almanac/choghadiya":"ALM-06", "almanac/ekadashi":"ALM-08", "almanac/horas":"ALM-04", "almanac/moonrise":"ALM-07", "almanac/moontable":"ALM-10", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/suntable":"ALM-09", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/modular":"CAL-55", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/asn1":"DEV-52", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/conventional":"DEV-70", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssclamp":"DEV-56", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/dupfinder":"DEV-59", "dev/editorconfig":"DEV-66", "dev/emailnormalise":"DEV-73", "dev/filesplit":"DEV-58", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hkdf":"DEV-51", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/ipv6":"DEV-64", "dev/ipv6ula":"DEV-72", "dev/jsondiff":"DEV-23", "dev/jsonpath":"DEV-65", "dev/jsonschema":"DEV-54", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwkpem":"DEV-57", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/makefile":"DEV-67", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/mimeparse":"DEV-60", "dev/packet":"DEV-61", "dev/pbkdf2":"DEV-50", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/randomport":"DEV-71", "dev/regexexplain":"DEV-55", "dev/regextester":"DEV-15", "dev/rsacrypt":"DEV-62", "dev/rsakeys":"DEV-44", "dev/rsasign":"DEV-63", "dev/semver":"DEV-69", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/systemd":"DEV-68", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "dev/x509":"DEV-53", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/csvtosql":"FIL-14", "files/elf":"FIL-15", "files/exif":"FIL-08", "files/filecarve":"FIL-16", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "files/zipextract":"FIL-13", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/breakout":"GAM-16", "games/game2048":"GAM-11", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/minesweeper":"GAM-12", "games/numberguess":"GAM-02", "games/pong":"GAM-15", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/snake":"GAM-13", "games/sudoku":"GAM-14", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/qrpayload":"GNR-11", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "geo/utm":"GEO-11", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/imghsl":"IMG-19", "image/imginvert":"IMG-20", "image/imgopacity":"IMG-21", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/ppf":"MNY-04", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/greek":"REF-07", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "reference/siunits":"REF-06", "science/bufferph":"SCI-17", "science/decibel":"SCI-18", "science/density":"SCI-07", "science/doppler":"SCI-15", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/lens":"SCI-14", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/rc":"SCI-13", "science/rcfilter":"SCI-19", "science/resistor":"SCI-16", "science/speedofsound":"SCI-06", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/a1z26":"TXT-51", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affine":"TXT-52", "text/affix":"TXT-11", "text/ansistrip":"TXT-61", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/atbash":"TXT-53", "text/bacon":"TXT-54", "text/bifid":"TXT-56", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charcodes":"TXT-59", "text/charfreq":"TXT-30", "text/codepoints":"TXT-49", "text/entropy":"TXT-43", "text/escape":"TXT-63", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/hexdump":"TXT-60", "text/huffman":"TXT-50", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/nullbytes":"TXT-62", "text/numberlines":"TXT-12", "text/punycode":"TXT-48", "text/quotedprintable":"TXT-58", "text/railfence":"TXT-55", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/rot47":"TXT-57", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
+const STABLE_CODES = { "accessibility/altcheck":"ACC-04", "accessibility/captions":"ACC-07", "accessibility/cbpalette":"ACC-08", "accessibility/dyslexiapreview":"ACC-02", "accessibility/focuspreview":"ACC-05", "accessibility/linktext":"ACC-10", "accessibility/motionpreview":"ACC-09", "accessibility/readingruler":"ACC-01", "accessibility/srpreview":"ACC-06", "accessibility/textspacing":"ACC-03", "accessibility/zoomsim":"ACC-11", "almanac/choghadiya":"ALM-06", "almanac/ekadashi":"ALM-08", "almanac/horas":"ALM-04", "almanac/moonrise":"ALM-07", "almanac/moontable":"ALM-10", "almanac/panchang":"ALM-01", "almanac/rahukaal":"ALM-02", "almanac/sunmoon":"ALM-03", "almanac/suntable":"ALM-09", "almanac/tithical":"ALM-05", "audio/binaural":"AUD-04", "audio/chords":"AUD-11", "audio/decibelmeter":"AUD-05", "audio/hznote":"AUD-09", "audio/intervals":"AUD-12", "audio/metronome":"AUD-02", "audio/noise":"AUD-03", "audio/piano":"AUD-13", "audio/soundrecorder":"AUD-07", "audio/taptempo":"AUD-08", "audio/tonegen":"AUD-01", "audio/tuner":"AUD-10", "audio/visualizer":"AUD-06", "calc/agecalc":"CAL-11", "calc/aspectratio":"CAL-05", "calc/average":"CAL-03", "calc/circle":"CAL-16", "calc/circleact":"CAL-24", "calc/cone":"CAL-29", "calc/conefrustum":"CAL-32", "calc/cube":"CAL-25", "calc/cylinder":"CAL-33", "calc/datediff":"CAL-48", "calc/daysuntilnewyear":"CAL-14", "calc/decimaltofraction":"CAL-07", "calc/electricity":"CAL-46", "calc/ellipsoid":"CAL-30", "calc/exponent":"CAL-09", "calc/factorial":"CAL-10", "calc/fibonacci":"CAL-37", "calc/fractionsimplify":"CAL-06", "calc/fueleconomy":"CAL-45", "calc/gcdlcm":"CAL-39", "calc/graphplotter":"CAL-36", "calc/hamming":"CAL-54", "calc/hexagon":"CAL-23", "calc/levenshtein":"CAL-53", "calc/logarithm":"CAL-41", "calc/modular":"CAL-55", "calc/multitimecalc":"CAL-13", "calc/npr_ncr":"CAL-38", "calc/pentagon":"CAL-22", "calc/percentage":"CAL-02", "calc/percentchange":"CAL-49", "calc/pricing":"CAL-47", "calc/primenumber":"CAL-08", "calc/prism":"CAL-28", "calc/proportional":"CAL-04", "calc/pyramid":"CAL-27", "calc/pyramidfrustum":"CAL-31", "calc/quadratic":"CAL-40", "calc/rectangle":"CAL-17", "calc/regression":"CAL-43", "calc/rhombus":"CAL-18", "calc/righttriangle":"CAL-20", "calc/rounding":"CAL-51", "calc/setops":"CAL-52", "calc/sigfig":"CAL-44", "calc/simplecalc":"CAL-01", "calc/sleepcalc":"CAL-50", "calc/sphere":"CAL-26", "calc/spherecap":"CAL-34", "calc/spheresegment":"CAL-35", "calc/square":"CAL-15", "calc/statistics":"CAL-42", "calc/timecalc":"CAL-12", "calc/trapezoid":"CAL-21", "calc/triangle":"CAL-19", "calc/workingdays":"CAL-56", "clinical/chads":"CLN-10", "clinical/childpugh":"CLN-12", "clinical/curb65":"CLN-06", "clinical/drip":"CLN-02", "clinical/egfr":"CLN-03", "clinical/electrolytes":"CLN-04", "clinical/gcs":"CLN-05", "clinical/hasbled":"CLN-11", "clinical/paeddose":"CLN-01", "clinical/qsofa":"CLN-07", "clinical/wellsdvt":"CLN-08", "clinical/wellspe":"CLN-09", "colors/blendcolors":"CLR-03", "colors/colorblind":"CLR-06", "colors/colorpicker":"CLR-01", "colors/contrast":"CLR-05", "colors/harmony":"CLR-08", "colors/imagecolorpicker":"CLR-02", "colors/isdarkened":"CLR-04", "colors/paletteimg":"CLR-07", "colors/randomcolor":"CLR-10", "colors/tintshade":"CLR-09", "comms/icsinvite":"COM-02", "comms/linkbuilder":"COM-03", "comms/phoneformat":"COM-05", "comms/smscount":"COM-04", "comms/vcard":"COM-01", "dev/asn1":"DEV-52", "dev/base32":"DEV-25", "dev/base64":"DEV-06", "dev/baseconverter":"DEV-01", "dev/basicauth":"DEV-38", "dev/beautifycss":"DEV-03", "dev/beautifyhtml":"DEV-05", "dev/beautifyjson":"DEV-02", "dev/beautifyxml":"DEV-04", "dev/chmod":"DEV-37", "dev/configparse":"DEV-31", "dev/conventional":"DEV-70", "dev/crongen":"DEV-48", "dev/cronnext":"DEV-35", "dev/cronparser":"DEV-17", "dev/cssclamp":"DEV-56", "dev/cssgradient":"DEV-19", "dev/datauri":"DEV-12", "dev/dupfinder":"DEV-59", "dev/editorconfig":"DEV-66", "dev/emailnormalise":"DEV-73", "dev/filesplit":"DEV-58", "dev/gitignore":"DEV-32", "dev/hashgen":"DEV-09", "dev/hashid":"DEV-46", "dev/hkdf":"DEV-51", "dev/hmac":"DEV-26", "dev/htmlentity":"DEV-11", "dev/httpstatus":"DEV-18", "dev/ipformat":"DEV-45", "dev/iprange":"DEV-40", "dev/ipv6":"DEV-64", "dev/ipv6ula":"DEV-72", "dev/jsondiff":"DEV-23", "dev/jsonpath":"DEV-65", "dev/jsonschema":"DEV-54", "dev/jsontots":"DEV-33", "dev/jsonyaml":"DEV-21", "dev/jwkpem":"DEV-57", "dev/jwtdebug":"DEV-16", "dev/jwtsign":"DEV-49", "dev/macaddr":"DEV-39", "dev/makefile":"DEV-67", "dev/md5":"DEV-27", "dev/mdpreview":"DEV-30", "dev/metatags":"DEV-41", "dev/mime":"DEV-29", "dev/mimeparse":"DEV-60", "dev/packet":"DEV-61", "dev/pbkdf2":"DEV-50", "dev/pwgen":"DEV-14", "dev/pwstrength":"DEV-13", "dev/querystring":"DEV-34", "dev/randomport":"DEV-71", "dev/regexexplain":"DEV-55", "dev/regextester":"DEV-15", "dev/rsacrypt":"DEV-62", "dev/rsakeys":"DEV-44", "dev/rsasign":"DEV-63", "dev/semver":"DEV-69", "dev/sqlin":"DEV-36", "dev/sqlpretty":"DEV-42", "dev/subnet":"DEV-28", "dev/systemd":"DEV-68", "dev/textdiff":"DEV-10", "dev/totp":"DEV-43", "dev/uaparser":"DEV-20", "dev/ulid":"DEV-24", "dev/unixtime":"DEV-22", "dev/urlencode":"DEV-07", "dev/uuid":"DEV-08", "dev/uuidanalyse":"DEV-47", "dev/x509":"DEV-53", "education/formulasheet":"EDU-04", "education/timesquiz":"EDU-02", "education/timestable":"EDU-01", "education/unitcircle":"EDU-03", "files/b64file":"FIL-12", "files/csvjson":"FIL-06", "files/csvtable":"FIL-07", "files/csvtosql":"FIL-14", "files/elf":"FIL-15", "files/exif":"FIL-08", "files/filecarve":"FIL-16", "files/filecrypt":"FIL-04", "files/filehash":"FIL-03", "files/filetype":"FIL-11", "files/gzip":"FIL-02", "files/imgbase64":"FIL-09", "files/lineendings":"FIL-10", "files/sealednote":"FIL-05", "files/zipcreate":"FIL-01", "files/zipextract":"FIL-13", "finance/amortization":"FIN-09", "finance/billsplit":"FIN-05", "finance/budgetsplit":"FIN-13", "finance/commission":"FIN-07", "finance/currency":"FIN-01", "finance/debtpayoff":"FIN-16", "finance/discount":"FIN-06", "finance/gstsplit":"FIN-19", "finance/inflation":"FIN-10", "finance/investment":"FIN-03", "finance/loanemi":"FIN-02", "finance/mortgageafford":"FIN-11", "finance/retirement":"FIN-08", "finance/savingsgoal":"FIN-15", "finance/simpleinterest":"FIN-17", "finance/sip":"FIN-18", "finance/taxcalc":"FIN-04", "finance/tiptable":"FIN-12", "finance/wageconverter":"FIN-14", "games/breakout":"GAM-16", "games/game2048":"GAM-11", "games/hangman":"GAM-05", "games/memorymatch":"GAM-03", "games/minesweeper":"GAM-12", "games/numberguess":"GAM-02", "games/pong":"GAM-15", "games/reaction":"GAM-09", "games/simonsays":"GAM-06", "games/snake":"GAM-13", "games/sudoku":"GAM-14", "games/tictactoe":"GAM-01", "games/triviacreator":"GAM-08", "games/typingtest":"GAM-10", "games/wordle":"GAM-07", "games/wordscramble":"GAM-04", "general/compass":"GEN-09", "general/countdown":"GEN-04", "general/counter":"GEN-02", "general/level":"GEN-12", "general/morse":"GEN-06", "general/num2word":"GEN-08", "general/roman":"GEN-07", "general/ruler":"GEN-01", "general/scoreboard":"GEN-03", "general/stopwatch":"GEN-05", "general/str2byte":"GEN-10", "general/tzconv":"GEN-11", "general/worldclock":"GEN-13", "generator/bigclock":"GNR-07", "generator/lorem":"GNR-02", "generator/multinumgen":"GNR-04", "generator/numgen":"GNR-03", "generator/passphrase":"GNR-08", "generator/placeholder":"GNR-10", "generator/qrcode":"GNR-01", "generator/qrpayload":"GNR-11", "generator/scanner":"GNR-05", "generator/tts":"GNR-06", "generator/usernames":"GNR-09", "geo/antipode":"GEO-08", "geo/bearing":"GEO-02", "geo/cardinal":"GEO-09", "geo/coordround":"GEO-10", "geo/distance":"GEO-01", "geo/dmsconv":"GEO-04", "geo/gpsspeed":"GEO-06", "geo/midpoint":"GEO-03", "geo/polygonarea":"GEO-07", "geo/sunrise":"GEO-05", "geo/utm":"GEO-11", "health/bmi":"HLT-01", "health/bmr":"HLT-04", "health/clinicalhealth":"HLT-05", "health/duedate":"HLT-08", "health/heartzones":"HLT-07", "health/idealweight":"HLT-03", "health/tdeemacros":"HLT-06", "health/water":"HLT-02", "image/addtext":"IMG-07", "image/asciiart":"IMG-18", "image/blur":"IMG-08", "image/collage":"IMG-12", "image/compressor":"IMG-09", "image/crop":"IMG-02", "image/enhancer":"IMG-13", "image/filters":"IMG-14", "image/flip":"IMG-06", "image/formatconverter":"IMG-10", "image/gradientwallpaper":"IMG-04", "image/imageinfo":"IMG-16", "image/imghsl":"IMG-19", "image/imginvert":"IMG-20", "image/imgopacity":"IMG-21", "image/memegenerator":"IMG-17", "image/mosaic":"IMG-11", "image/resize":"IMG-01", "image/rotate":"IMG-15", "image/rounded":"IMG-03", "image/trimtransparency":"IMG-05", "money/epf":"MNY-02", "money/fdladder":"MNY-06", "money/gratuity":"MNY-03", "money/hra":"MNY-01", "money/nps":"MNY-07", "money/ppf":"MNY-04", "money/stepupsip":"MNY-05", "nature/daylength":"NAT-06", "nature/goldenhour":"NAT-05", "nature/moonphase":"NAT-01", "nature/nightsky":"NAT-04", "nature/solsticeequinox":"NAT-02", "nature/sunexposure":"NAT-03", "productivity/backup":"PRD-04", "productivity/checklist":"PRD-07", "productivity/flashcards":"PRD-06", "productivity/habittracker":"PRD-02", "productivity/meetingcost":"PRD-08", "productivity/notepad":"PRD-03", "productivity/pomodoro":"PRD-01", "productivity/sketchpad":"PRD-05", "random/eightball":"RND-11", "random/flipcoin":"RND-03", "random/luckywheel":"RND-01", "random/multinumgen2":"RND-02", "random/pin":"RND-09", "random/randomlist":"RND-08", "random/rolldice":"RND-07", "random/rps":"RND-05", "random/spinbottle":"RND-06", "random/teamshuffler":"RND-10", "random/yesno":"RND-04", "reference/asciitable":"REF-01", "reference/bigo":"REF-02", "reference/dialcodes":"REF-04", "reference/gitref":"REF-09", "reference/greek":"REF-07", "reference/htmlentities":"REF-08", "reference/keycode":"REF-10", "reference/regexcheat":"REF-03", "reference/shortcuts":"REF-05", "reference/siunits":"REF-06", "science/blackbody":"SCI-20", "science/bufferph":"SCI-17", "science/decibel":"SCI-18", "science/density":"SCI-07", "science/doppler":"SCI-15", "science/forceaccel":"SCI-02", "science/halflife":"SCI-05", "science/idealgas":"SCI-10", "science/lens":"SCI-14", "science/molarity":"SCI-12", "science/molarmass":"SCI-03", "science/ohmslaw":"SCI-01", "science/periodictable":"SCI-09", "science/phestimator":"SCI-04", "science/projectile":"SCI-11", "science/rc":"SCI-13", "science/rcfilter":"SCI-19", "science/resistor":"SCI-16", "science/speedofsound":"SCI-06", "science/titration":"SCI-21", "science/wavelengthfreq":"SCI-08", "system/deviceinfo":"SYS-01", "system/errorlog":"SYS-02", "system/features":"SYS-03", "system/storage":"SYS-04", "text/a1z26":"TXT-51", "text/accents":"TXT-36", "text/addbreaklines":"TXT-16", "text/affine":"TXT-52", "text/affix":"TXT-11", "text/ansistrip":"TXT-61", "text/ascii85":"TXT-44", "text/asciibanner":"TXT-32", "text/atbash":"TXT-53", "text/bacon":"TXT-54", "text/bifid":"TXT-56", "text/bigtext":"TXT-20", "text/braille":"TXT-33", "text/caesar":"TXT-22", "text/cases":"TXT-01", "text/charcodes":"TXT-59", "text/charfreq":"TXT-30", "text/codepoints":"TXT-49", "text/entropy":"TXT-43", "text/escape":"TXT-63", "text/extract":"TXT-47", "text/findreplace":"TXT-02", "text/hexdump":"TXT-60", "text/huffman":"TXT-50", "text/invisible":"TXT-40", "text/kaomoji":"TXT-19", "text/keywords":"TXT-34", "text/leetspeak":"TXT-25", "text/natophonetic":"TXT-24", "text/nullbytes":"TXT-62", "text/numberlines":"TXT-12", "text/punycode":"TXT-48", "text/quotedprintable":"TXT-58", "text/railfence":"TXT-55", "text/randomstring":"TXT-28", "text/readability":"TXT-35", "text/repeattext":"TXT-05", "text/reverselines":"TXT-14", "text/reversetext":"TXT-13", "text/reversewords":"TXT-15", "text/rmbreaklines":"TXT-10", "text/rmduplines":"TXT-08", "text/rmdupwords":"TXT-09", "text/rmempty":"TXT-07", "text/rmspaces":"TXT-06", "text/rot47":"TXT-57", "text/slugify":"TXT-23", "text/smartquotes":"TXT-37", "text/sortlines":"TXT-03", "text/striphtml":"TXT-29", "text/stylishfont":"TXT-17", "text/textbinary":"TXT-27", "text/textcounter":"TXT-04", "text/textdecoration":"TXT-18", "text/texthex":"TXT-26", "text/textsplitter":"TXT-31", "text/texttoemoji":"TXT-21", "text/unicodeescape":"TXT-45", "text/vigenere":"TXT-42", "text/worddiff":"TXT-46", "text/wordfreq":"TXT-38", "text/wrapwidth":"TXT-39", "text/xor":"TXT-41", "travel/baggagesize":"TRV-03", "travel/carbon":"TRV-05", "travel/flightduration":"TRV-02", "travel/packinglist":"TRV-01", "travel/plugguide":"TRV-04", "unit/acceleration":"UNI-20", "unit/angle":"UNI-02", "unit/area":"UNI-07", "unit/capacitance":"UNI-18", "unit/charge":"UNI-14", "unit/cooking":"UNI-04", "unit/cssunits":"UNI-23", "unit/current":"UNI-11", "unit/data":"UNI-22", "unit/datatransfer":"UNI-24", "unit/energy":"UNI-01", "unit/force":"UNI-15", "unit/imageresolution":"UNI-26", "unit/length":"UNI-08", "unit/luminance":"UNI-29", "unit/luminousflux":"UNI-30", "unit/mass":"UNI-10", "unit/papersize":"UNI-32", "unit/pixeldensity":"UNI-25", "unit/prefix":"UNI-06", "unit/pressure":"UNI-12", "unit/resistance":"UNI-17", "unit/shoesize":"UNI-33", "unit/sound":"UNI-28", "unit/speed":"UNI-19", "unit/temperature":"UNI-03", "unit/tempgradient":"UNI-31", "unit/time":"UNI-05", "unit/torque":"UNI-21", "unit/typography":"UNI-27", "unit/voltage":"UNI-13", "unit/volume":"UNI-09", "unit/work":"UNI-16" };
 /* CODES:END */
 
 /* ---------- Search metadata ----------
@@ -4934,6 +4934,546 @@ clr('isdarkened','Is Color Darkened', root=>{
   update();
 });
 
+/* ================================================================
+   B33 — three reference pages people look up, and three ear-training tools.
+
+   The audio ones share one oscillator helper rather than each opening its own
+   AudioContext — a browser allows only a handful, and a tool that leaks one
+   per render is a tool that stops making sound after five visits.
+   ================================================================ */
+
+/* ---------------- Audio helper ---------------- */
+
+const audioKit = (()=>{
+  let ctx = null;
+  function context(){
+    if(!ctx){
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return null;
+      ctx = new AC();
+    }
+    if(ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+  function tone(freq, seconds, type = 'sine', gainValue = 0.2){
+    const c = context();
+    if(!c) return false;
+    const osc = c.createOscillator();
+    const gain = c.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0, c.currentTime);
+    gain.gain.linearRampToValueAtTime(gainValue, c.currentTime + 0.01);
+    gain.gain.setValueAtTime(gainValue, c.currentTime + seconds - 0.05);
+    gain.gain.linearRampToValueAtTime(0, c.currentTime + seconds);
+    osc.connect(gain).connect(c.destination);
+    osc.start();
+    osc.stop(c.currentTime + seconds);
+    return true;
+  }
+  function close(){
+    if(ctx){ try{ ctx.close(); }catch(e){} ctx = null; }
+  }
+  return { context, tone, close, get ready(){ return !!context(); } };
+})();
+
+/* ---------------- Reference (3) ---------------- */
+
+ref('htmlentities','HTML Entities', root=>{
+  const ROWS = [
+    ['&amp;','&','ampersand'], ['&lt;','<','less than'], ['&gt;','>','greater than'], ['&quot;','"','quotation mark'],
+    ['&apos;',"'",'apostrophe'], ['&nbsp;','\u00a0','non-breaking space'], ['&copy;','©','copyright'],
+    ['&reg;','®','registered'], ['&trade;','™','trade mark'], ['&deg;','°','degree'], ['&plusmn;','±','plus-minus'],
+    ['&times;','×','multiplication'], ['&divide;','÷','division'], ['&frac12;','½','one half'], ['&frac14;','¼','one quarter'],
+    ['&sup2;','²','squared'], ['&sup3;','³','cubed'], ['&micro;','µ','micro'], ['&para;','¶','pilcrow'],
+    ['&sect;','§','section'], ['&dagger;','†','dagger'], ['&bull;','•','bullet'], ['&hellip;','…','ellipsis'],
+    ['&mdash;','—','em dash'], ['&ndash;','–','en dash'], ['&lsquo;','‘','left single quote'],
+    ['&rsquo;','’','right single quote'], ['&ldquo;','“','left double quote'], ['&rdquo;','”','right double quote'],
+    ['&laquo;','«','left guillemet'], ['&raquo;','»','right guillemet'], ['&larr;','←','left arrow'],
+    ['&rarr;','→','right arrow'], ['&uarr;','↑','up arrow'], ['&darr;','↓','down arrow'], ['&harr;','↔','left-right arrow'],
+    ['&euro;','€','euro'], ['&pound;','£','pound'], ['&yen;','¥','yen'], ['&cent;','¢','cent'], ['&rupee;','₹','rupee sign'],
+    ['&alpha;','α','alpha'], ['&beta;','β','beta'], ['&gamma;','γ','gamma'], ['&delta;','δ','delta'],
+    ['&pi;','π','pi'], ['&sigma;','σ','sigma'], ['&omega;','ω','omega'], ['&infin;','∞','infinity'],
+    ['&ne;','≠','not equal'], ['&le;','≤','less or equal'], ['&ge;','≥','greater or equal'], ['&asymp;','≈','approximately'],
+    ['&sum;','∑','sum'], ['&prod;','∏','product'], ['&radic;','√','square root'], ['&int;','∫','integral'],
+    ['&there4;','∴','therefore'], ['&spades;','♠','spade'], ['&hearts;','♥','heart'], ['&diams;','♦','diamond'],
+    ['&clubs;','♣','club'], ['&check;','✓','check mark'], ['&star;','☆','star']
+  ];
+  root.innerHTML = `
+    <div class="field"><label>Filter</label><input type="text" id="heIn" placeholder="name, character or description"></div>
+    <div class="output" id="heOut">—</div>
+    <div class="hint">The sixty entities worth knowing, with the character each one produces. Anything outside Latin-1, punctuation and maths is better written as the character itself — UTF-8 has been the default for long enough that <span class="mono">&amp;alpha;</span> is usually a habit, not a requirement.</div>`;
+  function draw(){
+    // compare without spaces or punctuation, so "emdash" finds "em dash" —
+    // the search box is the only way through sixty rows.
+    const norm = t => t.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const q = norm(root.querySelector('#heIn').value);
+    const rows = ROWS.filter(r=>!q || norm(r.join(' ')).includes(q));
+    root.querySelector('#heOut').innerHTML = rows.length
+      ? `<table class="mono">${rows.map(([code, ch, name])=>
+          `<tr><td>${escapeHtml(code)}</td><td style="font-size:18px">${escapeHtml(ch)}</td><td>${escapeHtml(name)}</td></tr>`).join('')}</table>`
+      : '<div class="hint">No entity matches that.</div>';
+  }
+  root.querySelector('#heIn').addEventListener('input', draw);
+  draw();
+});
+
+ref('gitref','Git Command Reference', root=>{
+  const GROUPS = {
+    'Everyday': [
+      ['git status -sb', 'what changed, in one line per file'],
+      ['git diff --stat', 'what changed, counted'],
+      ['git add -p', 'stage hunk by hunk — the single most useful flag in git'],
+      ['git commit -m "msg"', 'commit what is staged'],
+      ['git log --oneline --graph -20', 'history as a graph'],
+      ['git switch -c branch', 'create and switch in one step']
+    ],
+    'Undo': [
+      ['git restore file', 'throw away unstaged changes to a file'],
+      ['git restore --staged file', 'unstage, keep the edit'],
+      ['git commit --amend', 'fix the last commit, before pushing'],
+      ['git reset --soft HEAD~1', 'undo the commit, keep the changes staged'],
+      ['git revert <sha>', 'undo a pushed commit by making a new one'],
+      ['git reflog', 'everything HEAD has pointed at — the safety net']
+    ],
+    'Branches': [
+      ['git branch -vv', 'local branches and their upstreams'],
+      ['git switch main && git pull --ff-only', 'the safe way to update'],
+      ['git rebase -i main', 'rewrite your own branch before a PR'],
+      ['git cherry-pick <sha>', 'take one commit from somewhere else'],
+      ['git branch -d branch', 'delete a merged branch']
+    ],
+    'Finding things': [
+      ['git log -S "text" -p', 'commits that added or removed a string'],
+      ['git log --author="name" --since="2 weeks ago"', 'filtered history'],
+      ['git blame -L 10,20 file', 'who last touched these lines'],
+      ['git show <sha>:path', 'a file as it was at a commit'],
+      ['git bisect start', 'binary search for the commit that broke it']
+    ]
+  };
+  root.innerHTML = `
+    <div class="field"><label>Filter</label><input type="text" id="grIn" placeholder="rebase, undo, stash…"></div>
+    <div id="grOut">—</div>
+    <div class="hint">The twenty-odd commands people actually look up, grouped by the question being asked rather than alphabetically. Destructive commands are not listed without their safe counterpart.</div>`;
+  function draw(){
+    const q = root.querySelector('#grIn').value.trim().toLowerCase();
+    root.querySelector('#grOut').innerHTML = Object.entries(GROUPS).map(([group, rows])=>{
+      const shown = rows.filter(([cmd, what])=>!q || (cmd + ' ' + what).toLowerCase().includes(q));
+      if(!shown.length) return '';
+      return `<div class="section-label" style="margin-top:14px">${escapeHtml(group)}</div>
+        <table class="mono">${shown.map(([cmd, what])=>
+          `<tr><td style="white-space:nowrap">${escapeHtml(cmd)}</td><td>${escapeHtml(what)}</td></tr>`).join('')}</table>`;
+    }).join('') || '<div class="hint">Nothing matches that.</div>';
+  }
+  root.querySelector('#grIn').addEventListener('input', draw);
+  draw();
+});
+
+ref('keycode','Key Inspector', root=>{
+  root.innerHTML = `
+    <div class="output" id="kcOut" style="text-align:center;padding:28px;border:1px dashed var(--line);border-radius:10px">
+      Press any key
+    </div>
+    <div class="hint">What the browser reports for the key you pressed: <span class="mono">key</span> is what it means, <span class="mono">code</span> is where it sits on the keyboard, and <span class="mono">keyCode</span> is the deprecated number half the internet still uses. A layout change moves the first and not the second.</div>`;
+  const out = root.querySelector('#kcOut');
+  const onKey = e => {
+    const rows = [
+      ['key', JSON.stringify(e.key)],
+      ['code', e.code],
+      ['keyCode', e.keyCode],
+      ['which', e.which],
+      ['location', ['standard', 'left', 'right', 'numpad'][e.location] || e.location],
+      ['modifiers', [e.ctrlKey && 'Ctrl', e.altKey && 'Alt', e.shiftKey && 'Shift', e.metaKey && 'Meta'].filter(Boolean).join(' + ') || 'none'],
+      ['repeat', String(e.repeat)]
+    ];
+    out.innerHTML = `<table class="mono" style="text-align:left;display:inline-table">
+      ${rows.map(([k, v])=>`<tr><td>${k}</td><td>${escapeHtml(String(v))}</td></tr>`).join('')}
+    </table>`;
+  };
+  root.addEventListener('keydown', e=>{ e.preventDefault(); onKey(e); });
+  root.tabIndex = 0;
+  root.querySelector('#kcOut').addEventListener('click', ()=>{ root.focus(); out.innerHTML = 'Listening — press a key.'; });
+});
+
+/* ---------------- Audio (3) ---------------- */
+
+aud('chords','Chord Builder', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Root</label><select id="chRoot">${['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'].map((n, i)=>`<option value="${i}"${i===0?' selected':''}>${n}</option>`).join('')}</select></div>
+      <div class="field"><label>Quality</label><select id="chQuality">
+        <option value="maj">major</option><option value="min">minor</option><option value="dim">diminished</option>
+        <option value="aug">augmented</option><option value="sus4">sus4</option><option value="dom7">dominant 7th</option>
+        <option value="maj7">major 7th</option><option value="min7">minor 7th</option>
+      </select></div>
+    </div>
+    <div class="output" id="chOut">—</div>
+    <div class="segrow"><button class="btn primary" id="chPlay">Play it</button></div>
+    <div class="hint">The notes of the chord and the frequency of each, so you can see why a major third is 4 semitones and a minor third is 3. Playing them together is the fastest way to hear the difference.</div>`;
+  const SHAPES = { maj:[0,4,7], min:[0,3,7], dim:[0,3,6], aug:[0,4,8], sus4:[0,5,7], dom7:[0,4,7,10], maj7:[0,4,7,11], min7:[0,3,7,10] };
+  const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const freq = midi => 440 * Math.pow(2, (midi - 69) / 12);
+  function notes(){
+    const rootNote = Number(root.querySelector('#chRoot').value);
+    const shape = SHAPES[root.querySelector('#chQuality').value];
+    return shape.map(step=>{
+      const midi = 60 + rootNote + step;
+      return { name: NAMES[midi % 12] + (Math.floor(midi / 12) - 1), midi, hz: freq(midi) };
+    });
+  }
+  function draw(){
+    const list = notes();
+    root.querySelector('#chOut').innerHTML = `<table class="mono">
+      ${list.map(n=>`<tr><td>${n.name}</td><td>${n.hz.toFixed(2)} Hz</td><td>MIDI ${n.midi}</td></tr>`).join('')}
+      <tr><td><b>Chord</b></td><td colspan="2"><b>${list.map(n=>n.name).join(' – ')}</b></td></tr>
+    </table>`;
+  }
+  root.querySelector('#chPlay').addEventListener('click', ()=>{
+    for(const n of notes()) audioKit.tone(n.hz, 1.1, 'sine', 0.12);
+  });
+  setCleanup(()=>audioKit.close());
+  root.querySelectorAll('select').forEach(el=>el.addEventListener('change', draw));
+  draw();
+});
+
+aud('intervals','Interval Trainer', root=>{
+  root.innerHTML = `
+    <div class="output" id="ivQ" style="text-align:center;padding:24px;font-size:22px">Press Start</div>
+    <div class="segrow" id="ivAnswers"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" id="ivReplay">Play again</button>
+      <button class="btn primary" id="ivStart">Start</button>
+    </div>
+    <div class="hint" id="ivScore">Ten intervals, played one after the other. A wide interval sounds wider than a wide-sounding narrow one only if you practise — that is the whole exercise.</div>`;
+  const INTERVALS = [
+    ['minor 2nd', 1], ['major 2nd', 2], ['minor 3rd', 3], ['major 3rd', 4], ['perfect 4th', 5],
+    ['tritone', 6], ['perfect 5th', 7], ['minor 6th', 8], ['major 6th', 9], ['minor 7th', 10], ['major 7th', 11], ['octave', 12]
+  ];
+  let current = null, asked = 0, score = 0, playing = false;
+  const answers = root.querySelector('#ivAnswers');
+  function play(){
+    if(!current) return;
+    const base = 60 + Math.floor(Math.random() * 12);
+    audioKit.tone(freqOf(base), 0.6, 'sine', 0.2);
+    setTimeout(()=>audioKit.tone(freqOf(base + current[1]), 0.6, 'sine', 0.2), 700);
+  }
+  const freqOf = midi => 440 * Math.pow(2, (midi - 69) / 12);
+  function next(){
+    current = INTERVALS[Math.floor(Math.random() * INTERVALS.length)];
+    root.querySelector('#ivQ').textContent = 'Which interval?';
+    play();
+  }
+  answers.innerHTML = INTERVALS.map(([name], i)=>`<button class="btn" data-iv="${i}" style="font-size:12px">${name}</button>`).join('');
+  answers.querySelectorAll('[data-iv]').forEach(b=>b.addEventListener('click', ()=>{
+    if(!playing || !current) return;
+    const chosen = INTERVALS[Number(b.dataset.iv)];
+    asked++;
+    const right = chosen[1] === current[1];
+    if(right) score++;
+    root.querySelector('#ivQ').textContent = (right ? '✓ ' : '✗ ') + current[0] + (right ? '' : ' — you said ' + chosen[0]);
+    root.querySelector('#ivScore').textContent = score + ' / ' + asked;
+    if(asked >= 10){
+      playing = false;
+      root.querySelector('#ivStart').textContent = 'Again';
+      root.querySelector('#ivQ').textContent = score + ' / 10 — ' + (score >= 8 ? 'a good ear' : 'keep going');
+      return;
+    }
+    setTimeout(next, 900);
+  }));
+  root.querySelector('#ivStart').addEventListener('click', ()=>{
+    playing = true; asked = 0; score = 0;
+    root.querySelector('#ivStart').textContent = 'Start';
+    root.querySelector('#ivScore').textContent = '0 / 0';
+    next();
+  });
+  root.querySelector('#ivReplay').addEventListener('click', play);
+  setCleanup(()=>audioKit.close());
+});
+
+aud('piano','Note Player', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Octave</label><select id="pnOct">${[2,3,4,5,6].map(o=>`<option value="${o}"${o===4?' selected':''}>${o}</option>`).join('')}</select></div>
+      <div class="field"><label>Waveform</label><select id="pnWave"><option>sine</option><option>triangle</option><option>square</option><option>sawtooth</option></select></div>
+    </div>
+    <div id="pnKeys" style="position:relative;height:140px;margin:12px 0;user-select:none"></div>
+    <div class="hint">Click a key, or use the letters A–K on your keyboard. Equal temperament: every semitone is the twelfth root of two, which is why the frequencies are not round numbers.</div>`;
+  const NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const WHITE = [0,2,4,5,7,9,11];
+  const LETTERS = 'ASDFGHJKL';
+  function draw(){
+    const octave = Number(root.querySelector('#pnOct').value);
+    const holder = root.querySelector('#pnKeys');
+    const whiteCount = 7;
+    let html = '';
+    WHITE.forEach((semitone, i)=>{
+      html += `<button data-midi="${(octave + 1) * 12 + semitone}" style="position:absolute;left:${i * (100 / whiteCount)}%;width:${100 / whiteCount}%;top:0;bottom:0;background:#f7f7f5;color:#222;border:1px solid #bbb;border-radius:0 0 6px 6px;font-size:11px">${NAMES[semitone]}</button>`;
+    });
+    [1,3,6,8,10].forEach((semitone, i)=>{
+      const whiteBefore = WHITE.filter(s=>s < semitone).length;
+      html += `<button data-midi="${(octave + 1) * 12 + semitone}" style="position:absolute;left:calc(${whiteBefore * (100 / whiteCount)}% - 3.4%);width:6.8%;top:0;height:62%;background:#1b1b1b;color:#eee;border:1px solid #000;border-radius:0 0 4px 4px;font-size:9px">${NAMES[semitone]}</button>`;
+    });
+    holder.innerHTML = html;
+    holder.querySelectorAll('[data-midi]').forEach(b=>{
+      b.addEventListener('pointerdown', ()=>{
+        const midi = Number(b.dataset.midi);
+        audioKit.tone(440 * Math.pow(2, (midi - 69) / 12), 0.8, root.querySelector('#pnWave').value, 0.18);
+        b.style.filter = 'brightness(0.8)';
+        setTimeout(()=>{ b.style.filter = ''; }, 120);
+      });
+    });
+  }
+  const onKey = e => {
+    if(e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+    const i = LETTERS.indexOf(e.key.toUpperCase());
+    if(i < 0) return;
+    const octave = Number(root.querySelector('#pnOct').value);
+    const midi = (octave + 1) * 12 + WHITE[i];
+    audioKit.tone(440 * Math.pow(2, (midi - 69) / 12), 0.8, root.querySelector('#pnWave').value, 0.18);
+  };
+  root.addEventListener('keydown', onKey);
+  root.tabIndex = 0;
+  root.querySelector('#pnOct').addEventListener('change', draw);
+  setCleanup(()=>audioKit.close());
+  draw();
+});
+/* ================================================================
+   B34 — money, a calendar question, and two pieces of physics.
+   ================================================================ */
+
+/* ---------------- Money, India (3) ---------------- */
+
+money('stepupsip','Step-Up SIP', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Monthly SIP (₹)</label><input type="number" id="suAmt" value="10000"></div>
+      <div class="field"><label>Annual step-up (%)</label><input type="number" id="suStep" value="10" step="1"></div>
+      <div class="field"><label>Return (% per year)</label><input type="number" id="suRate" value="12" step="0.5"></div>
+      <div class="field"><label>Years</label><input type="number" id="suYears" value="20"></div>
+    </div>
+    <div class="output" id="suOut">—</div>
+    <div class="hint">A SIP that rises with your income. The comparison against a flat SIP of the same starting amount is the number that matters — the step-up is what most of the corpus comes from, and it is also the part people forget to keep doing.</div>`;
+  function draw(){
+    const start = Number(root.querySelector('#suAmt').value) || 0;
+    const step = (Number(root.querySelector('#suStep').value) || 0) / 100;
+    const rate = (Number(root.querySelector('#suRate').value) || 0) / 100;
+    const years = Math.max(1, Number(root.querySelector('#suYears').value) || 1);
+    const monthly = rate / 12;
+    let balance = 0, flat = 0, invested = 0;
+    for(let y=0;y<years;y++){
+      const sip = start * Math.pow(1 + step, y);
+      for(let m=0;m<12;m++){
+        balance = (balance + sip) * (1 + monthly);
+        invested += sip;
+        flat = (flat + start) * (1 + monthly);
+      }
+    }
+    const f = n => '₹' + Math.round(n).toLocaleString(numLocale());
+    root.querySelector('#suOut').innerHTML = `<table class="mono">
+      <tr><td>Final monthly SIP</td><td>${f(start * Math.pow(1 + step, years - 1))}</td></tr>
+      <tr><td>Total invested</td><td>${f(invested)}</td></tr>
+      <tr><td><b>Corpus with step-up</b></td><td><b>${f(balance)}</b></td></tr>
+      <tr><td>Corpus without step-up</td><td>${f(flat)}</td></tr>
+      <tr><td>Difference</td><td>${f(balance - flat)}</td></tr>
+      <tr><td>Gain from stepping up</td><td>${flat ? ((balance / flat - 1) * 100).toFixed(1) + '%' : '—'}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+money('fdladder','FD Ladder', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Amount (₹)</label><input type="number" id="flAmt" value="500000"></div>
+      <div class="field"><label>Rungs</label><input type="number" id="flN" value="5" min="2" max="10"></div>
+      <div class="field"><label>Years between rungs</label><input type="number" id="flGap" value="1" step="0.5" min="0.5"></div>
+      <div class="field"><label>Rate (% per year)</label><input type="number" id="flRate" value="7.1" step="0.05"></div>
+    </div>
+    <div class="output" id="flOut">—</div>
+    <div class="hint">A ladder splits a lump sum across maturities, so something comes due every year instead of everything at once — which is the point when rates might have moved by the time you need the money.</div>`;
+  function draw(){
+    const amount = Number(root.querySelector('#flAmt').value) || 0;
+    const n = Math.min(10, Math.max(2, Number(root.querySelector('#flN').value) || 5));
+    const gap = Math.max(0.5, Number(root.querySelector('#flGap').value) || 1);
+    const rate = (Number(root.querySelector('#flRate').value) || 0) / 100;
+    const each = amount / n;
+    const rows = [];
+    let total = 0;
+    for(let i=0;i<n;i++){
+      const years = gap * (i + 1);
+      const maturity = each * Math.pow(1 + rate, years);
+      total += maturity;
+      rows.push([years, maturity]);
+    }
+    const f = v => '₹' + Math.round(v).toLocaleString(numLocale());
+    root.querySelector('#flOut').innerHTML = `<table class="mono">
+      <tr><th>Matures in</th><th>Value</th></tr>
+      ${rows.map(([y, v])=>`<tr><td>${y} year${y === 1 ? '' : 's'}</td><td>${f(v)}</td></tr>`).join('')}
+      <tr><td><b>Total</b></td><td><b>${f(total)}</b></td></tr>
+      <tr><td>Each rung</td><td>${f(each)}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+money('nps','NPS Corpus', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Monthly contribution (₹)</label><input type="number" id="npAmt" value="10000"></div>
+      <div class="field"><label>Years to 60</label><input type="number" id="npYears" value="25"></div>
+      <div class="field"><label>Return (% per year)</label><input type="number" id="npRate" value="10" step="0.5"></div>
+      <div class="field"><label>Annuity share (%)</label><input type="number" id="npAnn" value="40" min="0" max="100"></div>
+    </div>
+    <div class="output" id="npOut">—</div>
+    <div class="hint">At 60, at least 40% must buy an annuity and the rest can be withdrawn. The annuity share is not lost — it becomes a pension — but it stops being a lump sum, and that distinction is the one people miss when they compare NPS to a mutual fund.</div>`;
+  function draw(){
+    const amount = Number(root.querySelector('#npAmt').value) || 0;
+    const years = Math.max(1, Number(root.querySelector('#npYears').value) || 1);
+    const rate = (Number(root.querySelector('#npRate').value) || 0) / 100;
+    const annPct = Math.min(100, Math.max(0, Number(root.querySelector('#npAnn').value) || 0)) / 100;
+    const monthly = rate / 12;
+    let corpus = 0;
+    for(let m=0;m<years*12;m++) corpus = (corpus + amount) * (1 + monthly);
+    const invested = amount * years * 12;
+    const annuity = corpus * annPct;
+    const lump = corpus - annuity;
+    const f = v => '₹' + Math.round(v).toLocaleString(numLocale());
+    root.querySelector('#npOut').innerHTML = `<table class="mono">
+      <tr><td>Invested</td><td>${f(invested)}</td></tr>
+      <tr><td><b>Corpus at 60</b></td><td><b>${f(corpus)}</b></td></tr>
+      <tr><td>Into an annuity (${Math.round(annPct * 100)}%)</td><td>${f(annuity)}</td></tr>
+      <tr><td>Taxable lump sum</td><td>${f(lump)}</td></tr>
+      <tr><td>Rough monthly pension at 6%</td><td>${f(annuity * 0.06 / 12)}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+/* ---------------- Calculation (1) ---------------- */
+
+calc('Dates & Time','workingdays','Working Days', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>From</label><input type="date" id="wdFrom"></div>
+      <div class="field"><label>To</label><input type="date" id="wdTo"></div>
+    </div>
+    <div class="field"><label>Public holidays to exclude (one per line, YYYY-MM-DD)</label><textarea id="wdHol" style="min-height:60px"></textarea></div>
+    <div class="output" id="wdOut">—</div>
+    <div class="hint">Counts Monday to Friday and excludes the holidays you list — nothing else. Saturday working weeks, regional holidays and the difference between "working days" and "business days" are yours to decide, which is why the list is here rather than assumed.</div>`;
+  function draw(){
+    const fromEl = root.querySelector('#wdFrom'), toEl = root.querySelector('#wdTo');
+    if(!fromEl.value || !toEl.value){
+      const now = new Date();
+      fromEl.value = now.toISOString().slice(0, 10);
+      const later = new Date(now.getTime() + 30 * 86400000);
+      toEl.value = later.toISOString().slice(0, 10);
+    }
+    let from = new Date(fromEl.value + 'T00:00:00Z');
+    let to = new Date(toEl.value + 'T00:00:00Z');
+    if(from > to){ const t = from; from = to; to = t; }
+    const holidays = new Set(root.querySelector('#wdHol').value.split('\n').map(l=>l.trim()).filter(l=>/^\d{4}-\d{2}-\d{2}$/.test(l)));
+    let days = 0, weekend = 0, holidayHits = 0;
+    for(let d = new Date(from); d <= to; d.setUTCDate(d.getUTCDate() + 1)){
+      const iso = d.toISOString().slice(0, 10);
+      const dow = d.getUTCDay();
+      if(dow === 0 || dow === 6){ weekend++; continue; }
+      if(holidays.has(iso)){ holidayHits++; continue; }
+      days++;
+    }
+    const total = Math.round((to - from) / 86400000) + 1;
+    root.querySelector('#wdOut').innerHTML = `<table class="mono">
+      <tr><td>Calendar days</td><td>${total}</td></tr>
+      <tr><td>Weekend days</td><td>${weekend}</td></tr>
+      <tr><td>Holidays in range</td><td>${holidayHits}</td></tr>
+      <tr><td><b>Working days</b></td><td><b>${days}</b></td></tr>
+      <tr><td>Weeks (working days ÷ 5)</td><td>${(days / 5).toFixed(1)}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
+
+/* ---------------- Science (2) ---------------- */
+
+sci('blackbody','Blackbody Peak', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Temperature (K)</label><input type="number" id="bbT" value="5800"></div>
+      <div class="field"><label>or colour temperature (°C)</label><input type="number" id="bbC" value="5527"></div>
+    </div>
+    <div class="output" id="bbOut">—</div>
+    <div class="hint">Wien's law: the peak wavelength is 2.898 × 10⁻³ divided by the temperature. The sun at 5800 K peaks at 500 nm, which is green — and the reason it looks white is that the tail through red and blue is wide enough to add up to it.</div>`;
+  function draw(){
+    const kelvin = Math.max(1, Number(root.querySelector('#bbT').value) || 5800);
+    const out = root.querySelector('#bbOut');
+    const peak = 2.897771955e-3 / kelvin;            // metres
+    const nm = peak * 1e9;
+    const band = nm < 10 ? 'X-ray' : nm < 380 ? 'ultraviolet' : nm < 450 ? 'violet' : nm < 495 ? 'blue'
+      : nm < 570 ? 'green' : nm < 590 ? 'yellow' : nm < 620 ? 'orange' : nm < 750 ? 'red' : 'infrared';
+    const total = 5.670374419e-8 * Math.pow(kelvin, 4);  // W/m²
+    root.querySelector('#bbC').value = (kelvin - 273.15).toFixed(0);
+    out.innerHTML = `<table class="mono">
+      <tr><td>Temperature</td><td>${kelvin} K (${(kelvin - 273.15).toFixed(0)} °C)</td></tr>
+      <tr><td>Peak wavelength</td><td>${nm.toFixed(0)} nm</td></tr>
+      <tr><td>Band</td><td>${band}</td></tr>
+      <tr><td>Peak frequency</td><td>${(2.998e8 / peak / 1e12).toFixed(1)} THz</td></tr>
+      <tr><td>Radiated power</td><td>${total.toExponential(3)} W/m² — the Stefan–Boltzmann total</td></tr>
+    </table>`;
+  }
+  root.querySelector('#bbT').addEventListener('input', draw);
+  root.querySelector('#bbC').addEventListener('input', ()=>{
+    const c = Number(root.querySelector('#bbC').value) || 0;
+    root.querySelector('#bbT').value = (c + 273.15).toFixed(0);
+    draw();
+  });
+  draw();
+});
+
+sci('titration','Titration', root=>{
+  root.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Analyte volume (mL)</label><input type="number" id="ttV" value="25"></div>
+      <div class="field"><label>Analyte concentration (M)</label><input type="number" id="ttC" value="0.1" step="0.01"></div>
+      <div class="field"><label>Moles of titrant per mole of analyte</label><input type="number" id="ttN" value="1" step="0.5"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Titrant concentration (M)</label><input type="number" id="ttT" value="0.1" step="0.01"></div>
+      <div class="field"><label>or find the titrant concentration</label><input type="number" id="ttUsed" placeholder="mL used" step="0.1"></div>
+    </div>
+    <div class="output" id="ttOut">—</div>
+    <div class="hint">c₁v₁/n₁ = c₂v₂/n₂ — the whole of a titration calculation. The stoichiometry field is where people go wrong: carbonate needs two moles of acid, not one.</div>`;
+  function draw(){
+    const v = Number(root.querySelector('#ttV').value) || 0;
+    const c = Number(root.querySelector('#ttC').value) || 0;
+    const n = Number(root.querySelector('#ttN').value) || 1;
+    const titrant = Number(root.querySelector('#ttT').value) || 0;
+    const used = Number(root.querySelector('#ttUsed').value) || 0;
+    const out = root.querySelector('#ttOut');
+    const molesAnalyte = c * v / 1000;
+    const molesTitrant = molesAnalyte * n;
+    if(used > 0 && titrant === 0){
+      out.innerHTML = `<table class="mono">
+        <tr><td>Moles of analyte</td><td>${molesAnalyte.toExponential(3)} mol</td></tr>
+        <tr><td>Moles of titrant needed</td><td>${molesTitrant.toExponential(3)} mol</td></tr>
+        <tr><td><b>Titrant concentration</b></td><td><b>${(molesTitrant / (used / 1000)).toFixed(4)} M</b></td></tr>
+      </table>`;
+      return;
+    }
+    if(!titrant){ out.textContent = 'Give either a titrant concentration or the volume used.'; return; }
+    const volumeNeeded = molesTitrant / titrant * 1000;
+    out.innerHTML = `<table class="mono">
+      <tr><td>Moles of analyte</td><td>${molesAnalyte.toExponential(3)} mol</td></tr>
+      <tr><td>Moles of titrant needed</td><td>${molesTitrant.toExponential(3)} mol</td></tr>
+      <tr><td><b>Titrant volume</b></td><td><b>${volumeNeeded.toFixed(2)} mL</b></td></tr>
+      <tr><td>Check</td><td>${c} × ${v} = ${titrant} × ${volumeNeeded.toFixed(2)} ÷ ${n}</td></tr>
+    </table>`;
+  }
+  root.querySelectorAll('input').forEach(el=>el.addEventListener('input', draw));
+  draw();
+});
 /* ================================================================
    B31 — the classical ciphers, and six text utilities.
 
