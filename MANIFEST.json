@@ -620,12 +620,6 @@
       "class": "canonical",
       "at": "2026-11-09T01:36:23Z"
     },
-    "tools/__pycache__/minify.cpython-312.pyc": {
-      "sha": "f0fa6d38c00187ecc6561fc163d0d4957fa8c86a",
-      "producer": "check-manifest@1",
-      "class": "generated",
-      "at": "2026-11-09T01:36:23Z"
-    },
     "tools/badges.py": {
       "sha": "bfc5355c252f67291774503eabd831e0c197fbf4",
       "producer": "check-manifest@1",
