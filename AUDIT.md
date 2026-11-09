@@ -841,3 +841,18 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 ### Where this leaves the project
 
 493 tools, 27 categories, one file, no dependencies, no network, 243 checks. What is left in `BACKLOG-TOOLS.md` needs a library or is refused on purpose. Further work is a new list — and the honest candidates are depth rather than breadth: verifying the two clinical tools against a second source, a print stylesheet for the QR payloads, and the APK, which still fails inside `app-builder`.
+
+## The APK failure (2.14.1) — correcting the record
+
+Earlier releases recorded the packaging failure as a Java compilation error inside `app-builder`'s Gradle project. That was wrong, and the log said so plainly once it was read in order:
+
+```
+01:26:37.2617230Z no icon in the app directory — nothing to make adaptive
+01:26:37.2699365Z ##[error]Process completed with exit code 1.
+```
+
+The Gradle `BUILD SUCCESSFUL` lines that follow are the post-job cache cleanup, which is why they looked like a build that had worked. The actual failure is the **adaptive icon step**, because `adaptive_icon: true` was set while `app/` contained only `icon.svg` — the kit's icon tool wants a raster source.
+
+**What I did about it:** generated `app/icon.png` (512×512, the same artwork as the SVG) with Pillow, so both the adaptive icon and the Windows `.ico` have a source. **What I got wrong:** for six releases I described a defect in a shared kit that was actually a configuration error in my own workflow, and the evidence to the contrary was in a log I had already fetched.
+
+**The lesson worth keeping:** I searched the log for the words I expected ("error", "compilation") rather than reading the end of the failing step. A failing job's last line before `##[error]` is almost always the message; grepping for a hypothesis is how you confirm one.

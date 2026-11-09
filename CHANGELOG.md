@@ -8,6 +8,14 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.14.1 — 2026-11-09
+
+### Fixed — the APK was failing on my own configuration
+
+The packaging job died at `no icon in the app directory — nothing to make adaptive`, not in `app-builder`'s Gradle project. I had set `adaptive_icon: true` while shipping only `app/icon.svg`; the kit's icon step wants a raster source. `app/icon.png` (512×512, the same artwork) is now committed, so the adaptive icon and the Windows `.ico` both have something to draw from.
+
+I had reported this as a broken Android build in the shared kit. It was not.
+
 ## 2.14.0 — 2026-11-09
 
 **The backlog is empty.** B37 clears the last two rows and adds the RL mode; every remaining item in `BACKLOG-TOOLS.md` is now either impossible without a dependency or refused on purpose.
