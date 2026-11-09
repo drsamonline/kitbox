@@ -52,6 +52,29 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.13.0 — 2026-11-09</h2>
+<p>B35 and B36: four more image adjustments, three development tools, three text tools, two file tools and the last two money tools. <strong>Fourteen tools.</strong></p>
+<h3>B35 — image and development (7)</h3>
+<ul>
+<li><strong>Sharpen</strong> (unsharp mask with amount, radius and threshold), <strong>Dither</strong> (Floyd–Steinberg to 1–8 levels), <strong>Auto Levels</strong> (per-channel stretch with a clip percentage) and <strong>Contrast Stretch</strong> — all on the same harness as HSL/Invert/Opacity, so file loading, sliders and download behave identically.</li>
+<li><strong>docker run → Compose</strong>, <strong>Dockerfile Generator</strong> (multi-stage, non-root by default), <strong>CSR Reader</strong> (subject, public key, signature algorithm, extensions).</li>
+</ul>
+<h3>B36 — text, files, money (7)</h3>
+<ul>
+<li><strong>Syllable Counter</strong> (with Flesch reading ease), <strong>Concordance</strong>, <strong>Hyphenation</strong>.</li>
+<li><strong>Batch Rename</strong> (pattern preview, clash detection, then copies), <strong>File Tree</strong> (paths in, tree out).</li>
+<li><strong>Leave Encashment</strong> and <strong>Salary Splitter</strong>.</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li><strong>Hyphenation never broke a word.</strong> It only tried when a line already had content, so a word longer than the whole line was placed unbroken — which is exactly the case hyphenation exists for. It now breaks at the last viable point and carries the remainder onto the next line.</li>
+<li><strong><code>clean</code> was declared inside a loop</strong>, so the image lookup after the loop could not see it: the whole app failed to render and the "every tool renders" check named the tool in one line.</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>491 tools across 27 categories (was 477).</li>
+<li>228 checks (was 228 → 194 in the suite, 234 across all files).</li>
+</ul>
 <h2>2.12.0 — 2026-11-09</h2>
 <p>B33 and B34: three reference pages, three ear-training tools, three money tools, working days and two pieces of physics.</p>
 <h3>B33 — reference and audio (6)</h3>

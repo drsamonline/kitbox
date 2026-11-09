@@ -997,7 +997,55 @@ setTimeout(async () => {
   ok('25 mL of 0.1 M analyte needs 25 mL of 0.1 M titrant',
      /25\.00 mL/.test(w.document.querySelector('#ttOut').textContent));
 
-  /* 28. the app makes no network calls and loads nothing external */
+
+  /* 28. B35-B36: compose, Dockerfile, syllables, hyphenation, tree, money */
+  ev('location.hash="#/tool/dev/dockercompose"'); ev('route()');
+  const compose = w.document.querySelector('#dcOut').textContent;
+  ok('docker run becomes a compose service with its image',
+     /services:/.test(compose) && /image: kitbox:2\.12/.test(compose));
+  ok('ports, volumes and environment survive the conversion',
+     /"8080:80"/.test(compose) && /"\/data:\/var\/lib\/kitbox"/.test(compose) && /TZ: "Asia\/Kolkata"/.test(compose));
+
+  ev('location.hash="#/tool/dev/dockerfile"'); ev('route()');
+  const dockerfile = w.document.querySelector('#dfOut').textContent;
+  ok('the Dockerfile is multi-stage and does not run as root',
+     /FROM node:20-alpine AS build/.test(dockerfile) && /USER node/.test(dockerfile));
+
+  ev('location.hash="#/tool/text/syllables"'); ev('route()');
+  const syllableIn = w.document.querySelector('#syIn');
+  syllableIn.value = 'The report was written by the physician.';
+  syllableIn.dispatchEvent(new w.Event('input'));
+  ok('the syllable counter finds seven words and eleven syllables',
+     /Words7/.test(w.document.querySelector('#syOut').textContent.replace(/\s+/g, '')) &&
+     /Syllables11/.test(w.document.querySelector('#syOut').textContent.replace(/\s+/g, '')),
+     w.document.querySelector('#syOut').textContent.replace(/\s+/g, ' ').slice(0, 50));
+
+  ev('location.hash="#/tool/text/concordance"'); ev('route()');
+  ok('the concordance finds three occurrences and marks the word',
+     /3 occurrences/.test(w.document.querySelector('#coOut').textContent) &&
+     w.document.querySelector('#coOut').innerHTML.includes('<mark>'));
+
+  ev('location.hash="#/tool/text/hyphenate"'); ev('route()');
+  w.document.querySelector('#hyIn').value = 'antidisestablishmentarianism';
+  w.document.querySelector('#hyWidth').value = '14';
+  w.document.querySelector('#hyIn').dispatchEvent(new w.Event('input'));
+  const hyphenated = w.document.querySelector('#hyOut').textContent;
+  ok('hyphenation breaks a word longer than the line at a syllable boundary',
+     hyphenated.split('\n').length >= 2 && /antidisestabl-/.test(hyphenated),
+     JSON.stringify(hyphenated));
+
+  ev('location.hash="#/tool/files/filetree"'); ev('route()');
+  ok('the file tree groups paths into directories',
+     /src\//.test(w.document.querySelector('#ftOut').textContent) &&
+     /└──/.test(w.document.querySelector('#ftOut').textContent));
+
+  ev('location.hash="#/tool/money/salarysplit"'); ev('route()');
+  ok('the salary splitter puts basic at 40% of a twelve-lakh CTC',
+     /4,80,000/.test(w.document.querySelector('#ssOut').textContent));
+  ok('the salary splitter names gratuity as an accrual, not a payment',
+     /not paid monthly/.test(w.document.querySelector('#ssOut').textContent));
+
+  /* 29. the app makes no network calls and loads nothing external */
   // Loaded resources only: a link the user can click is fine, a resource the
   // page fetches by itself is not.
   const loaded = [...html.matchAll(/<script[^>]*src="([^"]+)"/g), ...html.matchAll(/<link[^>]*href="([^"]+)"/g),

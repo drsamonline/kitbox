@@ -8,6 +8,31 @@ All notable changes to Kitbox. The app is a single file, so the version number i
 
 - **The language set is fixed at English, Hindi and Gujarati.** E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.
 
+## 2.13.0 — 2026-11-09
+
+B35 and B36: four more image adjustments, three development tools, three text tools, two file tools and the last two money tools. **Fourteen tools.**
+
+### B35 — image and development (7)
+
+- **Sharpen** (unsharp mask with amount, radius and threshold), **Dither** (Floyd–Steinberg to 1–8 levels), **Auto Levels** (per-channel stretch with a clip percentage) and **Contrast Stretch** — all on the same harness as HSL/Invert/Opacity, so file loading, sliders and download behave identically.
+- **docker run → Compose**, **Dockerfile Generator** (multi-stage, non-root by default), **CSR Reader** (subject, public key, signature algorithm, extensions).
+
+### B36 — text, files, money (7)
+
+- **Syllable Counter** (with Flesch reading ease), **Concordance**, **Hyphenation**.
+- **Batch Rename** (pattern preview, clash detection, then copies), **File Tree** (paths in, tree out).
+- **Leave Encashment** and **Salary Splitter**.
+
+### Fixed
+
+- **Hyphenation never broke a word.** It only tried when a line already had content, so a word longer than the whole line was placed unbroken — which is exactly the case hyphenation exists for. It now breaks at the last viable point and carries the remainder onto the next line.
+- **`clean` was declared inside a loop**, so the image lookup after the loop could not see it: the whole app failed to render and the "every tool renders" check named the tool in one line.
+
+### Changed
+
+- 491 tools across 27 categories (was 477).
+- 228 checks (was 228 → 194 in the suite, 234 across all files).
+
 ## 2.12.0 — 2026-11-09
 
 B33 and B34: three reference pages, three ear-training tools, three money tools, working days and two pieces of physics.

@@ -792,3 +792,29 @@ Four repositories were read; none of their code is in this app. it-tools is GPL-
 - The Git reference is opinionated about what belongs in it: twenty commands with their safe counterpart, not a complete manual.
 - Working days counts Monday to Friday only; a six-day week needs a different tool, not a setting.
 - The NPS annuity estimate uses a flat 6% and is an illustration, not a quote.
+
+## B35–B36 (2.13.0)
+
+| Check | Result |
+|---|---|
+| Tools / categories | 491 / 27 (was 477 / 27) |
+| Full suite | 234 checks, 0 failures |
+| Interaction sweep | 436 tools driven, 0 failures |
+| Fuzz | 289 fields across 491 tools, 0 injections |
+| axe | 58 pages, 0 violations |
+| ESLint / tsc | clean |
+| Size | 1056 KB → 1090 KB raw · 303 KB gzipped (89% of a per-tool budget) |
+
+### Findings
+
+**1. Hyphenation that could not hyphenate.** The tool only looked for a break when the current line already had a word on it, so the one case that matters — a word longer than the entire line — fell through to "place it whole". The fix is a loop that carries the remainder, and the test now uses `antidisestablishmentarianism` at width 14 rather than a sentence that happens to fit.
+
+**2. A scope error that stopped the whole app.** `clean` was declared inside the token loop of the compose converter and used after it. Every tool renders is the check that caught it, and it named the tool — which is the argument for that check existing rather than testing only the new tool.
+
+**3. One image harness, seven tools.** The four new adjustments supply only a pixel operation; loading, sliders and download are shared. That is now seven tools on one implementation, and the next one is a twenty-line addition.
+
+### Known limitations added
+
+- Hyphenation is rule-based, not Liang's patterns: it breaks at plausible points, not at dictionary points, and it says so.
+- The compose converter translates the flags people actually use and lists what it skipped rather than guessing.
+- Auto levels is per-channel, which can shift colour balance; the tool says what it does rather than calling it a white-balance fix.

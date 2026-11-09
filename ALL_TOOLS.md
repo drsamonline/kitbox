@@ -1,6 +1,6 @@
 # Kitbox — complete tool list
 
-**477 tools across 27 categories.**
+**491 tools across 27 categories.**
 
 Generated from the app itself by `node tools/gen-all-tools.js`. Do not edit by hand —
 the file is rewritten from the registry, and CI fails if it is out of date.
@@ -8,15 +8,15 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | # | Category | Code | Tools |
 |--:|:--|:--|--:|
 | 1 | General Tools | `GEN` | 13 |
-| 2 | Text Tools | `TXT` | 63 |
+| 2 | Text Tools | `TXT` | 66 |
 | 3 | Generator Tools | `GNR` | 11 |
 | 4 | Calculation Tools | `CAL` | 56 |
-| 5 | Image Tools | `IMG` | 21 |
+| 5 | Image Tools | `IMG` | 25 |
 | 6 | Unit Converter | `UNI` | 33 |
 | 7 | Finance Tools | `FIN` | 19 |
 | 8 | Randomizer Tools | `RND` | 11 |
 | 9 | Health Tools | `HLT` | 8 |
-| 10 | Development Tools | `DEV` | 73 |
+| 10 | Development Tools | `DEV` | 76 |
 | 11 | Colors Tools | `CLR` | 10 |
 | 12 | Science Tools | `SCI` | 21 |
 | 13 | Geo Tools | `GEO` | 11 |
@@ -25,7 +25,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 16 | Travel Tools | `TRV` | 5 |
 | 17 | Nature Tools | `NAT` | 6 |
 | 18 | Productivity | `PRD` | 8 |
-| 19 | Files & Data | `FIL` | 16 |
+| 19 | Files & Data | `FIL` | 18 |
 | 20 | Almanac | `ALM` | 10 |
 | 21 | Communication | `COM` | 5 |
 | 22 | Reference | `REF` | 10 |
@@ -33,7 +33,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 | 24 | Accessibility | `ACC` | 11 |
 | 25 | Education | `EDU` | 4 |
 | 26 | Clinical | `CLN` | 12 |
-| 27 | Money (India) | `MNY` | 7 |
+| 27 | Money (India) | `MNY` | 9 |
 
 ## General Tools — 13 tools
 
@@ -51,7 +51,7 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `GEN-12` **Level Tool** — `general/level`
 - `GEN-13` **World Clock** — `general/worldclock`
 
-## Text Tools — 63 tools
+## Text Tools — 66 tools
 
 **Basic Tools**
 
@@ -113,17 +113,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `TXT-44` **Ascii85** — `text/ascii85`
 - `TXT-45` **Unicode Escapes** — `text/unicodeescape`
 
-**Encoding**
-
-- `TXT-58` **Quoted-Printable** — `text/quotedprintable`
-- `TXT-59` **Char Codes** — `text/charcodes`
-- `TXT-63` **Escape / Unescape** — `text/escape`
-- `TXT-48` **Punycode / IDN** — `text/punycode`
-- `TXT-49` **Code Point Inspector** — `text/codepoints`
-- `TXT-50` **Huffman Coding** — `text/huffman`
-
 **Analysis Tools**
 
+- `TXT-64` **Syllable Counter** — `text/syllables`
+- `TXT-65` **Concordance** — `text/concordance`
 - `TXT-60` **Hexdump** — `text/hexdump`
 - `TXT-46` **Word-Level Diff** — `text/worddiff`
 - `TXT-47` **Extract From Text** — `text/extract`
@@ -134,8 +127,18 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 
 **Text Cleanup**
 
+- `TXT-66` **Hyphenation** — `text/hyphenate`
 - `TXT-61` **Strip ANSI Escapes** — `text/ansistrip`
 - `TXT-62` **Remove Null Bytes** — `text/nullbytes`
+
+**Encoding**
+
+- `TXT-58` **Quoted-Printable** — `text/quotedprintable`
+- `TXT-59` **Char Codes** — `text/charcodes`
+- `TXT-63` **Escape / Unescape** — `text/escape`
+- `TXT-48` **Punycode / IDN** — `text/punycode`
+- `TXT-49` **Code Point Inspector** — `text/codepoints`
+- `TXT-50` **Huffman Coding** — `text/huffman`
 
 **Cleanup Tools**
 
@@ -245,8 +248,12 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 
 - `CAL-47` **Markup, Margin & Break-even** — `calc/pricing`
 
-## Image Tools — 21 tools
+## Image Tools — 25 tools
 
+- `IMG-22` **Sharpen Image** — `image/imsharpen`
+- `IMG-23` **Dither Image** — `image/imdither`
+- `IMG-24` **Auto Levels** — `image/imautolevels`
+- `IMG-25` **Contrast Stretch** — `image/imcontrast`
 - `IMG-19` **Image HSL** — `image/imghsl`
 - `IMG-20` **Invert Image** — `image/imginvert`
 - `IMG-21` **Image Opacity** — `image/imgopacity`
@@ -366,8 +373,11 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `HLT-07` **Heart Rate Zones** — `health/heartzones`
 - `HLT-08` **Pregnancy Due Date** — `health/duedate`
 
-## Development Tools — 73 tools
+## Development Tools — 76 tools
 
+- `DEV-74` **docker run → Compose** — `dev/dockercompose`
+- `DEV-75` **Dockerfile Generator** — `dev/dockerfile`
+- `DEV-76` **CSR Reader** — `dev/csr`
 - `DEV-01` **Base Converter** — `dev/baseconverter`
 - `DEV-02` **Beautify JSON** — `dev/beautifyjson`
 - `DEV-03` **Beautify CSS** — `dev/beautifycss`
@@ -556,8 +566,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `PRD-07` **Checklist** — `productivity/checklist`
 - `PRD-08` **Meeting Cost** — `productivity/meetingcost`
 
-## Files & Data — 16 tools
+## Files & Data — 18 tools
 
+- `FIL-17` **Batch Rename** — `files/batchrename`
+- `FIL-18` **File Tree** — `files/filetree`
 - `FIL-15` **ELF Header Reader** — `files/elf`
 - `FIL-16` **File Carver** — `files/filecarve`
 - `FIL-14` **CSV to SQL** — `files/csvtosql`
@@ -652,8 +664,10 @@ the file is rewritten from the registry, and CI fails if it is out of date.
 - `CLN-03` **eGFR (CKD-EPI 2021)** — `clinical/egfr`
 - `CLN-04` **Corrected Calcium & Anion Gap** — `clinical/electrolytes`
 
-## Money (India) — 7 tools
+## Money (India) — 9 tools
 
+- `MNY-08` **Leave Encashment** — `money/leaveencashment`
+- `MNY-09` **Salary Splitter** — `money/salarysplit`
 - `MNY-05` **Step-Up SIP** — `money/stepupsip`
 - `MNY-06` **FD Ladder** — `money/fdladder`
 - `MNY-07` **NPS Corpus** — `money/nps`
