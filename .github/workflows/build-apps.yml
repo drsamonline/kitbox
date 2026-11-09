@@ -45,6 +45,11 @@ jobs:
       app_src: app
       deploy_path: ""
       release_tag: app-latest
+      # app-builder#21 (merged 9 Nov) excludes the modules that pull in
+      # libcrypto/libssl/libbz2/liblzma/libzstd and strips symbols on POSIX, so
+      # this build is smaller than the ones before it. Nothing here changed;
+      # the kit did.
+      #
       # adaptive_icon needs a raster source in app/ — icon.png, not icon.svg.
       # Without it the kit's icon step exits 1 before Gradle runs, and the job
       # reads as a broken Android build when it is a missing file.

@@ -1,6 +1,6 @@
 {
   "name": "kitbox",
-  "version": "2.14.0",
+  "version": "2.14.1",
   "private": true,
   "description": "Kitbox \u2014 a single-file offline toolbox. 493 tools, no dependencies, no network.",
   "license": "PolyForm-Noncommercial-1.0.0",
