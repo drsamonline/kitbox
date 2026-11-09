@@ -52,6 +52,10 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:20px 22px;color:#6f778
 <ul>
 <li><strong>The language set is fixed at English, Hindi and Gujarati.</strong> E-101 in the roadmap and B13 in the plan both say so now, and "any other language" has moved into the deliberately-not-doing table with its reason: each language is a dictionary to maintain and re-verify every release, and a half-translated fourth language is worse than none.</li>
 </ul>
+<h2>2.14.1 — 2026-11-09</h2>
+<h3>Fixed — the APK was failing on my own configuration</h3>
+<p>The packaging job died at <code>no icon in the app directory — nothing to make adaptive</code>, not in <code>app-builder</code>'s Gradle project. I had set <code>adaptive_icon: true</code> while shipping only <code>app/icon.svg</code>; the kit's icon step wants a raster source. <code>app/icon.png</code> (512×512, the same artwork) is now committed, so the adaptive icon and the Windows <code>.ico</code> both have something to draw from.</p>
+<p>I had reported this as a broken Android build in the shared kit. It was not.</p>
 <h2>2.14.0 — 2026-11-09</h2>
 <p><strong>The backlog is empty.</strong> B37 clears the last two rows and adds the RL mode; every remaining item in <code>BACKLOG-TOOLS.md</code> is now either impossible without a dependency or refused on purpose.</p>
 <h3>Added</h3>
