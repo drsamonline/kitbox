@@ -15,7 +15,7 @@ name: Build + deploy
 
 on:
   push:
-    branches: [ 0c12b67b888b9caa0aeaed61a7268dc9dfbb7660 ]
+    branches: [ main ]
     paths-ignore:
       - "/*.md"
       - "/LICENSE"
@@ -25,7 +25,7 @@ on:
       - "/AUDIT.md"
       - "/CHANGELOG.md"
   pull_request:
-    branches: [ d3243de862fa0477840205bbe2f41cb3f2f4950c ]
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -39,7 +39,7 @@ concurrency:
 
 jobs:
   app:
-    uses: drsamonline/app-builder/.github/workflows/build.yml@main
+    uses: drsamonline/app-builder/.github/workflows/build.yml@d3243de862fa0477840205bbe2f41cb3f2f4950c
     with:
       app_name: kitbox
       app_src: app
