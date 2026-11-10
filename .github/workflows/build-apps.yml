@@ -15,7 +15,7 @@ name: Build + deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ 0c12b67b888b9caa0aeaed61a7268dc9dfbb7660 ]
     paths-ignore:
       - "/*.md"
       - "/LICENSE"
