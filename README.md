@@ -1,3 +1,5 @@
+![Screenshot](docs/shot.png)
+
 <div align="center">
 
 <img src="docs/assets/banner.svg" alt="Kitbox — every tool, one offline app" width="100%">
