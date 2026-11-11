@@ -199,22 +199,15 @@ Tools that remember things between visits — Notepad, Flashcards, Trivia Creato
 
 ## Support
 
-<div align="center">
-<img src="docs/assets/upi-qr.svg" alt="UPI QR code for drsohilboi@ybl" width="150">
-</div>
-
-Free, offline, accountless — and staying that way. If it earned its keep:
-
 | | |
-|:--|:--|
-| 🇮🇳 **UPI (India)** | `drsohilboi@ybl` — payee Dr. Sohil Momin, open amount, or scan the QR above |
-| ☕ **Ko-fi** | [ko-fi.com/matneo](https://ko-fi.com/matneo) |
-| 💳 **PayPal** | [paypal.me/drsohilmomin](https://paypal.me/drsohilmomin?locale.x=en_GB&country.x=IN) |
-| 📚 **My books** | [Amazon author store](https://www.amazon.com/stores/author/B08ZT331LY/allbooks?ccs_id=aed72b9f-71d9-41dc-adee-e9368a317acc) |
-| 🧰 **More apps** | [drsamonline.github.io](https://drsamonline.github.io/) |
-| ✉️ **Email** | [sohilmomin2000@gmail.com](mailto:sohilmomin2000@gmail.com) |
-
-Nothing is gated behind it: no paid tier, no account, no tracking. Supporting it buys the next version, not a feature.
+|---|---|
+| UPI (India) | `drsohilboi@ybl` — payee Dr Sohil Momin, open amount, or scan [the QR](docs/assets/upi-qr.svg) |
+| GitHub Sponsors | [github.com/sponsors/drsamonline](https://github.com/sponsors/drsamonline) |
+| Ko-fi | [ko-fi.com/matneo](https://ko-fi.com/matneo) |
+| PayPal | [paypal.me/drsohilmomin](https://paypal.me/drsohilmomin?locale.x=en_GB&country.x=IN) |
+| My books | [Amazon author store](https://www.amazon.com/stores/author/B08ZT331LY/allbooks?ccs_id=aed72b9f-71d9-41dc-adee-e9368a317acc) |
+| More apps | [drsamonline.github.io](https://drsamonline.github.io/) |
+| Email | [sohilmomin2000@gmail.com](mailto:sohilmomin2000@gmail.com) |
 
 ## Roadmap
 
