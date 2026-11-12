@@ -21,10 +21,10 @@
       "at": "2026-11-12T06:02:48Z"
     },
     ".github/workflows/build-apps.yml": {
-      "sha": "6001b16b07e2e53a5985397b715d76a4002d6f50",
+      "sha": "53f0adc6ba09ccc1aa06d1e2d54b92a48f0914b5",
       "producer": "check-manifest@1",
       "class": "generated",
-      "at": "2026-11-12T06:02:48Z"
+      "at": "2026-11-12T06:40:15Z"
     },
     ".github/workflows/release.yml": {
       "sha": "f3118e1b18ebca7d380b22aade12c81452f98c66",
